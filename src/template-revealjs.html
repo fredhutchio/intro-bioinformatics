@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+
+<title>$title$</title>
+
+<meta name="description" content="$title$">
+
+$for(author)$
+<!-- Disabled for now - embeds HTML in author string -->
+<!--  <meta name="author" content="$author$" /> -->
+$endfor$
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<link rel="stylesheet" href="reveal.js/css/reveal.css">
+$if(theme)$
+  <link rel="stylesheet" href="src/theme/$theme$.css" id="theme">
+$else$
+  <link rel="stylesheet" href="reveal.js/css/theme/default.css" id="theme">
+$endif$
+
+
+<!-- For syntax highlighting -->
+$if(highlight-style)$
+  <link rel="stylesheet" href="reveal.js/lib/css/$highlight-style$.css">
+$else$
+  <link rel="stylesheet" href="reveal.js/lib/css/zenburn.css">
+$endif$
+
+
+<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+<script>
+  document.write( '<link rel="stylesheet" href="reveal.js/css/print/' +
+    ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) +
+    '.css" type="text/css" media="print">' );
+</script>
+
+<!--[if lt IE 9]>
+<script src="reveal.js/lib/js/html5shiv.js"></script>
+<![endif]-->
+$for(header-includes)$
+  $header-includes$
+$endfor$
+
+<!-- Note escaped dollars -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$$','$$'], ['\\(','\\)']]}
+    });
+  </script>
+
+</head>
+
+<body>
+$for(include-before)$
+  $include-before$
+$endfor$
+
+<div class="reveal">
+
+<!-- Any section element inside of this container is displayed as a slide -->
+<div class="slides">
+
+<section>
+<h1>$title$</h1>
+$for(author)$<h3>$author$</h3>$endfor$
+<p>
+<h4>$date$</h4>
+</p>
+</section>
+
+$if(toc)$
+<section>
+  <h2>Outline</h2>
+  <nav id="$idprefix$TOC">
+    $toc$
+  </nav>
+</section>
+$endif$
+
+$body$
+</div>
+
+<script src="reveal.js/lib/js/head.min.js"></script>
+<script src="reveal.js/js/reveal.min.js"></script>
+
+<script>
+  // Full list of configuration options available here:
+  // https://github.com/hakimel/reveal.js#configuration
+  Reveal.initialize({
+    controls: true,
+    progress: true,
+    history: true,
+    center: false,
+
+
+  $if(rolling)$
+  rollingLinks: true,
+  $else$
+  rollingLinks: false,
+  $endif$
+
+  // available themes are in /css/theme
+  $if(theme)$
+    theme: Reveal.getQueryHash().theme || '$theme$',
+  $else$
+    theme: Reveal.getQueryHash().theme || 'default',
+  $endif$
+
+  // default/cube/page/concave/zoom/linear/fade/none
+  $if(transition)$
+    transition: Reveal.getQueryHash().transition || '$transition$',
+  $else$
+    transition: Reveal.getQueryHash().transition || 'default',
+  $endif$
+
+  // Optional libraries used to extend on reveal.js
+  dependencies: [
+    { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+    { src: 'reveal.js/plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+    { src: 'reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+    { src: 'reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+    { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+    { src: 'MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML'}
+    // { src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+    // { src: 'reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+  ]
+  });
+Reveal.addEventListener( 'slidechanged', function( event ) {
+    MathJax.Hub.Rerender();
+} );
+</script>
+
+</body>
+</html>

@@ -1,0 +1,9 @@
+@import url(matsen.css);
+
+/* OVERRIDES */
+
+/*********************************************
+ * IMAGES
+ *********************************************/
+.reveal section img {
+  border: 0px solid black; }

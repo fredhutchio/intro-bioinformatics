@@ -1,0 +1,18 @@
+@import url(matsen.css);
+
+/* OVERRIDES */
+
+/*********************************************
+ * IMAGES
+ *********************************************/
+.reveal section img {
+  border: 0px solid black;
+}
+
+div.slides section h1 {
+  font-size: 70px;
+}
+
+div.slides section code {
+  max-height: 500px;
+}
