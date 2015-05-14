@@ -1,0 +1,304 @@
+% Introduction to Bioinformatics
+% Lesson 1 - Gestault & remote access
+
+
+# Introductions
+
+* Name
+* What you're working on
+* Experience
+
+
+# What you'll get from this class
+
+* High level overview
+* Basic technical skills
+* Initiate self-learning
+
+
+# Some things this class won't cover
+
+* Mathematics
+* Statistics
+* Higher level programming
+* Knowledge of every bioinformatics/combio program ever created
+
+<br/>
+
+These are things you'll have to develop piece meal, as needed.
+
+
+# Please spend _some_ time outside class
+
+* Time is the only way to learn these things
+* The waiting list is > 127 long
+
+
+
+# Overview of class
+
+1. Gestalt & remote access
+2. Unix shell - overview/intro
+3. Unix shell - scripting & advanced tools
+4. Version control with git
+5. Python - syntax & types
+6. Python - data structures
+7. Python - writing a program
+
+
+# Today
+
+* 1/2 overview
+* 1/2 remote access
+
+
+# Why computers?
+
+<br/>
+
+**DATA**
+
+
+# Biology data
+
+* Cheaper
+* Faster
+* More
+
+
+# To understand biology, we need to understand data
+
+<br/>
+
+**ENTER DATA SCIENCE**
+
+
+# What is data science?
+
+<br/>
+
+**???**
+
+
+# Soren MacBeth's definition
+
+> _Data science_ is the stuff that people with the job title of _Data Scientist_ do.
+
+
+# From the book
+
+> A jazz musician with good chops can walk into a nightclub, hear a familiar standard song being played, recognize the chord changes, and begin playing musical ideas over these chords.
+> Likewise, a bioinformatician with good data skills may receive a huge sequencing data set, and immediately start using a set of tools to learn about the data, and see what story the data tell.
+>
+> ...
+> Learning one’s tools is a necessary, but not sufficient step...
+
+
+# From the "Bird", Charlie Parker
+
+> You've got to learn your instrument.
+> Then, you practice, practice, practice.
+> And then, when you finally get up there on the bandstand, forget all that and just wail. 
+
+<br/>
+
+Also phrased as
+
+<br/>
+
+> Learn the changes, then forget them.
+
+
+# Bioinformatics is more than the sum of the pieces
+
+There is an art to putting the technical pieces together to make science happen.
+
+
+# What data science involves
+
+It may be hard to describe it abstractly, but there are definitely common threads.
+
+
+# Data munging
+
+* Cleaning data
+* Transforming data
+
+
+# Data exploration
+
+* Visualization
+* Build intuition
+* Hypothesize
+
+
+# Building conclusions
+
+* Statistical analysis
+* More visualizations
+* Tell the world
+
+<br/>
+
+Telling the world is where things start to look different in research and industry.
+
+
+# Some goals for research
+
+* Reproducibility
+* Robustness
+* Accuracy
+* Clarity
+* Iterability
+
+
+# Take a cue from functional programming
+
+Treat data as immutable!
+
+**Never** change data in place; data in data out.
+
+Read: No more spreadsheets!
+
+
+# Document **everything**!!!
+
+Hopefully you're already doing this with your biology work.
+
+Bioinformatics should be no different.
+
+* Software versions
+* Settings used to run things
+* Reasoning behind the way you do things
+* How you got your data, and when you got it
+
+
+# The best documentation is automation
+
+By definition leaves no questions about how things were run
+
+* Munging scripts
+* Plotting scripts
+* Statistic scripts
+* Build scripts typing it all together (scripts of scripts (& other programs))
+
+<br/>
+
+**Bonus:** Automate software version tracking & heavily comment your code
+
+
+# Revisiting our goals
+
+* Reproducibility
+* Robustness
+* Accuracy
+* Clarity
+* Iterability
+
+
+# The Unix Philosophy
+
+As applied to data science:
+
+* Small, composable tools
+* Plumb together into pipelines
+* Embrace plain text/data
+
+<br/>
+
+Bioinformatics does this better than most data science.
+
+
+# Project layout
+
+Clear and consistent organization between projects:
+
+```text
+your-project
+├── README.md
+├── build.sh
+├── data
+│   ├── sequences.fasta
+│   └── metadata.csv
+├── scripts
+│   ├── clean.py
+│   └── plot.R
+└── output
+    ├── alignment.fasta
+    ├── cleaned_metadata.csv
+    ├── tree.newick
+    └── tree_plot.png
+```
+
+
+# Project layout
+
+The author takes a different approach. Find what works for you...
+
+Bottom line: Being consistent aids in automation:
+
+* naming schemes
+* path schemes
+
+
+# Tools
+
+* **text/terminal:** markdown files + vim/emacs + bash/zsh + tmux
+* **notebooks:** IPython, Sage, Gorilla REPL, Mathematica, etc.
+* **workbenches:** RStudio, Matlab, Scilab, etc.
+
+
+# Resources
+
+* These slides: <http://fredhutchio.github.io/intro-bioinformatics>
+* SCons for analyses: <http://www.metasoarous.com/scons-for-data-science-and-compbio>
+
+
+# Practicum!
+
+## Fire up NoMachine
+
+Open no machine, and click the "New" button in the orange bar.
+Name your connection, so you'll remember what it is (lynx/manx).
+
+1.  The protocol is "nx"
+2.  The host is lynx or lynx.fhcrc.org or manx or manx.fhcrc.org, port 4000
+3.  The authentication is password
+4.  Don't use a proxy
+5.  Name your connection so you can remember what it is.
+
+## Fire up a terminal
+
+1. Click the square button in the upper left.
+2. Type in "Terminal"
+3. Click on Terminal icon (the one with `>_` on it)
+
+## SSH into rhino
+
+1. Enter `ssh rhino` into the terminal
+2. Enter your password when prompted
+3. Note which machine you get connected to (e.g. `rhino02` v `rhino04`)
+
+## Download tmux.conf & fire up tmux
+
+    wget <XXX> ~/.tmux.conf
+    tmux
+
+## Create a project directory
+
+    mkdir -p ~/bioinfclass/{data,output,scripts}
+    cd ~/bioinfclass
+    touch README.md
+
+## Get some data loaded
+
+    cp <XXX>/{metadata.csv,sequences.fasta,copy_number.csv} data
+
+## Make an alignment, and then a tree from the data
+
+    muscle -in data/sequences.fasta -out output/alignment.fasta
+    FastTree -nt output/alignment.fasta > output/tree.nw
+    nw_display output/tree.nw
+
+## And we have biology!
+

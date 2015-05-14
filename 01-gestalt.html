@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+
+<title>Introduction to Bioinformatics</title>
+
+<meta name="description" content="Introduction to Bioinformatics">
+
+<!-- Disabled for now - embeds HTML in author string -->
+<!--  <meta name="author" content="Lesson 1 - Gestault &amp; remote access" /> -->
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<link rel="stylesheet" href="reveal.js/css/reveal.css">
+  <link rel="stylesheet" href="src/theme/csmall.css" id="theme">
+
+
+<!-- For syntax highlighting -->
+  <link rel="stylesheet" href="reveal.js/lib/css/zenburn.css">
+
+
+<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+<script>
+  document.write( '<link rel="stylesheet" href="reveal.js/css/print/' +
+    ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) +
+    '.css" type="text/css" media="print">' );
+</script>
+
+<!--[if lt IE 9]>
+<script src="reveal.js/lib/js/html5shiv.js"></script>
+<![endif]-->
+
+<!-- Note escaped dollars -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+  </script>
+
+</head>
+
+<body>
+
+<div class="reveal">
+
+<!-- Any section element inside of this container is displayed as a slide -->
+<div class="slides">
+
+<section>
+<h1>Introduction to Bioinformatics</h1>
+<h3>Lesson 1 - Gestault &amp; remote access</h3>
+<p>
+<h4></h4>
+</p>
+</section>
+
+
+<section id="introductions" class="level1">
+<h1>Introductions</h1>
+<ul>
+<li>Name</li>
+<li>What you’re working on</li>
+<li>Experience</li>
+</ul>
+</section>
+<section id="what-youll-get-from-this-class" class="level1">
+<h1>What you’ll get from this class</h1>
+<ul>
+<li>High level overview</li>
+<li>Basic technical skills</li>
+<li>Initiate self-learning</li>
+</ul>
+</section>
+<section id="some-things-this-class-wont-cover" class="level1">
+<h1>Some things this class won’t cover</h1>
+<ul>
+<li>Mathematics</li>
+<li>Statistics</li>
+<li>Higher level programming</li>
+<li>Knowledge of every bioinformatics/combio program ever created</li>
+</ul>
+<p><br/></p>
+<p>These are things you’ll have to develop piece meal, as needed.</p>
+</section>
+<section id="please-spend-some-time-outside-class" class="level1">
+<h1>Please spend <em>some</em> time outside class</h1>
+<ul>
+<li>Time is the only way to learn these things</li>
+<li>The waiting list is &gt; 127 long</li>
+</ul>
+</section>
+<section id="overview-of-class" class="level1">
+<h1>Overview of class</h1>
+<ol type="1">
+<li>Gestalt &amp; remote access</li>
+<li>Unix shell - overview/intro</li>
+<li>Unix shell - scripting &amp; advanced tools</li>
+<li>Version control with git</li>
+<li>Python - syntax &amp; types</li>
+<li>Python - data structures</li>
+<li>Python - writing a program</li>
+</ol>
+</section>
+<section id="today" class="level1">
+<h1>Today</h1>
+<ul>
+<li>1/2 overview</li>
+<li>1/2 remote access</li>
+</ul>
+</section>
+<section id="why-computers" class="level1">
+<h1>Why computers?</h1>
+<p><br/></p>
+<p><strong>DATA</strong></p>
+</section>
+<section id="biology-data" class="level1">
+<h1>Biology data</h1>
+<ul>
+<li>Cheaper</li>
+<li>Faster</li>
+<li>More</li>
+</ul>
+</section>
+<section id="to-understand-biology-we-need-to-understand-data" class="level1">
+<h1>To understand biology, we need to understand data</h1>
+<p><br/></p>
+<p><strong>ENTER DATA SCIENCE</strong></p>
+</section>
+<section id="what-is-data-science" class="level1">
+<h1>What is data science?</h1>
+<p><br/></p>
+<p><strong>???</strong></p>
+</section>
+<section id="soren-macbeths-definition" class="level1">
+<h1>Soren MacBeth’s definition</h1>
+<blockquote>
+<p><em>Data science</em> is the stuff that people with the job title of <em>Data Scientist</em> do.</p>
+</blockquote>
+</section>
+<section id="from-the-book" class="level1">
+<h1>From the book</h1>
+<blockquote>
+<p>A jazz musician with good chops can walk into a nightclub, hear a familiar standard song being played, recognize the chord changes, and begin playing musical ideas over these chords. Likewise, a bioinformatician with good data skills may receive a huge sequencing data set, and immediately start using a set of tools to learn about the data, and see what story the data tell.</p>
+<p>… Learning one’s tools is a necessary, but not sufficient step…</p>
+</blockquote>
+</section>
+<section id="from-the-bird-charlie-parker" class="level1">
+<h1>From the “Bird”, Charlie Parker</h1>
+<blockquote>
+<p>You’ve got to learn your instrument. Then, you practice, practice, practice. And then, when you finally get up there on the bandstand, forget all that and just wail.</p>
+</blockquote>
+<p><br/></p>
+<p>Also phrased as</p>
+<p><br/></p>
+<blockquote>
+<p>Learn the changes, then forget them.</p>
+</blockquote>
+</section>
+<section id="bioinformatics-is-more-than-the-sum-of-the-pieces" class="level1">
+<h1>Bioinformatics is more than the sum of the pieces</h1>
+<p>There is an art to putting the technical pieces together to make science happen.</p>
+</section>
+<section id="what-data-science-involves" class="level1">
+<h1>What data science involves</h1>
+<p>It may be hard to describe it abstractly, but there are definitely common threads.</p>
+</section>
+<section id="data-munging" class="level1">
+<h1>Data munging</h1>
+<ul>
+<li>Cleaning data</li>
+<li>Transforming data</li>
+</ul>
+</section>
+<section id="data-exploration" class="level1">
+<h1>Data exploration</h1>
+<ul>
+<li>Visualization</li>
+<li>Build intuition</li>
+<li>Hypothesize</li>
+</ul>
+</section>
+<section id="building-conclusions" class="level1">
+<h1>Building conclusions</h1>
+<ul>
+<li>Statistical analysis</li>
+<li>More visualizations</li>
+<li>Tell the world</li>
+</ul>
+<p><br/></p>
+<p>Telling the world is where things start to look different in research and industry.</p>
+</section>
+<section id="some-goals-for-research" class="level1">
+<h1>Some goals for research</h1>
+<ul>
+<li>Reproducibility</li>
+<li>Robustness</li>
+<li>Accuracy</li>
+<li>Clarity</li>
+<li>Iterability</li>
+</ul>
+</section>
+<section id="take-a-cue-from-functional-programming" class="level1">
+<h1>Take a cue from functional programming</h1>
+<p>Treat data as immutable!</p>
+<p><strong>Never</strong> change data in place; data in data out.</p>
+<p>Read: No more spreadsheets!</p>
+</section>
+<section id="document-everything" class="level1">
+<h1>Document <strong>everything</strong>!!!</h1>
+<p>Hopefully you’re already doing this with your biology work.</p>
+<p>Bioinformatics should be no different.</p>
+<ul>
+<li>Software versions</li>
+<li>Settings used to run things</li>
+<li>Reasoning behind the way you do things</li>
+<li>How you got your data, and when you got it</li>
+</ul>
+</section>
+<section id="the-best-documentation-is-automation" class="level1">
+<h1>The best documentation is automation</h1>
+<p>By definition leaves no questions about how things were run</p>
+<ul>
+<li>Munging scripts</li>
+<li>Plotting scripts</li>
+<li>Statistic scripts</li>
+<li>Build scripts typing it all together (scripts of scripts (&amp; other programs))</li>
+</ul>
+<p><br/></p>
+<p><strong>Bonus:</strong> Automate software version tracking &amp; heavily comment your code</p>
+</section>
+<section id="revisiting-our-goals" class="level1">
+<h1>Revisiting our goals</h1>
+<ul>
+<li>Reproducibility</li>
+<li>Robustness</li>
+<li>Accuracy</li>
+<li>Clarity</li>
+<li>Iterability</li>
+</ul>
+</section>
+<section id="the-unix-philosophy" class="level1">
+<h1>The Unix Philosophy</h1>
+<p>As applied to data science:</p>
+<ul>
+<li>Small, composable tools</li>
+<li>Plumb together into pipelines</li>
+<li>Embrace plain text/data</li>
+</ul>
+<p><br/></p>
+<p>Bioinformatics does this better than most data science.</p>
+</section>
+<section id="project-layout" class="level1">
+<h1>Project layout</h1>
+<p>Clear and consistent organization between projects:</p>
+<pre class="text"><code>your-project
+├── README.md
+├── build.sh
+├── data
+│   ├── sequences.fasta
+│   └── metadata.csv
+├── scripts
+│   ├── clean.py
+│   └── plot.R
+└── output
+    ├── alignment.fasta
+    ├── cleaned_metadata.csv
+    ├── tree.newick
+    └── tree_plot.png</code></pre>
+</section>
+<section id="project-layout-1" class="level1">
+<h1>Project layout</h1>
+<p>The author takes a different approach. Find what works for you…</p>
+<p>Bottom line: Being consistent aids in automation:</p>
+<ul>
+<li>naming schemes</li>
+<li>path schemes</li>
+</ul>
+</section>
+<section id="tools" class="level1">
+<h1>Tools</h1>
+<ul>
+<li><strong>text/terminal:</strong> markdown files + vim/emacs + bash/zsh + tmux</li>
+<li><strong>notebooks:</strong> IPython, Sage, Gorilla REPL, Mathematica, etc.</li>
+<li><strong>workbenches:</strong> RStudio, Matlab, Scilab, etc.</li>
+</ul>
+</section>
+<section id="resources" class="level1">
+<h1>Resources</h1>
+<ul>
+<li>These slides: <a href="http://fredhutchio.github.io/intro-bioinformatics">http://fredhutchio.github.io/intro-bioinformatics</a></li>
+<li>SCons for analyses: <a href="http://www.metasoarous.com/scons-for-data-science-and-compbio">http://www.metasoarous.com/scons-for-data-science-and-compbio</a></li>
+</ul>
+</section>
+<section id="practicum" class="level1">
+<h1>Practicum!</h1>
+<section id="fire-up-nomachine" class="level2">
+<h2>Fire up NoMachine</h2>
+<p>Open no machine, and click the “New” button in the orange bar. Name your connection, so you’ll remember what it is (lynx/manx).</p>
+<ol type="1">
+<li>The protocol is “nx”</li>
+<li>The host is lynx or lynx.fhcrc.org or manx or manx.fhcrc.org, port 4000</li>
+<li>The authentication is password</li>
+<li>Don’t use a proxy</li>
+<li>Name your connection so you can remember what it is.</li>
+</ol>
+</section>
+<section id="fire-up-a-terminal" class="level2">
+<h2>Fire up a terminal</h2>
+<ol type="1">
+<li>Click the square button in the upper left.</li>
+<li>Type in “Terminal”</li>
+<li>Click on Terminal icon (the one with <code>&gt;_</code> on it)</li>
+</ol>
+</section>
+<section id="ssh-into-rhino" class="level2">
+<h2>SSH into rhino</h2>
+<ol type="1">
+<li>Enter <code>ssh rhino</code> into the terminal</li>
+<li>Enter your password when prompted</li>
+<li>Note which machine you get connected to (e.g. <code>rhino02</code> v <code>rhino04</code>)</li>
+</ol>
+</section>
+<section id="download-tmux.conf-fire-up-tmux" class="level2">
+<h2>Download tmux.conf &amp; fire up tmux</h2>
+<pre><code>wget &lt;XXX&gt; ~/.tmux.conf
+tmux</code></pre>
+</section>
+<section id="create-a-project-directory" class="level2">
+<h2>Create a project directory</h2>
+<pre><code>mkdir -p ~/bioinfclass/{data,output,scripts}
+cd ~/bioinfclass
+touch README.md</code></pre>
+</section>
+<section id="get-some-data-loaded" class="level2">
+<h2>Get some data loaded</h2>
+<pre><code>cp &lt;XXX&gt;/{metadata.csv,sequences.fasta,copy_number.csv} data</code></pre>
+</section>
+<section id="make-an-alignment-and-then-a-tree-from-the-data" class="level2">
+<h2>Make an alignment, and then a tree from the data</h2>
+<pre><code>muscle -in data/sequences.fasta -out output/alignment.fasta
+FastTree -nt output/alignment.fasta &gt; output/tree.nw
+nw_display output/tree.nw</code></pre>
+</section>
+<section id="and-we-have-biology" class="level2">
+<h2>And we have biology!</h2>
+</section>
+</section>
+</div>
+
+<script src="reveal.js/lib/js/head.min.js"></script>
+<script src="reveal.js/js/reveal.min.js"></script>
+
+<script>
+  // Full list of configuration options available here:
+  // https://github.com/hakimel/reveal.js#configuration
+  Reveal.initialize({
+    controls: true,
+    progress: true,
+    history: true,
+    center: false,
+
+
+    rollingLinks: false,
+  
+  // available themes are in /css/theme
+      theme: Reveal.getQueryHash().theme || 'csmall',
+  
+  // default/cube/page/concave/zoom/linear/fade/none
+      transition: Reveal.getQueryHash().transition || 'fade',
+  
+  // Optional libraries used to extend on reveal.js
+  dependencies: [
+    { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+    { src: 'reveal.js/plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+    { src: 'reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+    { src: 'reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+    { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+    { src: 'MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML'}
+    // { src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+    // { src: 'reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+  ]
+  });
+Reveal.addEventListener( 'slidechanged', function( event ) {
+    MathJax.Hub.Rerender();
+} );
+</script>
+
+</body>
+</html>
