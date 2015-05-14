@@ -33,9 +33,4 @@ png: $(SVGS)
 	sed -e 's/\.svg/.svg.png/' $(LAST) > png_$(LAST)
 	for i in $(SVGS); do inkscape --without-gui --export-png=$$i.png --export-dpi 200 $$i; done
 
-.PHONY: edit view continuous all default last last-modified lcfit_evolution2013.pdf
 
-
-lcfit_evolution2013.pdf:
-	+make -C src/lcfit_evolution
-	cp src/lcfit_evolution/$@ $@
