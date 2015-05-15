@@ -1,6 +1,6 @@
 # Intro to Bioinformatics
 
-A short series offered by [fredhutch.io](http://fredhutch.io) to members of [the Hutch](http://www.fredhutch.org/en.html).
+A short series offered by [fredhutch.io](http://fredhutch.io) to members of [Fred Hutch](http://www.fredhutch.org/en.html).
 
 
 ## Overview of class
@@ -24,10 +24,17 @@ For the python sections, we'll be following [TBD].
 For the first class, please install [NoMachine](https://www.nomachine.com/) on the laptop you plan to bring to class.
 We also ask that you read the first two chapters of [the book](http://shop.oreilly.com/product/0636920030157.do) (particularly the first) before coming to class, but you won't be chastised if you don't.
 
-### Running on your own machine instead of NoMachine
+
+## Class slides
+
+The slides for the class are available as html files (01-gestalt.html, 02-..., etc.).
+Please feel free to refer to them as a resource.
+
+
+## Optional: Running on your own machine instead of NoMachine
 
 After the first class, if you have a Linux or OSX machine and wish to avoid using NoMachine, you can do so as long as you have `sshfs` installed on your computer.
-For Ubuntu users, all you have to do is run `sudo apt-get install sshfs` in a terminal (Linux FTW).
+For Ubuntu users, all you have to do is run `sudo apt-get install sshfs` in a terminal
 For OSX users, you have to
 
 * First install XCode from the Apple Store
@@ -45,17 +52,12 @@ Now you can access files in your home directory on the servers as though they li
 In particular, you can now use your text editor of choice to edit code files for the remainder of this class.
 (We recommend [Sublime Text](http://www.sublimetext.com/), but if you're on Ubuntu you can probably get by with Gedit).
 
+
 ### Windows users...
 
 Sorry, running directly from Windows is not supported.
-Try using a better operating system.
 You can always install [Virtual Box](https://www.virtualbox.org/wiki/Downloads), and an Ubuntu virtual machine if you really want to run things on your own laptop, and in particular if you're interested in having your own Linux environment to play with.
 
-
-## Class slides
-
-The slides for the class are available as html files (01-gestalt.html, 02-..., etc.).
-Please feel free to refer to them as a resource.
 
 
 ## Technical Notes

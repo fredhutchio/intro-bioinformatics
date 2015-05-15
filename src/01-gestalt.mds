@@ -1,5 +1,5 @@
 % Introduction to Bioinformatics
-% Lesson 1 - Gestault & remote access
+% Lesson 1 - Gestalt & remote access
 
 
 # Introductions
@@ -25,7 +25,7 @@
 
 <br/>
 
-These are things you'll have to develop piece meal, as needed.
+These are things you'll have to develop piecemeal, as needed.
 
 
 # Please spend _some_ time outside class
@@ -98,7 +98,7 @@ These are things you'll have to develop piece meal, as needed.
 
 > You've got to learn your instrument.
 > Then, you practice, practice, practice.
-> And then, when you finally get up there on the bandstand, forget all that and just wail. 
+> And then, when you finally get up there on the bandstand, forget all that and just wail.
 
 <br/>
 
@@ -131,16 +131,16 @@ It may be hard to describe it abstractly, but there are definitely common thread
 * Build intuition
 * Hypothesize
 
+&nbsp;
 
-# Building conclusions
+... then ...
+
+&nbsp;
 
 * Statistical analysis
 * More visualizations
 * Tell the world
 
-<br/>
-
-Telling the world is where things start to look different in research and industry.
 
 
 # Some goals for research
@@ -151,14 +151,11 @@ Telling the world is where things start to look different in research and indust
 * Clarity
 * Iterability
 
-
-# Take a cue from functional programming
+&nbsp;
 
 Treat data as immutable!
 
-**Never** change data in place; data in data out.
-
-Read: No more spreadsheets!
+**Never** change data in place; data in, data out.
 
 
 # Document **everything**!!!
@@ -244,7 +241,7 @@ Bottom line: Being consistent aids in automation:
 # Tools
 
 * **text/terminal:** markdown files + vim/emacs + bash/zsh + tmux
-* **notebooks:** IPython, Sage, Gorilla REPL, Mathematica, etc.
+* **notebooks:** IPython/Jupyter, Sage, Gorilla REPL, Mathematica, etc.
 * **workbenches:** RStudio, Matlab, Scilab, etc.
 
 
