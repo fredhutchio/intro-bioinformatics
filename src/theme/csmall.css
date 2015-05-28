@@ -13,6 +13,13 @@ div.slides section h1 {
   font-size: 70px;
 }
 
-div.slides section code {
+div.slides section pre code {
   max-height: 500px;
 }
+
+div.slides section :not(pre) > code {
+  background-color: lightgrey;
+  padding: 3px 10px;
+  margin: 5px;
+}
+
