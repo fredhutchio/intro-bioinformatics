@@ -18,12 +18,14 @@
 
 # What you won't get from this class
 
+We won't be covering many things that would be useful to you:
+
 * Mathematics
 * Statistics
 * Higher level programming
 * Knowledge of every bioinformatics program/method ever created
 
-These are things you'll have to develop piecemeal, as needed.
+But hopefully you'll have enough momentum to learn these on your own as needed.
 
 
 # Please spend _some_ time outside class
@@ -46,7 +48,7 @@ These are things you'll have to develop piecemeal, as needed.
 # Today
 
 * 1/2 overview
-* 1/2 remote access
+* 1/2 remote access & practicum
 
 
 # Why computers?
@@ -58,9 +60,13 @@ These are things you'll have to develop piecemeal, as needed.
 
 # Biology data
 
-* Cheaper
-* Faster
-* More
+We can now get it
+
+* Cheaper & Faster
+
+=>
+
+* We have more of it
 
 
 # To understand biology, we need to understand data
@@ -72,16 +78,12 @@ These are things you'll have to develop piecemeal, as needed.
 
 # What is data science?
 
-<br/>
-
-**???**
-
 
 # Soren MacBeth's definition
 
 > _Data science_ is the stuff that people with the job title of _Data Scientist_ do.
 
-In other words, it's hard to define, largely because there is something amorphous about it.
+A cop out... But the point is it's amporphous and hard to define.
 
 
 # From the book
@@ -108,14 +110,18 @@ Also phrased as
 
 # My summary
 
-## Data science is more than the sum of the pieces
+## Data science & bioinformatics are more than the sum of the pieces
 
-There is an art to putting the pieces together to make science happen.
+There is an art to putting the technical pieces together to make science happen.
+
+But the common goal is to learn things from data.
 
 
-# Stages of Data Science / Bioinformatics
+# Aspects of Data Science / Bioinformatics
 
-munging => exploration => conclusions => rinse & repeat
+Categories of things we typically do:
+
+munging | exploration | conclusions | rinse & repeat
 
 
 # Data munging
@@ -139,6 +145,13 @@ In which we shore things up to tell the world...
 * More visualization
 
 
+# So this is _what_ we do
+
+<br/>
+
+## But _how_ should we do it?
+
+
 # Specific goals for research
 
 * Reproducibility
@@ -157,6 +170,8 @@ immutability | documentation | automation
 
 **Never** change data in place; data in, data out.
 
+Aids: reproducibility, clarity & iterability
+
 
 # Document **everything**!!!
 
@@ -167,33 +182,52 @@ Bioinformatics should be no different.
 * Software versions
 * Settings used to run things
 * Reasoning behind the way you do things
-* How you got your data, and when you got it
+* How/when you got your data
+
+Aids: reproducibility, clarity
 
 
 # The best documentation is automation
 
-By definition leaves no questions about how things were run
+Write _scripts_ for everything:
 
-* Munging scripts
-* Plotting scripts
-* Statistic scripts
-* Build scripts tying it all together (scripts of scripts (& other programs))
+* Munging
+* Plotting
+* Statistics
+* Build scripts (tying it all together)
+
+Aids: reproducibility, robustness, accuracy, iterability
+
+
+# Approaches to immutability, documentation and automation
+
+Unix philosophy | project organization
 
 
 # The Unix Philosophy
 
-As applied to data science:
+* Small, composable tools that do one thing right
+* Plumb tools together into pipelines/scripts
+* Embrace plain text/data (no excel/docx)
 
-* Small, composable tools
-* Plumb together into pipelines
-* Embrace plain text/data
-
-Bioinformatics does this better than most data science.
+Bioinformatics naturally embraces this (more so than most data science).
 
 
 # Project layout
 
-Clear and consistent organization between projects:
+Bottom line: Being consistent aids in automation & clarity:
+
+* naming schemes
+* path schemes
+
+The book's author takes an approach I've tried and had difficulties with (shared data between multiple analyses).
+Find what works for you...
+
+
+# Project layout
+
+Here's how I typically organize things:
+
 
 ```text
 your-project
@@ -211,23 +245,6 @@ your-project
     ├── tree.newick
     └── tree_plot.png
 ```
-
-
-# Project layout
-
-The author takes a different approach. Find what works for you...
-
-Bottom line: Being consistent aids in automation:
-
-* naming schemes
-* path schemes
-
-
-# Tools
-
-* **text/terminal:** markdown files + vim/emacs + bash/zsh + tmux
-* **notebooks:** IPython/Jupyter, Sage, Gorilla REPL, Mathematica, etc.
-* **workbenches:** RStudio, Matlab, Scilab, etc.
 
 
 # Practicum!
@@ -265,7 +282,12 @@ Name your connection, so you'll remember what it is (lynx/manx).
 
     wget https://github.com/fredhutchio/intro-bioinformatics/raw/master/config/tmux.conf
 
+    ls
+
     mv tmux.conf ~/.tmux.conf
+
+    ls
+    ls -a
 
     tmux
 
@@ -317,6 +339,11 @@ This unpacks the data into the `data` dir for us.
 
 # First let's explore the sequence file
 
+    cat data/sfv.fasta
+
+
+# Now with `less`
+
     less data/sfv.fasta
 
 
@@ -325,23 +352,34 @@ This unpacks the data into the `data` dir for us.
     less data/sfv.csv
 
 
-# This time with `column -t`
+# Now with `column -t`
+
+    column -t -s , data/sfv.csv
+
+* `-t` Output as tab separated
+* `-s ,` Read the input data as comma separated
+
+
+# Now with `column -t` and `|`
 
     column -t -s , data/sfv.csv | less -S
 
+`|` takes the output of one command and passes it as input to the next.
+This is part of the Unix philosophy's composability.
 
-# Make an alignment, and then a tree from the data
+
+# Hello world!
+
+## Make an alignment, and then a tree from the data
 
     muscle -maxiters 2 -in data/sfv.fasta -out output/alignment.fasta
 
     FastTree -nt output/alignment.fasta > output/tree.nw
 
-    nw_display output/tree.nw
+    nw_display output/tree.nw | less
 
 
 # Resources
 
 * These slides: <http://fredhutchio.github.io/intro-bioinformatics>
-* SCons for analyses: <http://www.metasoarous.com/scons-for-data-science-and-compbio>
-
 

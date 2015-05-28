@@ -71,19 +71,20 @@
 <h1>What you’ll get from this class</h1>
 <ul>
 <li>High level overview of how to <em>approach</em> bioinformatics</li>
-<li>Basic technical skills</li>
+<li>Basic bioinformatics technical skills</li>
 <li>Enough momentum to initiate self-learning process</li>
 </ul>
 </section>
 <section id="what-you-wont-get-from-this-class" class="level1">
 <h1>What you won’t get from this class</h1>
+<p>We won’t be covering many things that would be useful to you:</p>
 <ul>
 <li>Mathematics</li>
 <li>Statistics</li>
 <li>Higher level programming</li>
 <li>Knowledge of every bioinformatics program/method ever created</li>
 </ul>
-<p>These are things you’ll have to develop piecemeal, as needed.</p>
+<p>But hopefully you’ll have enough momentum to learn these on your own as needed.</p>
 </section>
 <section id="please-spend-some-time-outside-class" class="level1">
 <h1>Please spend <em>some</em> time outside class</h1>
@@ -108,7 +109,7 @@
 <h1>Today</h1>
 <ul>
 <li>1/2 overview</li>
-<li>1/2 remote access</li>
+<li>1/2 remote access &amp; practicum</li>
 </ul>
 </section>
 <section id="why-computers" class="level1">
@@ -118,10 +119,13 @@
 </section>
 <section id="biology-data" class="level1">
 <h1>Biology data</h1>
+<p>We can now get it</p>
 <ul>
-<li>Cheaper</li>
-<li>Faster</li>
-<li>More</li>
+<li>Cheaper &amp; Faster</li>
+</ul>
+<p>=&gt;</p>
+<ul>
+<li>We have more of it</li>
 </ul>
 </section>
 <section id="to-understand-biology-we-need-to-understand-data" class="level1">
@@ -131,15 +135,13 @@
 </section>
 <section id="what-is-data-science" class="level1">
 <h1>What is data science?</h1>
-<p><br/></p>
-<p><strong>???</strong></p>
 </section>
 <section id="soren-macbeths-definition" class="level1">
 <h1>Soren MacBeth’s definition</h1>
 <blockquote>
 <p><em>Data science</em> is the stuff that people with the job title of <em>Data Scientist</em> do.</p>
 </blockquote>
-<p>In other words, it’s hard to define, largely because there is something amorphous about it.</p>
+<p>A cop out… But the point is it’s amporphous and hard to define.</p>
 </section>
 <section id="from-the-book" class="level1">
 <h1>From the book</h1>
@@ -161,14 +163,16 @@
 </section>
 <section id="my-summary" class="level1">
 <h1>My summary</h1>
-<section id="data-science-is-more-than-the-sum-of-the-pieces" class="level2">
-<h2>Data science is more than the sum of the pieces</h2>
-<p>There is an art to putting the pieces together to make science happen.</p>
+<section id="data-science-bioinformatics-are-more-than-the-sum-of-the-pieces" class="level2">
+<h2>Data science &amp; bioinformatics are more than the sum of the pieces</h2>
+<p>There is an art to putting the technical pieces together to make science happen.</p>
+<p>But the common goal is to learn things from data.</p>
 </section>
 </section>
-<section id="stages-of-data-science-bioinformatics" class="level1">
-<h1>Stages of Data Science / Bioinformatics</h1>
-<p>munging =&gt; exploration =&gt; conclusions =&gt; rinse &amp; repeat</p>
+<section id="aspects-of-data-science-bioinformatics" class="level1">
+<h1>Aspects of Data Science / Bioinformatics</h1>
+<p>Categories of things we typically do:</p>
+<p>munging | exploration | conclusions | rinse &amp; repeat</p>
 </section>
 <section id="data-munging" class="level1">
 <h1>Data munging</h1>
@@ -193,6 +197,13 @@
 <li>More visualization</li>
 </ul>
 </section>
+<section id="so-this-is-what-we-do" class="level1">
+<h1>So this is <em>what</em> we do</h1>
+<p><br/></p>
+<section id="but-how-should-we-do-it" class="level2">
+<h2>But <em>how</em> should we do it?</h2>
+</section>
+</section>
 <section id="specific-goals-for-research" class="level1">
 <h1>Specific goals for research</h1>
 <ul>
@@ -210,6 +221,7 @@
 <section id="treat-data-as-immutable" class="level1">
 <h1>Treat data as immutable!</h1>
 <p><strong>Never</strong> change data in place; data in, data out.</p>
+<p>Aids: reproducibility, clarity &amp; iterability</p>
 </section>
 <section id="document-everything" class="level1">
 <h1>Document <strong>everything</strong>!!!</h1>
@@ -219,32 +231,46 @@
 <li>Software versions</li>
 <li>Settings used to run things</li>
 <li>Reasoning behind the way you do things</li>
-<li>How you got your data, and when you got it</li>
+<li>How/when you got your data</li>
 </ul>
+<p>Aids: reproducibility, clarity</p>
 </section>
 <section id="the-best-documentation-is-automation" class="level1">
 <h1>The best documentation is automation</h1>
-<p>By definition leaves no questions about how things were run</p>
+<p>Write <em>scripts</em> for everything:</p>
 <ul>
-<li>Munging scripts</li>
-<li>Plotting scripts</li>
-<li>Statistic scripts</li>
-<li>Build scripts tying it all together (scripts of scripts (&amp; other programs))</li>
+<li>Munging</li>
+<li>Plotting</li>
+<li>Statistics</li>
+<li>Build scripts (tying it all together)</li>
 </ul>
+<p>Aids: reproducibility, robustness, accuracy, iterability</p>
+</section>
+<section id="approaches-to-immutability-documentation-and-automation" class="level1">
+<h1>Approaches to immutability, documentation and automation</h1>
+<p>Unix philosophy | project organization</p>
 </section>
 <section id="the-unix-philosophy" class="level1">
 <h1>The Unix Philosophy</h1>
-<p>As applied to data science:</p>
 <ul>
-<li>Small, composable tools</li>
-<li>Plumb together into pipelines</li>
-<li>Embrace plain text/data</li>
+<li>Small, composable tools that do one thing right</li>
+<li>Plumb tools together into pipelines/scripts</li>
+<li>Embrace plain text/data (no excel/docx)</li>
 </ul>
-<p>Bioinformatics does this better than most data science.</p>
+<p>Bioinformatics naturally embraces this (more so than most data science).</p>
 </section>
 <section id="project-layout" class="level1">
 <h1>Project layout</h1>
-<p>Clear and consistent organization between projects:</p>
+<p>Bottom line: Being consistent aids in automation &amp; clarity:</p>
+<ul>
+<li>naming schemes</li>
+<li>path schemes</li>
+</ul>
+<p>The book’s author takes an approach I’ve tried and had difficulties with (shared data between multiple analyses). Find what works for you…</p>
+</section>
+<section id="project-layout-1" class="level1">
+<h1>Project layout</h1>
+<p>Here’s how I typically organize things:</p>
 <pre class="text"><code>your-project
 ├── README.md
 ├── build.sh
@@ -259,23 +285,6 @@
     ├── cleaned_metadata.csv
     ├── tree.newick
     └── tree_plot.png</code></pre>
-</section>
-<section id="project-layout-1" class="level1">
-<h1>Project layout</h1>
-<p>The author takes a different approach. Find what works for you…</p>
-<p>Bottom line: Being consistent aids in automation:</p>
-<ul>
-<li>naming schemes</li>
-<li>path schemes</li>
-</ul>
-</section>
-<section id="tools" class="level1">
-<h1>Tools</h1>
-<ul>
-<li><strong>text/terminal:</strong> markdown files + vim/emacs + bash/zsh + tmux</li>
-<li><strong>notebooks:</strong> IPython/Jupyter, Sage, Gorilla REPL, Mathematica, etc.</li>
-<li><strong>workbenches:</strong> RStudio, Matlab, Scilab, etc.</li>
-</ul>
 </section>
 <section id="practicum" class="level1">
 <h1>Practicum!</h1>
@@ -312,7 +321,12 @@
 <h1>Download tmux.conf &amp; fire up tmux</h1>
 <pre><code>wget https://github.com/fredhutchio/intro-bioinformatics/raw/master/config/tmux.conf
 
+ls
+
 mv tmux.conf ~/.tmux.conf
+
+ls
+ls -a
 
 tmux</code></pre>
 </section>
@@ -358,29 +372,44 @@ touch README.md</code></pre>
 </section>
 <section id="first-lets-explore-the-sequence-file" class="level1">
 <h1>First let’s explore the sequence file</h1>
+<pre><code>cat data/sfv.fasta</code></pre>
+</section>
+<section id="now-with-less" class="level1">
+<h1>Now with <code>less</code></h1>
 <pre><code>less data/sfv.fasta</code></pre>
 </section>
 <section id="now-lets-look-at-the-metadata" class="level1">
 <h1>Now let’s look at the metadata</h1>
 <pre><code>less data/sfv.csv</code></pre>
 </section>
-<section id="this-time-with-column--t" class="level1">
-<h1>This time with <code>column -t</code></h1>
-<pre><code>column -t -s , data/sfv.csv | less -S</code></pre>
+<section id="now-with-column--t" class="level1">
+<h1>Now with <code>column -t</code></h1>
+<pre><code>column -t -s , data/sfv.csv</code></pre>
+<ul>
+<li><code>-t</code> Output as tab separated</li>
+<li><code>-s ,</code> Read the input data as comma separated</li>
+</ul>
 </section>
-<section id="make-an-alignment-and-then-a-tree-from-the-data" class="level1">
-<h1>Make an alignment, and then a tree from the data</h1>
+<section id="now-with-column--t-and" class="level1">
+<h1>Now with <code>column -t</code> and <code>|</code></h1>
+<pre><code>column -t -s , data/sfv.csv | less -S</code></pre>
+<p><code>|</code> takes the output of one command and passes it as input to the next. This is part of the Unix philosophy’s composability.</p>
+</section>
+<section id="hello-world" class="level1">
+<h1>Hello world!</h1>
+<section id="make-an-alignment-and-then-a-tree-from-the-data" class="level2">
+<h2>Make an alignment, and then a tree from the data</h2>
 <pre><code>muscle -maxiters 2 -in data/sfv.fasta -out output/alignment.fasta
 
 FastTree -nt output/alignment.fasta &gt; output/tree.nw
 
-nw_display output/tree.nw</code></pre>
+nw_display output/tree.nw | less</code></pre>
+</section>
 </section>
 <section id="resources" class="level1">
 <h1>Resources</h1>
 <ul>
 <li>These slides: <a href="http://fredhutchio.github.io/intro-bioinformatics" class="uri">http://fredhutchio.github.io/intro-bioinformatics</a></li>
-<li>SCons for analyses: <a href="http://www.metasoarous.com/scons-for-data-science-and-compbio" class="uri">http://www.metasoarous.com/scons-for-data-science-and-compbio</a></li>
 </ul>
 </section>
 </div>
