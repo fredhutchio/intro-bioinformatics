@@ -11,9 +11,9 @@
 
 # What you'll get from this class
 
-* High level overview
-* Basic technical skills
-* Initiate self-learning
+* High level overview of how to _approach_ bioinformatics
+* Basic bioinformatics technical skills
+* Enough momentum to initiate self-learning process
 
 
 # What you won't get from this class
@@ -80,6 +80,8 @@ These are things you'll have to develop piecemeal, as needed.
 # Soren MacBeth's definition
 
 > _Data science_ is the stuff that people with the job title of _Data Scientist_ do.
+
+In other words, it's hard to define, largely because there is something amorphous about it.
 
 
 # From the book
@@ -185,8 +187,6 @@ As applied to data science:
 * Small, composable tools
 * Plumb together into pipelines
 * Embrace plain text/data
-
-<br/>
 
 Bioinformatics does this better than most data science.
 

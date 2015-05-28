@@ -70,20 +70,19 @@
 <section id="what-youll-get-from-this-class" class="level1">
 <h1>What you’ll get from this class</h1>
 <ul>
-<li>High level overview</li>
+<li>High level overview of how to <em>approach</em> bioinformatics</li>
 <li>Basic technical skills</li>
-<li>Initiate self-learning</li>
+<li>Enough momentum to initiate self-learning process</li>
 </ul>
 </section>
-<section id="some-things-this-class-wont-cover" class="level1">
-<h1>Some things this class won’t cover</h1>
+<section id="what-you-wont-get-from-this-class" class="level1">
+<h1>What you won’t get from this class</h1>
 <ul>
 <li>Mathematics</li>
 <li>Statistics</li>
 <li>Higher level programming</li>
-<li>Knowledge of every bioinformatics/combio program ever created</li>
+<li>Knowledge of every bioinformatics program/method ever created</li>
 </ul>
-<p><br/></p>
 <p>These are things you’ll have to develop piecemeal, as needed.</p>
 </section>
 <section id="please-spend-some-time-outside-class" class="level1">
@@ -140,11 +139,13 @@
 <blockquote>
 <p><em>Data science</em> is the stuff that people with the job title of <em>Data Scientist</em> do.</p>
 </blockquote>
+<p>In other words, it’s hard to define, largely because there is something amorphous about it.</p>
 </section>
 <section id="from-the-book" class="level1">
 <h1>From the book</h1>
+<p>(edited)</p>
 <blockquote>
-<p>A jazz musician with good chops can walk into a nightclub, hear a familiar standard song being played, recognize the chord changes, and begin playing musical ideas over these chords. Likewise, a bioinformatician with good data skills may receive a huge sequencing data set, and immediately start using a set of tools to learn about the data, and see what story the data tell.</p>
+<p>A jazz musician can walk into a nightclub, hear a familiar song, recognize the chord changes, and begin playing musical ideas over these chords. Likewise, a bioinformatician may receive a huge sequencing data set, and immediately start using a set of tools to learn about the data, and see what story the data tell.</p>
 <p>… Learning one’s tools is a necessary, but not sufficient step…</p>
 </blockquote>
 </section>
@@ -153,20 +154,21 @@
 <blockquote>
 <p>You’ve got to learn your instrument. Then, you practice, practice, practice. And then, when you finally get up there on the bandstand, forget all that and just wail.</p>
 </blockquote>
-<p><br/></p>
 <p>Also phrased as</p>
-<p><br/></p>
 <blockquote>
 <p>Learn the changes, then forget them.</p>
 </blockquote>
 </section>
-<section id="bioinformatics-is-more-than-the-sum-of-the-pieces" class="level1">
-<h1>Bioinformatics is more than the sum of the pieces</h1>
-<p>There is an art to putting the technical pieces together to make science happen.</p>
+<section id="my-summary" class="level1">
+<h1>My summary</h1>
+<section id="data-science-is-more-than-the-sum-of-the-pieces" class="level2">
+<h2>Data science is more than the sum of the pieces</h2>
+<p>There is an art to putting the pieces together to make science happen.</p>
 </section>
-<section id="what-data-science-involves" class="level1">
-<h1>What data science involves</h1>
-<p>It may be hard to describe it abstractly, but there are definitely common threads.</p>
+</section>
+<section id="stages-of-data-science-bioinformatics" class="level1">
+<h1>Stages of Data Science / Bioinformatics</h1>
+<p>munging =&gt; exploration =&gt; conclusions =&gt; rinse &amp; repeat</p>
 </section>
 <section id="data-munging" class="level1">
 <h1>Data munging</h1>
@@ -178,21 +180,21 @@
 <section id="data-exploration" class="level1">
 <h1>Data exploration</h1>
 <ul>
-<li>Visualization</li>
+<li>Visualize</li>
 <li>Build intuition</li>
 <li>Hypothesize</li>
 </ul>
-<p> </p>
-<p>… then …</p>
-<p> </p>
+</section>
+<section id="building-conclusions" class="level1">
+<h1>Building conclusions</h1>
+<p>In which we shore things up to tell the world…</p>
 <ul>
 <li>Statistical analysis</li>
-<li>More visualizations</li>
-<li>Tell the world</li>
+<li>More visualization</li>
 </ul>
 </section>
-<section id="some-goals-for-research" class="level1">
-<h1>Some goals for research</h1>
+<section id="specific-goals-for-research" class="level1">
+<h1>Specific goals for research</h1>
 <ul>
 <li>Reproducibility</li>
 <li>Robustness</li>
@@ -200,8 +202,13 @@
 <li>Clarity</li>
 <li>Iterability</li>
 </ul>
-<p> </p>
-<p>Treat data as immutable!</p>
+</section>
+<section id="things-we-can-do-towards-these-goals" class="level1">
+<h1>Things we can do towards these goals</h1>
+<p>immutability | documentation | automation</p>
+</section>
+<section id="treat-data-as-immutable" class="level1">
+<h1>Treat data as immutable!</h1>
 <p><strong>Never</strong> change data in place; data in, data out.</p>
 </section>
 <section id="document-everything" class="level1">
@@ -222,19 +229,7 @@
 <li>Munging scripts</li>
 <li>Plotting scripts</li>
 <li>Statistic scripts</li>
-<li>Build scripts typing it all together (scripts of scripts (&amp; other programs))</li>
-</ul>
-<p><br/></p>
-<p><strong>Bonus:</strong> Automate software version tracking &amp; heavily comment your code</p>
-</section>
-<section id="revisiting-our-goals" class="level1">
-<h1>Revisiting our goals</h1>
-<ul>
-<li>Reproducibility</li>
-<li>Robustness</li>
-<li>Accuracy</li>
-<li>Clarity</li>
-<li>Iterability</li>
+<li>Build scripts tying it all together (scripts of scripts (&amp; other programs))</li>
 </ul>
 </section>
 <section id="the-unix-philosophy" class="level1">
@@ -245,7 +240,6 @@
 <li>Plumb together into pipelines</li>
 <li>Embrace plain text/data</li>
 </ul>
-<p><br/></p>
 <p>Bioinformatics does this better than most data science.</p>
 </section>
 <section id="project-layout" class="level1">
@@ -283,15 +277,9 @@
 <li><strong>workbenches:</strong> RStudio, Matlab, Scilab, etc.</li>
 </ul>
 </section>
-<section id="resources" class="level1">
-<h1>Resources</h1>
-<ul>
-<li>These slides: <a href="http://fredhutchio.github.io/intro-bioinformatics" class="uri">http://fredhutchio.github.io/intro-bioinformatics</a></li>
-<li>SCons for analyses: <a href="http://www.metasoarous.com/scons-for-data-science-and-compbio" class="uri">http://www.metasoarous.com/scons-for-data-science-and-compbio</a></li>
-</ul>
-</section>
 <section id="practicum" class="level1">
 <h1>Practicum!</h1>
+<p>But first, <strong>Questions?</strong></p>
 </section>
 <section id="fire-up-nomachine" class="level1">
 <h1>Fire up NoMachine</h1>
@@ -304,45 +292,51 @@
 <li>Name your connection so you can remember what it is.</li>
 </ol>
 </section>
-<section id="fire-up-a-terminal" class="level1">
-<h1>Fire up a terminal</h1>
+<section id="open-a-terminal" class="level1">
+<h1>Open a terminal</h1>
 <ol type="1">
 <li>Click the square button in the upper left.</li>
 <li>Type in “Terminal”</li>
-<li>Click on Terminal icon (the one with <code>&gt;_</code> on it)</li>
+<li>Click on the Terminal icon (the one with <code>&gt;_</code> on it)</li>
 </ol>
 </section>
 <section id="ssh-into-rhino" class="level1">
 <h1>SSH into rhino</h1>
 <ol type="1">
 <li>Enter <code>ssh rhino</code> into the terminal</li>
-<li>Enter your password when prompted</li>
-<li>Note which machine you get connected to (e.g. <code>rhino02</code> v <code>rhino04</code>)</li>
+<li>Enter your Hutch password when prompted</li>
+<li>Note the machine to which you’re connected (e.g. <code>rhino02</code> v <code>rhino04</code>)</li>
 </ol>
 </section>
 <section id="download-tmux.conf-fire-up-tmux" class="level1">
 <h1>Download tmux.conf &amp; fire up tmux</h1>
 <pre><code>wget https://github.com/fredhutchio/intro-bioinformatics/raw/master/config/tmux.conf
+
 mv tmux.conf ~/.tmux.conf
+
 tmux</code></pre>
 </section>
 <section id="quick-tmux-demo" class="level1">
 <h1>Quick tmux demo</h1>
 <ul>
-<li><code>Ctrl-A</code> is your “Command key”</li>
-<li><code>Ctrl-A ?</code> Help</li>
-<li><p><code>Ctrl-A d</code> Detatch session</p></li>
+<li><code>Ctrl-A</code> - your “Command key”</li>
+<li><code>Ctrl-A ?</code> - Help</li>
+<li><code>Ctrl-A d</code> - Detatch session</li>
+</ul>
+<p><br/></p>
+<ul>
 <li><code>Ctrl-A C</code> - New window</li>
-<li><p><code>Ctrl-A &lt;Space&gt;</code> - Rotate through windows</p></li>
-<li><code>Ctrl-A |</code> Split pane vertically</li>
-<li><code>Ctrl-A -</code> Split pane horizontally</li>
-<li><p><code>Ctrl-A j,k,l,h</code> - Switch between panes</p></li>
+<li><code>Ctrl-A &lt;Space&gt;</code> - Next window</li>
 </ul>
 </section>
 <section id="create-a-project-directory" class="level1">
 <h1>Create a project directory</h1>
-<pre><code>mkdir -p ~/bioinfclass/{data,output,scripts}
+<pre><code>mkdir ~/bioinfclass
+
 cd ~/bioinfclass
+
+mkdir data output scripts
+
 touch README.md</code></pre>
 </section>
 <section id="dowload-data-with-wget" class="level1">
@@ -358,14 +352,36 @@ touch README.md</code></pre>
 <pre><code>tar -vxf data.tar</code></pre>
 <p>This unpacks the data into the <code>data</code> dir for us.</p>
 </section>
+<section id="lets-look-at-what-weve-done" class="level1">
+<h1>Let’s look at what we’ve done</h1>
+<pre><code>tree</code></pre>
+</section>
+<section id="first-lets-explore-the-sequence-file" class="level1">
+<h1>First let’s explore the sequence file</h1>
+<pre><code>less data/sfv.fasta</code></pre>
+</section>
+<section id="now-lets-look-at-the-metadata" class="level1">
+<h1>Now let’s look at the metadata</h1>
+<pre><code>less data/sfv.csv</code></pre>
+</section>
+<section id="this-time-with-column--t" class="level1">
+<h1>This time with <code>column -t</code></h1>
+<pre><code>column -t -s , data/sfv.csv | less -S</code></pre>
+</section>
 <section id="make-an-alignment-and-then-a-tree-from-the-data" class="level1">
 <h1>Make an alignment, and then a tree from the data</h1>
-<pre><code>muscle -in data/sequences.fasta -out output/alignment.fasta
+<pre><code>muscle -maxiters 2 -in data/sfv.fasta -out output/alignment.fasta
+
 FastTree -nt output/alignment.fasta &gt; output/tree.nw
+
 nw_display output/tree.nw</code></pre>
 </section>
-<section id="and-we-have-biology" class="level1">
-<h1>And we have biology!</h1>
+<section id="resources" class="level1">
+<h1>Resources</h1>
+<ul>
+<li>These slides: <a href="http://fredhutchio.github.io/intro-bioinformatics" class="uri">http://fredhutchio.github.io/intro-bioinformatics</a></li>
+<li>SCons for analyses: <a href="http://www.metasoarous.com/scons-for-data-science-and-compbio" class="uri">http://www.metasoarous.com/scons-for-data-science-and-compbio</a></li>
+</ul>
 </section>
 </div>
 
