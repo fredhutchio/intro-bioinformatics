@@ -13,6 +13,17 @@ div.slides section h1 {
   font-size: 70px;
 }
 
+div.slides section ul,
+  div.slides section ol,
+  div.slides section blockquote,
+  div.slides section pre {
+    margin-bottom: 60px;
+}
+
+div.slides section > p {
+  margin-bottom: 40px;
+}
+
 div.slides section pre code {
   max-height: 500px;
   font-size: 28px;
