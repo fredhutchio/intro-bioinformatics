@@ -8,7 +8,7 @@
 <meta name="description" content="Introduction to Bioinformatics">
 
 <!-- Disabled for now - embeds HTML in author string -->
-<!--  <meta name="author" content="Lesson 1 - Gestault &amp; remote access" /> -->
+<!--  <meta name="author" content="Lesson 1 - Gestalt &amp; remote access" /> -->
 
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -52,7 +52,7 @@
 
 <section>
 <h1>Introduction to Bioinformatics</h1>
-<h3>Lesson 1 - Gestault &amp; remote access</h3>
+<h3>Lesson 1 - Gestalt &amp; remote access</h3>
 <p>
 <h4></h4>
 </p>
@@ -84,7 +84,7 @@
 <li>Knowledge of every bioinformatics/combio program ever created</li>
 </ul>
 <p><br/></p>
-<p>These are things you’ll have to develop piece meal, as needed.</p>
+<p>These are things you’ll have to develop piecemeal, as needed.</p>
 </section>
 <section id="please-spend-some-time-outside-class" class="level1">
 <h1>Please spend <em>some</em> time outside class</h1>
@@ -182,16 +182,14 @@
 <li>Build intuition</li>
 <li>Hypothesize</li>
 </ul>
-</section>
-<section id="building-conclusions" class="level1">
-<h1>Building conclusions</h1>
+<p> </p>
+<p>… then …</p>
+<p> </p>
 <ul>
 <li>Statistical analysis</li>
 <li>More visualizations</li>
 <li>Tell the world</li>
 </ul>
-<p><br/></p>
-<p>Telling the world is where things start to look different in research and industry.</p>
 </section>
 <section id="some-goals-for-research" class="level1">
 <h1>Some goals for research</h1>
@@ -202,12 +200,9 @@
 <li>Clarity</li>
 <li>Iterability</li>
 </ul>
-</section>
-<section id="take-a-cue-from-functional-programming" class="level1">
-<h1>Take a cue from functional programming</h1>
+<p> </p>
 <p>Treat data as immutable!</p>
-<p><strong>Never</strong> change data in place; data in data out.</p>
-<p>Read: No more spreadsheets!</p>
+<p><strong>Never</strong> change data in place; data in, data out.</p>
 </section>
 <section id="document-everything" class="level1">
 <h1>Document <strong>everything</strong>!!!</h1>
@@ -284,21 +279,22 @@
 <h1>Tools</h1>
 <ul>
 <li><strong>text/terminal:</strong> markdown files + vim/emacs + bash/zsh + tmux</li>
-<li><strong>notebooks:</strong> IPython, Sage, Gorilla REPL, Mathematica, etc.</li>
+<li><strong>notebooks:</strong> IPython/Jupyter, Sage, Gorilla REPL, Mathematica, etc.</li>
 <li><strong>workbenches:</strong> RStudio, Matlab, Scilab, etc.</li>
 </ul>
 </section>
 <section id="resources" class="level1">
 <h1>Resources</h1>
 <ul>
-<li>These slides: <a href="http://fredhutchio.github.io/intro-bioinformatics">http://fredhutchio.github.io/intro-bioinformatics</a></li>
-<li>SCons for analyses: <a href="http://www.metasoarous.com/scons-for-data-science-and-compbio">http://www.metasoarous.com/scons-for-data-science-and-compbio</a></li>
+<li>These slides: <a href="http://fredhutchio.github.io/intro-bioinformatics" class="uri">http://fredhutchio.github.io/intro-bioinformatics</a></li>
+<li>SCons for analyses: <a href="http://www.metasoarous.com/scons-for-data-science-and-compbio" class="uri">http://www.metasoarous.com/scons-for-data-science-and-compbio</a></li>
 </ul>
 </section>
 <section id="practicum" class="level1">
 <h1>Practicum!</h1>
-<section id="fire-up-nomachine" class="level2">
-<h2>Fire up NoMachine</h2>
+</section>
+<section id="fire-up-nomachine" class="level1">
+<h1>Fire up NoMachine</h1>
 <p>Open no machine, and click the “New” button in the orange bar. Name your connection, so you’ll remember what it is (lynx/manx).</p>
 <ol type="1">
 <li>The protocol is “nx”</li>
@@ -308,46 +304,68 @@
 <li>Name your connection so you can remember what it is.</li>
 </ol>
 </section>
-<section id="fire-up-a-terminal" class="level2">
-<h2>Fire up a terminal</h2>
+<section id="fire-up-a-terminal" class="level1">
+<h1>Fire up a terminal</h1>
 <ol type="1">
 <li>Click the square button in the upper left.</li>
 <li>Type in “Terminal”</li>
 <li>Click on Terminal icon (the one with <code>&gt;_</code> on it)</li>
 </ol>
 </section>
-<section id="ssh-into-rhino" class="level2">
-<h2>SSH into rhino</h2>
+<section id="ssh-into-rhino" class="level1">
+<h1>SSH into rhino</h1>
 <ol type="1">
 <li>Enter <code>ssh rhino</code> into the terminal</li>
 <li>Enter your password when prompted</li>
 <li>Note which machine you get connected to (e.g. <code>rhino02</code> v <code>rhino04</code>)</li>
 </ol>
 </section>
-<section id="download-tmux.conf-fire-up-tmux" class="level2">
-<h2>Download tmux.conf &amp; fire up tmux</h2>
-<pre><code>wget &lt;XXX&gt; ~/.tmux.conf
+<section id="download-tmux.conf-fire-up-tmux" class="level1">
+<h1>Download tmux.conf &amp; fire up tmux</h1>
+<pre><code>wget https://github.com/fredhutchio/intro-bioinformatics/raw/master/config/tmux.conf
+mv tmux.conf ~/.tmux.conf
 tmux</code></pre>
 </section>
-<section id="create-a-project-directory" class="level2">
-<h2>Create a project directory</h2>
+<section id="quick-tmux-demo" class="level1">
+<h1>Quick tmux demo</h1>
+<ul>
+<li><code>Ctrl-A</code> is your “Command key”</li>
+<li><code>Ctrl-A ?</code> Help</li>
+<li><p><code>Ctrl-A d</code> Detatch session</p></li>
+<li><code>Ctrl-A C</code> - New window</li>
+<li><p><code>Ctrl-A &lt;Space&gt;</code> - Rotate through windows</p></li>
+<li><code>Ctrl-A |</code> Split pane vertically</li>
+<li><code>Ctrl-A -</code> Split pane horizontally</li>
+<li><p><code>Ctrl-A j,k,l,h</code> - Switch between panes</p></li>
+</ul>
+</section>
+<section id="create-a-project-directory" class="level1">
+<h1>Create a project directory</h1>
 <pre><code>mkdir -p ~/bioinfclass/{data,output,scripts}
 cd ~/bioinfclass
 touch README.md</code></pre>
 </section>
-<section id="get-some-data-loaded" class="level2">
-<h2>Get some data loaded</h2>
-<pre><code>cp &lt;XXX&gt;/{metadata.csv,sequences.fasta,copy_number.csv} data</code></pre>
+<section id="dowload-data-with-wget" class="level1">
+<h1>Dowload data with <code>wget</code></h1>
+<pre><code>wget https://github.com/fredhutchio/intro-bioinformatics/raw/master/data.tar</code></pre>
 </section>
-<section id="make-an-alignment-and-then-a-tree-from-the-data" class="level2">
-<h2>Make an alignment, and then a tree from the data</h2>
+<section id="a-bit-about-tar" class="level1">
+<h1>A bit about tar…</h1>
+<p><a href="figures/tar.png" target="_blank"><img src="figures/tar.png" height="300"></a></p>
+</section>
+<section id="its-not-that-bad" class="level1">
+<h1>It’s not <em>that</em> bad</h1>
+<pre><code>tar -vxf data.tar</code></pre>
+<p>This unpacks the data into the <code>data</code> dir for us.</p>
+</section>
+<section id="make-an-alignment-and-then-a-tree-from-the-data" class="level1">
+<h1>Make an alignment, and then a tree from the data</h1>
 <pre><code>muscle -in data/sequences.fasta -out output/alignment.fasta
 FastTree -nt output/alignment.fasta &gt; output/tree.nw
 nw_display output/tree.nw</code></pre>
 </section>
-<section id="and-we-have-biology" class="level2">
-<h2>And we have biology!</h2>
-</section>
+<section id="and-we-have-biology" class="level1">
+<h1>And we have biology!</h1>
 </section>
 </div>
 
