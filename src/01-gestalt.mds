@@ -273,13 +273,28 @@ Name your connection, so you'll remember what it is (lynx/manx).
 # SSH into rhino
 
 1. Enter `ssh rhino` into the terminal
-2. Enter your password when prompted
-3. Note which machine you get connected to (e.g. `rhino02` v `rhino04`)
+2. Enter your Hutch password when prompted
+3. Note the machine to which you're connected (e.g. `rhino02` v `rhino04`)
 
 # Download tmux.conf & fire up tmux
 
-    wget <XXX> ~/.tmux.conf
+    wget https://github.com/fredhutchio/intro-bioinformatics/raw/master/config/tmux.conf
+    mv tmux.conf ~/.tmux.conf
     tmux
+
+# Quick tmux demo
+
+* `Ctrl-A` is your "Command key"
+* `Ctrl-A ?` Help
+* `Ctrl-A d` Detatch session
+
+* `Ctrl-A C` - New window
+* `Ctrl-A <Space>` - Rotate through windows
+
+* `Ctrl-A |` Split pane vertically
+* `Ctrl-A -` Split pane horizontally
+* `Ctrl-A j,k,l,h` - Switch between panes
+
 
 # Create a project directory
 
@@ -289,7 +304,17 @@ Name your connection, so you'll remember what it is (lynx/manx).
 
 # Dowload data with `wget`
 
-    cp <XXX>/{metadata.csv,sequences.fasta,copy_number.csv} data
+    wget https://github.com/fredhutchio/intro-bioinformatics/raw/master/data.tar
+
+# A bit about tar...
+
+^imghl "figures/tar.png" 300
+
+# It's not _that_ bad
+
+    tar -vxf data.tar
+
+This unpacks the data into the `data` dir for us.
 
 # Make an alignment, and then a tree from the data
 
