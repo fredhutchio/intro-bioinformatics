@@ -284,16 +284,14 @@ Name your connection, so you'll remember what it is (lynx/manx).
 
 # Quick tmux demo
 
-* `Ctrl-A` is your "Command key"
-* `Ctrl-A ?` Help
-* `Ctrl-A d` Detatch session
+* `Ctrl-A` - your "Command key"
+* `Ctrl-A ?` - Help
+* `Ctrl-A d` - Detatch session
+
+<br/>
 
 * `Ctrl-A C` - New window
-* `Ctrl-A <Space>` - Rotate through windows
-
-* `Ctrl-A |` Split pane vertically
-* `Ctrl-A -` Split pane horizontally
-* `Ctrl-A j,k,l,h` - Switch between panes
+* `Ctrl-A <Space>` - Next window
 
 
 # Create a project directory
