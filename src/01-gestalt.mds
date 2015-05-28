@@ -16,14 +16,12 @@
 * Initiate self-learning
 
 
-# Some things this class won't cover
+# What you won't get from this class
 
 * Mathematics
 * Statistics
 * Higher level programming
-* Knowledge of every bioinformatics/combio program ever created
-
-<br/>
+* Knowledge of every bioinformatics program/method ever created
 
 These are things you'll have to develop piecemeal, as needed.
 
@@ -32,7 +30,6 @@ These are things you'll have to develop piecemeal, as needed.
 
 * Time is the only way to learn these things
 * The waiting list is > 127 long
-
 
 
 # Overview of class
@@ -87,8 +84,10 @@ These are things you'll have to develop piecemeal, as needed.
 
 # From the book
 
-> A jazz musician with good chops can walk into a nightclub, hear a familiar standard song being played, recognize the chord changes, and begin playing musical ideas over these chords.
-> Likewise, a bioinformatician with good data skills may receive a huge sequencing data set, and immediately start using a set of tools to learn about the data, and see what story the data tell.
+(edited)
+
+> A jazz musician can walk into a nightclub, hear a familiar song, recognize the chord changes, and begin playing musical ideas over these chords.
+> Likewise, a bioinformatician may receive a huge sequencing data set, and immediately start using a set of tools to learn about the data, and see what story the data tell.
 >
 > ...
 > Learning one’s tools is a necessary, but not sufficient step...
@@ -100,23 +99,21 @@ These are things you'll have to develop piecemeal, as needed.
 > Then, you practice, practice, practice.
 > And then, when you finally get up there on the bandstand, forget all that and just wail.
 
-<br/>
-
 Also phrased as
-
-<br/>
 
 > Learn the changes, then forget them.
 
 
-# Bioinformatics is more than the sum of the pieces
+# My summary
 
-There is an art to putting the technical pieces together to make science happen.
+## Data science is more than the sum of the pieces
+
+There is an art to putting the pieces together to make science happen.
 
 
-# What data science involves
+# Stages of Data Science / Bioinformatics
 
-It may be hard to describe it abstractly, but there are definitely common threads.
+munging => exploration => conclusions => rinse & repeat
 
 
 # Data munging
@@ -127,23 +124,20 @@ It may be hard to describe it abstractly, but there are definitely common thread
 
 # Data exploration
 
-* Visualization
+* Visualize
 * Build intuition
 * Hypothesize
 
-&nbsp;
 
-... then ...
+# Building conclusions
 
-&nbsp;
+In which we shore things up to tell the world...
 
 * Statistical analysis
-* More visualizations
-* Tell the world
+* More visualization
 
 
-
-# Some goals for research
+# Specific goals for research
 
 * Reproducibility
 * Robustness
@@ -151,9 +145,13 @@ It may be hard to describe it abstractly, but there are definitely common thread
 * Clarity
 * Iterability
 
-&nbsp;
 
-Treat data as immutable!
+# Things we can do towards these goals
+
+immutability | documentation | automation
+
+
+# Treat data as immutable!
 
 **Never** change data in place; data in, data out.
 
@@ -177,20 +175,7 @@ By definition leaves no questions about how things were run
 * Munging scripts
 * Plotting scripts
 * Statistic scripts
-* Build scripts typing it all together (scripts of scripts (& other programs))
-
-<br/>
-
-**Bonus:** Automate software version tracking & heavily comment your code
-
-
-# Revisiting our goals
-
-* Reproducibility
-* Robustness
-* Accuracy
-* Clarity
-* Iterability
+* Build scripts tying it all together (scripts of scripts (& other programs))
 
 
 # The Unix Philosophy
@@ -245,13 +230,10 @@ Bottom line: Being consistent aids in automation:
 * **workbenches:** RStudio, Matlab, Scilab, etc.
 
 
-# Resources
-
-* These slides: <http://fredhutchio.github.io/intro-bioinformatics>
-* SCons for analyses: <http://www.metasoarous.com/scons-for-data-science-and-compbio>
-
-
 # Practicum!
+
+But first, **Questions?**
+
 
 # Fire up NoMachine
 
@@ -264,11 +246,13 @@ Name your connection, so you'll remember what it is (lynx/manx).
 4.  Don't use a proxy
 5.  Name your connection so you can remember what it is.
 
+
 # Open a terminal
 
 1. Click the square button in the upper left.
 2. Type in "Terminal"
-3. Click on Terminal icon (the one with `>_` on it)
+3. Click on the Terminal icon (the one with `>_` on it)
+
 
 # SSH into rhino
 
@@ -276,11 +260,15 @@ Name your connection, so you'll remember what it is (lynx/manx).
 2. Enter your Hutch password when prompted
 3. Note the machine to which you're connected (e.g. `rhino02` v `rhino04`)
 
+
 # Download tmux.conf & fire up tmux
 
     wget https://github.com/fredhutchio/intro-bioinformatics/raw/master/config/tmux.conf
+
     mv tmux.conf ~/.tmux.conf
+
     tmux
+
 
 # Quick tmux demo
 
@@ -296,17 +284,24 @@ Name your connection, so you'll remember what it is (lynx/manx).
 
 # Create a project directory
 
-    mkdir -p ~/bioinfclass/{data,output,scripts}
+    mkdir ~/bioinfclass
+
     cd ~/bioinfclass
+
+    mkdir data output scripts
+
     touch README.md
+
 
 # Dowload data with `wget`
 
     wget https://github.com/fredhutchio/intro-bioinformatics/raw/master/data.tar
 
+
 # A bit about tar...
 
 ^imghl "figures/tar.png" 300
+
 
 # It's not _that_ bad
 
@@ -314,11 +309,39 @@ Name your connection, so you'll remember what it is (lynx/manx).
 
 This unpacks the data into the `data` dir for us.
 
+
+# Let's look at what we've done
+
+    tree
+
+
+# First let's explore the sequence file
+
+    less data/sfv.fasta
+
+
+# Now let's look at the metadata
+
+    less data/sfv.csv
+
+
+# This time with `column -t`
+
+    column -t -s , data/sfv.csv | less -S
+
+
 # Make an alignment, and then a tree from the data
 
-    muscle -in data/sequences.fasta -out output/alignment.fasta
+    muscle -maxiters 2 -in data/sfv.fasta -out output/alignment.fasta
+
     FastTree -nt output/alignment.fasta > output/tree.nw
+
     nw_display output/tree.nw
 
-# And we have biology!
+
+# Resources
+
+* These slides: <http://fredhutchio.github.io/intro-bioinformatics>
+* SCons for analyses: <http://www.metasoarous.com/scons-for-data-science-and-compbio>
+
 
