@@ -11,8 +11,8 @@ last-modified: $(LAST)
 
 all: $(ALL)
 
-index.html: src/index.md
-	pandoc --css http://matsen.fhcrc.org/webpage.css src/index.md -o index.html
+index.html: README.md
+	pandoc --css http://matsen.fhcrc.org/webpage.css README.md -o index.html
 
 %.html: src/template-revealjs.html src/header.html src/%.mds insert.py Makefile build.sh
 	./build.sh src/$*.mds $@

@@ -1,13 +1,19 @@
 # Intro to Bioinformatics
 
+<img alt="Class poster" src="figures/course.png" style="max-width: 300px; text-align: center; margin-left: 30px; float: right;"/>
+
 A short series offered by [fredhutch.io](http://fredhutch.io) to members of [Fred Hutch](http://www.fredhutch.org/en.html).
+
+
+<br/>
+<br/>
 
 
 ## Overview of class
 
 The following is the tentative outline for courses in the class:
 
-1. Overview & remote server access ([slides](01-gestalt.html))
+1. [Overview & remote server access](01-gestalt.html)
 2. Unix Shell I - overview
 3. Unix Shell II - learning specific utilities
 4. Version Control with Git
@@ -18,17 +24,13 @@ The following is the tentative outline for courses in the class:
 The class will be loosely following [Bioinformatics Data Skills](http://shop.oreilly.com/product/0636920030157.do) for the overview, unix, and version control sections.
 For the python sections, we'll be following [TBD].
 
+The links in the outline above will eventually point to the slides and resources for the respective sessions.
+
 
 ## Prerequisites
 
 For the first class, please install [NoMachine](https://www.nomachine.com/) on the laptop you plan to bring to class.
 We also ask that you read the first two chapters of [the book](http://shop.oreilly.com/product/0636920030157.do) (particularly the first) before coming to class, but you won't be chastised if you don't.
-
-
-## Class slides
-
-The slides for the class are available as html files (01-gestalt.html, 02-..., etc.).
-Please feel free to refer to them as a resource.
 
 
 ## Optional: Running on your own machine instead of NoMachine
