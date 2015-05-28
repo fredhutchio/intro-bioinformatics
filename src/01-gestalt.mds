@@ -253,7 +253,7 @@ Bottom line: Being consistent aids in automation:
 
 # Practicum!
 
-## Fire up NoMachine
+# Fire up NoMachine
 
 Open no machine, and click the "New" button in the orange bar.
 Name your connection, so you'll remember what it is (lynx/manx).
@@ -264,38 +264,38 @@ Name your connection, so you'll remember what it is (lynx/manx).
 4.  Don't use a proxy
 5.  Name your connection so you can remember what it is.
 
-## Fire up a terminal
+# Open a terminal
 
 1. Click the square button in the upper left.
 2. Type in "Terminal"
 3. Click on Terminal icon (the one with `>_` on it)
 
-## SSH into rhino
+# SSH into rhino
 
 1. Enter `ssh rhino` into the terminal
 2. Enter your password when prompted
 3. Note which machine you get connected to (e.g. `rhino02` v `rhino04`)
 
-## Download tmux.conf & fire up tmux
+# Download tmux.conf & fire up tmux
 
     wget <XXX> ~/.tmux.conf
     tmux
 
-## Create a project directory
+# Create a project directory
 
     mkdir -p ~/bioinfclass/{data,output,scripts}
     cd ~/bioinfclass
     touch README.md
 
-## Get some data loaded
+# Dowload data with `wget`
 
     cp <XXX>/{metadata.csv,sequences.fasta,copy_number.csv} data
 
-## Make an alignment, and then a tree from the data
+# Make an alignment, and then a tree from the data
 
     muscle -in data/sequences.fasta -out output/alignment.fasta
     FastTree -nt output/alignment.fasta > output/tree.nw
     nw_display output/tree.nw
 
-## And we have biology!
+# And we have biology!
 
