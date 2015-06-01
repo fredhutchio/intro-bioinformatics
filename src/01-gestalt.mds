@@ -257,11 +257,11 @@ But first, **Questions?**
 Open no machine, and click the "New" button in the orange bar.
 Name your connection, so you'll remember what it is (lynx/manx).
 
-1.  The protocol is "nx"
-2.  The host is lynx or lynx.fhcrc.org or manx or manx.fhcrc.org, port 4000
-3.  The authentication is password
-4.  Don't use a proxy
-5.  Name your connection so you can remember what it is.
+1. The protocol is **NX**
+2. The host is **lynx** or **lynx.fhcrc.org** or **manx** or **manx.fhcrc.org**, port **4000**
+3. The authentication is **Password**
+4. **Don't use a proxy**
+5. Name your connection so you can remember what it is.
 
 
 # Open a terminal
