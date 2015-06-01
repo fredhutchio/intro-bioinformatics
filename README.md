@@ -43,7 +43,7 @@ For OSX users, you have to
 * Then install [homebrew](http://brew.sh)
 * Then run `brew install sshfs` from your OSX terminal
 
-You should now be able to run
+From within the Fred Hutch network you should now be able to run
 
 ```bash
 mkdir -p ~/mounts/hutch
