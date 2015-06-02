@@ -1,0 +1,725 @@
+% A Strange Coop
+% How Clojure saved my chickens from the evil Racoons
+% Chris Small - @metasoarous - <a href="metasoarous.com">metasoarous.com</a> <br/><br/><br/><br/><br/> This talk should go over well in Portland
+
+
+#
+
+<!--<img src="figures/strange_coop/polis.png" style="float: left; padding: 30px;" />-->
+<img src="figures/strange_coop/polis.png" style="padding: 30px;" />
+
+<br/>
+
+<pre style="width: 500px;"><code class="clojure" style="float:left; padding: 20px; margin-top: 30px; margin-left: -200px; font-size: 20px;">(apply
+  (+ data-viz machine-learning)
+  conversations)
+</code></pre>
+
+* Head Scientist
+* Clojure for the maths
+* [http://pol.is](http://pol.is)
+
+
+# Consulting
+
+* Data Science
+* Machine Learning
+* Web development
+
+
+# Establish some basic facts
+
+
+# Are Raccoons Cute?
+
+^imghl "figures/strange_coop/cute-raccoon.png" 500
+^div caption "Photo by Tambako The Jaguar on Flickr"
+
+# A common misconception...
+
+
+# Raccoons are EVIL!!!
+
+^imghl "figures/strange_coop/evil-racoon.png" 500
+^div caption "Photo by Penh Gwyn on Flickr"
+
+
+# On the other hand
+
+## Chickens are hilarious
+
+^imghl "figures/strange_coop/chickens.jpg" 500
+^div caption "Photo by Penh Gwyn on Flickr"
+
+
+# Kind of like...
+
+## Zoological equivalent of The Trailer Park Boys
+
+^imghl "figures/strange_coop/tpb-drawing.jpg" 400
+^div caption "Sketch by Marc Palm on Flickr"
+
+
+# But sadly
+
+<br/>
+
+## Raccoons eat chickens
+
+
+# Last summer
+
+* New house
+* Fencing not secure
+* Lock in coop at night, let out in morning
+
+
+# Every good programmer
+
+## Is a lazy programmer
+
+<br/><br/>
+
+So automate
+
+
+# Rough Plan
+
+* Light sensor detecting time of day
+* Motor lifting door up and down
+* Door auto-locks and unlocks by pulling up from a "key"
+* Clojure on a BBB
+
+
+# Photorestistor
+
+^imghl "figures/strange_coop/light-sensor.jpg" 500
+
+
+# Motor
+
+^imghl "figures/strange_coop/drill-pile.jpg" 500
+^div caption "Hardwicks drill pile!"
+
+
+# Motor
+
+^imghl "figures/strange_coop/drill.jpg" 500
+^div caption "Found $10, 9V drill"
+
+
+# Pulley
+
+^imghl "figures/strange_coop/drill-pulley.jpg" 500
+^div caption "Super hack"
+
+
+# Door
+
+## Inspired by Clint Fisher's design from YouTube
+
+^imghl "figures/strange_coop/clint-fisher-door.jpg" 400
+
+
+# My Adaptation
+
+^imghl "figures/strange_coop/door.jpg" 500
+
+
+# Buttons
+
+^imghl "figures/strange_coop/button.jpg" 500
+
+
+# Preparing the BBB
+
+* Install JVM
+* Install Lein
+* Add non-root user
+* Pin permissions magic for user
+* Startup and logging
+
+
+# Teh codez...
+
+
+# Time of Day State Machine
+
+Simply data
+
+```
+(defn time-sm [state day-fn! night-fn!]
+  {:state state
+   :trans
+      {:day
+          (fn [brightness]
+            (if (< brightness dusk)
+              ; state side effects
+              (do (night-fn!) :night)
+              ; Don't change anything
+              :day))
+       ; similarly for night
+       :night
+          (fn [brightness]
+            (if (> brightness dawn)
+              (do (day-fn!) :day)
+              :night))}})
+```
+
+
+# Pin reading & writing
+
+**Protocols for abstracting away AIN vs GPIO:**
+
+```
+(defprotocol ReadablePin
+  (read! [this]))
+
+(defprotocol WriteablePin
+  (write! [this val]))
+
+(defprotocol InitablePin
+  (init! [this])
+  (close! [this]))
+```
+
+<br/>
+
+**Implementations:**
+
+Uhh... Filesystem black magick. Nothing to see here...
+
+
+# Buttons
+
+```
+(defprotocol IButton
+  (open? [this])
+  (closed? [this]))
+
+(defrecord NormallyOnButton [gpio-pin]
+  IButton
+  (closed? [_]
+    (off? gpio-pin))
+  (open? [_]
+    (on? gpio-pin)))
+
+(defrecord NormallyOffButton [gpio-pin]
+  IButton
+  (closed? [_]
+    (on? gpio-pin))
+  (open? [_]
+    (off? gpio-pin)))
+```
+
+
+# H-bridge
+
+```
+(defprotocol HBridgeable
+  (forward! [this])
+  (reverse! [this])
+  (stop! [this]))
+```
+
+
+# Control routines
+
+Enough setup...
+
+This is where things started to get interesting.
+
+
+# Opening the door
+
+```
+(defn open-door! [motor floor-btn roof-btn]
+  (reverse! motor)
+  (wait-till (closed? roof-btn)
+    (stop! motor)))
+```
+
+
+# Closing the door
+
+```
+(defn close-door! [motor floor-btn]
+  (forward! motor)
+  (wait-till (closed? floor-btn)
+    ; Wait a little so door locks
+    (Thread/sleep 500)
+    (stop! motor)))
+```
+
+
+# Simple right?
+
+
+# What if door misses button!?
+
+^imghl "figures/strange_coop/scream.png" 300
+
+* Drained battery
+* Grumpy, hungry chickens
+* Not so hungry raccoons
+
+
+# The solution
+
+**RETRIES!**
+
+
+# Safe door closing
+
+## Idea
+
+If the floor button doesn't activate, eventually the door will be pulled up again and hit the roof button.
+
+<br/>
+
+So we detect whether the roof button hits during a close, and give it a couple of retries.
+
+## Setup
+
+```
+(defn close-door! [motor floor-btn roof-btn]
+  (let [door-close-wait 500 ; time to wait after door closes for latches to lock
+        n-retries       3
+        max-time-secs   120
+        max-time-ms     (* max-time-secs 1000)
+        lower!          (partial forward! motor)
+        start-time      (System/currentTimeMillis)]
+    (lower!)
+    ...))
+```
+
+## All of the catches
+
+```
+    (loop [tries 0]
+      (cond
+        ; Standard closing procedure
+        (closed? floor-btn)     (Thread/sleep door-close-wait))
+        ; Reached final tries
+        (and (closed? roof-btn) (> tries n-retries))
+                            (do (update-status! :errors)
+                                (reverse! motor)
+                                (Thread/sleep 5000)) ; best effort to close
+        ; The door hit the roof before the floor button triggered; Reverse and try again.
+        (closed? roof-btn)  (do (update-status! :warnings)
+                                (reverse! motor)
+                                (Thread/sleep 1000) ; make sure door lets go of button
+                                (wait-till (or (closed? roof-btn)
+                                               (max-time-up max-time-ms start-time))
+                                  (lower!)
+                                  (Thread/sleep 1000)) ; make sure does lets go of button
+                                (recur (inc tries)))
+        ; After a certain amount of time, just give up
+        (max-time-up max-time-ms start-time)
+                                (update-status! :errors)
+        ; Run the loop again
+        :else               (recur tries))
+```
+
+## Finally, make sure motor stops outside loop
+
+```
+    ; Last thing, make sure to stop once out of loop
+    (stop! motor)
+```
+
+
+# Putting the pieces together
+
+## Setup & config
+
+```
+(defn -main []
+  (let [floor-btn (button :P8 11 :normally-off)
+        roof-btn  (button :P8 12 :normally-on)
+        light-ain (ain 33)
+        mtr-ctrl  (hbridge [16 17 18] :header :P8)
+        timer     (time-sm
+                    (init-state! floor-btn roof-btn light-ain)
+                    (partial open-door! mtr-ctrl floor-btn roof-btn)
+                    (partial close-door! mtr-ctrl floor-btn roof-btn))]
+    ...))
+```
+
+## Start status led thread
+
+```
+    (future
+      (let [status-patterns {:running  [1500 3000] ; nice steady pulse
+                             :warnings [1000 1000]
+                             :errors   [100 50 100 750]}
+            status-led (gpio :P8 14 :out)]
+        (loop []
+          (blink-led status-led (status-patterns status))
+          (recur))))
+```
+
+## The main control loop
+
+```
+    (loop [timer timer]
+      (Thread/sleep 1000)
+      (let [light-level (safe-read! light-ain)]
+        (log "Current levels:: light:" light-level)
+        (recur (trans-sm! timer light-level))))
+```
+
+
+# Video or it didn't happen
+
+<video id="demo-movie" src="figures/strange_coop/video.mov" controls></video>
+
+
+# And the chickens rejoice!
+
+^imghl "figures/strange_coop/dancing_chickens.gif" 400
+^div caption "Dancing chickens"
+
+
+# Hardware + Clojure => ?
+
+**Pros:**
+
+* Inherent asynchrony/concurrency
+* High level capabilities
+* Data is important in IOT
+* It's awesome
+
+<br/>
+
+**Cons:**
+
+* JVM isn't light
+* Full OS required
+
+# High hopes
+
+* More powerful boards
+* Less battery hungry
+* Native compilation targets?
+
+<br/>
+<br/>
+
+## Asynchrony/concurrency is not going away
+
+
+# However, ecosystem currently fragmented in Clojure
+
+<br/>
+
+## People have done really cool things:
+
+* Peter Schwarz: @peterschwarz
+* Nurullah Akkaya: @nakkaya
+* Carin Meier: @gigasquid 
+* Boris Kourtoukov: @boriskourt
+
+<br/>
+<br/>
+
+**But they are siloed.**
+
+
+# Introducing clj-bots
+
+^imghl "figures/strange_coop/clj-bots-logo.svg" 450
+
+[github.com/clj-bots](https://github.com/clj-bots) &nbsp; &nbsp; &nbsp; [gittr.im/clj-bots/chat](https://gittr.im/clj-bots/chat)
+
+
+# clj-bots goals
+
+* Unified API
+* Educational resource
+* Higher level constructs based on abstractions
+* Simulator implementations
+
+
+# pin-ctrl: the heart of clj-bots
+
+* Core API around which abstractions can be built
+* Independent as possible of underlying device
+* Implementation registration ala `core.matrix`
+
+
+# Pin-ctrl API
+
+
+## Implementation registration
+
+```
+(defprotocol PPinCtrlImplementation
+  (create-board [this config])
+  (default-config [this]))
+
+(def implementation
+  (reify
+    PPinCtrlImplementation
+    (create-board [_ config]
+      (sim-board config))
+    (default-config [_]
+      {:stuff :here})))
+
+(register-implementation :simulator implementation)
+
+```
+
+## Board
+
+Uses `type` to get correct instantiation function.
+
+```
+(defn create-board
+  ([type]
+   (create-board type {}))
+  ([type config]
+   (impl/instantiate type config)))
+```
+
+## Pin
+
+Thin wrapper around the board object:
+
+```
+(defrecord Pin
+  [board pin-n])
+
+(defn get-pin
+  ([board pin-n]
+   (Pin. board pin-n))
+  ([board pin-n mode]
+   (p/set-mode! board pin-n mode)
+   (Pin. board pin-n)))
+```
+
+## Basic control functions
+
+```
+(defn set-mode!
+  ([pin mode] (board-apply p/set-mode! pin mode))
+  ([board pin-n mode] (p/set-mode! board pin-n mode)))
+
+(defn read-value
+  ([pin] (board-apply p/read-value pin))
+  ([board pin-n] (p/read-value board pin-n)))
+
+(defn read-raw-value
+  ([pin] (board-apply p/read-raw-value pin))
+  ([board pin-n] (p/read-raw-value board pin-n)))
+
+(defn write-value!
+  ([pin val] (board-apply p/write-value! pin val))
+  ([board pin-n val] (p/write-value! board pin-n val)))
+
+(defn toggle!
+  ([pin] (board-apply toggle! pin))
+  ([board pin-n]
+   (let [current-val (read-value board pin-n)
+         new-val (if (= current-val :low) :high :low)]
+     (write-value! board pin-n new-val))))
+```
+
+## Edge detection functionality
+
+```
+(defmulti set-edge! board-dispatch)
+
+(defmethod set-edge! true
+  [board pin-n edge & [ch-or-buffer]]
+  ...)
+
+(defmethod set-edge! false
+  [pin edge & [ch-or-buffer]]
+  (board-apply set-edge! pin edge ch-or-buffer))
+
+(defn get-edge-chan
+  ([board pin-n]
+   (sw/get-edge-chan board pin-n))
+  ([pin]
+   (board-apply sw/get-edge-chan pin)))
+
+(defn set-edge-chan!
+  ([board pin-n ch]
+   (sw/set-edge-chan! board pin-n ch))
+  ([pin ch]
+   (board-apply sw/set-edge-chan! pin ch)))
+```
+
+## Probably more asynchronous/streaming API eventually
+
+
+# Challenges
+
+How to
+
+* treat the board abstraction's state
+* separate out as much logic as possible from the implementations
+
+
+# Leaky abstraction?
+
+## Important question with onboard vs overwire
+
+
+# Current status
+
+* pin-ctrl fleshed out
+* Working simulator (only controllable from same process)
+
+
+# Would have more done, but
+
+^imghl "figures/strange_coop/calvin-programming.jpg" 500
+^div caption "My help is taking a while to get up to speed..."
+
+
+# Please help!
+
+* Implementations & resources
+    * for different boards
+    * for different pin types
+* Components
+* Documentation
+* Feedback
+
+
+# Why Clojurists should look at Hardware
+
+* **It's fun!**
+* We win asynchronicity/concurrency
+* The IOT is also about what you _DO_ with data
+* Powerful
+
+
+# Future of the Coop
+
+## An internet of chickens:
+
+* Email/text notifications
+* Automate poop cleanup
+* Egg collecting robot
+* Scratch dispenser
+* Raccoon/rat turret
+* Chicken cam
+
+
+# Thanks to
+
+* My wife Patricia, for putting up with me
+* Peter Schwarz, for thoughts on pin-ctrl
+* Ben Rosas for the Strange Coop pun
+* Cognitect for all the things
+
+
+# More dancing chickens
+
+[github.com/metasoarous/strange-coop](https://github.com/metasoarous/strange-coop)
+
+^imghl "figures/strange_coop/dancing_chickens.gif" 400
+^div caption "Dancing chickens"
+
+
+# Extras...
+
+## Initializing state for the day
+
+```
+(defn init-state! [floor-btn roof-btn light-ain]
+  (cond
+    (closed? floor-btn) :night
+    (closed? roof-btn) :day
+    (> (safe-read! light-ain) 0.15) :day
+    :else :night))
+```
+
+## Shutdown hook
+
+```
+(def active-pins (atom {}))
+
+(setup-shutdown-hook!
+  (fn []
+    (log "Running shutdown hook")
+    (doseq [[k p] @active-pins]
+      (try
+        (log "Closing pin:" k)
+        (close! p)
+        (catch Exception e
+          (log "Problems closing pin" k)
+          (.printStackTrace e))))))
+```
+
+## And closing the door
+
+```
+(defn close-door! [motor floor-btn roof-btn]
+  (log "Initiating close-door! sequence")
+  (let [door-close-wait 500 ; time to wait after door closes for latches to lock
+        n-retries       3
+        max-time-secs   120
+        max-time-ms     (* max-time-secs 1000)
+        lower-with-log  (fn []
+                          (log "Lowering door")
+                          (forward! motor))
+        start-time      (System/currentTimeMillis)]
+    (lower-with-log)
+    (loop [tries 0]
+      (cond
+        ; Standard closing procedure
+        (closed? floor-btn) (do (log "Stopping door")
+                                (Thread/sleep door-close-wait))
+        ; The final try of the above
+        (and (closed? roof-btn) (> tries n-retries))
+                            (do (log "ERROR: Hit roof with max number of retries. Attempting to close without
+worrying about btn.")
+                                (update-status! :errors)
+                                (reverse! motor)
+                                (Thread/sleep 5000)) ; exit
+        ; The door hit the roof before the floor button triggered; Reverse and try again.
+        (closed? roof-btn)  (do (log "WARNING: Hit roof; reeling back in and trying again.")
+                                (update-status! :warnings)
+                                (reverse! motor)
+                                (Thread/sleep 1000) ; make sure door lets go of button
+                                (wait-till (or (closed? roof-btn)
+                                               (max-time-up max-time-ms start-time))
+                                  (log "Reeling complete; trying again.")
+                                  (lower-with-log)
+                                  (Thread/sleep 1000)) ; make sure does lets go of button
+                                (recur (inc tries)))
+        ; After a certain amount of time, just give up
+        (max-time-up max-time-ms start-time)
+                            (do (log "ERROR: Maxed out on time; Shutting down.")
+                                (update-status! :errors))
+        ; Run the loop again
+        :else               (recur tries)))
+    ; Last thing, make sure to stop once out of loop
+    (stop! motor)))
+```
+
+## H-bridge impl
+
+```
+(defrecord HBridge4Pin [+for -for +rev -rev]
+  HBridgeable
+  (forward! [this]
+    ; Wait a tad between calls to prevent short
+    ; XXX - should make this wait configurable via assoc opt; or could use a binding
+    (with-sleeps (or (:ms-wait this) 30)
+      ; Reverse circuit off
+      (bb/writes! [+rev -rev] :off)
+      ; Turn forward circuit on
+      (bb/writes! [+for -for] :on)))
+  (reverse! [this]
+    (with-sleeps (or (:ms-wait this) 30)
+      ; similarly as forward! ...
+      (bb/writes! [+for -for] :off)
+      (bb/writes! [+rev -rev] :on)))
+  (stop! [_]
+    (bb/writes! [+for -for +rev -rev] :off)))
+```

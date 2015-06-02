@@ -18,11 +18,11 @@
 
 # What you won't get from this class
 
-We won't be covering many things that would be useful to you:
+...but that might be useful:
 
-* Mathematics
-* Statistics
 * Higher level programming
+* Statistics
+* Other mathematics
 * Knowledge of every bioinformatics program/method ever created
 
 But hopefully you'll have enough momentum to learn these on your own as needed.
@@ -31,7 +31,7 @@ But hopefully you'll have enough momentum to learn these on your own as needed.
 # Please spend _some_ time outside class
 
 * Time is the only way to learn these things
-* The waiting list is > 127 long
+* The waiting list is > 150 long
 
 
 # Overview of class
@@ -73,17 +73,10 @@ We can now get it
 
 <br/>
 
-**ENTER DATA SCIENCE**
+**ENTER BIOINFORMATICS**
 
 
-# What is data science?
-
-
-# Soren MacBeth's definition
-
-> _Data science_ is the stuff that people with the job title of _Data Scientist_ do.
-
-A cop out... But the point is it's amporphous and hard to define.
+# What is bioinformatics?
 
 
 # From the book
@@ -94,7 +87,7 @@ A cop out... But the point is it's amporphous and hard to define.
 > Likewise, a bioinformatician may receive a huge sequencing data set, and immediately start using a set of tools to learn about the data, and see what story the data tell.
 >
 > ...
-> Learning one’s tools is a necessary, but not sufficient step...
+> In both cases learning one’s tools is a necessary, but not sufficient step...
 
 
 # From the "Bird", Charlie Parker
@@ -110,18 +103,16 @@ Also phrased as
 
 # My summary
 
-## Data science & bioinformatics are more than the sum of the pieces
+## Bioinformatics is more than the sum of the pieces
 
 There is an art to putting the technical pieces together to make science happen.
 
-But the common goal is to learn things from data.
 
-
-# Aspects of Data Science / Bioinformatics
+# Aspects of Bioinformatics
 
 Categories of things we typically do:
 
-munging | exploration | conclusions | rinse & repeat
+munging | exploration | conclusions
 
 
 # Data munging
@@ -199,7 +190,7 @@ Write _scripts_ for everything:
 Aids: reproducibility, robustness, accuracy, iterability
 
 
-# Approaches to immutability, documentation and automation
+# Guiding principals & practices towards this end
 
 Unix philosophy | project organization
 
@@ -220,8 +211,8 @@ Bottom line: Being consistent aids in automation & clarity:
 * naming schemes
 * path schemes
 
-The book's author takes an approach I've tried and had difficulties with (shared data between multiple analyses).
-Find what works for you...
+_Note: I use a somewhat different organizational scheme than the book's author.
+Find what works for you..._
 
 
 # Project layout
@@ -269,6 +260,17 @@ Name your connection, so you'll remember what it is (lynx/manx).
 1. Click the square button in the upper left.
 2. Type in "Terminal"
 3. Click on the Terminal icon (the one with `>_` on it)
+
+
+# Brief overview of a Unix command
+
+`command <flags> <operands>`
+
+Example: `ls -a ~`
+
+* `ls`: The command, for listing directory contents
+* `-a`: A flag (short), which specifies that hidden files should be listed
+* `~`: An operand, in this case a special symbol which points to your home directory
 
 
 # SSH into rhino
@@ -330,6 +332,8 @@ Name your connection, so you'll remember what it is (lynx/manx).
     tar -vxf data.tar
 
 This unpacks the data into the `data` dir for us.
+
+Use `tar -h` when you need help.
 
 
 # Let's look at what we've done
