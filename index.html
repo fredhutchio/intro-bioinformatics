@@ -7,7 +7,6 @@
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
   <style type="text/css">
-div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
   margin: 0; padding: 0; vertical-align: baseline; border: none; }
 table.sourceCode { width: 100%; line-height: 100%; }
@@ -55,9 +54,9 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li>Then install <a href="http://brew.sh">homebrew</a></li>
 <li>Then run <code>brew install sshfs</code> from your OSX terminal</li>
 </ul>
-<p>You should now be able to run</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">mkdir</span> -p ~/mounts/hutch
-<span class="kw">sshfs</span> rhino: ~/mounts/hutch</code></pre></div>
+<p>From within the Fred Hutch network you should now be able to run</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">mkdir</span> -p ~/mounts/hutch
+<span class="kw">sshfs</span> rhino: ~/mounts/hutch</code></pre>
 <p>Now you can access files in your home directory on the servers as though they lived in <code>~/mounts/hutch</code> on your laptop. In particular, you can now use your text editor of choice to edit code files for the remainder of this class. (We recommend <a href="http://www.sublimetext.com/">Sublime Text</a>, but if you're on Ubuntu you can probably get by with Gedit).</p>
 <h3 id="windows-users...">Windows users...</h3>
 <p>Sorry, running directly from Windows is not supported. You can always install <a href="https://www.virtualbox.org/wiki/Downloads">Virtual Box</a>, and an Ubuntu virtual machine if you really want to run things on your own laptop, and in particular if you're interested in having your own Linux environment to play with.</p>

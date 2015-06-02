@@ -77,11 +77,11 @@
 </section>
 <section id="what-you-wont-get-from-this-class" class="level1">
 <h1>What you won’t get from this class</h1>
-<p>We won’t be covering many things that would be useful to you:</p>
+<p>…but that might be useful:</p>
 <ul>
-<li>Mathematics</li>
-<li>Statistics</li>
 <li>Higher level programming</li>
+<li>Statistics</li>
+<li>Other mathematics</li>
 <li>Knowledge of every bioinformatics program/method ever created</li>
 </ul>
 <p>But hopefully you’ll have enough momentum to learn these on your own as needed.</p>
@@ -90,7 +90,7 @@
 <h1>Please spend <em>some</em> time outside class</h1>
 <ul>
 <li>Time is the only way to learn these things</li>
-<li>The waiting list is &gt; 127 long</li>
+<li>The waiting list is &gt; 150 long</li>
 </ul>
 </section>
 <section id="overview-of-class" class="level1">
@@ -131,24 +131,17 @@
 <section id="to-understand-biology-we-need-to-understand-data" class="level1">
 <h1>To understand biology, we need to understand data</h1>
 <p><br/></p>
-<p><strong>ENTER DATA SCIENCE</strong></p>
+<p><strong>ENTER BIOINFORMATICS</strong></p>
 </section>
-<section id="what-is-data-science" class="level1">
-<h1>What is data science?</h1>
-</section>
-<section id="soren-macbeths-definition" class="level1">
-<h1>Soren MacBeth’s definition</h1>
-<blockquote>
-<p><em>Data science</em> is the stuff that people with the job title of <em>Data Scientist</em> do.</p>
-</blockquote>
-<p>A cop out… But the point is it’s amporphous and hard to define.</p>
+<section id="what-is-bioinformatics" class="level1">
+<h1>What is bioinformatics?</h1>
 </section>
 <section id="from-the-book" class="level1">
 <h1>From the book</h1>
 <p>(edited)</p>
 <blockquote>
 <p>A jazz musician can walk into a nightclub, hear a familiar song, recognize the chord changes, and begin playing musical ideas over these chords. Likewise, a bioinformatician may receive a huge sequencing data set, and immediately start using a set of tools to learn about the data, and see what story the data tell.</p>
-<p>… Learning one’s tools is a necessary, but not sufficient step…</p>
+<p>… In both cases learning one’s tools is a necessary, but not sufficient step…</p>
 </blockquote>
 </section>
 <section id="from-the-bird-charlie-parker" class="level1">
@@ -163,16 +156,15 @@
 </section>
 <section id="my-summary" class="level1">
 <h1>My summary</h1>
-<section id="data-science-bioinformatics-are-more-than-the-sum-of-the-pieces" class="level2">
-<h2>Data science &amp; bioinformatics are more than the sum of the pieces</h2>
+<section id="bioinformatics-is-more-than-the-sum-of-the-pieces" class="level2">
+<h2>Bioinformatics is more than the sum of the pieces</h2>
 <p>There is an art to putting the technical pieces together to make science happen.</p>
-<p>But the common goal is to learn things from data.</p>
 </section>
 </section>
-<section id="aspects-of-data-science-bioinformatics" class="level1">
-<h1>Aspects of Data Science / Bioinformatics</h1>
+<section id="aspects-of-bioinformatics" class="level1">
+<h1>Aspects of Bioinformatics</h1>
 <p>Categories of things we typically do:</p>
-<p>munging | exploration | conclusions | rinse &amp; repeat</p>
+<p>munging | exploration | conclusions</p>
 </section>
 <section id="data-munging" class="level1">
 <h1>Data munging</h1>
@@ -246,8 +238,8 @@
 </ul>
 <p>Aids: reproducibility, robustness, accuracy, iterability</p>
 </section>
-<section id="approaches-to-immutability-documentation-and-automation" class="level1">
-<h1>Approaches to immutability, documentation and automation</h1>
+<section id="guiding-principals-practices-towards-this-end" class="level1">
+<h1>Guiding principals &amp; practices towards this end</h1>
 <p>Unix philosophy | project organization</p>
 </section>
 <section id="the-unix-philosophy" class="level1">
@@ -266,7 +258,7 @@
 <li>naming schemes</li>
 <li>path schemes</li>
 </ul>
-<p>The book’s author takes an approach I’ve tried and had difficulties with (shared data between multiple analyses). Find what works for you…</p>
+<p><em>Note: I use a somewhat different organizational scheme than the book’s author. Find what works for you…</em></p>
 </section>
 <section id="project-layout-1" class="level1">
 <h1>Project layout</h1>
@@ -294,10 +286,10 @@
 <h1>Fire up NoMachine</h1>
 <p>Open no machine, and click the “New” button in the orange bar. Name your connection, so you’ll remember what it is (lynx/manx).</p>
 <ol type="1">
-<li>The protocol is “nx”</li>
-<li>The host is lynx or lynx.fhcrc.org or manx or manx.fhcrc.org, port 4000</li>
-<li>The authentication is password</li>
-<li>Don’t use a proxy</li>
+<li>The protocol is <strong>NX</strong></li>
+<li>The host is <strong>lynx</strong> or <strong>lynx.fhcrc.org</strong> or <strong>manx</strong> or <strong>manx.fhcrc.org</strong>, port <strong>4000</strong></li>
+<li>The authentication is <strong>Password</strong></li>
+<li><strong>Don’t use a proxy</strong></li>
 <li>Name your connection so you can remember what it is.</li>
 </ol>
 </section>
@@ -308,6 +300,16 @@
 <li>Type in “Terminal”</li>
 <li>Click on the Terminal icon (the one with <code>&gt;_</code> on it)</li>
 </ol>
+</section>
+<section id="brief-overview-of-a-unix-command" class="level1">
+<h1>Brief overview of a Unix command</h1>
+<p><code>command &lt;flags&gt; &lt;operands&gt;</code></p>
+<p>Example: <code>ls -a ~</code></p>
+<ul>
+<li><code>ls</code>: The command, for listing directory contents</li>
+<li><code>-a</code>: A flag (short), which specifies that hidden files should be listed</li>
+<li><code>~</code>: An operand, in this case a special symbol which points to your home directory</li>
+</ul>
 </section>
 <section id="ssh-into-rhino" class="level1">
 <h1>SSH into rhino</h1>
@@ -365,6 +367,7 @@ touch README.md</code></pre>
 <h1>It’s not <em>that</em> bad</h1>
 <pre><code>tar -vxf data.tar</code></pre>
 <p>This unpacks the data into the <code>data</code> dir for us.</p>
+<p>Use <code>tar -h</code> when you need help.</p>
 </section>
 <section id="lets-look-at-what-weve-done" class="level1">
 <h1>Let’s look at what we’ve done</h1>
@@ -409,7 +412,7 @@ nw_display output/tree.nw | less</code></pre>
 <section id="resources" class="level1">
 <h1>Resources</h1>
 <ul>
-<li>These slides: <a href="http://fredhutchio.github.io/intro-bioinformatics" class="uri">http://fredhutchio.github.io/intro-bioinformatics</a></li>
+<li>These slides: <a href="http://fredhutchio.github.io/intro-bioinformatics">http://fredhutchio.github.io/intro-bioinformatics</a></li>
 </ul>
 </section>
 </div>
