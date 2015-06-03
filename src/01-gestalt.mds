@@ -311,6 +311,7 @@ Example: `ls -a ~`
     mkdir ~/bioinfclass
 
     cd ~/bioinfclass
+    pwd
 
     mkdir data output scripts
 
@@ -334,6 +335,8 @@ Example: `ls -a ~`
 This unpacks the data into the `data` dir for us.
 
 Use `tar -h` when you need help.
+
+(Also see `gunzip` and `gzip` for `.zip` files.)
 
 
 # Let's look at what we've done
@@ -386,4 +389,6 @@ This is part of the Unix philosophy's composability.
 # Resources
 
 * These slides: <http://fredhutchio.github.io/intro-bioinformatics>
+* Unix command reference: <https://ubuntudanmark.dk/filer/fwunixref.pdf>
+
 
