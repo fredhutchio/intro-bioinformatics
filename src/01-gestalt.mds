@@ -334,7 +334,7 @@ Example: `ls -a ~`
 
 This unpacks the data into the `data` dir for us.
 
-Use `tar -h` when you need help.
+Use `tar --help` when you need help.
 
 (Also see `gunzip` and `gzip` for `.zip` files.)
 
