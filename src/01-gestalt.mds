@@ -296,14 +296,14 @@ Example: `ls -a ~`
 
 # Quick tmux demo
 
-* `Ctrl-A` - your "Command key"
-* `Ctrl-A ?` - Help
-* `Ctrl-A d` - Detatch session
+* `Ctrl-a` - your "Command key"
+* `Ctrl-a ?` - Help
+* `Ctrl-a d` - Detatch session
 
 <br/>
 
-* `Ctrl-A C` - New window
-* `Ctrl-A <Space>` - Next window
+* `Ctrl-a c` - New window
+* `Ctrl-a <Space>` - Next window
 
 
 # Create a project directory
