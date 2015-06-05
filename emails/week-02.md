@@ -22,8 +22,8 @@ Please make sure that you are up to speed operationally by following these steps
 * open up a new virtual terminal window
 * make a file using `touch <insert your file name here>`
 * remove that file using `rm`
-* close your terminal window by typing `exit`
 * detach your tmux session
+* close your terminal window by typing `exit`
 
 Also, if you want more information on tmux and a demo of what it can do, take a look at [the fredhutch.io page on terminal multiplexing](http://www.fredhutch.io/articles/2014/04/27/terminal-multiplex/).
 
