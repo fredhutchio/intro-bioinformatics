@@ -48,7 +48,7 @@ If a directory `d` is currently in scope and contains a file/subdirectory called
 * `/` - The "root" of the filesystem; everything lives here
 * `.` - Current directory (depends on where you are)
 * `..` - Parent directory (depends on where you are)
-* `~` - Home directory (depends on user logged in)
+* `~` - Home directory
 
 
 # We change directories with `cd`, and see where we are with `pwd`
@@ -59,18 +59,38 @@ cd bioinfclass
 pwd
 ```
 
+# We can see what's in a directory with `ls`
+
+
+# Exercise: going up the directory chain
+
+Try
+
+* `ls ..`
+* `ls ../..`
+* `cd /`
+
+Where are we now? How can we get back to our home directory?
+
 
 # We can change the path of a file using `mv`
 
-If the directory of the file is the same, it's as though we just _renamed_ the file but didn't move it since it's in the same directory.
+```
+TODO: Example here
+```
+
+If the directory of the file is the same, we just _rename_ the file, but the command stays the same.
 
 
 # We can make new directories or files with `mkdir` and `touch`
 
-`mkdir name` and `touch name` will create something in `$(pwd)/name`
+* `mkdir name` will create a directory `name`
+* `touch name` will create a file `name`
 
+&nbsp;
 
-# We can see what's in a directory with `ls`
+TODO Exercise: create a file in a subdirectory from your home directory
+
 
 
 # Commands
@@ -82,13 +102,13 @@ In which the things take flight and evolve!
 
 `command <flags> <operands>`
 
-* command - name of the program; executable file
+* command - name of the program
 * operands - positional based arguments
     * often but not always required
 * flags - named based arguments
-    * let us ignore position
+    * position frequently ignored
     * usually for controlling details of program behavior
-    * usually not required
+    * often not required
     * sometimes take arguments, sometimes not
 
 
@@ -99,7 +119,7 @@ In which the things take flight and evolve!
 * sometimes single dash and word (like `-help`; esp Java programs)
 * sometimes there are short and long options (like `-h` or `--help`)
 * sometimes short flags can be munged together (`-v -x -f the-file` == `-vxf the-file`)
-* example with argument: `-s ,`
+* example with argument: `-s ,`, which is the same as `-s,`.
 
 
 # Help with flags
@@ -112,22 +132,29 @@ ls --help
 
 # However... all this depends on the program...
 
-Don't treat any of this as gospel; Flag parsing is entirely up to the program.
+Flag parsing is entirely up to the program.
 Examples:
 
 * Sometimes operands can come before or after flags; sometimes not
-* Sometimes flags can be munged together sometimes not
+* Sometimes flags can be munged together, sometimes not
 * Sometimes flags look completely different (e.g. `dd if=/dev/from of=/dev/to`)
 
 But there are some common patterns and guidelines...
 
 
-# So programs are files, huh?
+# Getting help with `man` and `apropos`
+There is built in help on the command line:
+
+* Try `man ls` (arrows to scroll, q to quit)
+* Try `apropos calculator`
+
+
+# Programs are just files!
 
 ```
 which tree
 
-# -l: "long" list output; lots of info
+# -l: "long" list output; lots of info that we will ignore except for `x` presence/absence
 ls -l /usr/bin/tree
 
 # super secret shortcut
@@ -156,7 +183,7 @@ This can be edited if you want to let your shell know to look other places as we
 
 # Pipes and streams
 
-In which our constructions in flight dawn tongues and communicate!!!
+In which our constructions in flight don tongues and communicate!
 
 
 # A bit about `std` files
