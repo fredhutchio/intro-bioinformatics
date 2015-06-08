@@ -252,7 +252,106 @@ ls -l testfile</code></pre>
 </section>
 <section id="practicum" class="level1">
 <h1>Practicum!</h1>
-<p>In which we apply our knowledge of</p>
+<p>In which we apply our knowledge of these flying, speaking beasts.</p>
+</section>
+<section id="lets-look-at-our-csv-data-a-bit-more" class="level1">
+<h1>Let’s look at our CSV data a bit more</h1>
+</section>
+<section id="head-first" class="level1">
+<h1>Head first…</h1>
+<pre><code>head data/sfv.csv
+
+column -t -s , data/sfv.csv | head</code></pre>
+</section>
+<section id="how-many-humans-are-there" class="level1">
+<h1>How many humans are there?</h1>
+<pre><code>grep human data/sfv.csv | wc -l
+
+grep monkey data/sfv.csv | wc -l</code></pre>
+</section>
+<section id="another-way-we-could-do-these-together" class="level1">
+<h1>Another way we could do these together</h1>
+<p>How many sequences are there for each species?</p>
+<pre><code>cut -d , -f 3 data/sfv.csv | sort | uniq -c</code></pre>
+</section>
+<section id="how-about-how-many-specimens-there-are-per-species" class="level1">
+<h1>How about how many specimens there are per species?</h1>
+<pre><code># First, uniq specimens, with species info
+cut -d , -f 2,3 data/sfv.csv | sort | uniq | head
+
+# Next count that by species
+cut -d , -f 2,3 data/sfv.csv | sort | uniq | cut -d , -f 2 | sort | uniq -c</code></pre>
+</section>
+<section id="what-about-specimens-by-location" class="level1">
+<h1>What about specimens by location?</h1>
+<pre><code>cut -d , -f 2,3,5 data/sfv.csv | sort | uniq | cut -d , -f 2,3 | sort | uniq -c</code></pre>
+<p>Super powerful and fast.</p>
+</section>
+<section id="is-anyone-else-getting-tired-of-all-this--d--f-235-business" class="level1">
+<h1>Is anyone else getting tired of all this <code>-d , -f 2,3,5</code> business?</h1>
+<section id="enter-csvkit" class="level2">
+<h2>Enter <code>csvkit</code></h2>
+<p>We have <code>csv...</code> versions of many of the standard Unix utils:</p>
+<ul>
+<li>csvcut</li>
+<li>csvgrep</li>
+<li>csvjoin</li>
+<li>csvlook</li>
+<li>csvsort</li>
+<li>csvstack</li>
+<li>csvstat</li>
+</ul>
+</section>
+</section>
+<section id="advantages-of-csvkit" class="level1">
+<h1>Advantages of csvkit</h1>
+<ul>
+<li>Can use header names, not just indices</li>
+<li>Don’t have to specify <code>-s ,</code>/<code>-d ,</code> every time</li>
+<li>Headers are treated separately from the data</li>
+</ul>
+</section>
+<section id="looking-at-just-the-human-sequences" class="level1">
+<h1>Looking at just the human sequences</h1>
+<pre><code>csvgrep -c species -m human data/sfv.csv | csvlook | less -S</code></pre>
+</section>
+<section id="the-one-missing-piece-csvuniq" class="level1">
+<h1>The one missing piece: csvuniq</h1>
+<pre><code>wget https://goo.gl/ZdNoUL -O ~/bin/csvuniq
+
+# ~/bin is one of the places we can put programs
+mkdir ~/bin
+
+# Need to let the shell know this should be executable
+chmod +x ~/bin/csvuniq
+
+# Have to install some dependencies
+R
+install.packages(c(&#39;optparse&#39;, &#39;plyr&#39;))</code></pre>
+</section>
+<section id="now-lets-see-what-our-example-looks-like" class="level1">
+<h1>Now let’s see what our example looks like:</h1>
+<pre><code>csvuniq -c specimen,species,location data/sfv.csv | csvuniq -zc species,location | csvlook</code></pre>
+<p>Notice that <code>csvuniq</code> does all of the sorting and cutting for us…</p>
+</section>
+<section id="lets-finish-our-example-from-last-week" class="level1">
+<h1>Let’s finish our example from last week</h1>
+</section>
+<section id="first-lets-take-a-look-at-our-alignment" class="level1">
+<h1>First let’s take a look at our alignment</h1>
+<section id="always-do-this" class="level2">
+<h2>Always do this!</h2>
+<pre><code># We&#39;ll use the `alnvu` program
+pip install alnvu
+
+av -L 99999 -w 99999 -c output/alignment.fasta | less -S</code></pre>
+</section>
+</section>
+<section id="now-we-can-look-at-our-tree" class="level1">
+<h1>Now we can look at our tree</h1>
+<pre><code>FastTree -nt output/alignment.fasta &gt; output/tree.nw
+
+nw_display output/tree.nw | less -S</code></pre>
 </section>
 <section id="feedback" class="level1">
 <h1>Feedback</h1>
