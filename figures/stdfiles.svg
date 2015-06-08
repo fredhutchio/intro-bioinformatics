@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="100mm"
+   viewBox="0 0 744.09449 354.33071"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="stdfiles.svg">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.979899"
+     inkscape:cx="413.63833"
+     inkscape:cy="336.73676"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="2513"
+     inkscape:window-height="1576"
+     inkscape:window-x="47"
+     inkscape:window-y="24"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-698.0315)">
+    <rect
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:4.00494432;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect3586"
+       width="257.24838"
+       height="128.95905"
+       x="221.72739"
+       y="787.77472"
+       ry="0" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:53.39700699px;line-height:125%;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="253.5679"
+       y="868.27417"
+       id="text4388"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4390"
+         x="253.5679"
+         y="868.27417">Program</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text4392"
+       y="865.06885"
+       x="130.89262"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:72.82302094px;line-height:125%;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         y="865.06885"
+         x="130.89262"
+         id="tspan4394"
+         sodipodi:role="line">→</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:125%;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="30.304577"
+       y="700.82916"
+       id="text4396"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4398"
+         x="30.304577"
+         y="700.82916" /></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text4400"
+       y="859.75128"
+       x="31.31101"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:42.26794815px;line-height:125%;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         y="859.75128"
+         x="31.31101"
+         id="tspan4402"
+         sodipodi:role="line">stdin</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text4400-1"
+       y="874.26306"
+       x="36.043663"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.80047226px;line-height:125%;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         y="874.26306"
+         x="36.043663"
+         id="tspan4402-6"
+         sodipodi:role="line" /><tspan
+         y="897.76367"
+         x="36.043663"
+         sodipodi:role="line"
+         id="tspan4422">· &quot;Standard input&quot;</tspan><tspan
+         y="922.43878"
+         x="36.043663"
+         sodipodi:role="line"
+         id="tspan4424">· <tspan
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.79999924px;line-height:125%;font-family:FreeMono;-inkscape-font-specification:'FreeMono, Normal';text-align:start;writing-mode:lr-tb;text-anchor:start"
+   id="tspan4428">/dev/stdin</tspan></tspan><tspan
+         y="947.89716"
+         x="36.043663"
+         sodipodi:role="line"
+         id="tspan4426" /></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.80047226px;line-height:125%;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="535.50317"
+       y="821.71478"
+       id="text4430"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4432"
+         x="535.50317"
+         y="821.71478" /><tspan
+         id="tspan4434"
+         sodipodi:role="line"
+         x="535.50317"
+         y="845.21539">· &quot;Standard output&quot;</tspan><tspan
+         id="tspan4436"
+         sodipodi:role="line"
+         x="535.50317"
+         y="869.8905">· <tspan
+   id="tspan4438"
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.79999924px;line-height:125%;font-family:FreeMono;-inkscape-font-specification:'FreeMono, Normal';text-align:start;writing-mode:lr-tb;text-anchor:start">/dev/stdout</tspan></tspan><tspan
+         id="tspan4440"
+         sodipodi:role="line"
+         x="535.50317"
+         y="895.34888" /></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:72.82302094px;line-height:125%;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="496.00183"
+       y="809.99524"
+       id="text4442"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4444"
+         x="496.00183"
+         y="809.99524">→</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:42.26794815px;line-height:125%;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="586.83398"
+       y="805.68781"
+       id="text4446"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4448"
+         x="586.83398"
+         y="805.68781">stdout</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text4450"
+       y="939.39758"
+       x="535.50317"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.80047226px;line-height:125%;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         y="939.39758"
+         x="535.50317"
+         id="tspan4452"
+         sodipodi:role="line" /><tspan
+         y="962.89819"
+         x="535.50317"
+         sodipodi:role="line"
+         id="tspan4454">· &quot;Standard error&quot;</tspan><tspan
+         y="987.5733"
+         x="535.50317"
+         sodipodi:role="line"
+         id="tspan4456">· <tspan
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.79999924px;line-height:125%;font-family:FreeMono;-inkscape-font-specification:'FreeMono, Normal';text-align:start;writing-mode:lr-tb;text-anchor:start"
+   id="tspan4458">/dev/stderr</tspan></tspan><tspan
+         y="1013.0317"
+         x="535.50317"
+         sodipodi:role="line"
+         id="tspan4460" /></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text4462"
+       y="927.67804"
+       x="496.00183"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:72.82302094px;line-height:125%;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         y="927.67804"
+         x="496.00183"
+         id="tspan4464"
+         sodipodi:role="line">→</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text4466"
+       y="923.37061"
+       x="586.83398"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:42.26794815px;line-height:125%;font-family:FreeSans;-inkscape-font-specification:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         y="923.37061"
+         x="586.83398"
+         id="tspan4468"
+         sodipodi:role="line">stderr</tspan></text>
+  </g>
+</svg>

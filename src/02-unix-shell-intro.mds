@@ -1,8 +1,363 @@
 % Introduction to Bioinformatics
-% Lesson 2 - Gestault & remote access
+% Lesson 2 - Unix Foundations
 
 # The Shell
 
 Shell : Bioinformatician &nbsp; &nbsp; :: &nbsp; &nbsp; Water : Fish
+
+
+# The Unix Philosophy
+
+* Small, composable tools that do one thing right
+* Plumb tools together into pipelines/scripts
+* Embrace plain text/data
+
+This gives us a lot of power.
+
+
+# Let's break things down a bit
+
+
+# Directories, files and paths, oh my!
+
+In which we see the static world of things.
+
+
+# In Unix, (almost) everything is a file
+
+* programs
+* devices
+* /dev/null
+* etc.
+
+
+# And files have **paths**
+
+Paths are the addresses for directories and files
+
+
+# Directories (aka "folders") are containers
+
+## ...for more directories and files...
+
+If a directory `d` is currently in scope and contains a file/subdirectory called `x`, `d/x` will point to `x`.
+
+
+# Some special paths:
+
+* `/` - The "root" of the filesystem; everything lives here
+* `.` - Current directory (depends on where you are)
+* `..` - Parent directory (depends on where you are)
+* `~` - Home directory (depends on user logged in)
+
+
+# We change directories with `cd`, and see where we are with `pwd`
+
+```
+pwd
+cd bioinfclass
+pwd
+```
+
+
+# We can change the path of a file using `mv`
+
+If the directory of the file is the same, it's as though we just _renamed_ the file but didn't move it since it's in the same directory.
+
+
+# We can make new directories or files with `mkdir` and `touch`
+
+`mkdir name` and `touch name` will create something in `$(pwd)/name`
+
+
+# We can see what's in a directory with `ls`
+
+
+# Commands
+
+In which the things take flight and evolve!
+
+
+# Anatomy of a Unix command
+
+`command <flags> <operands>`
+
+* command - name of the program; executable file
+* operands - positional based arguments
+    * often but not always required
+* flags - named based arguments
+    * let us ignore position
+    * usually for controlling details of program behavior
+    * usually not required
+    * sometimes take arguments, sometimes not
+
+
+# More on flag shape
+
+* sometimes single dash and character (like `-h`)
+* sometimes double dash and word (like `--help`)
+* sometimes single dash and word (like `-help`; esp Java programs)
+* sometimes there are short and long options (like `-h` or `--help`)
+* sometimes short flags can be munged together (`-v -x -f the-file` == `-vxf the-file`)
+* example with argument: `-s ,`
+
+
+# Help with flags
+
+```
+ls --help
+
+```
+
+
+# However... all this depends on the program...
+
+Don't treat any of this as gospel; Flag parsing is entirely up to the program.
+Examples:
+
+* Sometimes operands can come before or after flags; sometimes not
+* Sometimes flags can be munged together sometimes not
+* Sometimes flags look completely different (e.g. `dd if=/dev/from of=/dev/to`)
+
+But there are some common patterns and guidelines...
+
+
+# So programs are files, huh?
+
+```
+which tree
+
+# -l: "long" list output; lots of info
+ls -l /usr/bin/tree
+
+# super secret shortcut
+ls -l `which tree`
+
+touch testfile
+
+# Notice no x; not executable...
+ls -l testfile
+```
+
+
+# What else is in `/usr/bin`?
+
+`ls /usr/bin` => LOTS OF STUFF!
+
+This is one of the many places your shell looks for programs
+
+
+# How does the shell know where to look for programs?
+
+`echo $PATH` => `:` separated list of places your shell looks for programs.
+
+This can be edited if you want to let your shell know to look other places as well (see `.bashrc`)
+
+
+# Pipes and streams
+
+In which our constructions in flight dawn tongues and communicate!!!
+
+
+# A bit about `std` files
+
+There are three special files that programs often read from and write to by default to facilitate composability:
+
+^imghl "figures/stdfiles.svg" 300
+
+For the most part we'll ignore `stderr`...
+
+
+# By default, stdout gets printed to the screen
+
+## But we can _redirect_ stdout to a file using `>`
+
+`Program` vs `Program > out-file`
+
+^imghl "figures/redirect.svg" 300
+
+
+# Example of redirection
+
+`FastTree -nt output/alignment.fasta`
+
+vs
+
+`FastTree -nt output/alignment.fasta > output/tree.nw`
+
+
+# We can also `|` `stdout` of one command to `stdin` of another
+
+`Prog1 | Prog2`:
+
+^imghl "figures/pipe.svg" 300
+
+
+# Example
+
+`column -t -s , data/svf.csv | less -S`
+
+* `column` writes it's output to `stdout`
+* `less` reads from `/dev/stdin` if no file is specified
+
+
+# Key point here
+
+## Programs have to _know_ to use stdin / stdout for this to work
+
+Some conventions:
+
+* Assume first argument is input, second output
+* If only one argument is specified, output to `stdout`
+* If no arguments specified, input from `stdin`, output to `stdout`
+* Sometimes there is no "output" argument; assume `stdout`
+* Sometimes programs treat `-` as a shortcut for `stdin`
+* When all else fails, you can read from & write to `/dev/stdout`, `/dev/stdin` directly
+
+
+# Practicum!
+
+In which we apply our knowledge of these flying, speaking beasts.
+
+
+# Let's look at our CSV data a bit more
+
+
+# Head first...
+
+```
+head data/sfv.csv
+
+column -t -s , data/sfv.csv | head
+```
+
+
+# How many humans are there?
+
+```
+grep human data/sfv.csv | wc -l
+
+grep monkey data/sfv.csv | wc -l
+```
+
+
+# Another way we could do these together
+
+How many sequences are there for each species?
+
+```
+cut -d , -f 3 data/sfv.csv | sort | uniq -c
+```
+
+
+# How about how many specimens there are per species?
+
+```
+# First, uniq specimens, with species info
+cut -d , -f 2,3 data/sfv.csv | sort | uniq | head
+
+# Next count that by species
+cut -d , -f 2,3 data/sfv.csv | sort | uniq | cut -d , -f 2 | sort | uniq -c
+```
+
+
+# What about specimens by location?
+
+```
+cut -d , -f 2,3,5 data/sfv.csv | sort | uniq | cut -d , -f 2,3 | sort | uniq -c
+```
+
+Super powerful and fast.
+
+
+# Is anyone else getting tired of all this `-d , -f 2,3,5` business?
+
+## Enter `csvkit`
+
+We have `csv...` versions of many of the standard Unix utils:
+
+* csvcut
+* csvgrep
+* csvjoin
+* csvlook
+* csvsort
+* csvstack
+* csvstat
+
+
+# Advantages of csvkit
+
+* Can use header names, not just indices
+* Don't have to specify `-s ,`/`-d ,` every time
+* Headers are treated separately from the data
+
+
+# Looking at just the human sequences
+
+```
+csvgrep -c species -m human data/sfv.csv | csvlook | less -S
+```
+
+
+# The one missing piece: csvuniq
+
+```
+wget https://goo.gl/ZdNoUL -O ~/bin/csvuniq
+
+# ~/bin is one of the places we can put programs
+mkdir ~/bin
+
+# Need to let the shell know this should be executable
+chmod +x ~/bin/csvuniq
+
+# Have to install some dependencies
+R
+install.packages(c('optparse', 'plyr'))
+```
+
+
+# Now let's see what our example looks like:
+
+```
+csvuniq -c specimen,species,location data/sfv.csv | csvuniq -zc species,location | csvlook
+```
+
+Notice that `csvuniq` does all of the sorting and cutting for us...
+
+
+# Let's finish our example from last week
+
+
+# First let's take a look at our alignment
+
+## Always do this!
+
+```
+# We'll use the `alnvu` program
+pip install alnvu
+
+av -L 99999 -w 99999 -c output/alignment.fasta | less -S
+```
+
+
+# Now we can look at our tree
+
+```
+FastTree -nt output/alignment.fasta > output/tree.nw
+
+nw_display output/tree.nw | less -S
+```
+
+
+# Feedback
+
+Was last week too much?
+Would having taken things more slowly and foundationally like today have helped things?
+
+
+# Resources
+
+* These slides: <http://fredhutchio.github.io/intro-bioinformatics>
+* Unix command reference: <https://ubuntudanmark.dk/filer/fwunixref.pdf>
 
 

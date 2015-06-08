@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+
+<title>Introduction to Bioinformatics</title>
+
+<meta name="description" content="Introduction to Bioinformatics">
+
+<!-- Disabled for now - embeds HTML in author string -->
+<!--  <meta name="author" content="Lesson 2 - Unix Foundations" /> -->
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<link rel="stylesheet" href="reveal.js/css/reveal.css">
+  <link rel="stylesheet" href="src/theme/csmall.css" id="theme">
+
+
+<!-- For syntax highlighting -->
+  <link rel="stylesheet" href="reveal.js/lib/css/zenburn.css">
+
+
+<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+<script>
+  document.write( '<link rel="stylesheet" href="reveal.js/css/print/' +
+    ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) +
+    '.css" type="text/css" media="print">' );
+</script>
+
+<!--[if lt IE 9]>
+<script src="reveal.js/lib/js/html5shiv.js"></script>
+<![endif]-->
+
+<!-- Note escaped dollars -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+  </script>
+
+</head>
+
+<body>
+
+<div class="reveal">
+
+<!-- Any section element inside of this container is displayed as a slide -->
+<div class="slides">
+
+<section>
+<h1>Introduction to Bioinformatics</h1>
+<h3>Lesson 2 - Unix Foundations</h3>
+<p>
+<h4></h4>
+</p>
+</section>
+
+
+<section id="the-shell" class="level1">
+<h1>The Shell</h1>
+<p>Shell : Bioinformatician     ::     Water : Fish</p>
+</section>
+<section id="the-unix-philosophy" class="level1">
+<h1>The Unix Philosophy</h1>
+<ul>
+<li>Small, composable tools that do one thing right</li>
+<li>Plumb tools together into pipelines/scripts</li>
+<li>Embrace plain text/data</li>
+</ul>
+<p>This gives us a lot of power.</p>
+</section>
+<section id="lets-break-things-down-a-bit" class="level1">
+<h1>Let’s break things down a bit</h1>
+</section>
+<section id="directories-files-and-paths-oh-my" class="level1">
+<h1>Directories, files and paths, oh my!</h1>
+<p>In which we see the static world of things.</p>
+</section>
+<section id="in-unix-almost-everything-is-a-file" class="level1">
+<h1>In Unix, (almost) everything is a file</h1>
+<ul>
+<li>programs</li>
+<li>devices</li>
+<li>/dev/null</li>
+<li>etc.</li>
+</ul>
+</section>
+<section id="and-files-have-paths" class="level1">
+<h1>And files have <strong>paths</strong></h1>
+<p>Paths are the addresses for directories and files</p>
+</section>
+<section id="directories-aka-folders-are-containers" class="level1">
+<h1>Directories (aka “folders”) are containers</h1>
+<section id="for-more-directories-and-files" class="level2">
+<h2>…for more directories and files…</h2>
+<p>If a directory <code>d</code> is currently in scope and contains a file/subdirectory called <code>x</code>, <code>d/x</code> will point to <code>x</code>.</p>
+</section>
+</section>
+<section id="some-special-paths" class="level1">
+<h1>Some special paths:</h1>
+<ul>
+<li><code>/</code> - The “root” of the filesystem; everything lives here</li>
+<li><code>.</code> - Current directory (depends on where you are)</li>
+<li><code>..</code> - Parent directory (depends on where you are)</li>
+<li><code>~</code> - Home directory (depends on user logged in)</li>
+</ul>
+</section>
+<section id="we-change-directories-with-cd-and-see-where-we-are-with-pwd" class="level1">
+<h1>We change directories with <code>cd</code>, and see where we are with <code>pwd</code></h1>
+<pre><code>pwd
+cd bioinfclass
+pwd</code></pre>
+</section>
+<section id="we-can-change-the-path-of-a-file-using-mv" class="level1">
+<h1>We can change the path of a file using <code>mv</code></h1>
+<p>If the directory of the file is the same, it’s as though we just <em>renamed</em> the file but didn’t move it since it’s in the same directory.</p>
+</section>
+<section id="we-can-make-new-directories-or-files-with-mkdir-and-touch" class="level1">
+<h1>We can make new directories or files with <code>mkdir</code> and <code>touch</code></h1>
+<p><code>mkdir name</code> and <code>touch name</code> will create something in <code>$(pwd)/name</code></p>
+</section>
+<section id="we-can-see-whats-in-a-directory-with-ls" class="level1">
+<h1>We can see what’s in a directory with <code>ls</code></h1>
+</section>
+<section id="commands" class="level1">
+<h1>Commands</h1>
+<p>In which the things take flight and evolve!</p>
+</section>
+<section id="anatomy-of-a-unix-command" class="level1">
+<h1>Anatomy of a Unix command</h1>
+<p><code>command &lt;flags&gt; &lt;operands&gt;</code></p>
+<ul>
+<li>command - name of the program; executable file</li>
+<li>operands - positional based arguments
+<ul>
+<li>often but not always required</li>
+</ul></li>
+<li>flags - named based arguments
+<ul>
+<li>let us ignore position</li>
+<li>usually for controlling details of program behavior</li>
+<li>usually not required</li>
+<li>sometimes take arguments, sometimes not</li>
+</ul></li>
+</ul>
+</section>
+<section id="more-on-flag-shape" class="level1">
+<h1>More on flag shape</h1>
+<ul>
+<li>sometimes single dash and character (like <code>-h</code>)</li>
+<li>sometimes double dash and word (like <code>--help</code>)</li>
+<li>sometimes single dash and word (like <code>-help</code>; esp Java programs)</li>
+<li>sometimes there are short and long options (like <code>-h</code> or <code>--help</code>)</li>
+<li>sometimes short flags can be munged together (<code>-v -x -f the-file</code> == <code>-vxf the-file</code>)</li>
+<li>example with argument: <code>-s ,</code></li>
+</ul>
+</section>
+<section id="help-with-flags" class="level1">
+<h1>Help with flags</h1>
+<pre><code>ls --help
+</code></pre>
+</section>
+<section id="however-all-this-depends-on-the-program" class="level1">
+<h1>However… all this depends on the program…</h1>
+<p>Don’t treat any of this as gospel; Flag parsing is entirely up to the program. Examples:</p>
+<ul>
+<li>Sometimes operands can come before or after flags; sometimes not</li>
+<li>Sometimes flags can be munged together sometimes not</li>
+<li>Sometimes flags look completely different (e.g. <code>dd if=/dev/from of=/dev/to</code>)</li>
+</ul>
+<p>But there are some common patterns and guidelines…</p>
+</section>
+<section id="so-programs-are-files-huh" class="level1">
+<h1>So programs are files, huh?</h1>
+<pre><code>which tree
+
+# -l: &quot;long&quot; list output; lots of info
+ls -l /usr/bin/tree
+
+# super secret shortcut
+ls -l `which tree`
+
+touch testfile
+
+# Notice no x; not executable...
+ls -l testfile</code></pre>
+</section>
+<section id="what-else-is-in-usrbin" class="level1">
+<h1>What else is in <code>/usr/bin</code>?</h1>
+<p><code>ls /usr/bin</code> =&gt; LOTS OF STUFF!</p>
+<p>This is one of the many places your shell looks for programs</p>
+</section>
+<section id="how-does-the-shell-know-where-to-look-for-programs" class="level1">
+<h1>How does the shell know where to look for programs?</h1>
+<p><code>echo $PATH</code> =&gt; <code>:</code> separated list of places your shell looks for programs.</p>
+<p>This can be edited if you want to let your shell know to look other places as well (see <code>.bashrc</code>)</p>
+</section>
+<section id="pipes-and-streams" class="level1">
+<h1>Pipes and streams</h1>
+<p>In which our constructions in flight dawn tongues and communicate!!!</p>
+</section>
+<section id="a-bit-about-std-files" class="level1">
+<h1>A bit about <code>std</code> files</h1>
+<p>There are three special files that programs often read from and write to by default to facilitate composability:</p>
+<p><a href="figures/stdfiles.svg" target="_blank"><img src="figures/stdfiles.svg" height="300"></a></p>
+<p>For the most part we’ll ignore <code>stderr</code>…</p>
+</section>
+<section id="by-default-stdout-gets-printed-to-the-screen" class="level1">
+<h1>By default, stdout gets printed to the screen</h1>
+<section id="but-we-can-redirect-stdout-to-a-file-using" class="level2">
+<h2>But we can <em>redirect</em> stdout to a file using <code>&gt;</code></h2>
+<p><code>Program</code> vs <code>Program &gt; out-file</code></p>
+<p><a href="figures/redirect.svg" target="_blank"><img src="figures/redirect.svg" height="300"></a></p>
+</section>
+</section>
+<section id="example-of-redirection" class="level1">
+<h1>Example of redirection</h1>
+<p><code>FastTree -nt output/alignment.fasta</code></p>
+<p>vs</p>
+<p><code>FastTree -nt output/alignment.fasta &gt; output/tree.nw</code></p>
+</section>
+<section id="we-can-also-stdout-of-one-command-to-stdin-of-another" class="level1">
+<h1>We can also <code>|</code> <code>stdout</code> of one command to <code>stdin</code> of another</h1>
+<p><code>Prog1 | Prog2</code>:</p>
+<p><a href="figures/pipe.svg" target="_blank"><img src="figures/pipe.svg" height="300"></a></p>
+</section>
+<section id="example" class="level1">
+<h1>Example</h1>
+<p><code>column -t -s , data/svf.csv | less -S</code></p>
+<ul>
+<li><code>column</code> writes it’s output to <code>stdout</code></li>
+<li><code>less</code> reads from <code>/dev/stdin</code> if no file is specified</li>
+</ul>
+</section>
+<section id="key-point-here" class="level1">
+<h1>Key point here</h1>
+<section id="programs-have-to-know-to-use-stdin-stdout-for-this-to-work" class="level2">
+<h2>Programs have to <em>know</em> to use stdin / stdout for this to work</h2>
+<p>Some conventions:</p>
+<ul>
+<li>Assume first argument is input, second output</li>
+<li>If only one argument is specified, output to <code>stdout</code></li>
+<li>If no arguments specified, input from <code>stdin</code>, output to <code>stdout</code></li>
+<li>Sometimes there is no “output” argument; assume <code>stdout</code></li>
+<li>Sometimes programs treat <code>-</code> as a shortcut for <code>stdin</code></li>
+<li>When all else fails, you can read from &amp; write to <code>/dev/stdout</code>, <code>/dev/stdin</code> directly</li>
+</ul>
+</section>
+</section>
+<section id="practicum" class="level1">
+<h1>Practicum!</h1>
+<p>In which we apply our knowledge of</p>
+</section>
+<section id="feedback" class="level1">
+<h1>Feedback</h1>
+<p>Was last week too much? Would having taken things more slowly and foundationally like today have helped things?</p>
+</section>
+<section id="resources" class="level1">
+<h1>Resources</h1>
+<ul>
+<li>These slides: <a href="http://fredhutchio.github.io/intro-bioinformatics">http://fredhutchio.github.io/intro-bioinformatics</a></li>
+<li>Unix command reference: <a href="https://ubuntudanmark.dk/filer/fwunixref.pdf">https://ubuntudanmark.dk/filer/fwunixref.pdf</a></li>
+</ul>
+</section>
+</div>
+
+<script src="reveal.js/lib/js/head.min.js"></script>
+<script src="reveal.js/js/reveal.min.js"></script>
+
+<script>
+  // Full list of configuration options available here:
+  // https://github.com/hakimel/reveal.js#configuration
+  Reveal.initialize({
+    controls: true,
+    progress: true,
+    history: true,
+    center: false,
+
+
+    rollingLinks: false,
+  
+  // available themes are in /css/theme
+      theme: Reveal.getQueryHash().theme || 'csmall',
+  
+  // default/cube/page/concave/zoom/linear/fade/none
+      transition: Reveal.getQueryHash().transition || 'fade',
+  
+  // Optional libraries used to extend on reveal.js
+  dependencies: [
+    { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+    { src: 'reveal.js/plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+    { src: 'reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+    { src: 'reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+    { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+    { src: 'MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML'}
+    // { src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+    // { src: 'reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+  ]
+  });
+Reveal.addEventListener( 'slidechanged', function( event ) {
+    MathJax.Hub.Rerender();
+} );
+</script>
+
+</body>
+</html>
