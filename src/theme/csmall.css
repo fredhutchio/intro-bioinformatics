@@ -20,6 +20,13 @@ div.slides section ul,
     margin-bottom: 60px;
 }
 
+div.slides section ul ul,
+  div.slides section ol ul,
+  div.slides section ul ol,
+  div.slides section ol ol {
+    margin-bottom: 10px;
+}
+
 div.slides section > p {
   margin-bottom: 40px;
 }
