@@ -3,7 +3,13 @@
 
 # The Shell
 
-Shell : Bioinformatician &nbsp; &nbsp; :: &nbsp; &nbsp; Water : Fish
+## Shell : Bioinformatician &nbsp; :: &nbsp; Water : Fish
+
+<br/>
+
+* Philosophy
+* Tools
+* Cluster computing
 
 
 # The Unix Philosophy
@@ -33,17 +39,15 @@ In which we see the static world of things.
 
 # And files have **paths**
 
-Paths are the addresses for directories and files
+Paths are the addresses for files, and are based on _directories_.
 
 
 # Directories (aka "folders") are containers
 
 ## ...for more directories and files...
 
-If a directory `d` is currently in scope and contains a file/subdirectory called `x`, `d/x` will point to `x`.
 
-
-# Some special paths:
+# Some special paths & directories:
 
 * `/` - The "root" of the filesystem; everything lives here
 * `.` - Current directory (depends on where you are)
@@ -51,35 +55,79 @@ If a directory `d` is currently in scope and contains a file/subdirectory called
 * `~` - Home directory
 
 
-# We change directories with `cd`, and see where we are with `pwd`
+# How paths work
+
+If we have a directory called `bioinfclass` in the directory `~`, the path to this directory is `~/bioinfclass`.
+
+If `bioinfclass` has a subdirectory called `data`, it's path is `~/bioinfclass/data`.
+
+
+# Path tools
+
+* change directories with `cd`
+* list directory contents with `ls`
+* see where we are with `pwd`
+
+
+# Example: Using path tools
 
 ```
+cd ~
+
 pwd
+
+# list the contents of this directory
+ls bioinfclass/data
+
 cd bioinfclass
-pwd
-```
 
-# We can see what's in a directory with `ls`
+pwd
+
+ls data
+```
 
 
 # Exercise: going up the directory chain
 
 Try
 
-* `ls ..`
-* `ls ../..`
-* `cd /`
+```
+ls ..
 
-Where are we now? How can we get back to our home directory?
+ls ../..
+
+cd /
+```
+
+**Excecise:** Where are we now? How can we get back to our home directory?
 
 
 # We can change the path of a file using `mv`
 
 ```
-TODO: Example here
+mv bioinfclass/data foobar
+
+ls
+
+ls foobar
+
+ls bioinfclass
 ```
 
+**Excercise:** How do we get `data` back?
+
+
+# `mv` is for renaming as well
+
 If the directory of the file is the same, we just _rename_ the file, but the command stays the same.
+
+```
+mv bioinfclass foobar
+
+ls
+
+mv foobar bioinfclass
+```
 
 
 # We can make new directories or files with `mkdir` and `touch`
@@ -89,8 +137,7 @@ If the directory of the file is the same, we just _rename_ the file, but the com
 
 &nbsp;
 
-TODO Exercise: create a file in a subdirectory from your home directory
-
+**Exercise:** create a file in a subdirectory from your home directory
 
 
 # Commands
@@ -143,6 +190,7 @@ But there are some common patterns and guidelines...
 
 
 # Getting help with `man` and `apropos`
+
 There is built in help on the command line:
 
 * Try `man ls` (arrows to scroll, q to quit)
@@ -158,7 +206,7 @@ which tree
 ls -l /usr/bin/tree
 
 # super secret shortcut
-ls -l `which tree`
+ls -l $(which tree)
 
 touch testfile
 
@@ -329,10 +377,10 @@ csvgrep -c species -m human data/sfv.csv | csvlook | less -S
 # The one missing piece: csvuniq
 
 ```
-wget https://goo.gl/ZdNoUL -O ~/bin/csvuniq
-
 # ~/bin is one of the places we can put programs
 mkdir ~/bin
+
+wget https://goo.gl/ZdNoUL -O ~/bin/csvuniq
 
 # Need to let the shell know this should be executable
 chmod +x ~/bin/csvuniq
@@ -361,8 +409,6 @@ Notice that `csvuniq` does all of the sorting and cutting for us...
 
 ```
 # We'll use the `alnvu` program
-pip install alnvu
-
 av -L 99999 -w 99999 -c output/alignment.fasta | less -S
 ```
 

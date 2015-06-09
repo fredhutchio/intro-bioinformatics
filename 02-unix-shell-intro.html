@@ -61,7 +61,15 @@
 
 <section id="the-shell" class="level1">
 <h1>The Shell</h1>
-<p>Shell : Bioinformatician     ::     Water : Fish</p>
+<section id="shell-bioinformatician-water-fish" class="level2">
+<h2>Shell : Bioinformatician   ::   Water : Fish</h2>
+<p><br/></p>
+<ul>
+<li>Philosophy</li>
+<li>Tools</li>
+<li>Cluster computing</li>
+</ul>
+</section>
 </section>
 <section id="the-unix-philosophy" class="level1">
 <h1>The Unix Philosophy</h1>
@@ -90,40 +98,89 @@
 </section>
 <section id="and-files-have-paths" class="level1">
 <h1>And files have <strong>paths</strong></h1>
-<p>Paths are the addresses for directories and files</p>
+<p>Paths are the addresses for files, and are based on <em>directories</em>.</p>
 </section>
 <section id="directories-aka-folders-are-containers" class="level1">
 <h1>Directories (aka “folders”) are containers</h1>
 <section id="for-more-directories-and-files" class="level2">
 <h2>…for more directories and files…</h2>
-<p>If a directory <code>d</code> is currently in scope and contains a file/subdirectory called <code>x</code>, <code>d/x</code> will point to <code>x</code>.</p>
 </section>
 </section>
-<section id="some-special-paths" class="level1">
-<h1>Some special paths:</h1>
+<section id="some-special-paths-directories" class="level1">
+<h1>Some special paths &amp; directories:</h1>
 <ul>
 <li><code>/</code> - The “root” of the filesystem; everything lives here</li>
 <li><code>.</code> - Current directory (depends on where you are)</li>
 <li><code>..</code> - Parent directory (depends on where you are)</li>
-<li><code>~</code> - Home directory (depends on user logged in)</li>
+<li><code>~</code> - Home directory</li>
 </ul>
 </section>
-<section id="we-change-directories-with-cd-and-see-where-we-are-with-pwd" class="level1">
-<h1>We change directories with <code>cd</code>, and see where we are with <code>pwd</code></h1>
-<pre><code>pwd
+<section id="how-paths-work" class="level1">
+<h1>How paths work</h1>
+<p>If we have a directory called <code>bioinfclass</code> in the directory <code>~</code>, the path to this directory is <code>~/bioinfclass</code>.</p>
+<p>If <code>bioinfclass</code> has a subdirectory called <code>data</code>, it’s path is <code>~/bioinfclass/data</code>.</p>
+</section>
+<section id="path-tools" class="level1">
+<h1>Path tools</h1>
+<ul>
+<li>change directories with <code>cd</code></li>
+<li>list directory contents with <code>ls</code></li>
+<li>see where we are with <code>pwd</code></li>
+</ul>
+</section>
+<section id="example-using-path-tools" class="level1">
+<h1>Example: Using path tools</h1>
+<pre><code>cd ~
+
+pwd
+
+# list the contents of this directory
+ls bioinfclass/data
+
 cd bioinfclass
-pwd</code></pre>
+
+pwd
+
+ls data</code></pre>
+</section>
+<section id="exercise-going-up-the-directory-chain" class="level1">
+<h1>Exercise: going up the directory chain</h1>
+<p>Try</p>
+<pre><code>ls ..
+
+ls ../..
+
+cd /</code></pre>
+<p><strong>Excecise:</strong> Where are we now? How can we get back to our home directory?</p>
 </section>
 <section id="we-can-change-the-path-of-a-file-using-mv" class="level1">
 <h1>We can change the path of a file using <code>mv</code></h1>
-<p>If the directory of the file is the same, it’s as though we just <em>renamed</em> the file but didn’t move it since it’s in the same directory.</p>
+<pre><code>mv bioinfclass/data foobar
+
+ls
+
+ls foobar
+
+ls bioinfclass</code></pre>
+<p><strong>Excercise:</strong> How do we get <code>data</code> back?</p>
+</section>
+<section id="mv-is-for-renaming-as-well" class="level1">
+<h1><code>mv</code> is for renaming as well</h1>
+<p>If the directory of the file is the same, we just <em>rename</em> the file, but the command stays the same.</p>
+<pre><code>mv bioinfclass foobar
+
+ls
+
+mv foobar bioinfclass</code></pre>
 </section>
 <section id="we-can-make-new-directories-or-files-with-mkdir-and-touch" class="level1">
 <h1>We can make new directories or files with <code>mkdir</code> and <code>touch</code></h1>
-<p><code>mkdir name</code> and <code>touch name</code> will create something in <code>$(pwd)/name</code></p>
-</section>
-<section id="we-can-see-whats-in-a-directory-with-ls" class="level1">
-<h1>We can see what’s in a directory with <code>ls</code></h1>
+<ul>
+<li><code>mkdir name</code> will create a directory <code>name</code></li>
+<li><code>touch name</code> will create a file <code>name</code></li>
+</ul>
+<p> </p>
+<p><strong>Exercise:</strong> create a file in a subdirectory from your home directory</p>
 </section>
 <section id="commands" class="level1">
 <h1>Commands</h1>
@@ -133,16 +190,16 @@ pwd</code></pre>
 <h1>Anatomy of a Unix command</h1>
 <p><code>command &lt;flags&gt; &lt;operands&gt;</code></p>
 <ul>
-<li>command - name of the program; executable file</li>
+<li>command - name of the program</li>
 <li>operands - positional based arguments
 <ul>
 <li>often but not always required</li>
 </ul></li>
 <li>flags - named based arguments
 <ul>
-<li>let us ignore position</li>
+<li>position frequently ignored</li>
 <li>usually for controlling details of program behavior</li>
-<li>usually not required</li>
+<li>often not required</li>
 <li>sometimes take arguments, sometimes not</li>
 </ul></li>
 </ul>
@@ -155,7 +212,7 @@ pwd</code></pre>
 <li>sometimes single dash and word (like <code>-help</code>; esp Java programs)</li>
 <li>sometimes there are short and long options (like <code>-h</code> or <code>--help</code>)</li>
 <li>sometimes short flags can be munged together (<code>-v -x -f the-file</code> == <code>-vxf the-file</code>)</li>
-<li>example with argument: <code>-s ,</code></li>
+<li>example with argument: <code>-s ,</code>, which is the same as <code>-s,</code>.</li>
 </ul>
 </section>
 <section id="help-with-flags" class="level1">
@@ -165,23 +222,31 @@ pwd</code></pre>
 </section>
 <section id="however-all-this-depends-on-the-program" class="level1">
 <h1>However… all this depends on the program…</h1>
-<p>Don’t treat any of this as gospel; Flag parsing is entirely up to the program. Examples:</p>
+<p>Flag parsing is entirely up to the program. Examples:</p>
 <ul>
 <li>Sometimes operands can come before or after flags; sometimes not</li>
-<li>Sometimes flags can be munged together sometimes not</li>
+<li>Sometimes flags can be munged together, sometimes not</li>
 <li>Sometimes flags look completely different (e.g. <code>dd if=/dev/from of=/dev/to</code>)</li>
 </ul>
 <p>But there are some common patterns and guidelines…</p>
 </section>
-<section id="so-programs-are-files-huh" class="level1">
-<h1>So programs are files, huh?</h1>
+<section id="getting-help-with-man-and-apropos" class="level1">
+<h1>Getting help with <code>man</code> and <code>apropos</code></h1>
+<p>There is built in help on the command line:</p>
+<ul>
+<li>Try <code>man ls</code> (arrows to scroll, q to quit)</li>
+<li>Try <code>apropos calculator</code></li>
+</ul>
+</section>
+<section id="programs-are-just-files" class="level1">
+<h1>Programs are just files!</h1>
 <pre><code>which tree
 
-# -l: &quot;long&quot; list output; lots of info
+# -l: &quot;long&quot; list output; lots of info that we will ignore except for `x` presence/absence
 ls -l /usr/bin/tree
 
 # super secret shortcut
-ls -l `which tree`
+ls -l $(which tree)
 
 touch testfile
 
@@ -200,7 +265,7 @@ ls -l testfile</code></pre>
 </section>
 <section id="pipes-and-streams" class="level1">
 <h1>Pipes and streams</h1>
-<p>In which our constructions in flight dawn tongues and communicate!!!</p>
+<p>In which our constructions in flight don tongues and communicate!</p>
 </section>
 <section id="a-bit-about-std-files" class="level1">
 <h1>A bit about <code>std</code> files</h1>
