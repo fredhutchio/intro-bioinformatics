@@ -147,7 +147,7 @@ In which the things take flight and evolve!
 
 # Anatomy of a Unix command
 
-`command <flags> <operands>`
+`command [flags] [operands]`
 
 * command: name of the program
 * operands: positional based arguments
