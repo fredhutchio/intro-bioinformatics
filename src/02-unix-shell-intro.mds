@@ -149,10 +149,10 @@ In which the things take flight and evolve!
 
 `command <flags> <operands>`
 
-* command - name of the program
-* operands - positional based arguments
+* command: name of the program
+* operands: positional based arguments
     * often but not always required
-* flags - named based arguments
+* flags: named based arguments
     * position frequently ignored
     * usually for controlling details of program behavior
     * often not required
@@ -276,10 +276,8 @@ vs
 * `less` reads from `/dev/stdin` if no file is specified
 
 
-# Key point here
-
-## Programs have to _know_ to use stdin / stdout for this to work
-
+#
+Programs have to _know_ to use stdin / stdout for this to work.
 Some conventions:
 
 * Assume first argument is input, second output

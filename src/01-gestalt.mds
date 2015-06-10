@@ -371,8 +371,10 @@ Use `tar --help` when you need help.
 
     column -t -s , data/sfv.csv | less -S
 
-`|` takes the output of one command and passes it as input to the next.
+`|` takes the output of one command and passes it as input to the next (covered in more detail next class).
 This is part of the Unix philosophy's composability.
+
+Use `q` to exit from `less`.
 
 
 # Hello world!

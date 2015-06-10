@@ -190,12 +190,12 @@ mv foobar bioinfclass</code></pre>
 <h1>Anatomy of a Unix command</h1>
 <p><code>command &lt;flags&gt; &lt;operands&gt;</code></p>
 <ul>
-<li>command - name of the program</li>
-<li>operands - positional based arguments
+<li>command: name of the program</li>
+<li>operands: positional based arguments
 <ul>
 <li>often but not always required</li>
 </ul></li>
-<li>flags - named based arguments
+<li>flags: named based arguments
 <ul>
 <li>position frequently ignored</li>
 <li>usually for controlling details of program behavior</li>
@@ -300,11 +300,9 @@ ls -l testfile</code></pre>
 <li><code>less</code> reads from <code>/dev/stdin</code> if no file is specified</li>
 </ul>
 </section>
-<section id="key-point-here" class="level1">
-<h1>Key point here</h1>
-<section id="programs-have-to-know-to-use-stdin-stdout-for-this-to-work" class="level2">
-<h2>Programs have to <em>know</em> to use stdin / stdout for this to work</h2>
-<p>Some conventions:</p>
+<section id="section" class="level1">
+<h1></h1>
+<p>Programs have to <em>know</em> to use stdin / stdout for this to work. Some conventions:</p>
 <ul>
 <li>Assume first argument is input, second output</li>
 <li>If only one argument is specified, output to <code>stdout</code></li>
@@ -313,7 +311,6 @@ ls -l testfile</code></pre>
 <li>Sometimes programs treat <code>-</code> as a shortcut for <code>stdin</code></li>
 <li>When all else fails, you can read from &amp; write to <code>/dev/stdout</code>, <code>/dev/stdin</code> directly</li>
 </ul>
-</section>
 </section>
 <section id="practicum" class="level1">
 <h1>Practicum!</h1>
@@ -382,10 +379,10 @@ cut -d , -f 2,3 data/sfv.csv | sort | uniq | cut -d , -f 2 | sort | uniq -c</cod
 </section>
 <section id="the-one-missing-piece-csvuniq" class="level1">
 <h1>The one missing piece: csvuniq</h1>
-<pre><code>wget https://goo.gl/ZdNoUL -O ~/bin/csvuniq
-
-# ~/bin is one of the places we can put programs
+<pre><code># ~/bin is one of the places we can put programs
 mkdir ~/bin
+
+wget https://goo.gl/ZdNoUL -O ~/bin/csvuniq
 
 # Need to let the shell know this should be executable
 chmod +x ~/bin/csvuniq
@@ -407,8 +404,6 @@ install.packages(c(&#39;optparse&#39;, &#39;plyr&#39;))</code></pre>
 <section id="always-do-this" class="level2">
 <h2>Always do this!</h2>
 <pre><code># We&#39;ll use the `alnvu` program
-pip install alnvu
-
 av -L 99999 -w 99999 -c output/alignment.fasta | less -S</code></pre>
 </section>
 </section>
@@ -425,8 +420,8 @@ nw_display output/tree.nw | less -S</code></pre>
 <section id="resources" class="level1">
 <h1>Resources</h1>
 <ul>
-<li>These slides: <a href="http://fredhutchio.github.io/intro-bioinformatics">http://fredhutchio.github.io/intro-bioinformatics</a></li>
-<li>Unix command reference: <a href="https://ubuntudanmark.dk/filer/fwunixref.pdf">https://ubuntudanmark.dk/filer/fwunixref.pdf</a></li>
+<li>These slides: <a href="http://fredhutchio.github.io/intro-bioinformatics" class="uri">http://fredhutchio.github.io/intro-bioinformatics</a></li>
+<li>Unix command reference: <a href="https://ubuntudanmark.dk/filer/fwunixref.pdf" class="uri">https://ubuntudanmark.dk/filer/fwunixref.pdf</a></li>
 </ul>
 </section>
 </div>
