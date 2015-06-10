@@ -382,10 +382,10 @@ cut -d , -f 2,3 data/sfv.csv | sort | uniq | cut -d , -f 2 | sort | uniq -c</cod
 </section>
 <section id="the-one-missing-piece-csvuniq" class="level1">
 <h1>The one missing piece: csvuniq</h1>
-<pre><code>wget https://goo.gl/ZdNoUL -O ~/bin/csvuniq
-
-# ~/bin is one of the places we can put programs
+<pre><code># ~/bin is one of the places we can put programs
 mkdir ~/bin
+
+wget https://goo.gl/ZdNoUL -O ~/bin/csvuniq
 
 # Need to let the shell know this should be executable
 chmod +x ~/bin/csvuniq
@@ -407,8 +407,6 @@ install.packages(c(&#39;optparse&#39;, &#39;plyr&#39;))</code></pre>
 <section id="always-do-this" class="level2">
 <h2>Always do this!</h2>
 <pre><code># We&#39;ll use the `alnvu` program
-pip install alnvu
-
 av -L 99999 -w 99999 -c output/alignment.fasta | less -S</code></pre>
 </section>
 </section>
