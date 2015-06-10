@@ -166,7 +166,6 @@ In which the things take flight and evolve!
 * sometimes single dash and word (like `-help`; esp Java programs)
 * sometimes there are short and long options (like `-h` or `--help`)
 * sometimes short flags can be munged together (`-v -x -f the-file` == `-vxf the-file`)
-* example with argument: `-s ,`, which is the same as `-s,`.
 
 
 # Help with flags
@@ -175,18 +174,6 @@ In which the things take flight and evolve!
 ls --help
 
 ```
-
-
-# However... all this depends on the program...
-
-Flag parsing is entirely up to the program.
-Examples:
-
-* Sometimes operands can come before or after flags; sometimes not
-* Sometimes flags can be munged together, sometimes not
-* Sometimes flags look completely different (e.g. `dd if=/dev/from of=/dev/to`)
-
-But there are some common patterns and guidelines...
 
 
 # Getting help with `man` and `apropos`

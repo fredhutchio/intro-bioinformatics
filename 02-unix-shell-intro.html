@@ -212,23 +212,12 @@ mv foobar bioinfclass</code></pre>
 <li>sometimes single dash and word (like <code>-help</code>; esp Java programs)</li>
 <li>sometimes there are short and long options (like <code>-h</code> or <code>--help</code>)</li>
 <li>sometimes short flags can be munged together (<code>-v -x -f the-file</code> == <code>-vxf the-file</code>)</li>
-<li>example with argument: <code>-s ,</code>, which is the same as <code>-s,</code>.</li>
 </ul>
 </section>
 <section id="help-with-flags" class="level1">
 <h1>Help with flags</h1>
 <pre><code>ls --help
 </code></pre>
-</section>
-<section id="however-all-this-depends-on-the-program" class="level1">
-<h1>However… all this depends on the program…</h1>
-<p>Flag parsing is entirely up to the program. Examples:</p>
-<ul>
-<li>Sometimes operands can come before or after flags; sometimes not</li>
-<li>Sometimes flags can be munged together, sometimes not</li>
-<li>Sometimes flags look completely different (e.g. <code>dd if=/dev/from of=/dev/to</code>)</li>
-</ul>
-<p>But there are some common patterns and guidelines…</p>
 </section>
 <section id="getting-help-with-man-and-apropos" class="level1">
 <h1>Getting help with <code>man</code> and <code>apropos</code></h1>
