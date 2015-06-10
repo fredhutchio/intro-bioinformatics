@@ -282,7 +282,7 @@ Example: `ls -a ~`
 
 # Download tmux.conf & fire up tmux
 
-    wget https://github.com/fredhutchio/intro-bioinformatics/raw/master/config/tmux.conf
+    wget https://raw.githubusercontent.com/fredhutchio/intro-bioinformatics/gh-pages/config/tmux.conf
 
     ls
 
@@ -320,7 +320,7 @@ Example: `ls -a ~`
 
 # Dowload data with `wget`
 
-    wget https://github.com/fredhutchio/intro-bioinformatics/raw/master/data.tar
+    wget https://raw.githubusercontent.com/fredhutchio/intro-bioinformatics/gh-pages/data.tar
 
 
 # A bit about tar...
