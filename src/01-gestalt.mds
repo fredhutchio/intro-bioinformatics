@@ -376,6 +376,19 @@ This is part of the Unix philosophy's composability.
 
 Use `q` to exit from `less`.
 
+# Ready for takeoff...
+
+SciComp has set up a lovely "module" system that allows us to set up custom environments.
+
+For this class we will be using the `intro-bio` module, loaded by executing `module load intro-bio`, which sets things up *just for the duration of that shell session*.
+
+When you issue this command, you should see something like:
+```
+matsen@rhino01:~$ module load intro-bio
+Using already loaded python
+matsen@rhino01:~$
+```
+If you get an error message instead, let us know, because you can't proceed without this module loaded.
 
 # Hello world!
 

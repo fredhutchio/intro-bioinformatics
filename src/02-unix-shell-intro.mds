@@ -248,6 +248,14 @@ vs
 `FastTree -nt output/alignment.fasta > output/tree.nw`
 
 
+&nbsp;
+
+
+[if your shell can't see FastTree, \
+don't forget to `module load intro-bio`!]
+
+
+
 # We can also `|` `stdout` of one command to `stdin` of another
 
 `Prog1 | Prog2`:

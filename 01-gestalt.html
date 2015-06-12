@@ -398,7 +398,18 @@ touch README.md</code></pre>
 <section id="now-with-column--t-and" class="level1">
 <h1>Now with <code>column -t</code> and <code>|</code></h1>
 <pre><code>column -t -s , data/sfv.csv | less -S</code></pre>
-<p><code>|</code> takes the output of one command and passes it as input to the next. This is part of the Unix philosophy’s composability.</p>
+<p><code>|</code> takes the output of one command and passes it as input to the next (covered in more detail next class). This is part of the Unix philosophy’s composability.</p>
+<p>Use <code>q</code> to exit from <code>less</code>.</p>
+</section>
+<section id="ready-for-takeoff" class="level1">
+<h1>Ready for takeoff…</h1>
+<p>SciComp has set up a lovely “module” system that allows us to set up custom environments.</p>
+<p>For this class we will be using the <code>intro-bio</code> module, loaded by executing <code>module load intro-bio</code>, which sets things up <em>just for the duration of that shell session</em>.</p>
+<p>When you issue this command, you should see something like:</p>
+<pre><code>matsen@rhino01:~$ module load intro-bio
+Using already loaded python
+matsen@rhino01:~$</code></pre>
+<p>If you get an error message instead, let us know, because you can’t proceed without this module loaded.</p>
 </section>
 <section id="hello-world" class="level1">
 <h1>Hello world!</h1>
