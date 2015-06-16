@@ -1,0 +1,324 @@
+% Introduction to Bioinformatics
+% Lesson 3 - Unix Scripting & Automation
+
+
+# First some housekeeping:
+
+* Sharing emails for support?
+* Recover last week's pipe example?
+* Have you been using the resources?
+* How has reading the book been?
+* You are all awesome; thanks for bearing with us...
+
+
+# Shell scripting
+
+_In which our flying, speaking beasts assemble and become legion_
+
+
+# The Unix shell is more than just a shell
+
+## It's also a scripting language!!!
+
+^imghl "figures/mind-blown.gif" 300
+
+
+# Part of the Unix philosophy
+
+Building new commands out of old commands is part of composability
+
+
+# For bioinformatics...
+
+* Simple analysis tools/commands
+* Automation
+
+
+# But don't get carried away...
+
+## Shell scripting is perfect for connecting existing shell commands together
+
+But less than ideal for dealing with more complicated data flows and logic.
+(That's why we have python, R, etc.)
+
+
+# Text files on the server
+
+* Click the square on the top left of the NoMachine window
+* Type in Gedit, and hit enter
+* Click the "Save" button
+* Save to `~/bioinfclass/build.sh`
+
+The home directory on NoMachine is the same as your home directory on the rhinos.
+
+(PS This is where you can use `sshfs` on a mac/Linux computer or `vim` / `emacs` to edit files directly on the server if you wish)
+
+
+# First, the bash header
+
+In your `build.sh` file:
+
+```
+#!/bin/bash
+
+set -e
+set -u
+set -o pipefail
+
+echo "Hello world"
+```
+
+
+# First, the bash header
+
+The first line (starting with `#!`) is called a "_shebang_" and tells the shell how the script should be executed.
+
+The following `set` lines specify more sensible defaults about how errors should be handled in scripts:
+
+* If a single command fails, stop the rest of the script
+* If there is an undefined variable, stop the script
+* If part of a pipe fails, treat the whole command as failing
+
+The `echo` command just prints args to `stdout`.
+
+
+# Executing the script
+
+The simple way is to just run `bash script/qcount.sh`.
+
+
+# However we can also make the script executable!
+
+At the terminal:
+
+```
+chmod +x build.sh
+
+# Now it's a command/program!
+build.sh
+
+ls -l build.sh
+
+file build.sh
+```
+
+
+# Let's look at last week's example again
+
+In our `build.sh` file:
+
+<!--cut -d , -f 3 data/sfv.csv | sort | uniq -c > output/seqs_per_species-->
+```
+# Compute number of sequences per species
+csvuniq -zc species data/sfv.csv > output/seqs_per_species.csv
+```
+
+
+# Now let's run and investigate
+
+In the shell:
+
+```
+ls output
+
+build.sh
+
+ls output
+
+csvlook output/seqs_per_species.csv
+```
+
+
+# Let's add some more things and run
+
+In our `build.sh` file:
+
+```
+# Compute number of sequences per specimen
+csvuniq -zc specimen,species,location data/sfv.csv > output/seqs_per_specimen.csv
+
+# Use those results to compute number of specimens per species
+csvuniq -zc species output/seqs_per_specimen.csv > output/specs_per_species.csv
+
+# Also use them to compute number of specimens per species and location
+csvuniq -zc species,location output/seqs_per_specimen.csv > output/specs_per_species_location.csv
+```
+
+Run with `build.sh` and look at contents with `csvlook` and `csvlook ___ | less -S`.
+
+
+# Cleaning things up with variables
+
+Notice a few things about the files we use here:
+
+* Lots of work to rename a file
+* Easy to mistype a filename
+
+This difficulty increases as things get more complex (particularly with nesting...)
+
+
+# How shell variables work
+
+To address this we introduce _variables_!
+
+In the shell:
+
+```
+# Here, we "assign" the variable outdir to the value "output/"
+outdir="output/"
+
+# We can use that variable in further commands by prepending $
+echo $outdir
+ls $outdir
+```
+
+
+# Cleaning things up with variables
+
+In our `build.sh` file:
+
+```
+# Specify output directory, and name input data
+outdir="output/"
+metadata="data/sfv.csv"
+
+
+# Compute number of sequences per species
+seqs_per_species="$outdir/seqs_per_species.csv"
+csvuniq -zc species $metadata > $seqs_per_species
+
+# Compute number of sequences per specimen
+seqs_per_specimen="$outdir/seqs_per_specimen.csv"
+csvuniq -zc specimen,species,location $metadata > $seqs_per_specimen
+```
+
+
+# Continuing variable clean up
+
+## Using output variables as input:
+
+```
+# Use those results to compute number of specimens per species
+specs_per_species="$outdir/specs_per_species.csv"
+csvuniq -zc species $seqs_per_specimen > $specs_per_species
+
+# Also use them to compute number of specimens per species and location
+specs_per_species_location="$outdir/specs_per_species_location.csv"
+csvuniq -zc species,location $seqs_per_specimen > $specs_per_species_location
+```
+
+
+# Some other things 
+
+* Iteration and arrays: Let us nest or loop over things like different species or locations and process separately
+* Conditionals: Let you run tests to determine what code to run
+* find/xargs/parallel: Run a command or program in parallel over a sequence of files
+
+# Iteration and collections
+
+XXX - TODO
+
+
+# Conditionals
+
+XXX - TODO
+
+
+# find/xargs/parallel
+
+There are some great examples of this in the book, so we'll leave this as an exercise for the reader.
+
+
+# Writing your own commands
+
+## The other side of shell scripting, and fulfillment of the dream of composition
+
+
+# Looking for common command patterns
+
+## Letting laziness lead the way...
+
+We've seen `csvlook ___ | less -S` quite a few times now for looking at csv data.
+So let's give this a name!
+
+
+# Writing a `csvless` script
+
+Open up a new file in `~/bin/csvless`, and write:
+
+```
+#!/usr/bash
+
+csvlook $@ | less -S
+```
+
+Here `$@` is a "magic" variable that points to all of the arguments passed to the command.
+
+
+# Testing our `csvless` script
+
+In the shell:
+
+```
+chmod +x ~/bin/csvless
+
+csvless data/sfv.csv
+
+csvcut -c sequence,specimen,species | csvless
+```
+
+
+# Another quick example: `csvhead`
+
+Open up a new file in `~/bin/csvhead`, and write:
+
+```
+#!/usr/bash
+
+csvlook $@ | head -n 20
+```
+
+# Alternatives to shell scripts for automation
+
+* Make - classic tool for building software
+* SCons - Python version of make
+
+These offer the following advantages over shell scripts:
+
+* Only rebuild what's needed (HUGE with long running programs) by tracking:
+  * whether data has changed 
+  * whether commands have changed
+* Generally more robust
+
+
+# SCons advantages over Make:
+
+* Simple python logic vs. complex make DSL
+* Get to treat build targets as programming objects
+* Cluster distribution tools for Hutch servers
+* Nestly (tool for running analyses on nested parameter sets)
+
+
+# Other stuff
+
+markdown somewhere?
+
+* Create dir for each species
+* Dir for each specimen
+* Create fasta/csv subset for each specimen
+* For each specimen:
+    * How many sequences
+    * How many timepoints
+    * Tree or sequence diversity?
+
+
+# Resources
+
+* SCons for bioinformatics post
+* Markdown
+* Git cheat sheet
+* Vim
+* Emacs
+
+* autojump / zsh
+
