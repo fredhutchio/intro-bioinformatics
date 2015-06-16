@@ -1,0 +1,30 @@
+% Introduction to Bioinformatics
+% Lesson 3 - Unix Scripting & Automation
+
+
+# Why/when shell scripts?
+
+* Plumbing together existing command line programs
+
+Crickets...
+
+
+# Why/when R?
+
+* Very tabular data
+* Very tabular data operations
+* Plotting (ggplot2 => OMG, so good)
+* Ready to go statistics functions
+
+
+# Why/when python?
+
+* Better stream (Unix stdin/stdout) support
+* More flexible data structures
+* Better performance
+* More flexible / cleaner programming models => better for algorithmic development
+* Better organization for building bigger programs
+
+
+# 
+
