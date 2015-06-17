@@ -48,6 +48,9 @@ Let's start by creating a build script that automates some of the things we've d
 * Click the "Save" button
 * Save to `~/bioinfclass/build.sh`
 
+
+# Editing text files on the server
+
 The home directory on NoMachine is the same as your home directory on the rhinos.
 
 (PS This is where you can use `sshfs` on a mac/Linux computer or `vim`/`emacs` directly on the server if you wish)
