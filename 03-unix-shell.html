@@ -84,8 +84,8 @@
 <h1>Part of the Unix philosophy</h1>
 <p>Building new commands out of old commands is part of composability</p>
 </section>
-<section id="for-bioinformatics" class="level1">
-<h1>For bioinformatics…</h1>
+<section id="for-bioinformatics-this-means" class="level1">
+<h1>For bioinformatics this means</h1>
 <ul>
 <li>Simple analysis tools/commands</li>
 <li>Automation</li>
@@ -93,13 +93,20 @@
 </section>
 <section id="but-dont-get-carried-away" class="level1">
 <h1>But don’t get carried away…</h1>
-<section id="shell-scripting-is-perfect-for-connecting-existing-shell-commands-together" class="level2">
-<h2>Shell scripting is perfect for connecting existing shell commands together</h2>
-<p>But less than ideal for dealing with more complicated data flows and logic. (That’s why we have python, R, etc.)</p>
+<section id="shell-scripting-is-duct-tape" class="level2">
+<h2>Shell scripting is “duct tape”</h2>
+<ul>
+<li>Perfect for connecting existing shell commands together</li>
+<li>Less so for more complicated data flow and logic (for which we have python, R, etc.)</li>
+</ul>
 </section>
 </section>
-<section id="text-files-on-the-server" class="level1">
-<h1>Text files on the server</h1>
+<section id="our-first-script" class="level1">
+<h1>Our first script!</h1>
+<p>Let’s start by creating a build script that automates some of the things we’ve done so far</p>
+</section>
+<section id="editing-text-files-on-the-server" class="level1">
+<h1>Editing text files on the server</h1>
 <ul>
 <li>Click the square on the top left of the NoMachine window</li>
 <li>Type in Gedit, and hit enter</li>
@@ -107,55 +114,46 @@
 <li>Save to <code>~/bioinfclass/build.sh</code></li>
 </ul>
 <p>The home directory on NoMachine is the same as your home directory on the rhinos.</p>
-<p>(PS This is where you can use <code>sshfs</code> on a mac/Linux computer or <code>vim</code> / <code>emacs</code> to edit files directly on the server if you wish)</p>
+<p>(PS This is where you can use <code>sshfs</code> on a mac/Linux computer or <code>vim</code>/<code>emacs</code> directly on the server if you wish)</p>
 </section>
 <section id="first-the-bash-header" class="level1">
 <h1>First, the bash header</h1>
 <p>In your <code>build.sh</code> file:</p>
 <pre><code>#!/bin/bash
+# ^ shebang: tell computer how to run script
 
+# Sane error handling settings
 set -e
 set -u
 set -o pipefail
 
+# Write the string &quot;Hello world&quot; to stdout
 echo &quot;Hello world&quot;</code></pre>
-</section>
-<section id="first-the-bash-header-1" class="level1">
-<h1>First, the bash header</h1>
-<p>The first line (starting with <code>#!</code>) is called a “<em>shebang</em>” and tells the shell how the script should be executed.</p>
-<p>The following <code>set</code> lines specify more sensible defaults about how errors should be handled in scripts:</p>
-<ul>
-<li>If a single command fails, stop the rest of the script</li>
-<li>If there is an undefined variable, stop the script</li>
-<li>If part of a pipe fails, treat the whole command as failing</li>
-</ul>
-<p>The <code>echo</code> command just prints args to <code>stdout</code>.</p>
 </section>
 <section id="executing-the-script" class="level1">
 <h1>Executing the script</h1>
-<p>The simple way is to just run <code>bash script/qcount.sh</code>.</p>
+<p>The simple way is to just run <code>bash build.sh</code>.</p>
 </section>
 <section id="however-we-can-also-make-the-script-executable" class="level1">
 <h1>However we can also make the script executable!</h1>
 <p>At the terminal:</p>
 <pre><code>chmod +x build.sh
 
-# Now it&#39;s a command/program!
-build.sh
-
 ls -l build.sh
 
-file build.sh</code></pre>
+file build.sh
+
+# Now it&#39;s a command/program!
+build.sh</code></pre>
 </section>
-<section id="lets-look-at-last-weeks-example-again" class="level1">
-<h1>Let’s look at last week’s example again</h1>
+<section id="counting-sequences-per-species" class="level1">
+<h1>Counting sequences per species</h1>
 <p>In our <code>build.sh</code> file:</p>
-<!--cut -d , -f 3 data/sfv.csv | sort | uniq -c > output/seqs_per_species-->
 <pre><code># Compute number of sequences per species
 csvuniq -zc species data/sfv.csv &gt; output/seqs_per_species.csv</code></pre>
 </section>
-<section id="now-lets-run-and-investigate" class="level1">
-<h1>Now let’s run and investigate</h1>
+<section id="run-and-investigate" class="level1">
+<h1>Run and investigate</h1>
 <p>In the shell:</p>
 <pre><code>ls output
 
@@ -165,34 +163,40 @@ ls output
 
 csvlook output/seqs_per_species.csv</code></pre>
 </section>
-<section id="lets-add-some-more-things-and-run" class="level1">
-<h1>Let’s add some more things and run</h1>
+<section id="add-some-other-steps" class="level1">
+<h1>Add some other steps</h1>
 <p>In our <code>build.sh</code> file:</p>
 <pre><code># Compute number of sequences per specimen
 csvuniq -zc specimen,species,location data/sfv.csv &gt; output/seqs_per_specimen.csv
 
-# Use those results to compute number of specimens per species
+# Use those results to count specimens per species
 csvuniq -zc species output/seqs_per_specimen.csv &gt; output/specs_per_species.csv
 
-# Also use them to compute number of specimens per species and location
+# Also use them to count specimens by species and location
 csvuniq -zc species,location output/seqs_per_specimen.csv &gt; output/specs_per_species_location.csv</code></pre>
-<p>Run with <code>build.sh</code> and look at contents with <code>csvlook</code> and <code>csvlook ___ | less -S</code>.</p>
+</section>
+<section id="run-and-investigate-1" class="level1">
+<h1>Run and investigate</h1>
+<p>In the shell:</p>
+<pre><code>build.sh
+
+csvlook output/seqs_per_specimen.csv | less -S</code></pre>
 </section>
 <section id="cleaning-things-up-with-variables" class="level1">
 <h1>Cleaning things up with variables</h1>
-<p>Notice a few things about the files we use here:</p>
 <ul>
-<li>Lots of work to rename a file</li>
-<li>Easy to mistype a filename</li>
+<li>Added clarity</li>
+<li>Can change things in one place</li>
+<li>Makes commands easier to read</li>
+<li>Opens up advanced functionality</li>
 </ul>
-<p>This difficulty increases as things get more complex (particularly with nesting…)</p>
 </section>
 <section id="how-shell-variables-work" class="level1">
 <h1>How shell variables work</h1>
 <p>To address this we introduce <em>variables</em>!</p>
 <p>In the shell:</p>
 <pre><code># Here, we &quot;assign&quot; the variable outdir to the value &quot;output/&quot;
-outdir=&quot;output/&quot;
+outdir=&quot;output&quot;
 
 # We can use that variable in further commands by prepending $
 echo $outdir
@@ -202,7 +206,7 @@ ls $outdir</code></pre>
 <h1>Cleaning things up with variables</h1>
 <p>In our <code>build.sh</code> file:</p>
 <pre><code># Specify output directory, and name input data
-outdir=&quot;output/&quot;
+outdir=&quot;output&quot;
 metadata=&quot;data/sfv.csv&quot;
 
 
@@ -225,27 +229,18 @@ csvuniq -zc species $seqs_per_specimen &gt; $specs_per_species
 # Also use them to compute number of specimens per species and location
 specs_per_species_location=&quot;$outdir/specs_per_species_location.csv&quot;
 csvuniq -zc species,location $seqs_per_specimen &gt; $specs_per_species_location</code></pre>
+<!-- 18 minutes so far -->
+
+
 </section>
 </section>
-<section id="some-other-things" class="level1">
-<h1>Some other things</h1>
-<ul>
-<li>Iteration and arrays: Let us nest or loop over things like different species or locations and process separately</li>
-<li>Conditionals: Let you run tests to determine what code to run</li>
-<li>find/xargs/parallel: Run a command or program in parallel over a sequence of files</li>
-</ul>
-</section>
-<section id="iteration-and-collections" class="level1">
-<h1>Iteration and collections</h1>
-<p>XXX - TODO</p>
-</section>
-<section id="conditionals" class="level1">
-<h1>Conditionals</h1>
-<p>XXX - TODO</p>
-</section>
-<section id="findxargsparallel" class="level1">
-<h1>find/xargs/parallel</h1>
-<p>There are some great examples of this in the book, so we’ll leave this as an exercise for the reader.</p>
+<section id="verify-that-runs" class="level1">
+<h1>Verify that runs</h1>
+<pre><code>build.sh
+
+ls output
+
+csvlook output/seqs_per_specimen.csv</code></pre>
 </section>
 <section id="writing-your-own-commands" class="level1">
 <h1>Writing your own commands</h1>
@@ -263,7 +258,7 @@ csvuniq -zc species,location $seqs_per_specimen &gt; $specs_per_species_location
 <section id="writing-a-csvless-script" class="level1">
 <h1>Writing a <code>csvless</code> script</h1>
 <p>Open up a new file in <code>~/bin/csvless</code>, and write:</p>
-<pre><code>#!/usr/bash
+<pre><code>#!/bin/bash
 
 csvlook $@ | less -S</code></pre>
 <p>Here <code>$@</code> is a “magic” variable that points to all of the arguments passed to the command.</p>
@@ -280,23 +275,120 @@ csvcut -c sequence,specimen,species | csvless</code></pre>
 <section id="another-quick-example-csvhead" class="level1">
 <h1>Another quick example: <code>csvhead</code></h1>
 <p>Open up a new file in <code>~/bin/csvhead</code>, and write:</p>
-<pre><code>#!/usr/bash
+<pre><code>#!/bin/bash
 
 csvlook $@ | head -n 20</code></pre>
+<p>Again, <code>chmod +x</code>, then test it!</p>
+</section>
+<section id="other-things-to-know-for-shell-scripting" class="level1">
+<h1>Other things to know for shell scripting:</h1>
+<ul>
+<li>Iteration and arrays: Let us nest or loop over things like different species or locations and process separately</li>
+<li>Conditionals: Let you run tests to determine what code to run</li>
+<li>find/xargs/parallel: Run a command or program in parallel over a sequence of files</li>
+</ul>
+<p>Most of this we’ll leave to the book, but we’ll cover in broad strokes so you know what to look for and how to think of these things. Let the details wash over you, and focus on the concepts.</p>
+</section>
+<section id="iteration-and-collections" class="level1">
+<h1>Iteration and collections</h1>
+<p>Let’s add the following to the end of our script:</p>
+<pre><code>#!/bin/bash
+
+...
+
+# For each location...
+locations=($(csvuniq -c location $metadata | tail -n +2))
+for location in ${locations[*]}
+do
+  # Create a location outdir, if it doesn&#39;t already exist
+  loc_outdir=&quot;$outdir/$location&quot;
+  mkdir -p $loc_outdir
+
+  # Create a subset of the metadata for just that location
+  loc_metadata=&quot;$loc_outdir/metadata.csv&quot;
+  csvgrep -c location -m $location $metadata &gt; $loc_metadata
+
+  # Create a list of sequences sampled from that location
+  loc_sequences=&quot;$loc_outdir/sequences&quot;
+  csvcut -c sequence $loc_metadata &gt; $loc_sequences
+
+  # Do something interesting with each location&#39;s sequences, etc
+  ...
+done
+
+# Do something interesting with the things done for each location
+...</code></pre>
+<!-- 29 min -->
+
+
+</section>
+<section id="conditionals" class="level1">
+<h1>Conditionals</h1>
+<pre><code>#!/bin/bash
+
+if [commands]
+then
+  [if-statements]
+else
+  [else-statements]
+fi</code></pre>
+</section>
+<section id="conditional-example" class="level1">
+<h1>Conditional example</h1>
+<pre><code>#!/bin/bash
+
+if grep &quot;pattern&quot; some_file.txt &gt; /dev/null
+then
+  # commands to run if &quot;pattern&quot; is found
+  echo &quot;found &#39;pattern&#39; in &#39;some_file.txt&quot;
+else
+  echo &quot;no such pattern found...&quot;
+fi</code></pre>
+</section>
+<section id="findxargsparallel" class="level1">
+<h1>find/xargs/parallel</h1>
+<p>There is lots of explanation in the book, so you can learn more there. But to get a brief sense:</p>
+<ul>
+<li><code>find</code>: Let’s you compute very specific lists of files, returned to <code>stdout</code> separated by lines</li>
+<li><code>xargs</code>: Can take line separated items, and apply them as arguments to some command
+<ul>
+<li>Good for large collections</li>
+<li>Can run in parallel</li>
+</ul></li>
+<li><code>parallel</code>: More robust version of xargs, with better control over parallelization</li>
+</ul>
+</section>
+<section id="example-find-xargs" class="level1">
+<h1>Example find + xargs</h1>
+<p>Remove lots of files (too many to remove with one call to <code>rm</code>):</p>
+<pre><code>find . -name &quot;*-temp.fastq&quot; | xargs -n 1 rm</code></pre>
+<p><em>(From the book…)</em></p>
+<!-- 35 min -->
+
+
 </section>
 <section id="alternatives-to-shell-scripts-for-automation" class="level1">
 <h1>Alternatives to shell scripts for automation</h1>
+<section id="build-tools" class="level2">
+<h2>Build tools!</h2>
 <ul>
 <li>Make - classic tool for building software</li>
-<li>SCons - Python version of make</li>
 </ul>
-<p>These offer the following advantages over shell scripts:</p>
+</section>
+</section>
+<section id="these-offer-the-following-advantages-over-shell-scripts" class="level1">
+<h1>These offer the following advantages over shell scripts:</h1>
 <ul>
-<li>Only rebuild what’s needed (HUGE with long running programs) by tracking:</li>
+<li>Only rebuild what’s needed (HUGE with long running programs) by tracking:
+<ul>
 <li>whether data has changed</li>
 <li>whether commands have changed</li>
+</ul></li>
 <li>Generally more robust</li>
+<li>Automatically parallelize (sanely)</li>
 </ul>
+<!-- 39 min -->
+
 </section>
 <section id="scons-advantages-over-make" class="level1">
 <h1>SCons advantages over Make:</h1>
@@ -306,6 +398,22 @@ csvlook $@ | head -n 20</code></pre>
 <li>Cluster distribution tools for Hutch servers</li>
 <li>Nestly (tool for running analyses on nested parameter sets)</li>
 </ul>
+</section>
+<section id="excercise" class="level1">
+<h1>Excercise!</h1>
+<section id="your-mission-should-you-choose-to-accept-it" class="level2">
+<h2>Your mission, should you choose to accept it…</h2>
+<ul>
+<li>Fill in our little <code>build.sh</code> script with some of the other things we’ve done, like the alignment and tree building.</li>
+<li>Write a handy little shell script for doing something (example ???)</li>
+<li>Flesh out the for loop by
+<ul>
+<li>Subset the main alignment to each location using <code>seqmagick convert</code></li>
+<li>Build a tree from that subset alignment</li>
+</ul></li>
+<li>Generally read through the book</li>
+</ul>
+</section>
 </section>
 <section id="other-stuff" class="level1">
 <h1>Other stuff</h1>
@@ -325,13 +433,45 @@ csvlook $@ | head -n 20</code></pre>
 <section id="resources" class="level1">
 <h1>Resources</h1>
 <ul>
-<li>SCons for bioinformatics post</li>
-<li>Markdown</li>
-<li>Git cheat sheet</li>
-<li>Vim</li>
-<li><p>Emacs</p></li>
-<li><p>autojump / zsh</p></li>
+<li>SCons for bioinformatics post - <a href="http://www.metasoarous.com/scons-for-data-science-and-compbio/">http://www.metasoarous.com/scons-for-data-science-and-compbio/</a></li>
+<li>seqmagick - <a href="http://fhcrc.github.io/seqmagick/">http://fhcrc.github.io/seqmagick/</a></li>
+<li>Vim - (Just type <code>vimtutor</code> at the terminal…)</li>
 </ul>
+</section>
+<section id="spoiler-alert" class="level1">
+<h1>SPOILER ALERT!!!</h1>
+<section id="the-following-slides-contain-solutions-to-the-exercises." class="level2">
+<h2>The following slides contain solutions to the exercises.</h2>
+<p>Go no further if you’re keen to solve the problems yourself.</p>
+</section>
+</section>
+<section id="automating-alignment-and-tree-building" class="level1">
+<h1>Automating alignment and tree building</h1>
+<pre><code>#!/bin/bash
+...
+
+inseqs=&quot;data/sfv.fasta&quot;
+
+# Alignment
+alignment=&quot;$outdir/alignment.fasta&quot;
+muscle -maxiters 2 -in $inseqs -out $alignment
+
+# Tree
+tree=&quot;$outdir/tree.nw&quot;
+FastTree -nt $alignment &gt; $tree</code></pre>
+</section>
+<section id="the-for-loop-thing" class="level1">
+<h1>The for loop thing</h1>
+<pre><code>  # Subset our alignment to just that location
+  loc_alignment=&quot;$loc_outdir/alignment.fasta&quot;
+  seqmagick convert --include-from-file $loc_sequences $alignment $loc_alignment
+
+  # Build a location tree
+  loc_tree=&quot;$loc_outdir/tree.nw&quot;
+  FastTree -nt $loc_alignment</code></pre>
+</section>
+<section id="this-slide-intentionally-left-almost-blank" class="level1">
+<h1>This slide intentionally left almost blank…</h1>
 </section>
 </div>
 

@@ -28,7 +28,7 @@ _In which our flying, speaking beasts assemble and become legion_
 Building new commands out of old commands is part of composability
 
 
-# For bioinformatics...
+# For bioinformatics this means
 
 * Simple analysis tools/commands
 * Automation
@@ -36,13 +36,18 @@ Building new commands out of old commands is part of composability
 
 # But don't get carried away...
 
-## Shell scripting is perfect for connecting existing shell commands together
+## Shell scripting is "duct tape"
 
-But less than ideal for dealing with more complicated data flows and logic.
-(That's why we have python, R, etc.)
+* Perfect for connecting existing shell commands together
+* Less so for more complicated data flow and logic (for which we have python, R, etc.)
 
 
-# Text files on the server
+# Our first script!
+
+Let's start by creating a build script that automates some of the things we've done so far
+
+
+# Editing text files on the server
 
 * Click the square on the top left of the NoMachine window
 * Type in Gedit, and hit enter
@@ -51,7 +56,7 @@ But less than ideal for dealing with more complicated data flows and logic.
 
 The home directory on NoMachine is the same as your home directory on the rhinos.
 
-(PS This is where you can use `sshfs` on a mac/Linux computer or `vim` / `emacs` to edit files directly on the server if you wish)
+(PS This is where you can use `sshfs` on a mac/Linux computer or `vim`/`emacs` directly on the server if you wish)
 
 
 # First, the bash header
@@ -60,31 +65,21 @@ In your `build.sh` file:
 
 ```
 #!/bin/bash
+# ^ shebang: tell computer how to run script
 
+# Sane error handling settings
 set -e
 set -u
 set -o pipefail
 
+# Write the string "Hello world" to stdout
 echo "Hello world"
 ```
 
 
-# First, the bash header
-
-The first line (starting with `#!`) is called a "_shebang_" and tells the shell how the script should be executed.
-
-The following `set` lines specify more sensible defaults about how errors should be handled in scripts:
-
-* If a single command fails, stop the rest of the script
-* If there is an undefined variable, stop the script
-* If part of a pipe fails, treat the whole command as failing
-
-The `echo` command just prints args to `stdout`.
-
-
 # Executing the script
 
-The simple way is to just run `bash script/qcount.sh`.
+The simple way is to just run `bash build.sh`.
 
 
 # However we can also make the script executable!
@@ -94,27 +89,26 @@ At the terminal:
 ```
 chmod +x build.sh
 
-# Now it's a command/program!
-build.sh
-
 ls -l build.sh
 
 file build.sh
+
+# Now it's a command/program!
+build.sh
 ```
 
 
-# Let's look at last week's example again
+# Counting sequences per species
 
 In our `build.sh` file:
 
-<!--cut -d , -f 3 data/sfv.csv | sort | uniq -c > output/seqs_per_species-->
 ```
 # Compute number of sequences per species
 csvuniq -zc species data/sfv.csv > output/seqs_per_species.csv
 ```
 
 
-# Now let's run and investigate
+# Run and investigate
 
 In the shell:
 
@@ -129,7 +123,7 @@ csvlook output/seqs_per_species.csv
 ```
 
 
-# Let's add some more things and run
+# Add some other steps
 
 In our `build.sh` file:
 
@@ -137,24 +131,31 @@ In our `build.sh` file:
 # Compute number of sequences per specimen
 csvuniq -zc specimen,species,location data/sfv.csv > output/seqs_per_specimen.csv
 
-# Use those results to compute number of specimens per species
+# Use those results to count specimens per species
 csvuniq -zc species output/seqs_per_specimen.csv > output/specs_per_species.csv
 
-# Also use them to compute number of specimens per species and location
+# Also use them to count specimens by species and location
 csvuniq -zc species,location output/seqs_per_specimen.csv > output/specs_per_species_location.csv
 ```
 
-Run with `build.sh` and look at contents with `csvlook` and `csvlook ___ | less -S`.
+
+# Run and investigate
+
+In the shell:
+
+```
+build.sh
+
+csvlook output/seqs_per_specimen.csv | less -S
+```
 
 
 # Cleaning things up with variables
 
-Notice a few things about the files we use here:
-
-* Lots of work to rename a file
-* Easy to mistype a filename
-
-This difficulty increases as things get more complex (particularly with nesting...)
+* Added clarity
+* Can change things in one place
+* Makes commands easier to read
+* Opens up advanced functionality
 
 
 # How shell variables work
@@ -165,7 +166,7 @@ In the shell:
 
 ```
 # Here, we "assign" the variable outdir to the value "output/"
-outdir="output/"
+outdir="output"
 
 # We can use that variable in further commands by prepending $
 echo $outdir
@@ -179,7 +180,7 @@ In our `build.sh` file:
 
 ```
 # Specify output directory, and name input data
-outdir="output/"
+outdir="output"
 metadata="data/sfv.csv"
 
 
@@ -207,26 +208,18 @@ specs_per_species_location="$outdir/specs_per_species_location.csv"
 csvuniq -zc species,location $seqs_per_specimen > $specs_per_species_location
 ```
 
-
-# Some other things 
-
-* Iteration and arrays: Let us nest or loop over things like different species or locations and process separately
-* Conditionals: Let you run tests to determine what code to run
-* find/xargs/parallel: Run a command or program in parallel over a sequence of files
-
-# Iteration and collections
-
-XXX - TODO
+<!-- 18 minutes so far -->
 
 
-# Conditionals
+# Verify that runs
 
-XXX - TODO
+```
+build.sh
 
+ls output
 
-# find/xargs/parallel
-
-There are some great examples of this in the book, so we'll leave this as an exercise for the reader.
+csvlook output/seqs_per_specimen.csv
+```
 
 
 # Writing your own commands
@@ -247,7 +240,7 @@ So let's give this a name!
 Open up a new file in `~/bin/csvless`, and write:
 
 ```
-#!/usr/bash
+#!/bin/bash
 
 csvlook $@ | less -S
 ```
@@ -273,22 +266,130 @@ csvcut -c sequence,specimen,species | csvless
 Open up a new file in `~/bin/csvhead`, and write:
 
 ```
-#!/usr/bash
+#!/bin/bash
 
 csvlook $@ | head -n 20
 ```
 
+Again, `chmod +x`, then test it!
+
+
+# Other things to know for shell scripting:
+
+* Iteration and arrays: Let us nest or loop over things like different species or locations and process separately
+* Conditionals: Let you run tests to determine what code to run
+* find/xargs/parallel: Run a command or program in parallel over a sequence of files
+
+Most of this we'll leave to the book, but we'll cover in broad strokes so you know what to look for and how to think of these things.
+Let the details wash over you, and focus on the concepts.
+
+
+# Iteration and collections
+
+Let's add the following to the end of our script:
+
+```
+#!/bin/bash
+
+...
+
+# For each location...
+locations=($(csvuniq -c location $metadata | tail -n +2))
+for location in ${locations[*]}
+do
+  # Create a location outdir, if it doesn't already exist
+  loc_outdir="$outdir/$location"
+  mkdir -p $loc_outdir
+
+  # Create a subset of the metadata for just that location
+  loc_metadata="$loc_outdir/metadata.csv"
+  csvgrep -c location -m $location $metadata > $loc_metadata
+
+  # Create a list of sequences sampled from that location
+  loc_sequences="$loc_outdir/sequences"
+  csvcut -c sequence $loc_metadata > $loc_sequences
+
+  # Do something interesting with each location's sequences, etc
+  ...
+done
+
+# Do something interesting with the things done for each location
+...
+```
+
+<!-- 29 min -->
+
+
+# Conditionals
+
+```
+#!/bin/bash
+
+if [commands]
+then
+  [if-statements]
+else
+  [else-statements]
+fi
+```
+
+
+# Conditional example
+
+```
+#!/bin/bash
+
+if grep "pattern" some_file.txt > /dev/null
+then
+  # commands to run if "pattern" is found
+  echo "found 'pattern' in 'some_file.txt"
+else
+  echo "no such pattern found..."
+fi
+```
+
+
+# find/xargs/parallel
+
+There is lots of explanation in the book, so you can learn more there. But to get a brief sense:
+
+* `find`: Let's you compute very specific lists of files, returned to `stdout` separated by lines
+* `xargs`: Can take line separated items, and apply them as arguments to some command
+    * Good for large collections
+    * Can run in parallel
+* `parallel`: More robust version of xargs, with better control over parallelization
+
+
+# Example find + xargs
+
+Remove lots of files (too many to remove with one call to `rm`):
+
+```
+find . -name "*-temp.fastq" | xargs -n 1 rm
+```
+
+_(From the book...)_
+
+<!-- 35 min -->
+
+
 # Alternatives to shell scripts for automation
 
-* Make - classic tool for building software
-* SCons - Python version of make
+## Build tools!
 
-These offer the following advantages over shell scripts:
+* Make - classic tool for building software
+
+
+
+# These offer the following advantages over shell scripts:
 
 * Only rebuild what's needed (HUGE with long running programs) by tracking:
-  * whether data has changed 
-  * whether commands have changed
+    * whether data has changed 
+    * whether commands have changed
 * Generally more robust
+* Automatically parallelize (sanely)
+
+<!-- 39 min -->
 
 
 # SCons advantages over Make:
@@ -298,27 +399,66 @@ These offer the following advantages over shell scripts:
 * Cluster distribution tools for Hutch servers
 * Nestly (tool for running analyses on nested parameter sets)
 
+<!-- 42 min -->
 
-# Other stuff
 
-markdown somewhere?
+# Excercise!
 
-* Create dir for each species
-* Dir for each specimen
-* Create fasta/csv subset for each specimen
-* For each specimen:
-    * How many sequences
-    * How many timepoints
-    * Tree or sequence diversity?
+## Your mission, should you choose to accept it...
+
+* Fill in our little `build.sh` script with some of the other things we've done, like the alignment and tree building.
+* Write a handy little shell script for doing something (example ???)
+* Flesh out the for loop by
+    * Subset the main alignment to each location using `seqmagick convert`
+    * Build a tree from that subset alignment
+* Generally read through the book
 
 
 # Resources
 
-* SCons for bioinformatics post
-* Markdown
-* Git cheat sheet
-* Vim
-* Emacs
+* SCons for bioinformatics post - <http://www.metasoarous.com/scons-for-data-science-and-compbio/>
+* seqmagick - <http://fhcrc.github.io/seqmagick/>
+* Vim - (Just type `vimtutor` at the terminal...)
 
-* autojump / zsh
+
+# SPOILER ALERT!!!
+
+## The following slides contain solutions to the exercises.
+
+Go no further if you're keen to solve the problems yourself.
+
+
+# Automating alignment and tree building
+
+```
+#!/bin/bash
+...
+
+inseqs="data/sfv.fasta"
+
+# Alignment
+alignment="$outdir/alignment.fasta"
+muscle -maxiters 2 -in $inseqs -out $alignment
+
+# Tree
+tree="$outdir/tree.nw"
+FastTree -nt $alignment > $tree
+```
+
+
+# The for loop thing
+
+```
+  # Subset our alignment to just that location
+  loc_alignment="$loc_outdir/alignment.fasta"
+  seqmagick convert --include-from-file $loc_sequences $alignment $loc_alignment
+
+  # Build a location tree
+  loc_tree="$loc_outdir/tree.nw"
+  FastTree -nt $loc_alignment
+```
+
+
+# This slide intentionally left almost blank...
+
 
