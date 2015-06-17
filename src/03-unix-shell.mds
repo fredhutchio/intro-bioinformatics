@@ -225,7 +225,7 @@ csvuniq -zc species,location $seqs_per_specimen > $specs_per_species_location
 <!-- 18 minutes so far -->
 
 
-# Verify that runs
+# Verify that it runs
 
 ```
 ./build.sh
@@ -296,45 +296,14 @@ Again, `chmod +x`, then test it!
 * Conditionals: Let you run tests to determine what code to run
 * find/xargs/parallel: Run a command or program in parallel over a sequence of files
 
-Most of this we'll leave to the book, but we'll cover in broad strokes so you know what to look for and how to think of these things.
-Let the details wash over you, and focus on the concepts.
+Most of this we'll leave to the book...
 
 
-# Iteration and collections
-
-Let's add the following to the end of our script:
+# Simple iteration
 
 ```
-#!/bin/bash
-
-...
-
-# For each location...
-locations=($(csvuniq -c location $metadata | tail -n +2))
-for location in ${locations[*]}
-do
-  # Create a location outdir, if it doesn't already exist
-  loc_outdir="$outdir/$location"
-  mkdir -p $loc_outdir
-
-  # Create a subset of the metadata for just that location
-  loc_metadata="$loc_outdir/metadata.csv"
-  csvgrep -c location -m $location $metadata > $loc_metadata
-
-  # Create a list of sequences sampled from that location
-  loc_sequences="$loc_outdir/sequences"
-  csvcut -c sequence $loc_metadata > $loc_sequences
-
-  # Do something interesting with each location's sequences, etc
-  ...
-done
-
-# Do something interesting with the things done for each location
-...
+for i in $(ls); do echo "My file $i is cool"; done
 ```
-
-<!-- 29 min -->
-
 
 # Conditionals
 
@@ -378,23 +347,56 @@ There is lots of explanation in the book, so you can learn more there. But to ge
 
 # Build tools such as `make` offer the following advantages over shell scripts:
 
-* Only rebuild what's needed (VERY IMPORTANT with long running programs) by tracking:
+* Only rebuild what's needed (very important with long running programs) by tracking:
     * whether data has changed
     * whether commands have changed
 * Generally more robust
 * Automatically parallelize (sanely)
 
 
-# Excercise!
+# Excercise 1
 
-## Your mission, should you choose to accept it...
+Let's add the following to the end of our `build.sh` script:
+
+```
+#!/bin/bash
+
+...
+
+# For each location...
+locations=($(csvuniq -c location $metadata | tail -n +2))
+for location in ${locations[*]}
+do
+  # Create a location outdir, if it doesn't already exist
+  loc_outdir="$outdir/$location"
+  mkdir -p $loc_outdir
+
+  # Create a subset of the metadata for just that location
+  loc_metadata="$loc_outdir/metadata.csv"
+  csvgrep -c location -m $location $metadata > $loc_metadata
+
+  # Create a list of sequences sampled from that location
+  loc_sequences="$loc_outdir/sequences"
+  csvcut -c sequence $loc_metadata > $loc_sequences
+
+  # Do something interesting with each location's sequences, etc
+  ...
+done
+
+# Do something interesting with the things done for each location
+...
+```
+
+
+# Other exercises
 
 * Fill in our little `build.sh` script with some of the other things we've done, like the alignment and tree building.
 * Write a handy little shell script for doing something (for example, printing the last 20 commands entered)
 * Flesh out the for loop by
     * Subset the main alignment to each location using `seqmagick convert`
     * Build a tree from that subset alignment
-* Generally read through the book
+
+Don't forget to read through the book!
 
 
 # Resources
@@ -403,7 +405,7 @@ There is lots of explanation in the book, so you can learn more there. But to ge
 * seqmagick - <http://fhcrc.github.io/seqmagick/> for munging sequence data
 * `nano` for simple file editing on the rhinos
 * Vim for very powerful though obscure file editing - (just type `vimtutor` at the terminal...)
-
+* Erick's favorite [video](https://www.youtube.com/watch?v=olH-9b3VJfs) about shell scripting, and [website](http://shellhaters.org/)
 
 # SPOILER ALERT!!!
 

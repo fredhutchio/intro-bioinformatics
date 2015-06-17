@@ -233,8 +233,8 @@ csvuniq -zc species,location $seqs_per_specimen &gt; $specs_per_species_location
 <!-- 18 minutes so far -->
 </section>
 </section>
-<section id="verify-that-runs" class="level1">
-<h1>Verify that runs</h1>
+<section id="verify-that-it-runs" class="level1">
+<h1>Verify that it runs</h1>
 <pre><code>./build.sh
 
 ls output
@@ -288,38 +288,11 @@ csvlook $@ | head -n 20</code></pre>
 <li>Conditionals: Let you run tests to determine what code to run</li>
 <li>find/xargs/parallel: Run a command or program in parallel over a sequence of files</li>
 </ul>
-<p>Most of this we’ll leave to the book, but we’ll cover in broad strokes so you know what to look for and how to think of these things. Let the details wash over you, and focus on the concepts.</p>
+<p>Most of this we’ll leave to the book…</p>
 </section>
-<section id="iteration-and-collections" class="level1">
-<h1>Iteration and collections</h1>
-<p>Let’s add the following to the end of our script:</p>
-<pre><code>#!/bin/bash
-
-...
-
-# For each location...
-locations=($(csvuniq -c location $metadata | tail -n +2))
-for location in ${locations[*]}
-do
-  # Create a location outdir, if it doesn&#39;t already exist
-  loc_outdir=&quot;$outdir/$location&quot;
-  mkdir -p $loc_outdir
-
-  # Create a subset of the metadata for just that location
-  loc_metadata=&quot;$loc_outdir/metadata.csv&quot;
-  csvgrep -c location -m $location $metadata &gt; $loc_metadata
-
-  # Create a list of sequences sampled from that location
-  loc_sequences=&quot;$loc_outdir/sequences&quot;
-  csvcut -c sequence $loc_metadata &gt; $loc_sequences
-
-  # Do something interesting with each location&#39;s sequences, etc
-  ...
-done
-
-# Do something interesting with the things done for each location
-...</code></pre>
-<!-- 29 min -->
+<section id="simple-iteration" class="level1">
+<h1>Simple iteration</h1>
+<pre><code>for i in $(ls); do echo &quot;My file $i is cool&quot;; done</code></pre>
 </section>
 <section id="conditionals" class="level1">
 <h1>Conditionals</h1>
@@ -360,7 +333,7 @@ fi</code></pre>
 <section id="build-tools-such-as-make-offer-the-following-advantages-over-shell-scripts" class="level1">
 <h1>Build tools such as <code>make</code> offer the following advantages over shell scripts:</h1>
 <ul>
-<li>Only rebuild what’s needed (VERY IMPORTANT with long running programs) by tracking:
+<li>Only rebuild what’s needed (very important with long running programs) by tracking:
 <ul>
 <li>whether data has changed</li>
 <li>whether commands have changed</li>
@@ -369,10 +342,38 @@ fi</code></pre>
 <li>Automatically parallelize (sanely)</li>
 </ul>
 </section>
-<section id="excercise" class="level1">
-<h1>Excercise!</h1>
-<section id="your-mission-should-you-choose-to-accept-it" class="level2">
-<h2>Your mission, should you choose to accept it…</h2>
+<section id="excercise-1" class="level1">
+<h1>Excercise 1</h1>
+<p>Let’s add the following to the end of our <code>build.sh</code> script:</p>
+<pre><code>#!/bin/bash
+
+...
+
+# For each location...
+locations=($(csvuniq -c location $metadata | tail -n +2))
+for location in ${locations[*]}
+do
+  # Create a location outdir, if it doesn&#39;t already exist
+  loc_outdir=&quot;$outdir/$location&quot;
+  mkdir -p $loc_outdir
+
+  # Create a subset of the metadata for just that location
+  loc_metadata=&quot;$loc_outdir/metadata.csv&quot;
+  csvgrep -c location -m $location $metadata &gt; $loc_metadata
+
+  # Create a list of sequences sampled from that location
+  loc_sequences=&quot;$loc_outdir/sequences&quot;
+  csvcut -c sequence $loc_metadata &gt; $loc_sequences
+
+  # Do something interesting with each location&#39;s sequences, etc
+  ...
+done
+
+# Do something interesting with the things done for each location
+...</code></pre>
+</section>
+<section id="other-exercises" class="level1">
+<h1>Other exercises</h1>
 <ul>
 <li>Fill in our little <code>build.sh</code> script with some of the other things we’ve done, like the alignment and tree building.</li>
 <li>Write a handy little shell script for doing something (for example, printing the last 20 commands entered)</li>
@@ -381,9 +382,8 @@ fi</code></pre>
 <li>Subset the main alignment to each location using <code>seqmagick convert</code></li>
 <li>Build a tree from that subset alignment</li>
 </ul></li>
-<li>Generally read through the book</li>
 </ul>
-</section>
+<p>Don’t forget to read through the book!</p>
 </section>
 <section id="resources" class="level1">
 <h1>Resources</h1>
@@ -392,6 +392,7 @@ fi</code></pre>
 <li>seqmagick - <a href="http://fhcrc.github.io/seqmagick/" class="uri">http://fhcrc.github.io/seqmagick/</a> for munging sequence data</li>
 <li><code>nano</code> for simple file editing on the rhinos</li>
 <li>Vim for very powerful though obscure file editing - (just type <code>vimtutor</code> at the terminal…)</li>
+<li>Erick’s favorite <a href="https://www.youtube.com/watch?v=olH-9b3VJfs">video</a> about shell scripting, and <a href="http://shellhaters.org/">website</a></li>
 </ul>
 </section>
 <section id="spoiler-alert" class="level1">
