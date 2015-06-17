@@ -15,7 +15,7 @@ The following is the tentative outline for courses in the class:
 
 1. [Overview & remote server access](01-gestalt.html)
 2. [Unix Shell I - overview](02-unix-shell-intro.html)
-3. Unix Shell II - learning specific utilities
+3. [Unix Shell II - scripting](03-unix-shell.html)
 4. Version Control with Git
 5. Python I - syntax and data types
 6. Python II - building data structures

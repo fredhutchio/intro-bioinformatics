@@ -266,7 +266,9 @@ csvlook $@ | less -S</code></pre>
 <section id="testing-our-csvless-script" class="level1">
 <h1>Testing our <code>csvless</code> script</h1>
 <p>In the shell:</p>
-<pre><code>chmod +x ~/bin/csvless
+<pre><code>export PATH=~/bin:$PATH
+
+chmod +x ~/bin/csvless
 
 csvless data/sfv.csv
 
@@ -389,6 +391,7 @@ fi</code></pre>
 </ul>
 <!-- 39 min -->
 
+
 </section>
 <section id="scons-advantages-over-make" class="level1">
 <h1>SCons advantages over Make:</h1>
@@ -398,6 +401,9 @@ fi</code></pre>
 <li>Cluster distribution tools for Hutch servers</li>
 <li>Nestly (tool for running analyses on nested parameter sets)</li>
 </ul>
+<!-- 42 min -->
+
+
 </section>
 <section id="excercise" class="level1">
 <h1>Excercise!</h1>
@@ -414,21 +420,6 @@ fi</code></pre>
 <li>Generally read through the book</li>
 </ul>
 </section>
-</section>
-<section id="other-stuff" class="level1">
-<h1>Other stuff</h1>
-<p>markdown somewhere?</p>
-<ul>
-<li>Create dir for each species</li>
-<li>Dir for each specimen</li>
-<li>Create fasta/csv subset for each specimen</li>
-<li>For each specimen:
-<ul>
-<li>How many sequences</li>
-<li>How many timepoints</li>
-<li>Tree or sequence diversity?</li>
-</ul></li>
-</ul>
 </section>
 <section id="resources" class="level1">
 <h1>Resources</h1>

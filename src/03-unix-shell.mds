@@ -253,6 +253,8 @@ Here `$@` is a "magic" variable that points to all of the arguments passed to th
 In the shell:
 
 ```
+export PATH=~/bin:$PATH
+
 chmod +x ~/bin/csvless
 
 csvless data/sfv.csv
