@@ -18,14 +18,9 @@ _In which our flying, speaking beasts assemble and become legion_
 
 # The Unix shell is more than just a shell
 
-## It's also a scripting language!!!
+It's also a mini-programming language!
 
-^imghl "figures/mind-blown.gif" 300
-
-
-# Part of the Unix philosophy
-
-Building new commands out of old commands is part of composability
+Building new commands out of old commands is part of Unix composability
 
 
 # For bioinformatics this means
@@ -34,9 +29,7 @@ Building new commands out of old commands is part of composability
 * Automation
 
 
-# But don't get carried away...
-
-## Shell scripting is "duct tape"
+# Shell scripting is just "duct tape"
 
 * Perfect for connecting existing shell commands together
 * Less so for more complicated data flow and logic (for which we have python, R, etc.)
@@ -49,6 +42,7 @@ Let's start by creating a build script that automates some of the things we've d
 
 # Editing text files on the server
 
+* Reconnect to your favorite rhino, `tmux attach`, load modules if needed, etc.
 * Click the square on the top left of the NoMachine window
 * Type in Gedit, and hit enter
 * Click the "Save" button
@@ -59,42 +53,70 @@ The home directory on NoMachine is the same as your home directory on the rhinos
 (PS This is where you can use `sshfs` on a mac/Linux computer or `vim`/`emacs` directly on the server if you wish)
 
 
-# First, the bash header
+# A shell script is just a list of commands to be executed
+
+In your `build.sh` file, try:
+
+```
+ls -l | column -t
+echo "IT WORKED!"
+```
+
+Then run `bash build.sh` from within the `bioinfclass` directory.
+
+This tells the shell to run your script.
+
+
+# A more complete example
+
+In your `build.sh` file:
+
+```
+# Sane error handling settings
+set -euf -o pipefail
+
+ls -l | column -t
+# Put in a "bug":
+asdfasdfasdf
+
+echo "IT WORKED!"
+```
+Lines that start with `# ` are comments and aren't executed.
+
+Again run `bash build.sh` and see what happens.
+Then remove the "bug" and run again.
+
+# Let's make the script more of a proper command
 
 In your `build.sh` file:
 
 ```
 #!/bin/bash
-# ^ shebang: tell computer how to run script
 
 # Sane error handling settings
-set -e
-set -u
-set -o pipefail
+set -euf -o pipefail
 
-# Write the string "Hello world" to stdout
-echo "Hello world"
+ls -l | column -t
+echo "IT WORKED!"
 ```
 
-
-# Executing the script
-
-The simple way is to just run `bash build.sh`.
+The `#!` is a "shebang": tells computer how to run script
 
 
-# However we can also make the script executable!
+# Now make the script executable!
 
 At the terminal:
 
 ```
 chmod +x build.sh
 
+# Note "x" when we use `ls -l`
 ls -l build.sh
 
 file build.sh
 
 # Now it's a command/program!
-build.sh
+./build.sh
 ```
 
 
@@ -115,7 +137,7 @@ In the shell:
 ```
 ls output
 
-build.sh
+./build.sh
 
 ls output
 
@@ -144,28 +166,20 @@ csvuniq -zc species,location output/seqs_per_specimen.csv > output/specs_per_spe
 In the shell:
 
 ```
-build.sh
+./build.sh
 
 csvlook output/seqs_per_specimen.csv | less -S
 ```
 
-
-# Cleaning things up with variables
-
-* Added clarity
-* Can change things in one place
-* Makes commands easier to read
-* Opens up advanced functionality
-
-
 # How shell variables work
 
-To address this we introduce _variables_!
+To clarify and simplify, we introduce _variables_!
 
 In the shell:
 
 ```
-# Here, we "assign" the variable outdir to the value "output/"
+# Assign the value "output" to the variable outdir
+# Note no spaces around the "="
 outdir="output"
 
 # We can use that variable in further commands by prepending $
@@ -214,7 +228,7 @@ csvuniq -zc species,location $seqs_per_specimen > $specs_per_species_location
 # Verify that runs
 
 ```
-build.sh
+./build.sh
 
 ls output
 
@@ -362,46 +376,13 @@ There is lots of explanation in the book, so you can learn more there. But to ge
 * `parallel`: More robust version of xargs, with better control over parallelization
 
 
-# Example find + xargs
+# Build tools such as `make` offer the following advantages over shell scripts:
 
-Remove lots of files (too many to remove with one call to `rm`):
-
-```
-find . -name "*-temp.fastq" | xargs -n 1 rm
-```
-
-_(From the book...)_
-
-<!-- 35 min -->
-
-
-# Alternatives to shell scripts for automation
-
-## Build tools!
-
-* Make - classic tool for building software
-
-
-
-# These offer the following advantages over shell scripts:
-
-* Only rebuild what's needed (HUGE with long running programs) by tracking:
-    * whether data has changed 
+* Only rebuild what's needed (VERY IMPORTANT with long running programs) by tracking:
+    * whether data has changed
     * whether commands have changed
 * Generally more robust
 * Automatically parallelize (sanely)
-
-<!-- 39 min -->
-
-
-# SCons advantages over Make:
-
-* Simple python logic vs. complex make DSL
-* Get to treat build targets as programming objects
-* Cluster distribution tools for Hutch servers
-* Nestly (tool for running analyses on nested parameter sets)
-
-<!-- 42 min -->
 
 
 # Excercise!
@@ -409,7 +390,7 @@ _(From the book...)_
 ## Your mission, should you choose to accept it...
 
 * Fill in our little `build.sh` script with some of the other things we've done, like the alignment and tree building.
-* Write a handy little shell script for doing something (example ???)
+* Write a handy little shell script for doing something (for example, printing the last 20 commands entered)
 * Flesh out the for loop by
     * Subset the main alignment to each location using `seqmagick convert`
     * Build a tree from that subset alignment
@@ -418,9 +399,10 @@ _(From the book...)_
 
 # Resources
 
-* SCons for bioinformatics post - <http://www.metasoarous.com/scons-for-data-science-and-compbio/>
-* seqmagick - <http://fhcrc.github.io/seqmagick/>
-* Vim - (Just type `vimtutor` at the terminal...)
+* SCons (sane `make` alternative) for bioinformatics post - <http://www.metasoarous.com/scons-for-data-science-and-compbio/>
+* seqmagick - <http://fhcrc.github.io/seqmagick/> for munging sequence data
+* `nano` for simple file editing on the rhinos
+* Vim for very powerful though obscure file editing - (just type `vimtutor` at the terminal...)
 
 
 # SPOILER ALERT!!!
