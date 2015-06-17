@@ -296,7 +296,7 @@ csvlook $@ | head -n 20</code></pre>
 <p>Let’s add the following to the end of our script:</p>
 <pre><code>#!/bin/bash
 
-...
+# ...
 
 # For each location...
 locations=($(csvuniq -c location $metadata | tail -n +2))
@@ -315,11 +315,11 @@ do
   csvcut -c sequence $loc_metadata &gt; $loc_sequences
 
   # Do something interesting with each location&#39;s sequences, etc
-  ...
+  # ...
 done
 
 # Do something interesting with the things done for each location
-...</code></pre>
+# ...</code></pre>
 <!-- 29 min -->
 
 
