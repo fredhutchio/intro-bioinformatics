@@ -7,14 +7,13 @@
 _In which with our fleets of flying, speaking beasts we gain mastery over time_
 
 
-# The basic idea of version control
+# The basic idea
 
-Imagine you're playing a video game, and can save state.
-Wouldn't it be great to:
+Like Back to the Future on steroids (without the DeLorean):
 
-* Save your current state, and leave a helpful message like "Just finished defeating trolls"
+* Save your current state, with a helpful message
 * Go back to an old state to try a different strategy, saving steps along the way
-* [stretch] Take two different alternate histories and merge results
+* Take two alternate histories and merge results
 
 
 # In computational biology
@@ -69,6 +68,9 @@ git commit -m "Initial commit"
 ```
 
 We now have a saved state on which to build without fear of "messing things up".
+
+
+# Let's make some edits, and save the 
 
 
 # Resources

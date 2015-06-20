@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+
+<title>Introduction to Bioinformatics</title>
+
+<meta name="description" content="Introduction to Bioinformatics">
+
+<!-- Disabled for now - embeds HTML in author string -->
+<!--  <meta name="author" content="Lesson 4 - Version control with <code>git</code>" /> -->
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<link rel="stylesheet" href="reveal.js/css/reveal.css">
+  <link rel="stylesheet" href="src/theme/csmall.css" id="theme">
+
+
+<!-- For syntax highlighting -->
+  <link rel="stylesheet" href="reveal.js/lib/css/zenburn.css">
+
+
+<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+<script>
+  document.write( '<link rel="stylesheet" href="reveal.js/css/print/' +
+    ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) +
+    '.css" type="text/css" media="print">' );
+</script>
+
+<!--[if lt IE 9]>
+<script src="reveal.js/lib/js/html5shiv.js"></script>
+<![endif]-->
+
+<!-- Note escaped dollars -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+  </script>
+
+</head>
+
+<body>
+
+<div class="reveal">
+
+<!-- Any section element inside of this container is displayed as a slide -->
+<div class="slides">
+
+<section>
+<h1>Introduction to Bioinformatics</h1>
+<h3>Lesson 4 - Version control with <code>git</code></h3>
+<p>
+<h4></h4>
+</p>
+</section>
+
+
+<section id="git-for-version-control" class="level1">
+<h1>Git for Version control!</h1>
+<p><em>In which with our fleets of flying, speaking beasts we gain mastery over time</em></p>
+</section>
+<section id="the-basic-idea-of-version-control" class="level1">
+<h1>The basic idea of version control</h1>
+<p>Imagine you’re playing a video game, and can save state. Wouldn’t it be great to:</p>
+<ul>
+<li>Save your current state, and leave a helpful message like “Just finished defeating trolls”</li>
+<li>Go back to an old state to try a different strategy, saving steps along the way</li>
+<li>[stretch] Take two different alternate histories and merge results</li>
+</ul>
+</section>
+<section id="in-computational-biology" class="level1">
+<h1>In computational biology</h1>
+<p>Version control let’s us keep track of our project</p>
+<p>Analogy from the book:</p>
+<blockquote>
+<p>Imagine you keep a lab notebook in pencil, and each time you run a PCR you erase your past specifics and jot down the newest ones…</p>
+</blockquote>
+<p>This is functionally equivalent to not versioning your code…</p>
+</section>
+<section id="git" class="level1">
+<h1>Git</h1>
+<p>We’ll be using <code>git</code> to version our project from here on out.</p>
+<p>There are other things out there (<code>svn</code>, <code>mercurial</code>, etc.), but <code>git</code> is one of the most popular, flexible and decentralized.</p>
+</section>
+<section id="getting-yourself-set-up-with-git" class="level1">
+<h1>Getting yourself set up with git</h1>
+<pre><code>git config --global user.name &quot;Bob Jones&quot;
+git config --global user.email &quot;bob@bobjones.edu&quot;
+
+# Some nice color modes for git output
+git config --global color.ui true</code></pre>
+</section>
+<section id="getting-git-set-up-in-our-repository" class="level1">
+<h1>Getting git set up in our repository</h1>
+<pre><code># Get to project dir
+cd ~/bioinfclass
+
+# Initialize our &quot;repository&quot;
+git init
+git status</code></pre>
+</section>
+<section id="making-our-first-commit" class="level1">
+<h1>Making our first commit</h1>
+<pre><code># Tell git what files to track
+git add *
+
+# Make initial commit
+git commit -m &quot;Initial commit&quot;</code></pre>
+<p>We now have a saved state on which to build without fear of “messing things up”.</p>
+</section>
+<section id="resources" class="level1">
+<h1>Resources</h1>
+<ul>
+<li>Git Cheat sheet: http://www.git-tower.com/blog/git-cheat-sheet/</li>
+<li>Tutorial: https://try.github.io/levels/1/challenges/1 (testme… XXX)</li>
+</ul>
+</section>
+</div>
+
+<script src="reveal.js/lib/js/head.min.js"></script>
+<script src="reveal.js/js/reveal.min.js"></script>
+
+<script>
+  // Full list of configuration options available here:
+  // https://github.com/hakimel/reveal.js#configuration
+  Reveal.initialize({
+    controls: true,
+    progress: true,
+    history: true,
+    center: false,
+
+
+    rollingLinks: false,
+  
+  // available themes are in /css/theme
+      theme: Reveal.getQueryHash().theme || 'csmall',
+  
+  // default/cube/page/concave/zoom/linear/fade/none
+      transition: Reveal.getQueryHash().transition || 'fade',
+  
+  // Optional libraries used to extend on reveal.js
+  dependencies: [
+    { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+    { src: 'reveal.js/plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+    { src: 'reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+    { src: 'reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+    { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+    { src: 'MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML'}
+    // { src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+    // { src: 'reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+  ]
+  });
+Reveal.addEventListener( 'slidechanged', function( event ) {
+    MathJax.Hub.Rerender();
+} );
+</script>
+
+</body>
+</html>
