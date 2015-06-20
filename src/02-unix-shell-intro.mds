@@ -344,13 +344,13 @@ Super powerful and fast.
 
 We have `csv...` versions of many of the standard Unix utils:
 
-* csvcut
-* csvgrep
-* csvjoin
-* csvlook
-* csvsort
-* csvstack
-* csvstat
+`csvcut`,
+`csvgrep`,
+`csvjoin`,
+`csvlook`,
+`csvsort`,
+`csvstack`,
+`csvstat`
 
 
 # Advantages of csvkit
