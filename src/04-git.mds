@@ -70,7 +70,130 @@ git commit -m "Initial commit"
 We now have a saved state on which to build without fear of "messing things up".
 
 
-# Let's make some edits, and save the 
+# Let's make some edits, and save the changes
+
+Write some things in `README.md`:
+
+```
+# Bioinfclass Notes
+
+Where you type out notes and stuff...
+
+
+## Jun 24, 2015
+
+Learned how to use git!
+It was pretty fun.
+
+```
+
+
+# Seeing what's changed
+
+```
+# Check the status of the repo
+git status
+
+# Seeing specific changes
+git diff
+```
+
+
+# Saving our changes
+
+```
+# Stage the changed file
+git add README.md
+
+# Commit the changes, and add a commit message
+git commit -m "Adding notes to README.md"
+
+# Checking our status
+git status
+git log
+```
+
+
+# GitHub!
+
+The de-facto home of open source on the internet.
+
+Visit [github.com](https://github.com) and log in.
+
+
+# Forking
+
+## A way of copying a project over to your account
+
+* Go to <https://github.com/fredhutchio/bioinfclass-sample-project>
+* Click on the button that says "Fork"
+* Copy the "SSH clone URL" of the project
+
+
+# Cloning a repository
+
+## This is how we get a remote repository from GitHub checked out on our computers
+
+```
+# Go home, and rename the directory we've been working on
+cd ~
+mv bioinfclass old_bioinfclass
+
+# Make the checkout
+git clone git@github.com:metasoarous/bioinfclass-sample-project.git bioinfclass
+
+# Enter the directory we created
+cd bioinfclass
+
+# See what's there
+tree
+git status
+```
+
+
+# Looking at history
+
+```
+# See the list of commits
+git config log
+```
+
+
+# A slightly better way...
+
+```
+# Add an alias to a prettier log command
+git config --global alias.glog "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit --all"
+
+# Try it out!
+git glog
+
+git glog -n 5
+```
+
+
+# Tracing history
+
+
+
+
+# Challenges for bigger data
+
+Having biggish data that updates frequently can slow git down quite a bit.
+
+One solution is to track the output data (and maybe even input data) in separate repositories, which you "ignore" from the main repository.
+This has a few problems too though:
+
+* It's more work keeping multiple repositories up to date
+* It's more work matching the code / data versions when split across repositories
+
+GitHub may be solving some of this...
+
+
+# Exercise
+
+* Create a new branch and add something to it, then merge back in to master
+* Merge the `experimental` branch from the GitHub origin remote into master
 
 
 # Resources

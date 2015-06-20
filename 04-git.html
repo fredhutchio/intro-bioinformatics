@@ -63,13 +63,13 @@
 <h1>Git for Version control!</h1>
 <p><em>In which with our fleets of flying, speaking beasts we gain mastery over time</em></p>
 </section>
-<section id="the-basic-idea-of-version-control" class="level1">
-<h1>The basic idea of version control</h1>
-<p>Imagine you’re playing a video game, and can save state. Wouldn’t it be great to:</p>
+<section id="the-basic-idea" class="level1">
+<h1>The basic idea</h1>
+<p>Like Back to the Future on steroids (without the DeLorean):</p>
 <ul>
-<li>Save your current state, and leave a helpful message like “Just finished defeating trolls”</li>
+<li>Save your current state, with a helpful message</li>
 <li>Go back to an old state to try a different strategy, saving steps along the way</li>
-<li>[stretch] Take two different alternate histories and merge results</li>
+<li>Take two alternate histories and merge results</li>
 </ul>
 </section>
 <section id="in-computational-biology" class="level1">
@@ -111,6 +111,110 @@ git add *
 # Make initial commit
 git commit -m &quot;Initial commit&quot;</code></pre>
 <p>We now have a saved state on which to build without fear of “messing things up”.</p>
+</section>
+<section id="lets-make-some-edits-and-save-the-changes" class="level1">
+<h1>Let’s make some edits, and save the changes</h1>
+<p>Write some things in <code>README.md</code>:</p>
+<pre><code># Bioinfclass Notes
+
+Where you type out notes and stuff...
+
+
+## Jun 24, 2015
+
+Learned how to use git!
+It was pretty fun.
+</code></pre>
+</section>
+<section id="seeing-whats-changed" class="level1">
+<h1>Seeing what’s changed</h1>
+<pre><code># Check the status of the repo
+git status
+
+# Seeing specific changes
+git diff</code></pre>
+</section>
+<section id="saving-our-changes" class="level1">
+<h1>Saving our changes</h1>
+<pre><code># Stage the changed file
+git add README.md
+
+# Commit the changes, and add a commit message
+git commit -m &quot;Adding notes to README.md&quot;
+
+# Checking our status
+git status
+git log</code></pre>
+</section>
+<section id="github" class="level1">
+<h1>GitHub!</h1>
+<p>The de-facto home of open source on the internet.</p>
+<p>Visit <a href="https://github.com">github.com</a> and log in.</p>
+</section>
+<section id="forking" class="level1">
+<h1>Forking</h1>
+<section id="a-way-of-copying-a-project-over-to-your-account" class="level2">
+<h2>A way of copying a project over to your account</h2>
+<ul>
+<li>Go to <a href="https://github.com/fredhutchio/bioinfclass-sample-project">https://github.com/fredhutchio/bioinfclass-sample-project</a></li>
+<li>Click on the button that says “Fork”</li>
+<li>Copy the “SSH clone URL” of the project</li>
+</ul>
+</section>
+</section>
+<section id="cloning-a-repository" class="level1">
+<h1>Cloning a repository</h1>
+<section id="this-is-how-we-get-a-remote-repository-from-github-checked-out-on-our-computers" class="level2">
+<h2>This is how we get a remote repository from GitHub checked out on our computers</h2>
+<pre><code># Go home, and rename the directory we&#39;ve been working on
+cd ~
+mv bioinfclass old_bioinfclass
+
+# Make the checkout
+git clone git@github.com:metasoarous/bioinfclass-sample-project.git bioinfclass
+
+# Enter the directory we created
+cd bioinfclass
+
+# See what&#39;s there
+tree
+git status</code></pre>
+</section>
+</section>
+<section id="looking-at-history" class="level1">
+<h1>Looking at history</h1>
+<pre><code># See the list of commits
+git config log</code></pre>
+</section>
+<section id="a-slightly-better-way" class="level1">
+<h1>A slightly better way…</h1>
+<pre><code># Add an alias to a prettier log command
+git config --global alias.glog &quot;log --graph --pretty=format:&#39;%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)&lt;%an&gt;%Creset&#39; --abbrev-commit --all&quot;
+
+# Try it out!
+git glog
+
+git glog -n 5</code></pre>
+</section>
+<section id="tracing-history" class="level1">
+<h1>Tracing history</h1>
+</section>
+<section id="challenges-for-bigger-data" class="level1">
+<h1>Challenges for bigger data</h1>
+<p>Having biggish data that updates frequently can slow git down quite a bit.</p>
+<p>One solution is to track the output data (and maybe even input data) in separate repositories, which you “ignore” from the main repository. This has a few problems too though:</p>
+<ul>
+<li>It’s more work keeping multiple repositories up to date</li>
+<li>It’s more work matching the code / data versions when split across repositories</li>
+</ul>
+<p>GitHub may be solving some of this…</p>
+</section>
+<section id="exercise" class="level1">
+<h1>Exercise</h1>
+<ul>
+<li>Create a new branch and add something to it, then merge back in to master</li>
+<li>Merge the <code>experimental</code> branch from the GitHub origin remote into master</li>
+</ul>
 </section>
 <section id="resources" class="level1">
 <h1>Resources</h1>
