@@ -18,7 +18,7 @@ Like Back to the Future on steroids (without the DeLorean):
 
 # In computational biology
 
-Version control let's us keep track of our project
+Version control lets us keep track of our project
 
 Analogy from the book:
 
@@ -31,7 +31,7 @@ This is functionally equivalent to not versioning your code...
 
 We'll be using `git` to version our project from here on out.
 
-There are other things out there (`svn`, `mercurial`, etc.), but `git` is one of the most popular, flexible and decentralized.
+There are other version control systems out there (`svn`, `mercurial`, etc.), but `git` is currently by far the most popular in bioinformatics, and it's lovely!
 
 
 # Getting yourself set up with git
@@ -116,7 +116,7 @@ git log
 
 # GitHub!
 
-The de-facto home of open source on the internet.
+The *de facto* home of open source on the internet.
 
 Visit [github.com](https://github.com) and log in.
 
@@ -199,6 +199,6 @@ GitHub may be solving some of this...
 # Resources
 
 * Git Cheat sheet: http://www.git-tower.com/blog/git-cheat-sheet/
-* Tutorial: https://try.github.io/levels/1/challenges/1 (testme... XXX)
+* Tutorial: https://try.github.io/ (testme... XXX)
 
 
