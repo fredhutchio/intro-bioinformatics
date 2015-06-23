@@ -264,7 +264,7 @@ Name your connection, so you'll remember what it is (lynx/manx).
 
 # Brief overview of a Unix command
 
-`command <flags> <operands>`
+`command [flags] [operands]`
 
 Example: `ls -a ~`
 
