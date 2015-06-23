@@ -98,6 +98,8 @@ git status
 git diff
 ```
 
+Git diff uses + and - to show what's changed, and can be made to color dadditions / deletions.
+
 
 # Saving our changes
 
@@ -174,7 +176,119 @@ git glog -n 5
 
 # Tracing history
 
+We can see the diffs for each commit with `git show`:
 
+
+```
+git show 1aa457d
+git show f566a9
+git show cac1218
+# Skipping a couple..
+git show d07378b
+```
+
+
+# `git show` only some files
+
+```
+# Very long...
+git show 2c17799
+
+# If we really just care about build.sh changes...
+git show build.sh
+```
+
+This is pretty valuable as your project gets big and lots of things change.
+
+
+# Let's make some changes
+
+In README.md, add:
+
+```
+## June 24, 3:30PM
+
+Ran the location trees.
+Interesting data.
+Thinking about some other studies now.
+```
+
+
+# Adding a new commit, as before
+
+```
+git add README.md
+
+git commit -m "README notes about location analyses"
+```
+
+
+# Pushing our changes to GitHub
+
+```
+# Pushing changes on branch `master` to remote `origin`
+git push origin master
+```
+
+Now pull up github, reload and see the new commit there.
+
+
+# Sharing your changes with a "pull request"
+
+Like "forking", this is a GitHub specific thing.
+
+* Click on the little "double arrows" next to the branch drop down
+* Note the "base" and "head" forks: base is where the changes will go, head is where they're from
+* Click "Create pull request"
+
+
+# If you get a pull request, you can merge it
+
+This will show up on the repository page.
+
+Some pull requests can be merged automatically, others need to be done from the command line.
+
+
+# How to go "back in time"
+
+Pick a commit to check out, like `b445eea`
+
+* Type `git checkout -b backintime b445eea`: creates a new "branch" named `backintime` based on the desired commit
+* Reload the script file
+
+
+# Make some edits
+
+Instead of worrying about making trees for each location, let's just directly count the number of sequence names per location to make sure they match up.
+
+```
+  # ...
+
+  # Directly count number of sequences
+  loc_spec_count="$loc_outdir/seqcount"
+  wc -l $loc_sequences > $loc_spec_count
+done
+
+# Combine sequence counts by location
+loc_spec_counts="$outdir/location_specimen_counts.txt"
+find $outdir -name seqcount | xargs cat > $loc_spec_counts
+```
+
+# Now commit and look at our tree
+
+```
+git add build.sh
+git commit -m "Added direct sequence per location count"
+
+# Now look at our history; we've branched!
+git glog
+```
+
+
+# Some guidelines
+
+* Commit often
+* Try to make commits "atomic" and messages short but good
 
 
 # Challenges for bigger data
@@ -187,18 +301,20 @@ This has a few problems too though:
 * It's more work keeping multiple repositories up to date
 * It's more work matching the code / data versions when split across repositories
 
-GitHub may be solving some of this...
+GitHub is [solving this for large files](https://github.com/blog/1986-announcing-git-large-file-storage-lfs), but the problem remains for _lots_ of smaller files...
 
 
-# Exercise
+# Exercises
 
 * Create a new branch and add something to it, then merge back in to master
-* Merge the `experimental` branch from the GitHub origin remote into master
+* Merge the `backintime` branch we created with your master branch
+* Create a new repository and push it to your account on GitHub
 
 
 # Resources
 
-* Git Cheat sheet: http://www.git-tower.com/blog/git-cheat-sheet/
+* Cheat sheet: http://www.git-tower.com/blog/git-cheat-sheet/
 * Tutorial: https://try.github.io/levels/1/challenges/1 (testme... XXX)
+* Markdown cheat sheet: http://assemble.io/docs/Cheatsheet-Markdown.html (note that there are different "flavors" of markdown, with subtle differences...)
 
 

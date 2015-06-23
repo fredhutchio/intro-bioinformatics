@@ -133,6 +133,7 @@ git status
 
 # Seeing specific changes
 git diff</code></pre>
+<p>Git diff uses + and - to show what’s changed, and can be made to color dadditions / deletions.</p>
 </section>
 <section id="saving-our-changes" class="level1">
 <h1>Saving our changes</h1>
@@ -198,6 +199,93 @@ git glog -n 5</code></pre>
 </section>
 <section id="tracing-history" class="level1">
 <h1>Tracing history</h1>
+<p>We can see the diffs for each commit with <code>git show</code>:</p>
+<pre><code>git show 1aa457d
+git show f566a9
+git show cac1218
+# Skipping a couple..
+git show d07378b</code></pre>
+</section>
+<section id="git-show-only-some-files" class="level1">
+<h1><code>git show</code> only some files</h1>
+<pre><code># Very long...
+git show 2c17799
+
+# If we really just care about build.sh changes...
+git show build.sh</code></pre>
+<p>This is pretty valuable as your project gets big and lots of things change.</p>
+</section>
+<section id="lets-make-some-changes" class="level1">
+<h1>Let’s make some changes</h1>
+<p>In README.md, add:</p>
+<pre><code>## June 24, 3:30PM
+
+Ran the location trees.
+Interesting data.
+Thinking about some other studies now.</code></pre>
+</section>
+<section id="adding-a-new-commit-as-before" class="level1">
+<h1>Adding a new commit, as before</h1>
+<pre><code>git add README.md
+
+git commit -m &quot;README notes about location analyses&quot;</code></pre>
+</section>
+<section id="pushing-our-changes-to-github" class="level1">
+<h1>Pushing our changes to GitHub</h1>
+<pre><code># Pushing changes on branch `master` to remote `origin`
+git push origin master</code></pre>
+<p>Now pull up github, reload and see the new commit there.</p>
+</section>
+<section id="sharing-your-changes-with-a-pull-request" class="level1">
+<h1>Sharing your changes with a “pull request”</h1>
+<p>Like “forking”, this is a GitHub specific thing.</p>
+<ul>
+<li>Click on the little “double arrows” next to the branch drop down</li>
+<li>Note the “base” and “head” forks: base is where the changes will go, head is where they’re from</li>
+<li>Click “Create pull request”</li>
+</ul>
+</section>
+<section id="if-you-get-a-pull-request-you-can-merge-it" class="level1">
+<h1>If you get a pull request, you can merge it</h1>
+<p>This will show up on the repository page.</p>
+<p>Some pull requests can be merged automatically, others need to be done from the command line.</p>
+</section>
+<section id="how-to-go-back-in-time" class="level1">
+<h1>How to go “back in time”</h1>
+<p>Pick a commit to check out, like <code>b445eea</code></p>
+<ul>
+<li>Type <code>git checkout -b backintime b445eea</code>: creates a new “branch” named <code>backintime</code> based on the desired commit</li>
+<li>Reload the script file</li>
+</ul>
+</section>
+<section id="make-some-edits" class="level1">
+<h1>Make some edits</h1>
+<p>Instead of worrying about making trees for each location, let’s just directly count the number of sequence names per location to make sure they match up.</p>
+<pre><code>  # ...
+
+  # Directly count number of sequences
+  loc_spec_count=&quot;$loc_outdir/seqcount&quot;
+  wc -l $loc_sequences &gt; $loc_spec_count
+done
+
+# Combine sequence counts by location
+loc_spec_counts=&quot;$outdir/location_specimen_counts.txt&quot;
+find $outdir -name seqcount | xargs cat &gt; $loc_spec_counts</code></pre>
+</section>
+<section id="now-commit-and-look-at-our-tree" class="level1">
+<h1>Now commit and look at our tree</h1>
+<pre><code>git add build.sh
+git commit -m &quot;Added direct sequence per location count&quot;
+
+# Now look at our history; we&#39;ve branched!
+git glog</code></pre>
+</section>
+<section id="some-guidelines" class="level1">
+<h1>Some guidelines</h1>
+<ul>
+<li>Commit often</li>
+<li>Try to make commits “atomic” and messages short but good</li>
+</ul>
 </section>
 <section id="challenges-for-bigger-data" class="level1">
 <h1>Challenges for bigger data</h1>
@@ -207,20 +295,22 @@ git glog -n 5</code></pre>
 <li>It’s more work keeping multiple repositories up to date</li>
 <li>It’s more work matching the code / data versions when split across repositories</li>
 </ul>
-<p>GitHub may be solving some of this…</p>
+<p>GitHub is <a href="https://github.com/blog/1986-announcing-git-large-file-storage-lfs">solving this for large files</a>, but the problem remains for <em>lots</em> of smaller files…</p>
 </section>
-<section id="exercise" class="level1">
-<h1>Exercise</h1>
+<section id="exercises" class="level1">
+<h1>Exercises</h1>
 <ul>
 <li>Create a new branch and add something to it, then merge back in to master</li>
-<li>Merge the <code>experimental</code> branch from the GitHub origin remote into master</li>
+<li>Merge the <code>backintime</code> branch we created with your master branch</li>
+<li>Create a new repository and push it to your account on GitHub</li>
 </ul>
 </section>
 <section id="resources" class="level1">
 <h1>Resources</h1>
 <ul>
-<li>Git Cheat sheet: http://www.git-tower.com/blog/git-cheat-sheet/</li>
+<li>Cheat sheet: http://www.git-tower.com/blog/git-cheat-sheet/</li>
 <li>Tutorial: https://try.github.io/levels/1/challenges/1 (testme… XXX)</li>
+<li>Markdown cheat sheet: http://assemble.io/docs/Cheatsheet-Markdown.html (note that there are different “flavors” of markdown, with subtle differences…)</li>
 </ul>
 </section>
 </div>
