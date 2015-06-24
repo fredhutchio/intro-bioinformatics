@@ -73,7 +73,6 @@ This tells the shell to run your script.
 # A more complete example
 
 In your `build.sh` file:
-
 ```
 # Sane error handling settings
 set -euf -o pipefail
@@ -84,10 +83,9 @@ asdfasdfasdf
 
 echo "IT WORKED!"
 ```
-Lines that start with `# ` are comments and aren't executed.
-
-Again run `bash build.sh` and see what happens.
-Then remove the "bug" and run again.
+Lines that start with `# ` are comments and aren't executed. <br/>
+Again try `bash build.sh`.
+Then remove the "bug" and run.
 
 # Let's make the script more of a proper command
 

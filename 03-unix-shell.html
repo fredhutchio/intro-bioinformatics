@@ -130,8 +130,7 @@ ls -l | column -t
 asdfasdfasdf
 
 echo &quot;IT WORKED!&quot;</code></pre>
-<p>Lines that start with <code>#</code> are comments and aren’t executed.</p>
-<p>Again run <code>bash build.sh</code> and see what happens. Then remove the “bug” and run again.</p>
+<p>Lines that start with <code>#</code> are comments and aren’t executed. <br/> Again try <code>bash build.sh</code>. Then remove the “bug” and run.</p>
 </section>
 <section id="lets-make-the-script-more-of-a-proper-command" class="level1">
 <h1>Let’s make the script more of a proper command</h1>
@@ -234,8 +233,6 @@ csvuniq -zc species $seqs_per_specimen &gt; $specs_per_species
 specs_per_species_location=&quot;$outdir/specs_per_species_location.csv&quot;
 csvuniq -zc species,location $seqs_per_specimen &gt; $specs_per_species_location</code></pre>
 <!-- 18 minutes so far -->
-
-
 </section>
 </section>
 <section id="verify-that-it-runs" class="level1">
@@ -393,8 +390,8 @@ done
 <section id="resources" class="level1">
 <h1>Resources</h1>
 <ul>
-<li>SCons (sane <code>make</code> alternative) for bioinformatics post - <a href="http://www.metasoarous.com/scons-for-data-science-and-compbio/">http://www.metasoarous.com/scons-for-data-science-and-compbio/</a></li>
-<li>seqmagick - <a href="http://fhcrc.github.io/seqmagick/">http://fhcrc.github.io/seqmagick/</a> for munging sequence data</li>
+<li>SCons (sane <code>make</code> alternative) for bioinformatics post - <a href="http://www.metasoarous.com/scons-for-data-science-and-compbio/" class="uri">http://www.metasoarous.com/scons-for-data-science-and-compbio/</a></li>
+<li>seqmagick - <a href="http://fhcrc.github.io/seqmagick/" class="uri">http://fhcrc.github.io/seqmagick/</a> for munging sequence data</li>
 <li><code>nano</code> for simple file editing on the rhinos</li>
 <li>Vim for very powerful though obscure file editing - (just type <code>vimtutor</code> at the terminal…)</li>
 <li>Erick’s favorite <a href="https://www.youtube.com/watch?v=olH-9b3VJfs">video</a> about shell scripting, and <a href="http://shellhaters.org/">website</a></li>
