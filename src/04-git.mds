@@ -129,7 +129,7 @@ Visit [github.com](https://github.com) and log in.
 
 * Go to <https://github.com/fredhutchio/bioinfclass-sample-project>
 * Click on the button that says "Fork"
-* Copy the "SSH clone URL" of the project
+* Copy the "HTTPS clone URL" of the project (may have to click on "HTTPS" link below the SSH url)
 
 
 # Cloning a repository
@@ -142,7 +142,7 @@ cd ~
 mv bioinfclass old_bioinfclass
 
 # Make the checkout
-git clone git@github.com:metasoarous/bioinfclass-sample-project.git bioinfclass
+git clone <your-https-url> bioinfclass
 
 # Enter the directory we created
 cd bioinfclass
@@ -157,7 +157,7 @@ git status
 
 ```
 # See the list of commits
-git config log
+git log
 ```
 
 
@@ -228,6 +228,8 @@ git commit -m "README notes about location analyses"
 ```
 # Pushing changes on branch `master` to remote `origin`
 git push origin master
+
+# When prompted enter your GH username and password
 ```
 
 Now pull up github, reload and see the new commit there.
@@ -239,6 +241,7 @@ Like "forking", this is a GitHub specific thing.
 
 * Click on the little "double arrows" next to the branch drop down
 * Note the "base" and "head" forks: base is where the changes will go, head is where they're from
+  * Sometime you might change the branches
 * Click "Create pull request"
 
 
@@ -285,10 +288,11 @@ git glog
 ```
 
 
-# Some guidelines
+# Some guidelines for using Git
 
 * Commit often
-* Try to make commits "atomic" and messages short but good
+* Try to make commits "atomic" (commit unrelated code/data changes separately) 
+* Make messages short but good
 
 
 # Challenges for bigger data
@@ -304,6 +308,27 @@ This has a few problems too though:
 GitHub is [solving this for large files](https://github.com/blog/1986-announcing-git-large-file-storage-lfs), but the problem remains for _lots_ of smaller files...
 
 
+# Don't freak out!
+
+Git can be intimidating
+
+^imghl "figures/git-expert.gif
+
+_When the office git expert has to come fix everything_
+
+
+# But 90% of the time, you'll be using
+
+```
+git add ...
+git commit -m "..."
+git status
+git log  # (or git glog, as you wish)
+```
+
+Learn those, start using them, and Google the rest as you need it
+
+
 # Exercises
 
 * Create a new branch and add something to it, then merge back in to master
@@ -317,3 +342,4 @@ GitHub is [solving this for large files](https://github.com/blog/1986-announcing
 * Tutorial: <https://try.github.io/>
 * [Codeschool tutorial](https://www.codeschool.com/courses/try-git)
 * [Markdown cheat sheet](http://assemble.io/docs/Cheatsheet-Markdown.html) (note that there are different "flavors" of markdown, with subtle differences...)
+* Git humor: [When in git](http://wheningit.tumblr.com/)

@@ -157,9 +157,9 @@ git log</code></pre>
 <section id="a-way-of-copying-a-project-over-to-your-account" class="level2">
 <h2>A way of copying a project over to your account</h2>
 <ul>
-<li>Go to <a href="https://github.com/fredhutchio/bioinfclass-sample-project" class="uri">https://github.com/fredhutchio/bioinfclass-sample-project</a></li>
+<li>Go to <a href="https://github.com/fredhutchio/bioinfclass-sample-project">https://github.com/fredhutchio/bioinfclass-sample-project</a></li>
 <li>Click on the button that says “Fork”</li>
-<li>Copy the “SSH clone URL” of the project</li>
+<li>Copy the “HTTPS clone URL” of the project (may have to click on “HTTPS” link below the SSH url)</li>
 </ul>
 </section>
 </section>
@@ -172,7 +172,7 @@ cd ~
 mv bioinfclass old_bioinfclass
 
 # Make the checkout
-git clone git@github.com:metasoarous/bioinfclass-sample-project.git bioinfclass
+git clone &lt;your-https-url&gt; bioinfclass
 
 # Enter the directory we created
 cd bioinfclass
@@ -185,7 +185,7 @@ git status</code></pre>
 <section id="looking-at-history" class="level1">
 <h1>Looking at history</h1>
 <pre><code># See the list of commits
-git config log</code></pre>
+git log</code></pre>
 </section>
 <section id="a-slightly-better-way" class="level1">
 <h1>A slightly better way…</h1>
@@ -233,7 +233,9 @@ git commit -m &quot;README notes about location analyses&quot;</code></pre>
 <section id="pushing-our-changes-to-github" class="level1">
 <h1>Pushing our changes to GitHub</h1>
 <pre><code># Pushing changes on branch `master` to remote `origin`
-git push origin master</code></pre>
+git push origin master
+
+# When prompted enter your GH username and password</code></pre>
 <p>Now pull up github, reload and see the new commit there.</p>
 </section>
 <section id="sharing-your-changes-with-a-pull-request" class="level1">
@@ -242,6 +244,7 @@ git push origin master</code></pre>
 <ul>
 <li>Click on the little “double arrows” next to the branch drop down</li>
 <li>Note the “base” and “head” forks: base is where the changes will go, head is where they’re from</li>
+<li>Sometime you might change the branches</li>
 <li>Click “Create pull request”</li>
 </ul>
 </section>
@@ -280,11 +283,12 @@ git commit -m &quot;Added direct sequence per location count&quot;
 # Now look at our history; we&#39;ve branched!
 git glog</code></pre>
 </section>
-<section id="some-guidelines" class="level1">
-<h1>Some guidelines</h1>
+<section id="some-guidelines-for-using-git" class="level1">
+<h1>Some guidelines for using Git</h1>
 <ul>
 <li>Commit often</li>
-<li>Try to make commits “atomic” and messages short but good</li>
+<li>Try to make commits “atomic” (commit unrelated code/data changes separately)</li>
+<li>Make messages short but good</li>
 </ul>
 </section>
 <section id="challenges-for-bigger-data" class="level1">
@@ -297,22 +301,9 @@ git glog</code></pre>
 </ul>
 <p>GitHub is <a href="https://github.com/blog/1986-announcing-git-large-file-storage-lfs">solving this for large files</a>, but the problem remains for <em>lots</em> of smaller files…</p>
 </section>
-<section id="exercises" class="level1">
-<h1>Exercises</h1>
-<ul>
-<li>Create a new branch and add something to it, then merge back in to master</li>
-<li>Merge the <code>backintime</code> branch we created with your master branch</li>
-<li>Create a new repository and push it to your account on GitHub</li>
-</ul>
-</section>
-<section id="resources" class="level1">
-<h1>Resources</h1>
-<ul>
-<li><a href="http://www.git-tower.com/blog/git-cheat-sheet/">Git Cheat sheet</a></li>
-<li>Tutorial: <a href="https://try.github.io/" class="uri">https://try.github.io/</a></li>
-<li><a href="https://www.codeschool.com/courses/try-git">Codeschool tutorial</a></li>
-<li><a href="http://assemble.io/docs/Cheatsheet-Markdown.html">Markdown cheat sheet</a> (note that there are different “flavors” of markdown, with subtle differences…)</li>
-</ul>
+<section id="dont-freak-out" class="level1">
+<h1>Don’t freak out!</h1>
+<p>Git can be intimidating</p>
 </section>
 </div>
 
