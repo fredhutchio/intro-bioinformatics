@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+
+<title>Introduction to Bioinformatics</title>
+
+<meta name="description" content="Introduction to Bioinformatics">
+
+<!-- Disabled for now - embeds HTML in author string -->
+<!--  <meta name="author" content="Lesson 5 - Python basics" /> -->
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<link rel="stylesheet" href="reveal.js/css/reveal.css">
+  <link rel="stylesheet" href="src/theme/csmall.css" id="theme">
+
+
+<!-- For syntax highlighting -->
+  <link rel="stylesheet" href="reveal.js/lib/css/zenburn.css">
+
+
+<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+<script>
+  document.write( '<link rel="stylesheet" href="reveal.js/css/print/' +
+    ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) +
+    '.css" type="text/css" media="print">' );
+</script>
+
+<!--[if lt IE 9]>
+<script src="reveal.js/lib/js/html5shiv.js"></script>
+<![endif]-->
+
+<!-- Note escaped dollars -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+  </script>
+
+</head>
+
+<body>
+
+<div class="reveal">
+
+<!-- Any section element inside of this container is displayed as a slide -->
+<div class="slides">
+
+<section>
+<h1>Introduction to Bioinformatics</h1>
+<h3>Lesson 5 - Python basics</h3>
+<p>
+<h4></h4>
+</p>
+</section>
+
+
+<section id="how-these-lessons-will-be-laid-out" class="level1">
+<h1>How these lessons will be laid out</h1>
+<p>Today: Python Basics</p>
+<p>Up next:</p>
+<ul>
+<li>Building python data structures</li>
+<li>Building python programs</li>
+</ul>
+</section>
+<section id="context-motivation" class="level1">
+<h1>Context &amp; motivation</h1>
+</section>
+<section id="whywhen-shell-scripts" class="level1">
+<h1>Why/when shell scripts?</h1>
+<ul>
+<li>Plumbing together existing command line programs…</li>
+</ul>
+</section>
+<section id="whywhen-r" class="level1">
+<h1>Why/when R?</h1>
+<ul>
+<li>Very tabular data (<code>data.frame</code>s are great)</li>
+<li>Very tabular data operations (plyr, dplyr, reshape2)</li>
+<li>Plotting (ggplot2, shiny)</li>
+<li>Ready to go statistics functions</li>
+</ul>
+</section>
+<section id="whywhen-python" class="level1">
+<h1>Why/when python?</h1>
+<ul>
+<li>Better stream (Unix stdin/stdout) support than R</li>
+<li>More flexible data structures</li>
+<li>Better performance</li>
+<li>More flexible / cleaner programming models =&gt; better for algorithmic development</li>
+<li>Better organization for building bigger programs</li>
+</ul>
+</section>
+<section id="other-languages" class="level1">
+<h1>Other languages?</h1>
+<p>There are other languages that fit some of these characteristics, but python is nice because</p>
+<ul>
+<li>It’s become popular amongst the scientific community</li>
+<li>It’s relatively simpler in design than other languages</li>
+<li>It’s relatively quick to write (not necessarily to run)</li>
+</ul>
+</section>
+<section id="what-well-cover-today" class="level1">
+<h1>What we’ll cover today</h1>
+<ul>
+<li>Basic data types: What kinds of data does python know about</li>
+<li>Syntax: What constitutes a valid expression</li>
+<li>Variables: How we keep track of and pass around data</li>
+<li>Control flow: How we specify the behaviour of our program</li>
+<li>Functions: How we package functionality</li>
+</ul>
+</section>
+<section id="python-basics" class="level1">
+<h1>Python Basics</h1>
+<p><em>In which we investigate the building blocks of logic</em></p>
+</section>
+<section id="firing-up-a-python-repl" class="level1">
+<h1>Firing up a python “REPL”</h1>
+<pre><code>python
+&gt; print &quot;Hello world&quot;</code></pre>
+<p>Now you can enter in little bits of code as we go (type Ctrl-d or <code>exit</code> to get out)</p>
+</section>
+<section id="basic-data-types" class="level1">
+<h1>Basic data types</h1>
+<p><em>The elements of logic</em></p>
+</section>
+<section id="why-we-want-different-data-types" class="level1">
+<h1>Why we want different data types</h1>
+<p>They allow us to be more expressive and careful about the things we’re doing.</p>
+<p>They let us more easily manage information, and relate it to the things in the world it represents.</p>
+</section>
+<section id="scalar-data-types" class="level1">
+<h1>Scalar data types</h1>
+<ul>
+<li>strings: <code>&quot;this is a string&quot;</code></li>
+<li>integers: <code>42</code></li>
+<li>floats: <code>3.14159</code></li>
+<li>booleans: <code>True</code></li>
+</ul>
+</section>
+<section id="collection-types" class="level1">
+<h1>Collection types</h1>
+<p>These are “containers” for other types of data (scalars, other collections, more complex data types…).</p>
+<ul>
+<li>tuples: <code>(&quot;Bob Jones&quot;, 42)</code>
+<ul>
+<li>fixed length</li>
+<li>immutable</li>
+</ul></li>
+<li>lists: <code>[&quot;Bob Jones&quot;, &quot;Jane Doe&quot;, &quot;Ralph Nader&quot;]</code>
+<ul>
+<li>variable length</li>
+<li>mutable</li>
+</ul></li>
+<li>dictionaries: <code>{&quot;name&quot;: &quot;Bob Jones&quot;, &quot;age&quot;: 42}</code>
+<ul>
+<li>variable length</li>
+<li>mutable</li>
+<li>arbitrary “key-value pairs”</li>
+</ul></li>
+</ul>
+</section>
+<section id="another-collection-type" class="level1">
+<h1>Another collection type…</h1>
+<ul>
+<li>generators:
+<ul>
+<li>“recipes” for a collection</li>
+<li>generates each thing as you need it</li>
+</ul></li>
+</ul>
+<p>We won’t go into these too deeply, but they’re good to know about, especially if you work with large data</p>
+</section>
+<section id="operations" class="level1">
+<h1>Operations</h1>
+<p><em>In which we manipulate and reason about objects</em></p>
+</section>
+<section id="numeric" class="level1">
+<h1>Numeric</h1>
+<ul>
+<li>Addition: <code>3 + 4</code></li>
+<li>Subtraction: <code>3 - 1</code></li>
+<li>Multiplication: <code>4 * 5</code></li>
+<li>Division: <code>6 / 5</code></li>
+<li>Exponentiation: <code>10 ** 2</code></li>
+<li>Modulo (remainder): <code>42 % 5</code></li>
+</ul>
+<p>You can create more complex expressions using parentheses for grouping: <code>(4 + 5) * 2</code></p>
+</section>
+<section id="string" class="level1">
+<h1>String</h1>
+<p><code>+</code> works for strings too:</p>
+<p><code>&quot;this&quot; + &quot;that&quot;</code></p>
+</section>
+<section id="boolean" class="level1">
+<h1>Boolean</h1>
+<ul>
+<li>Logical and: <code>True &amp; False</code> or <code>True and True</code></li>
+<li>Logical or: <code>False | True</code> or <code>False or False</code> (not exclusive…)</li>
+</ul>
+<p>Notes:</p>
+<ul>
+<li>You can also treat <code>True</code> and <code>False</code> like ints <code>1</code> and <code>0</code>, respectively, and vice versa</li>
+<li>Scalars other than <code>0</code>, <code>&quot;&quot;</code>, <code>False</code> or <code>None</code> will be treated as <code>True</code> in logical expression (“truthy”)</li>
+<li>Empty collections will be treated as “falsey” in logical expressions, all other collections truthy</li>
+</ul>
+</section>
+<section id="variables" class="level1">
+<h1>Variables</h1>
+<p>Like in the shell, we can give things names</p>
+<pre><code>age = 42
+name = &quot;Bob Jones&quot;
+person = {&quot;name&quot;: name, &quot;age&quot;: age}
+
+# We can use variables just as though they were their values
+age / 4</code></pre>
+</section>
+<section id="collections" class="level1">
+<h1>Collections</h1>
+<p>We’ll mostly focus on lists and dictionaries</p>
+</section>
+<section id="lists" class="level1">
+<h1>Lists</h1>
+<p>Say, <code>xs = [1, 2, 3, 4, 5, 6, 7]</code></p>
+<ul>
+<li>Concatenation: <code>+</code></li>
+<li>Accessing: <code>xs[4]</code>
+<ul>
+<li>Get the ith thing in the list (0 based indexing)</li>
+</ul></li>
+<li>Changing: <code>xs[3] = 999</code>
+<ul>
+<li>Change the ith thing in the list (0 based indexing)</li>
+</ul></li>
+</ul>
+</section>
+<section id="dictionaries" class="level1">
+<h1>Dictionaries</h1>
+<p>These work similarly to lists, but the indices are whatever we want:</p>
+<ul>
+<li>Get the value: <code>person[&quot;name&quot;]</code></li>
+<li>Set the value: <code>person[&quot;occupation&quot;] = &quot;haxxor&quot;</code></li>
+</ul>
+<p>You can also create dictionaries with string keywords using the <code>dict</code> form:</p>
+<p><code>dict(name=name, age=age)</code></p>
+</section>
+<section id="functions" class="level1">
+<h1>Functions</h1>
+<p>Functions let us write reusable chunks of logic.</p>
+</section>
+<section id="writing-a-simple-function" class="level1">
+<h1>Writing a simple function</h1>
+<pre><code>def square(n):
+    ans = n * n
+    return ans
+
+square(4)</code></pre>
+<p>Things to note:</p>
+<ul>
+<li>To get a value out of the function we must use <code>return</code></li>
+<li>Python uses 4 spaces of indentation to separate what’s in the function from what’s not
+<ul>
+<li>In other languages, indentation is not required, but “good practice” for readability; Python enforces this as part of the <em>syntax</em></li>
+</ul></li>
+</ul>
+</section>
+<section id="methods" class="level1">
+<h1>Methods</h1>
+<p>In python, methods are just functions that are bound to particular objects.</p>
+<p>Example: <code>&quot;this&quot;.upper()</code></p>
+<p>Example2: <code>[1, 2, 3].append(999)</code></p>
+<p>You can see what methods are bound to an object with <code>dir(object)</code> (example: <code>dir([])</code> shows all list methods)</p>
+</section>
+<section id="control-flow" class="level1">
+<h1>Control flow</h1>
+<p><em>In which we bend the rules of logic to our will</em></p>
+</section>
+<section id="if-statements" class="level1">
+<h1>If statements</h1>
+<pre><code>if 3 &lt; 4:
+    print &quot;You should see this&quot;
+else:
+    print &quot;You should NOT see this!&quot;</code></pre>
+<p>Things to note:</p>
+<ul>
+<li>We used indentation here as well to determine the structure of the statements</li>
+<li>We used the <code>&lt;</code> (less than) operand, which behaves just as you’d expect, return True/Flase depending on the operand values</li>
+</ul>
+</section>
+<section id="you-can-have-elif-sections-too" class="level1">
+<h1>You can have elif sections too</h1>
+<pre><code>def f(n):
+    if n &lt; 5:
+        print &quot;Cond 1&quot;
+    elif n &gt; 10:
+        print &quot;Cond 2&quot;
+    else:
+        print &quot;Cond 3&quot;
+
+f(3)
+f(7)
+f(12)</code></pre>
+</section>
+<section id="for-statements" class="level1">
+<h1>For statements</h1>
+<p>Do something for every thing in a collection:</p>
+<pre><code>for n in xs:
+    print &quot;On int:&quot;, n
+</code></pre>
+</section>
+<section id="using-for-to-build-results" class="level1">
+<h1>Using <code>for</code> to build results</h1>
+<pre><code>ys = []
+for x in xs:
+    ys.append(x ** 2)
+
+print xs</code></pre>
+</section>
+<section id="resources" class="level1">
+<h1>Resources</h1>
+<ul>
+<li>Code Academy <a href="http://www.codecademy.com/tracks/python">Python course</a></li>
+<li>Very clear blog post on <a href="http://nedbatchelder.com/text/names.html">how python variables work</a></li>
+</ul>
+</section>
+<section id="bonuses" class="level1">
+<h1>Bonuses…</h1>
+<p>List expressions (like a for loop, but throws everything in a list):</p>
+<pre><code>xs = [x ** 2 for x in range(20)]</code></pre>
+</section>
+</div>
+
+<script src="reveal.js/lib/js/head.min.js"></script>
+<script src="reveal.js/js/reveal.min.js"></script>
+
+<script>
+  // Full list of configuration options available here:
+  // https://github.com/hakimel/reveal.js#configuration
+  Reveal.initialize({
+    controls: true,
+    progress: true,
+    history: true,
+    center: false,
+
+
+    rollingLinks: false,
+  
+  // available themes are in /css/theme
+      theme: Reveal.getQueryHash().theme || 'csmall',
+  
+  // default/cube/page/concave/zoom/linear/fade/none
+      transition: Reveal.getQueryHash().transition || 'fade',
+  
+  // Optional libraries used to extend on reveal.js
+  dependencies: [
+    { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+    { src: 'reveal.js/plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+    { src: 'reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+    { src: 'reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+    { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+    { src: 'MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML'}
+    // { src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+    // { src: 'reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+  ]
+  });
+Reveal.addEventListener( 'slidechanged', function( event ) {
+    MathJax.Hub.Rerender();
+} );
+</script>
+
+</body>
+</html>

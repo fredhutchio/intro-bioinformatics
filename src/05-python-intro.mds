@@ -1,30 +1,302 @@
 % Introduction to Bioinformatics
-% Lesson 3 - Unix Scripting & Automation
+% Lesson 5 - Python basics
+
+
+# How these lessons will be laid out
+
+Today: Python Basics
+
+Up next:
+
+* Building python data structures
+* Building python programs
+
+
+# Context & motivation
 
 
 # Why/when shell scripts?
 
-* Plumbing together existing command line programs
-
-Crickets...
+* Plumbing together existing command line programs...
 
 
 # Why/when R?
 
-* Very tabular data
-* Very tabular data operations
-* Plotting (ggplot2 => OMG, so good)
+* Very tabular data (`data.frame`s are great)
+* Very tabular data operations (plyr, dplyr, reshape2)
+* Plotting (ggplot2, shiny)
 * Ready to go statistics functions
 
 
 # Why/when python?
 
-* Better stream (Unix stdin/stdout) support
+* Better stream (Unix stdin/stdout) support than R
 * More flexible data structures
 * Better performance
 * More flexible / cleaner programming models => better for algorithmic development
 * Better organization for building bigger programs
 
 
-# 
+# Other languages?
+
+There are other languages that fit some of these characteristics, but python is nice because
+
+* It's become popular amongst the scientific community
+* It's relatively simpler in design than other languages
+* It's relatively quick to write (not necessarily to run)
+
+
+# What we'll cover today
+
+* Basic data types: What kinds of data does python know about
+* Syntax: What constitutes a valid expression
+* Variables: How we keep track of and pass around data
+* Control flow: How we specify the behaviour of our program
+* Functions: How we package functionality
+
+
+# Python Basics
+
+_In which we investigate the building blocks of logic_
+
+
+# Firing up a python "REPL"
+
+```
+python
+> print "Hello world"
+```
+
+Now you can enter in little bits of code as we go (type Ctrl-d or `exit` to get out)
+
+
+# Basic data types
+
+_The elements of logic_
+
+
+# Why we want different data types
+
+They allow us to be more expressive and careful about the things we're doing.
+
+They let us more easily manage information, and relate it to the things in the world it represents.
+
+
+# Scalar data types
+
+* strings: `"this is a string"`
+* integers: `42`
+* floats: `3.14159`
+* booleans: `True`
+
+
+# Collection types
+
+These are "containers" for other types of data (scalars, other collections, more complex data types...).
+
+* tuples: `("Bob Jones", 42)`
+    * fixed length
+    * immutable
+* lists: `["Bob Jones", "Jane Doe", "Ralph Nader"]`
+    * variable length
+    * mutable
+* dictionaries: `{"name": "Bob Jones", "age": 42}`
+    * variable length
+    * mutable
+    * arbitrary "key-value pairs"
+
+
+# Another collection type...
+
+* generators:
+    * "recipes" for a collection
+    * generates each thing as you need it
+
+We won't go into these too deeply, but they're good to know about, especially if you work with large data
+
+
+# Operations
+
+_In which we manipulate and reason about objects_
+
+
+# Numeric
+
+* Addition: `3 + 4`
+* Subtraction: `3 - 1`
+* Multiplication: `4 * 5`
+* Division: `6 / 5`
+* Exponentiation: `10 ** 2`
+* Modulo (remainder): `42 % 5`
+
+You can create more complex expressions using parentheses for grouping: `(4 + 5) * 2`
+
+
+# String
+
+`+` works for strings too:
+
+`"this" + "that"`
+
+
+# Boolean
+
+* Logical and: `True & False` or `True and True`
+* Logical or: `False | True` or `False or False` (not exclusive...)
+
+Notes:
+
+* You can also treat `True` and `False` like ints `1` and `0`, respectively, and vice versa
+* Scalars other than `0`, `""`, `False` or `None` will be treated as `True` in logical expression ("truthy")
+* Empty collections will be treated as "falsey" in logical expressions, all other collections truthy
+
+
+# Variables
+
+Like in the shell, we can give things names
+
+```
+age = 42
+name = "Bob Jones"
+person = {"name": name, "age": age}
+
+# We can use variables just as though they were their values
+age / 4
+```
+
+
+# Collections
+
+We'll mostly focus on lists and dictionaries
+
+
+# Lists
+
+Say, `xs = [1, 2, 3, 4, 5, 6, 7]`
+
+* Concatenation: `+`
+* Accessing: `xs[4]`
+    * Get the ith thing in the list (0 based indexing)
+* Changing: `xs[3] = 999`
+    * Change the ith thing in the list (0 based indexing)
+
+
+# Dictionaries
+
+These work similarly to lists, but the indices are whatever we want:
+
+* Get the value: `person["name"]`
+* Set the value: `person["occupation"] = "haxxor"`
+
+You can also create dictionaries with string keywords using the `dict` form:
+
+`dict(name=name, age=age)`
+
+
+# Functions
+
+Functions let us write reusable chunks of logic.
+
+
+# Writing a simple function
+
+```
+def square(n):
+    ans = n * n
+    return ans
+
+square(4)
+```
+
+Things to note:
+
+* To get a value out of the function we must use `return`
+* Python uses 4 spaces of indentation to separate what's in the function from what's not
+    * In other languages, indentation is not required, but "good practice" for readability; Python enforces this as part of the _syntax_
+
+
+# Methods
+
+In python, methods are just functions that are bound to particular objects.
+
+Example: `"this".upper()`
+
+Example2: `[1, 2, 3].append(999)`
+
+You can see what methods are bound to an object with `dir(object)` (example: `dir([])` shows all list methods)
+
+
+# Control flow
+
+_In which we bend the rules of logic to our will_
+
+
+# If statements
+
+```
+if 3 < 4:
+    print "You should see this"
+else:
+    print "You should NOT see this!"
+```
+
+Things to note:
+
+* We used indentation here as well to determine the structure of the statements
+* We used the `<` (less than) operand, which behaves just as you'd expect, return True/Flase depending on the operand values
+
+
+# You can have elif sections too
+
+```
+def f(n):
+    if n < 5:
+        print "Cond 1"
+    elif n > 10:
+        print "Cond 2"
+    else:
+        print "Cond 3"
+
+f(3)
+f(7)
+f(12)
+```
+
+
+# For statements
+
+Do something for every thing in a collection:
+
+```
+for n in xs:
+    print "On int:", n
+
+```
+
+
+# Using `for` to build results
+
+```
+ys = []
+for x in xs:
+    ys.append(x ** 2)
+
+print xs
+```
+
+
+# Resources
+
+* Code Academy [Python course](http://www.codecademy.com/tracks/python)
+* Very clear blog post on [how python variables work](http://nedbatchelder.com/text/names.html)
+
+
+# Bonuses...
+
+List expressions (like a for loop, but throws everything in a list):
+
+```
+xs = [x ** 2 for x in range(20)]
+```
+
 

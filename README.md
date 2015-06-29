@@ -17,7 +17,7 @@ The following is the tentative outline for courses in the class:
 2. [Unix Shell I - overview](02-unix-shell-intro.html)
 3. [Unix Shell II - scripting](03-unix-shell.html)
 4. [Version Control with Git](04-git.html)
-5. Python I - syntax and data types
+5. [Python I - syntax and data types](05-python-intro.html)
 6. Python II - building data structures
 7. Python III - writing a program
 
