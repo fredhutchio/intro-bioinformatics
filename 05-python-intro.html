@@ -59,13 +59,14 @@
 </section>
 
 
-<section id="how-these-lessons-will-be-laid-out" class="level1">
-<h1>How these lessons will be laid out</h1>
-<p>Today: Python Basics</p>
-<p>Up next:</p>
+<section id="what-well-cover-today" class="level1">
+<h1>What we’ll cover today</h1>
 <ul>
-<li>Building python data structures</li>
-<li>Building python programs</li>
+<li>Basic data types: What kinds of data does python know about</li>
+<li>Syntax: What constitutes a valid expression</li>
+<li>Variables: How we keep track of and pass around data</li>
+<li>Control flow: How we specify the behaviour of our program</li>
+<li>Functions: How we package functionality</li>
 </ul>
 </section>
 <section id="context-motivation" class="level1">
@@ -89,11 +90,11 @@
 <section id="whywhen-python" class="level1">
 <h1>Why/when python?</h1>
 <ul>
-<li>Better stream (Unix stdin/stdout) support than R</li>
 <li>More flexible data structures</li>
 <li>Better performance</li>
 <li>More flexible / cleaner programming models =&gt; better for algorithmic development</li>
 <li>Better organization for building bigger programs</li>
+<li>Better stream (Unix stdin/stdout) support than R</li>
 </ul>
 </section>
 <section id="other-languages" class="level1">
@@ -103,16 +104,6 @@
 <li>It’s become popular amongst the scientific community</li>
 <li>It’s relatively simpler in design than other languages</li>
 <li>It’s relatively quick to write (not necessarily to run)</li>
-</ul>
-</section>
-<section id="what-well-cover-today" class="level1">
-<h1>What we’ll cover today</h1>
-<ul>
-<li>Basic data types: What kinds of data does python know about</li>
-<li>Syntax: What constitutes a valid expression</li>
-<li>Variables: How we keep track of and pass around data</li>
-<li>Control flow: How we specify the behaviour of our program</li>
-<li>Functions: How we package functionality</li>
 </ul>
 </section>
 <section id="python-basics" class="level1">
@@ -138,7 +129,7 @@
 <h1>Scalar data types</h1>
 <ul>
 <li>strings: <code>&quot;this is a string&quot;</code></li>
-<li>integers: <code>42</code></li>
+<li>ints: <code>42</code></li>
 <li>floats: <code>3.14159</code></li>
 <li>booleans: <code>True</code></li>
 </ul>
@@ -146,11 +137,14 @@
 <section id="collection-types" class="level1">
 <h1>Collection types</h1>
 <p>These are “containers” for other types of data (scalars, other collections, more complex data types…).</p>
+</section>
+<section id="collection-types-1" class="level1">
+<h1>Collection types</h1>
 <ul>
 <li>tuples: <code>(&quot;Bob Jones&quot;, 42)</code>
 <ul>
 <li>fixed length</li>
-<li>immutable</li>
+<li>immutable (can’t “change in place”)</li>
 </ul></li>
 <li>lists: <code>[&quot;Bob Jones&quot;, &quot;Jane Doe&quot;, &quot;Ralph Nader&quot;]</code>
 <ul>
@@ -162,19 +156,26 @@
 <li>variable length</li>
 <li>mutable</li>
 <li>arbitrary “key-value pairs”</li>
+<li>no order guarantees</li>
 </ul></li>
 </ul>
 </section>
-<section id="another-collection-type" class="level1">
-<h1>Another collection type…</h1>
+<section id="more-collection-types" class="level1">
+<h1>More collection types…</h1>
+<p>We won’t go into these as deeply, but it’s worth being aware of them:</p>
 <ul>
 <li>generators:
 <ul>
 <li>“recipes” for a collection</li>
 <li>generates each thing as you need it</li>
+<li>good for “big data”</li>
+</ul></li>
+<li>sets
+<ul>
+<li>unique entries</li>
+<li>no order guarantees</li>
 </ul></li>
 </ul>
-<p>We won’t go into these too deeply, but they’re good to know about, especially if you work with large data</p>
 </section>
 <section id="operations" class="level1">
 <h1>Operations</h1>
@@ -203,7 +204,9 @@
 <li>Logical and: <code>True &amp; False</code> or <code>True and True</code></li>
 <li>Logical or: <code>False | True</code> or <code>False or False</code> (not exclusive…)</li>
 </ul>
-<p>Notes:</p>
+</section>
+<section id="blurring-the-lines-with-booleans" class="level1">
+<h1>Blurring the lines with booleans</h1>
 <ul>
 <li>You can also treat <code>True</code> and <code>False</code> like ints <code>1</code> and <code>0</code>, respectively, and vice versa</li>
 <li>Scalars other than <code>0</code>, <code>&quot;&quot;</code>, <code>False</code> or <code>None</code> will be treated as <code>True</code> in logical expression (“truthy”)</li>
@@ -220,8 +223,17 @@ person = {&quot;name&quot;: name, &quot;age&quot;: age}
 # We can use variables just as though they were their values
 age / 4</code></pre>
 </section>
-<section id="collections" class="level1">
-<h1>Collections</h1>
+<section id="variable-name-rules" class="level1">
+<h1>Variable name rules</h1>
+<ul>
+<li>Must start with a character</li>
+<li>Can contain characters, numbers, and underscores (<code>_</code>); nothing else</li>
+<li>Standard convention is to use all lower case, with words separated by <code>_</code></li>
+</ul>
+<p>Example: <code>bobs_occupation = &quot;haxxor&quot;</code></p>
+</section>
+<section id="collection-operations" class="level1">
+<h1>Collection operations</h1>
 <p>We’ll mostly focus on lists and dictionaries</p>
 </section>
 <section id="lists" class="level1">
@@ -231,27 +243,36 @@ age / 4</code></pre>
 <li>Concatenation: <code>+</code></li>
 <li>Accessing: <code>xs[4]</code>
 <ul>
-<li>Get the ith thing in the list (0 based indexing)</li>
+<li>Get the 5th thing in the list</li>
 </ul></li>
 <li>Changing: <code>xs[3] = 999</code>
 <ul>
-<li>Change the ith thing in the list (0 based indexing)</li>
+<li>Change the 4th thing in the list</li>
 </ul></li>
 </ul>
+<p>Note: Python has 0-based indexing.</p>
 </section>
 <section id="dictionaries" class="level1">
 <h1>Dictionaries</h1>
-<p>These work similarly to lists, but the indices are whatever we want:</p>
+<p>These work similarly to lists, but the indices are (almost) whatever we want:</p>
 <ul>
 <li>Get the value: <code>person[&quot;name&quot;]</code></li>
 <li>Set the value: <code>person[&quot;occupation&quot;] = &quot;haxxor&quot;</code></li>
 </ul>
-<p>You can also create dictionaries with string keywords using the <code>dict</code> form:</p>
-<p><code>dict(name=name, age=age)</code></p>
+<p>Here <code>&quot;occupation&quot;</code> is the <em>key</em>, and <code>&quot;haxxor&quot;</code> is the <em>value</em>. Together, they form a <em>key-value pair</em>.</p>
+</section>
+<section id="dictionaries---arbitrary-keys" class="level1">
+<h1>Dictionaries - arbitrary keys</h1>
+<p>Keys are often strings, but don’t have to be:</p>
+<pre><code>crazy_hash = {4: &quot;some string&quot;, [1,2,3]: 999}
+
+crazy_hash[4]
+crazy_hash[[1,2,3]]</code></pre>
+<p>(Note: there are some things that <em>can’t</em> be used as keys, but most simple data are fine)</p>
 </section>
 <section id="functions" class="level1">
 <h1>Functions</h1>
-<p>Functions let us write reusable chunks of logic.</p>
+<p><em>In which from our rules of logic we compose spells</em></p>
 </section>
 <section id="writing-a-simple-function" class="level1">
 <h1>Writing a simple function</h1>
@@ -260,25 +281,35 @@ age / 4</code></pre>
     return ans
 
 square(4)</code></pre>
-<p>Things to note:</p>
 <ul>
 <li>To get a value out of the function we must use <code>return</code></li>
 <li>Python uses 4 spaces of indentation to separate what’s in the function from what’s not
 <ul>
-<li>In other languages, indentation is not required, but “good practice” for readability; Python enforces this as part of the <em>syntax</em></li>
+<li>In other languages, indentation is just “good practice” for readability; Python enforces it as part of the <em>syntax</em></li>
 </ul></li>
 </ul>
 </section>
+<section id="other-things-about-functions" class="level1">
+<h1>Other things about functions</h1>
+<p>Functions are “first class”, in that they can be passed around as data just like numbers, strings, etc.</p>
+<pre><code>def f(x):
+    print x
+
+print square
+[square, &quot;data&quot;]</code></pre>
+<p>We’ll see how this is useful later</p>
+</section>
 <section id="methods" class="level1">
 <h1>Methods</h1>
-<p>In python, methods are just functions that are bound to particular objects.</p>
+<p>In python, methods are just functions that are bound to particular objects as <em>attributes</em> of that object.</p>
 <p>Example: <code>&quot;this&quot;.upper()</code></p>
 <p>Example2: <code>[1, 2, 3].append(999)</code></p>
 <p>You can see what methods are bound to an object with <code>dir(object)</code> (example: <code>dir([])</code> shows all list methods)</p>
+<p>(We’ll learn more about how methods actually work next week)</p>
 </section>
 <section id="control-flow" class="level1">
 <h1>Control flow</h1>
-<p><em>In which we bend the rules of logic to our will</em></p>
+<p><em>In which we gain mastery over the rules of logic</em></p>
 </section>
 <section id="if-statements" class="level1">
 <h1>If statements</h1>
@@ -313,25 +344,72 @@ f(12)</code></pre>
     print &quot;On int:&quot;, n
 </code></pre>
 </section>
+<section id="iterating-over-key-value-pairs-in-a-dictionary" class="level1">
+<h1>Iterating over key-value pairs in a dictionary</h1>
+<pre><code>for k, v in person.iteritems():
+    println &quot;key:&quot;, k, &quot;val:&quot;, v
+</code></pre>
+</section>
 <section id="using-for-to-build-results" class="level1">
 <h1>Using <code>for</code> to build results</h1>
 <pre><code>ys = []
 for x in xs:
-    ys.append(x ** 2)
+    y = square(x)
+    ys.append(y)
 
-print xs</code></pre>
+print ys</code></pre>
+<p>This is <em>imperative</em>; we’re telling the computer <em>how</em> to build <code>ys</code></p>
+</section>
+<section id="a-better-way" class="level1">
+<h1>A better way</h1>
+<p>List comprehensions:</p>
+<pre><code>ys = [square(x) for x in xs]
+
+print ys</code></pre>
+</section>
+<section id="the-functional-way" class="level1">
+<h1>The functional way</h1>
+<p>When possible, it better to be <em>functional</em>. Let the computer figure out <em>how</em> to build things, just tell it <em>what</em> to build.</p>
+<pre><code>ys = map(square, xs)
+
+print ys</code></pre>
+<p>Note that we’re passing the function <code>square</code> as an <em>argument</em> to the function <code>map</code>.</p>
+</section>
+<section id="higher-level-concerns" class="level1">
+<h1>Higher level concerns</h1>
+<p><em>In which we begin to rise to the level of systems</em></p>
+</section>
+<section id="importing-modules" class="level1">
+<h1>Importing modules</h1>
+<pre><code>import math
+
+dir(math)
+help(math.log)
+
+math.log(3.14)</code></pre>
+<p><code>math</code> is a <em>module</em>. Modules, just like objects, have <em>attributes</em>, and these attributes are typically functions that we can use in our programs (though sometimes they’re just useful data, like <code>math.e</code>).</p>
+</section>
+<section id="namespaces" class="level1">
+<h1>Namespaces</h1>
+<p>We also talk about modules as being <em>namespaces</em>. A namespace is just a path to some data or function or module. In this case <code>math</code> can also be thought of as a namespace.</p>
+</section>
+<section id="installing-your-own-packages-with-pip" class="level1">
+<h1>Installing your own packages with pip</h1>
+<p>Collections of modules are called <em>packages</em>.</p>
+<p>The command line tool <code>pip</code> can be used to install packages:</p>
+<pre><code>pip install --user biopython</code></pre>
+<p>The <code>--user</code> flag tells pip to install things in your <em>local</em> python lib directory. You would only omit that if you were installing <em>system wide</em> on your own computer.</p>
+</section>
+<section id="beware-python-3" class="level1">
+<h1>Beware Python 3</h1>
+<p>We’re using Python 2. Sadly Python 3 has been out for YEARS, but hardly anyone is using it. It’s rather different in a number of ways, so watch out for it.</p>
 </section>
 <section id="resources" class="level1">
 <h1>Resources</h1>
 <ul>
-<li>Code Academy <a href="http://www.codecademy.com/tracks/python">Python course</a></li>
+<li>Code Academy <a href="http://www.codecademy.com/tracks/python">Python course</a> (I highly recommend working through as much of this as you like)</li>
 <li>Very clear blog post on <a href="http://nedbatchelder.com/text/names.html">how python variables work</a></li>
 </ul>
-</section>
-<section id="bonuses" class="level1">
-<h1>Bonuses…</h1>
-<p>List expressions (like a for loop, but throws everything in a list):</p>
-<pre><code>xs = [x ** 2 for x in range(20)]</code></pre>
 </section>
 </div>
 

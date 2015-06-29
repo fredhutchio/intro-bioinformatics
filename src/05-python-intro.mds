@@ -2,14 +2,13 @@
 % Lesson 5 - Python basics
 
 
-# How these lessons will be laid out
+# What we'll cover today
 
-Today: Python Basics
-
-Up next:
-
-* Building python data structures
-* Building python programs
+* Basic data types: What kinds of data does python know about
+* Syntax: What constitutes a valid expression
+* Variables: How we keep track of and pass around data
+* Control flow: How we specify the behaviour of our program
+* Functions: How we package functionality
 
 
 # Context & motivation
@@ -30,11 +29,11 @@ Up next:
 
 # Why/when python?
 
-* Better stream (Unix stdin/stdout) support than R
 * More flexible data structures
 * Better performance
 * More flexible / cleaner programming models => better for algorithmic development
 * Better organization for building bigger programs
+* Better stream (Unix stdin/stdout) support than R
 
 
 # Other languages?
@@ -44,15 +43,6 @@ There are other languages that fit some of these characteristics, but python is 
 * It's become popular amongst the scientific community
 * It's relatively simpler in design than other languages
 * It's relatively quick to write (not necessarily to run)
-
-
-# What we'll cover today
-
-* Basic data types: What kinds of data does python know about
-* Syntax: What constitutes a valid expression
-* Variables: How we keep track of and pass around data
-* Control flow: How we specify the behaviour of our program
-* Functions: How we package functionality
 
 
 # Python Basics
@@ -85,7 +75,7 @@ They let us more easily manage information, and relate it to the things in the w
 # Scalar data types
 
 * strings: `"this is a string"`
-* integers: `42`
+* ints: `42`
 * floats: `3.14159`
 * booleans: `True`
 
@@ -94,9 +84,12 @@ They let us more easily manage information, and relate it to the things in the w
 
 These are "containers" for other types of data (scalars, other collections, more complex data types...).
 
+
+# Collection types
+
 * tuples: `("Bob Jones", 42)`
     * fixed length
-    * immutable
+    * immutable (can't "change in place")
 * lists: `["Bob Jones", "Jane Doe", "Ralph Nader"]`
     * variable length
     * mutable
@@ -104,15 +97,20 @@ These are "containers" for other types of data (scalars, other collections, more
     * variable length
     * mutable
     * arbitrary "key-value pairs"
+    * no order guarantees
 
 
-# Another collection type...
+# More collection types...
+
+We won't go into these as deeply, but it's worth being aware of them:
 
 * generators:
     * "recipes" for a collection
     * generates each thing as you need it
-
-We won't go into these too deeply, but they're good to know about, especially if you work with large data
+    * good for "big data"
+* sets
+    * unique entries
+    * no order guarantees
 
 
 # Operations
@@ -144,7 +142,8 @@ You can create more complex expressions using parentheses for grouping: `(4 + 5)
 * Logical and: `True & False` or `True and True`
 * Logical or: `False | True` or `False or False` (not exclusive...)
 
-Notes:
+
+# Blurring the lines with booleans
 
 * You can also treat `True` and `False` like ints `1` and `0`, respectively, and vice versa
 * Scalars other than `0`, `""`, `False` or `None` will be treated as `True` in logical expression ("truthy")
@@ -165,7 +164,16 @@ age / 4
 ```
 
 
-# Collections
+# Variable name rules
+
+* Must start with a character
+* Can contain characters, numbers, and underscores (`_`); nothing else
+* Standard convention is to use all lower case, with words separated by `_`
+
+Example: `bobs_occupation = "haxxor"`
+
+
+# Collection operations
 
 We'll mostly focus on lists and dictionaries
 
@@ -176,26 +184,41 @@ Say, `xs = [1, 2, 3, 4, 5, 6, 7]`
 
 * Concatenation: `+`
 * Accessing: `xs[4]`
-    * Get the ith thing in the list (0 based indexing)
+    * Get the 5th thing in the list
 * Changing: `xs[3] = 999`
-    * Change the ith thing in the list (0 based indexing)
+    * Change the 4th thing in the list
+
+Note: Python has 0-based indexing.
 
 
 # Dictionaries
 
-These work similarly to lists, but the indices are whatever we want:
+These work similarly to lists, but the indices are (almost) whatever we want:
 
 * Get the value: `person["name"]`
 * Set the value: `person["occupation"] = "haxxor"`
 
-You can also create dictionaries with string keywords using the `dict` form:
+Here `"occupation"` is the _key_, and `"haxxor"` is the _value_.
+Together, they form a _key-value pair_.
 
-`dict(name=name, age=age)`
+
+# Dictionaries - arbitrary keys
+
+Keys are often strings, but don't have to be:
+
+```
+crazy_hash = {4: "some string", [1,2,3]: 999}
+
+crazy_hash[4]
+crazy_hash[[1,2,3]]
+```
+
+(Note: there are some things that _can't_ be used as keys, but most simple data are fine)
 
 
 # Functions
 
-Functions let us write reusable chunks of logic.
+_In which from our rules of logic we compose spells_
 
 
 # Writing a simple function
@@ -208,16 +231,29 @@ def square(n):
 square(4)
 ```
 
-Things to note:
-
 * To get a value out of the function we must use `return`
 * Python uses 4 spaces of indentation to separate what's in the function from what's not
-    * In other languages, indentation is not required, but "good practice" for readability; Python enforces this as part of the _syntax_
+    * In other languages, indentation is just "good practice" for readability; Python enforces it as part of the _syntax_
+
+
+# Other things about functions
+
+Functions are "first class", in that they can be passed around as data just like numbers, strings, etc.
+
+```
+def f(x):
+    print x
+
+print square
+[square, "data"]
+```
+
+We'll see how this is useful later
 
 
 # Methods
 
-In python, methods are just functions that are bound to particular objects.
+In python, methods are just functions that are bound to particular objects as _attributes_ of that object.
 
 Example: `"this".upper()`
 
@@ -225,10 +261,12 @@ Example2: `[1, 2, 3].append(999)`
 
 You can see what methods are bound to an object with `dir(object)` (example: `dir([])` shows all list methods)
 
+(We'll learn more about how methods actually work next week)
+
 
 # Control flow
 
-_In which we bend the rules of logic to our will_
+_In which we gain mastery over the rules of logic_
 
 
 # If statements
@@ -274,29 +312,104 @@ for n in xs:
 ```
 
 
+# Iterating over key-value pairs in a dictionary
+
+```
+for k, v in person.iteritems():
+    println "key:", k, "val:", v
+
+```
+
+
 # Using `for` to build results
 
 ```
 ys = []
 for x in xs:
-    ys.append(x ** 2)
+    y = square(x)
+    ys.append(y)
 
-print xs
+print ys
 ```
+
+This is _imperative_; we're telling the computer _how_ to build `ys`
+
+
+# A better way
+
+List comprehensions:
+
+```
+ys = [square(x) for x in xs]
+
+print ys
+```
+
+
+# The functional way
+
+When possible, it better to be _functional_. Let the computer figure out _how_ to build things, just tell it _what_ to build.
+
+```
+ys = map(square, xs)
+
+print ys
+```
+
+Note that we're passing the function `square` as an _argument_ to the function `map`.
+
+
+# Higher level concerns
+
+_In which we begin to rise to the level of systems_
+
+
+# Importing modules
+
+```
+import math
+
+dir(math)
+help(math.log)
+
+math.log(3.14)
+```
+
+`math` is a _module_.
+Modules, just like objects, have _attributes_, and these attributes are typically functions that we can use in our programs (though sometimes they're just useful data, like `math.e`).
+
+
+# Namespaces
+
+We also talk about modules as being _namespaces_.
+A namespace is just a path to some data or function or module.
+In this case `math` can also be thought of as a namespace.
+
+
+# Installing your own packages with pip
+
+Collections of modules are called _packages_.
+
+The command line tool `pip` can be used to install packages:
+
+```
+pip install --user biopython
+```
+
+The `--user` flag tells pip to install things in your _local_ python lib directory.
+You would only omit that if you were installing _system wide_ on your own computer.
+
+
+# Beware Python 3
+
+We're using Python 2.
+Sadly Python 3 has been out for YEARS, but hardly anyone is using it.
+It's rather different in a number of ways, so watch out for it.
 
 
 # Resources
 
-* Code Academy [Python course](http://www.codecademy.com/tracks/python)
+* Code Academy [Python course](http://www.codecademy.com/tracks/python) (I highly recommend working through as much of this as you like)
 * Very clear blog post on [how python variables work](http://nedbatchelder.com/text/names.html)
-
-
-# Bonuses...
-
-List expressions (like a for loop, but throws everything in a list):
-
-```
-xs = [x ** 2 for x in range(20)]
-```
 
 
