@@ -264,10 +264,10 @@ age / 4</code></pre>
 <section id="dictionaries---arbitrary-keys" class="level1">
 <h1>Dictionaries - arbitrary keys</h1>
 <p>Keys are often strings, but don’t have to be:</p>
-<pre><code>crazy_hash = {4: &quot;some string&quot;, [1,2,3]: 999}
+<pre><code>crazy_hash = {4: &quot;some string&quot;, (1,2,3): 999}
 
 crazy_hash[4]
-crazy_hash[[1,2,3]]</code></pre>
+crazy_hash[(1,2,3)]</code></pre>
 <p>(Note: there are some things that <em>can’t</em> be used as keys, but most simple data are fine)</p>
 </section>
 <section id="functions" class="level1">
@@ -347,7 +347,7 @@ f(12)</code></pre>
 <section id="iterating-over-key-value-pairs-in-a-dictionary" class="level1">
 <h1>Iterating over key-value pairs in a dictionary</h1>
 <pre><code>for k, v in person.iteritems():
-    println &quot;key:&quot;, k, &quot;val:&quot;, v
+    print &quot;key:&quot;, k, &quot;val:&quot;, v
 </code></pre>
 </section>
 <section id="using-for-to-build-results" class="level1">

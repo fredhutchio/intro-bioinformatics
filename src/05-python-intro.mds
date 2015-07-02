@@ -316,7 +316,7 @@ for n in xs:
 
 ```
 for k, v in person.iteritems():
-    println "key:", k, "val:", v
+    print "key:", k, "val:", v
 
 ```
 
