@@ -207,10 +207,10 @@ Together, they form a _key-value pair_.
 Keys are often strings, but don't have to be:
 
 ```
-crazy_hash = {4: "some string", [1,2,3]: 999}
+crazy_hash = {4: "some string", (1,2,3): 999}
 
 crazy_hash[4]
-crazy_hash[[1,2,3]]
+crazy_hash[(1,2,3)]
 ```
 
 (Note: there are some things that _can't_ be used as keys, but most simple data are fine)
