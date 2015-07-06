@@ -112,6 +112,7 @@
 </section>
 <section id="firing-up-a-python-repl" class="level1">
 <h1>Firing up a python “REPL”</h1>
+<p>REPL is short for Read Evaluate Print Loop.</p>
 <pre><code>python
 &gt; print &quot;Hello world&quot;</code></pre>
 <p>Now you can enter in little bits of code as we go (type Ctrl-d or <code>exit</code> to get out)</p>
@@ -238,7 +239,7 @@ age / 4</code></pre>
 </section>
 <section id="lists" class="level1">
 <h1>Lists</h1>
-<p>Say, <code>xs = [1, 2, 3, 4, 5, 6, 7]</code></p>
+<p>Writing <code>xs = [1, 2, 3, 4, 5, 6, 7]</code> defines a list <code>xs</code>.</p>
 <ul>
 <li>Concatenation: <code>+</code></li>
 <li>Accessing: <code>xs[4]</code>
@@ -297,14 +298,14 @@ square(4)</code></pre>
 
 print square
 [square, &quot;data&quot;]</code></pre>
-<p>We’ll see how this is useful later</p>
+<p>We’ll see how this is useful later.</p>
 </section>
 <section id="methods" class="level1">
 <h1>Methods</h1>
 <p>In python, methods are just functions that are bound to particular objects as <em>attributes</em> of that object.</p>
 <p>Example: <code>&quot;this&quot;.upper()</code></p>
-<p>Example2: <code>[1, 2, 3].append(999)</code></p>
-<p>You can see what methods are bound to an object with <code>dir(object)</code> (example: <code>dir([])</code> shows all list methods)</p>
+<p>Example2: <code>xs = [1, 2, 3]; xs.append(9); print xs</code></p>
+<p>You can see what methods are bound to an object <code>o</code> with <code>dir(o)</code> (example: <code>dir([])</code> shows all list methods)</p>
 <p>(We’ll learn more about how methods actually work next week)</p>
 </section>
 <section id="control-flow" class="level1">
@@ -320,11 +321,12 @@ else:
 <p>Things to note:</p>
 <ul>
 <li>We used indentation here as well to determine the structure of the statements</li>
-<li>We used the <code>&lt;</code> (less than) operand, which behaves just as you’d expect, return True/Flase depending on the operand values</li>
+<li>We used the <code>&lt;</code> (less than) operand, which behaves just as you’d expect, return True/False depending on the operand values</li>
 </ul>
 </section>
 <section id="you-can-have-elif-sections-too" class="level1">
 <h1>You can have elif sections too</h1>
+<p><code>elif</code> is a combination of an <code>else</code> and an <code>if</code>.</p>
 <pre><code>def f(n):
     if n &lt; 5:
         print &quot;Cond 1&quot;
@@ -346,7 +348,10 @@ f(12)</code></pre>
 </section>
 <section id="iterating-over-key-value-pairs-in-a-dictionary" class="level1">
 <h1>Iterating over key-value pairs in a dictionary</h1>
-<pre><code>for k, v in person.iteritems():
+<p>Dictionaries have an <code>items</code> method that gives all of the <br/> key, value pairs. Try</p>
+<pre><code>person.items()</code></pre>
+<p>Now loop over them:</p>
+<pre><code>for k, v in person.items():
     print &quot;key:&quot;, k, &quot;val:&quot;, v
 </code></pre>
 </section>

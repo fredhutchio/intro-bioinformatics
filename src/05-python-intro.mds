@@ -52,6 +52,8 @@ _In which we investigate the building blocks of logic_
 
 # Firing up a python "REPL"
 
+REPL is short for Read Evaluate Print Loop.
+
 ```
 python
 > print "Hello world"
@@ -180,7 +182,7 @@ We'll mostly focus on lists and dictionaries
 
 # Lists
 
-Say, `xs = [1, 2, 3, 4, 5, 6, 7]`
+Writing `xs = [1, 2, 3, 4, 5, 6, 7]` defines a list `xs`.
 
 * Concatenation: `+`
 * Accessing: `xs[4]`
@@ -248,7 +250,7 @@ print square
 [square, "data"]
 ```
 
-We'll see how this is useful later
+We'll see how this is useful later.
 
 
 # Methods
@@ -257,9 +259,9 @@ In python, methods are just functions that are bound to particular objects as _a
 
 Example: `"this".upper()`
 
-Example2: `[1, 2, 3].append(999)`
+Example2: `xs = [1, 2, 3]; xs.append(9); print xs`
 
-You can see what methods are bound to an object with `dir(object)` (example: `dir([])` shows all list methods)
+You can see what methods are bound to an object `o` with `dir(o)` (example: `dir([])` shows all list methods)
 
 (We'll learn more about how methods actually work next week)
 
@@ -281,10 +283,12 @@ else:
 Things to note:
 
 * We used indentation here as well to determine the structure of the statements
-* We used the `<` (less than) operand, which behaves just as you'd expect, return True/Flase depending on the operand values
+* We used the `<` (less than) operand, which behaves just as you'd expect, return True/False depending on the operand values
 
 
 # You can have elif sections too
+
+`elif` is a combination of an `else` and an `if`.
 
 ```
 def f(n):
@@ -314,8 +318,14 @@ for n in xs:
 
 # Iterating over key-value pairs in a dictionary
 
+Dictionaries have an `items` method that gives all of the <br/> key, value pairs. Try
 ```
-for k, v in person.iteritems():
+person.items()
+```
+
+Now loop over them:
+```
+for k, v in person.items():
     print "key:", k, "val:", v
 
 ```
