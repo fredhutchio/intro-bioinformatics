@@ -18,7 +18,7 @@ The following is the tentative outline for courses in the class:
 3. [Unix Shell II - scripting](03-unix-shell.html)
 4. [Version Control with Git](04-git.html)
 5. [Python I - syntax and data types](05-python-intro.html)
-6. Python II - building data structures
+6. [Python II - building data structures](06-python-oop.html)
 7. Python III - writing a program
 
 The class will be loosely following [Bioinformatics Data Skills](http://shop.oreilly.com/product/0636920030157.do) for the overview, unix, and version control sections.
