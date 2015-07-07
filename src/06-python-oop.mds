@@ -1,0 +1,366 @@
+% Introduction to Bioinformatics
+% Lesson 6 - Object Oriented Programming with Python
+
+
+# Object Oriented Programming
+
+## OOP: yeah, you know me...
+
+_Wherein from simple elements we construct towering monuments_
+
+
+# What we'll cover today
+
+* What _is_ OOP?
+* Why do we _care_ about OOP?
+* How do I _use_ OOP?
+* How do I _do_ OOP?
+* How hard _should_ I OOP?
+
+
+# What is OOP?
+
+OOP is a way of writing programs which emphasizes bundling data and functionality.
+
+
+# Why do we have OOP?
+
+Before OOP, large programs were difficult to analyze.
+It was hard to keep track of all the different data and functionality.
+
+OOP is a way of organizing data and functionality such that it's easier to conceptualize how they relate to each other.
+The goal is to make it easier to conceptualize the whole system.
+
+
+# The Objects in OOP
+
+Objects are entities which bundle data and behavior related to that data.
+The data is organized into _attributes_ and the behavior into _methods_.
+
+Objects are usually mutable: Methods can modify (in place) the attributes of a given object.
+
+
+# Classes
+
+_Classes_ are a way of defining the shape and behavior of objects.
+In class based OOP, we say that objects are _instances_ of a class.
+
+Example: the string `"cat"` is an instance of the class `str`.
+
+Class based OOP is the most common form in modern languages.
+In particular, python's OOP is class based.
+
+
+# That's it in a nutshell
+
+Any questions?
+
+
+# How do I use other's OPP
+
+This is the easy part.
+
+Even if you don't create your own objects/classes, you can still consume other folk's OOP.
+
+
+# A pertinent example
+
+Let's look at the Biopython library
+
+```python
+# First import the namespace/module
+import Bio.SeqIO as SeqIO
+
+# Next, create a sequence parser, specifying file and format
+seqs = SeqIO.parse("data/sfv.fasta", "fasta")
+
+# Now let's inspect things a bit (bonus: intro to generators!)
+seqs
+seqs.next()
+seqs.next()
+```
+
+
+# Let's look at one of these `seqs` in more detail
+
+```
+# More investigating
+seq = seqs.next()
+seq
+type(seq)
+dir(seq)
+seq.name
+```
+
+
+# Let's look at the seq's `seq`
+
+```
+# Here's where the actual "sequence" is
+seq.seq
+s = seq.seq
+type(s)
+dir(s)
+str(s)
+len(s)
+
+# Some real functionality
+s.transcribe()
+```
+
+
+# How do I OOP?
+
+```python
+# First we specify the name of the class
+class Person(object):
+    # This function gets called on new objects
+    def __init__(self, name, age, occupation):
+        # setting up attributes
+        self.name = name
+        self.age = age
+        self.occupation = occupation
+
+p = Person("Bob Jones", 42, "haxxor")
+print p
+```
+
+
+# What about the functionality bit
+
+Suppose we add email (note this is psuedo code):
+
+```
+import email
+
+class Person(object):
+    def __init__(self, name, age, occ, email):
+        self.name = name
+        self.age = age
+        self.occupation = occ
+        self.email = email
+
+    def notify_via_email(self, message):
+        email.send(self.email, message)
+
+p = Person("Bob Jones", 42, "haxxor", "bob@jon.es")
+p.notify_via_email("your cat was found")
+```
+
+
+# Let's contrast this with non-OOP
+
+```
+import email
+
+def notify_via_email(person, message):
+    email.send(person["email"], message)
+
+p = dict(name="Bob Jones", age=42,
+        occupation="haxxor", email="bob@jon.es"}
+notify_via_email(person, "your cat was found")
+```
+
+Shorter, but it's less clear in `notify_via_email` what valid input is.
+Classes make this patent.
+
+
+# What if a company also has an email?
+
+OOP: Have to write a separate method in the `Company` class. (There are other ways around this, but they're a bit of work).
+
+Non-OOP: As long as the `company` dictionary has an `"email"` key/value pair, the function will still work.
+
+Moral of the story: Structure comes at a cost.
+
+
+# Let's pretend Biopython didn't exist
+
+The bare bones.
+Let's put this in `scripts/seqs.py`
+
+```
+class SeqRecord(object):
+    def __init__(self, name, seq):
+        self.name = name
+        self.seq = seq
+
+s = SeqRecord("MBG234Gag1", "AGCTGTCGGTAAGTCGAGT")
+print s.name
+print s.seq
+```
+
+
+# Now let's add some functionality
+
+```
+class SeqRecord(object):
+    ...
+
+    def fasta_string(self):
+        string_rep = ">" + self.name + "\n"
+        string_rep += self.seq + "\n"
+        return string_rep
+
+s = SeqRecord("MBG234Gag1", "AGCTGTCGGTAAGTCGAGT")
+print s.fasta_string()
+```
+
+You can run this with `python scripts/seqs.py`.
+
+
+# Making the `seq` more robust
+
+```python
+# Here we create a "subclass" of str
+class Seq(str):
+    # Here we default to str's init, etc
+    pass
+
+s = Seq("ACGT")
+print s
+```
+
+Note: Creating a subclass of builtins like `str` is sometimes discouraged, but it's fine for illustrative purposes.
+
+
+# Adding functionality to `Seq`
+
+```python
+class Seq(str):
+    complements = dict(A="T", T="A", C="G", G="C")
+    def complement(self):
+        # Create list of the characters
+        bps = [self.complements[bp] for bp in self]
+        # Join characters together, and Seq them
+        joined_bps = "".join(bps)
+        retrun Seq(joined_bps)
+
+s = Seq("ACGT")
+print s.complement()
+```
+
+# Note the _class variable_
+
+```python
+# The class and instances both get this attribute
+print Seq.complements
+print s.complements
+
+# You can change it in the objects, but the class won't change
+s.complements = "something else"
+print s.complements
+print Seq.complements
+```
+
+`complements` here would typically be called a _class variable_.
+The codecademy course confusingly calls them _member variables_...
+
+
+# What about RNA vs DNA?
+
+We can solve this using _subclasses_.
+
+```python
+class Seq(str):
+    # Same method as before...
+    def complement(self):
+        bps = [self.complements[x] for x in self]
+        joined_bps = "".join(bps)
+        return Seq(joined_bps)
+
+# But we move the class variable into subclasses
+class DNASeq(Seq):
+    complements = dict(A="T", T="A", C="G", G="C")
+
+class RNASeq(Seq):
+    complements = dict(A="U", U="A", C="G", G="C")
+```
+
+
+# Testing our subclasses
+
+```python
+# Testing out our new classes
+s = DNASeq("ACTG")
+print s.complement()
+s = RNASeq("ACUG")
+print s.complement()
+
+# Does our old class work by itself any more?
+s = Seq("ACTG")
+print s.complement()
+```
+
+
+# How hard should I OOP
+
+This is your call.
+Choose wisely.
+
+
+# One choice: Everything OOP, all the time
+
+**Extreme Example:** Java.
+Even printing "hello world" then exiting requires creating a class.
+All data and functionality _must_ be bound to classes/objects.
+
+**The good:**
+Easier to conceptualize, because we can think about programs being made of things, like we do in the real world.
+
+**The bad:**
+Extra work, and code can become siloed and difficult to generalize or share between different parts of the program.
+
+
+# My recommendation
+
+OOP is strong medicine; don't overuse it.
+
+Python gives us a choice here.
+Use classes when they help you conceptualize complexity.
+Avoid when they add complexity.
+
+Try starting with plain functions.
+If you find yourself having trouble figuring out what functions should be getting which data, consider bundling things into classes.
+
+
+# Homework challenges
+
+
+# HW 1 - `transcribe`
+
+* Add a `transcribe` function to the `DNASeq` class and a `reverse_transcribe` to the `RNASeq` class.
+
+**Note**: biopython takes a different approach;
+Only _one_ Seq class, but with an `alphabet` attribute.
+Calling `reverse_transcribe` on a `Seq` instance with a DNA alphabet gives an error.
+It's nice that in our design `reverse_transcribe` is _only defined_ if the `Seq` is a `DNASeq`.
+
+Overall, I prefer that the `alphabet` approach separates concerns nicely.
+But these are the sort of architectural considerations that start coming up when you get into OOP.
+
+ 
+# HW 2 - `reverse_complement`
+
+* Add a `reserve_complement` method to your `Seq` class, such that:
+    * The method works with both `DNASeq` and `RNASeq` objects.
+
+# HW 3 - `reverse_complement`
+
+* Add a "complementary" `reservse_complement` function in your `SeqRecord` class, which returns a new seqrecord with:
+    * `seq` attribute the `reservse_complement` of the original sequence.
+    * a modified `name` attribute (append `"_rc"` to the original name).
+
+
+# Bonus HW problem
+
+* Make it so that when you create an instance of `SeqRecord`, you can just pass in a string for seq, and it will figure out whether it's a `DNASeq` or a `RNASeq` based on whether it contains U or and T:
+    * Should error out if it can't tell.
+    * Should still be possible to pass in an `RNASeq` or `DNASeq` directly, without it checking.
+
+
+# Resources
+
+* See the codecademy section on classes (beware the bit on "member variables")
+
+

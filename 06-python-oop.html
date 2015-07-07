@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+
+<title>Introduction to Bioinformatics</title>
+
+<meta name="description" content="Introduction to Bioinformatics">
+
+<!-- Disabled for now - embeds HTML in author string -->
+<!--  <meta name="author" content="Lesson 6 - Object Oriented Programming with Python" /> -->
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<link rel="stylesheet" href="reveal.js/css/reveal.css">
+  <link rel="stylesheet" href="src/theme/csmall.css" id="theme">
+
+
+<!-- For syntax highlighting -->
+  <link rel="stylesheet" href="reveal.js/lib/css/zenburn.css">
+
+
+<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+<script>
+  document.write( '<link rel="stylesheet" href="reveal.js/css/print/' +
+    ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) +
+    '.css" type="text/css" media="print">' );
+</script>
+
+<!--[if lt IE 9]>
+<script src="reveal.js/lib/js/html5shiv.js"></script>
+<![endif]-->
+
+<!-- Note escaped dollars -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+  </script>
+
+</head>
+
+<body>
+
+<div class="reveal">
+
+<!-- Any section element inside of this container is displayed as a slide -->
+<div class="slides">
+
+<section>
+<h1>Introduction to Bioinformatics</h1>
+<h3>Lesson 6 - Object Oriented Programming with Python</h3>
+<p>
+<h4></h4>
+</p>
+</section>
+
+
+<section id="object-oriented-programming" class="level1">
+<h1>Object Oriented Programming</h1>
+<section id="oop-yeah-you-know-me" class="level2">
+<h2>OOP: yeah, you know me…</h2>
+<p><em>Wherein from simple elements we construct towering monuments</em></p>
+</section>
+</section>
+<section id="what-well-cover-today" class="level1">
+<h1>What we’ll cover today</h1>
+<ul>
+<li>What <em>is</em> OOP?</li>
+<li>Why do we <em>care</em> about OOP?</li>
+<li>How do I <em>use</em> OOP?</li>
+<li>How do I <em>do</em> OOP?</li>
+<li>How hard <em>should</em> I OOP?</li>
+</ul>
+</section>
+<section id="what-is-oop" class="level1">
+<h1>What is OOP?</h1>
+<p>OOP is a way of writing programs which emphasizes bundling data and functionality.</p>
+</section>
+<section id="why-do-we-have-oop" class="level1">
+<h1>Why do we have OOP?</h1>
+<p>Before OOP, large programs were difficult to analyze. It was hard to keep track of all the different data and functionality.</p>
+<p>OOP is a way of organizing data and functionality such that it’s easier to conceptualize how they relate to each other. The goal is to make it easier to conceptualize the whole system.</p>
+</section>
+<section id="the-objects-in-oop" class="level1">
+<h1>The Objects in OOP</h1>
+<p>Objects are entities which bundle data and behavior related to that data. The data is organized into <em>attributes</em> and the behavior into <em>methods</em>.</p>
+<p>Objects are usually mutable: Methods can modify (in place) the attributes of a given object.</p>
+</section>
+<section id="classes" class="level1">
+<h1>Classes</h1>
+<p><em>Classes</em> are a way of defining the shape and behavior of objects. In class based OOP, we say that objects are <em>instances</em> of a class.</p>
+<p>Example: the string <code>&quot;cat&quot;</code> is an instance of the class <code>str</code>.</p>
+<p>Class based OOP is the most common form in modern languages. In particular, python’s OOP is class based.</p>
+</section>
+<section id="thats-it-in-a-nutshell" class="level1">
+<h1>That’s it in a nutshell</h1>
+<p>Any questions?</p>
+</section>
+<section id="how-do-i-use-others-opp" class="level1">
+<h1>How do I use other’s OPP</h1>
+<p>This is the easy part.</p>
+<p>Even if you don’t create your own objects/classes, you can still consume other folk’s OOP.</p>
+</section>
+<section id="a-pertinent-example" class="level1">
+<h1>A pertinent example</h1>
+<p>Let’s look at the Biopython library</p>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="co"># First import the namespace/module</span>
+<span class="ch">import</span> Bio.SeqIO <span class="ch">as</span> SeqIO
+
+<span class="co"># Next, create a sequence parser, specifying file and format</span>
+seqs = SeqIO.parse(<span class="st">&quot;data/sfv.fasta&quot;</span>, <span class="st">&quot;fasta&quot;</span>)
+
+<span class="co"># Now let&#39;s inspect things a bit (bonus: intro to generators!)</span>
+seqs
+seqs.<span class="dt">next</span>()
+seqs.<span class="dt">next</span>()</code></pre>
+</section>
+<section id="lets-look-at-one-of-these-seqs-in-more-detail" class="level1">
+<h1>Let’s look at one of these <code>seqs</code> in more detail</h1>
+<pre><code># More investigating
+seq = seqs.next()
+seq
+type(seq)
+dir(seq)
+seq.name</code></pre>
+</section>
+<section id="lets-look-at-the-seqs-seq" class="level1">
+<h1>Let’s look at the seq’s <code>seq</code></h1>
+<pre><code># Here&#39;s where the actual &quot;sequence&quot; is
+seq.seq
+s = seq.seq
+type(s)
+dir(s)
+str(s)
+len(s)
+
+# Some real functionality
+s.transcribe()</code></pre>
+</section>
+<section id="how-do-i-oop" class="level1">
+<h1>How do I OOP?</h1>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="co"># First we specify the name of the class</span>
+<span class="kw">class</span> Person(<span class="dt">object</span>):
+    <span class="co"># This function gets called on new objects</span>
+    <span class="kw">def</span> <span class="ot">__init__</span>(<span class="ot">self</span>, name, age, occupation):
+        <span class="co"># setting up attributes</span>
+        <span class="ot">self</span>.name = name
+        <span class="ot">self</span>.age = age
+        <span class="ot">self</span>.occupation = occupation
+
+p = Person(<span class="st">&quot;Bob Jones&quot;</span>, <span class="dv">42</span>, <span class="st">&quot;haxxor&quot;</span>)
+<span class="dt">print</span> p</code></pre>
+</section>
+<section id="what-about-the-functionality-bit" class="level1">
+<h1>What about the functionality bit</h1>
+<p>Suppose we add email (note this is psuedo code):</p>
+<pre><code>import email
+
+class Person(object):
+    def __init__(self, name, age, occ, email):
+        self.name = name
+        self.age = age
+        self.occupation = occ
+        self.email = email
+
+    def notify_via_email(self, message):
+        email.send(self.email, message)
+
+p = Person(&quot;Bob Jones&quot;, 42, &quot;haxxor&quot;, &quot;bob@jon.es&quot;)
+p.notify_via_email(&quot;your cat was found&quot;)</code></pre>
+</section>
+<section id="lets-contrast-this-with-non-oop" class="level1">
+<h1>Let’s contrast this with non-OOP</h1>
+<pre><code>import email
+
+def notify_via_email(person, message):
+    email.send(person[&quot;email&quot;], message)
+
+p = dict(name=&quot;Bob Jones&quot;, age=42,
+        occupation=&quot;haxxor&quot;, email=&quot;bob@jon.es&quot;}
+notify_via_email(person, &quot;your cat was found&quot;)</code></pre>
+<p>Shorter, but it’s less clear in <code>notify_via_email</code> what valid input is. Classes make this patent.</p>
+</section>
+<section id="what-if-a-company-also-has-an-email" class="level1">
+<h1>What if a company also has an email?</h1>
+<p>OOP: Have to write a separate method in the <code>Company</code> class. (There are other ways around this, but they’re a bit of work).</p>
+<p>Non-OOP: As long as the <code>company</code> dictionary has an <code>&quot;email&quot;</code> key/value pair, the function will still work.</p>
+<p>Moral of the story: Structure comes at a cost.</p>
+</section>
+<section id="lets-pretend-biopython-didnt-exist" class="level1">
+<h1>Let’s pretend Biopython didn’t exist</h1>
+<p>The bare bones. Let’s put this in <code>scripts/seqs.py</code></p>
+<pre><code>class SeqRecord(object):
+    def __init__(self, name, seq):
+        self.name = name
+        self.seq = seq
+
+s = SeqRecord(&quot;MBG234Gag1&quot;, &quot;AGCTGTCGGTAAGTCGAGT&quot;)
+print s.name
+print s.seq</code></pre>
+</section>
+<section id="now-lets-add-some-functionality" class="level1">
+<h1>Now let’s add some functionality</h1>
+<pre><code>class SeqRecord(object):
+    ...
+
+    def fasta_string(self):
+        string_rep = &quot;&gt;&quot; + self.name + &quot;\n&quot;
+        string_rep += self.seq + &quot;\n&quot;
+        return string_rep
+
+s = SeqRecord(&quot;MBG234Gag1&quot;, &quot;AGCTGTCGGTAAGTCGAGT&quot;)
+print s.fasta_string()</code></pre>
+<p>You can run this with <code>python scripts/seqs.py</code>.</p>
+</section>
+<section id="making-the-seq-more-robust" class="level1">
+<h1>Making the <code>seq</code> more robust</h1>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="co"># Here we create a &quot;subclass&quot; of str</span>
+<span class="kw">class</span> Seq(<span class="dt">str</span>):
+    <span class="co"># Here we default to str&#39;s init, etc</span>
+    <span class="kw">pass</span>
+
+s = Seq(<span class="st">&quot;ACGT&quot;</span>)
+<span class="dt">print</span> s</code></pre>
+<p>Note: Creating a subclass of builtins like <code>str</code> is sometimes discouraged, but it’s fine for illustrative purposes.</p>
+</section>
+<section id="adding-functionality-to-seq" class="level1">
+<h1>Adding functionality to <code>Seq</code></h1>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="kw">class</span> Seq(<span class="dt">str</span>):
+    complements = <span class="dt">dict</span>(A=<span class="st">&quot;T&quot;</span>, T=<span class="st">&quot;A&quot;</span>, C=<span class="st">&quot;G&quot;</span>, G=<span class="st">&quot;C&quot;</span>)
+    <span class="kw">def</span> complement(<span class="ot">self</span>):
+        <span class="co"># Create list of the characters</span>
+        bps = [<span class="ot">self</span>.complements[bp] <span class="kw">for</span> bp in <span class="ot">self</span>]
+        <span class="co"># Join characters together, and Seq them</span>
+        joined_bps = <span class="st">&quot;&quot;</span>.join(bps)
+        retrun Seq(joined_bps)
+
+s = Seq(<span class="st">&quot;ACGT&quot;</span>)
+<span class="dt">print</span> s.complement()</code></pre>
+</section>
+<section id="note-the-class-variable" class="level1">
+<h1>Note the <em>class variable</em></h1>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="co"># The class and instances both get this attribute</span>
+<span class="dt">print</span> Seq.complements
+<span class="dt">print</span> s.complements
+
+<span class="co"># You can change it in the objects, but the class won&#39;t change</span>
+s.complements = <span class="st">&quot;something else&quot;</span>
+<span class="dt">print</span> s.complements
+<span class="dt">print</span> Seq.complements</code></pre>
+<p><code>complements</code> here would typically be called a <em>class variable</em>. The codecademy course confusingly calls them <em>member variables</em>…</p>
+</section>
+<section id="what-about-rna-vs-dna" class="level1">
+<h1>What about RNA vs DNA?</h1>
+<p>We can solve this using <em>subclasses</em>.</p>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="kw">class</span> Seq(<span class="dt">str</span>):
+    <span class="co"># Same method as before...</span>
+    <span class="kw">def</span> complement(<span class="ot">self</span>):
+        bps = [<span class="ot">self</span>.complements[x] <span class="kw">for</span> x in <span class="ot">self</span>]
+        joined_bps = <span class="st">&quot;&quot;</span>.join(bps)
+        <span class="kw">return</span> Seq(joined_bps)
+
+<span class="co"># But we move the class variable into subclasses</span>
+<span class="kw">class</span> DNASeq(Seq):
+    complements = <span class="dt">dict</span>(A=<span class="st">&quot;T&quot;</span>, T=<span class="st">&quot;A&quot;</span>, C=<span class="st">&quot;G&quot;</span>, G=<span class="st">&quot;C&quot;</span>)
+
+<span class="kw">class</span> RNASeq(Seq):
+    complements = <span class="dt">dict</span>(A=<span class="st">&quot;U&quot;</span>, U=<span class="st">&quot;A&quot;</span>, C=<span class="st">&quot;G&quot;</span>, G=<span class="st">&quot;C&quot;</span>)</code></pre>
+</section>
+<section id="testing-our-subclasses" class="level1">
+<h1>Testing our subclasses</h1>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="co"># Testing out our new classes</span>
+s = DNASeq(<span class="st">&quot;ACTG&quot;</span>)
+<span class="dt">print</span> s.complement()
+s = RNASeq(<span class="st">&quot;ACUG&quot;</span>)
+<span class="dt">print</span> s.complement()
+
+<span class="co"># Does our old class work by itself any more?</span>
+s = Seq(<span class="st">&quot;ACTG&quot;</span>)
+<span class="dt">print</span> s.complement()</code></pre>
+</section>
+<section id="how-hard-should-i-oop" class="level1">
+<h1>How hard should I OOP</h1>
+<p>This is your call. Choose wisely.</p>
+</section>
+<section id="one-choice-everything-oop-all-the-time" class="level1">
+<h1>One choice: Everything OOP, all the time</h1>
+<p><strong>Extreme Example:</strong> Java. Even printing “hello world” then exiting requires creating a class. All data and functionality <em>must</em> be bound to classes/objects.</p>
+<p><strong>The good:</strong> Easier to conceptualize, because we can think about programs being made of things, like we do in the real world.</p>
+<p><strong>The bad:</strong> Extra work, and code can become siloed and difficult to generalize or share between different parts of the program.</p>
+</section>
+<section id="my-recommendation" class="level1">
+<h1>My recommendation</h1>
+<p>OOP is strong medicine; don’t overuse it.</p>
+<p>Python gives us a choice here. Use classes when they help you conceptualize complexity. Avoid when they add complexity.</p>
+<p>Try starting with plain functions. If you find yourself having trouble figuring out what functions should be getting which data, consider bundling things into classes.</p>
+</section>
+<section id="homework-challenges" class="level1">
+<h1>Homework challenges</h1>
+</section>
+<section id="hw-1---transcribe" class="level1">
+<h1>HW 1 - <code>transcribe</code></h1>
+<ul>
+<li>Add a <code>transcribe</code> function to the <code>DNASeq</code> class and a <code>reverse_transcribe</code> to the <code>RNASeq</code> class.</li>
+</ul>
+<p><strong>Note</strong>: biopython takes a different approach; Only <em>one</em> Seq class, but with an <code>alphabet</code> attribute. Calling <code>reverse_transcribe</code> on a <code>Seq</code> instance with a DNA alphabet gives an error. It’s nice that in our design <code>reverse_transcribe</code> is <em>only defined</em> if the <code>Seq</code> is a <code>DNASeq</code>.</p>
+<p>Overall, I prefer that the <code>alphabet</code> approach separates concerns nicely. But these are the sort of architectural considerations that start coming up when you get into OOP.</p>
+</section>
+<section id="hw-2---reverse_complement" class="level1">
+<h1>HW 2 - <code>reverse_complement</code></h1>
+<ul>
+<li>Add a <code>reserve_complement</code> method to your <code>Seq</code> class, such that:
+<ul>
+<li>The method works with both <code>DNASeq</code> and <code>RNASeq</code> objects.</li>
+</ul></li>
+</ul>
+</section>
+<section id="hw-3---reverse_complement" class="level1">
+<h1>HW 3 - <code>reverse_complement</code></h1>
+<ul>
+<li>Add a “complementary” <code>reservse_complement</code> function in your <code>SeqRecord</code> class, which returns a new seqrecord with:
+<ul>
+<li><code>seq</code> attribute the <code>reservse_complement</code> of the original sequence.</li>
+<li>a modified <code>name</code> attribute (append <code>&quot;_rc&quot;</code> to the original name).</li>
+</ul></li>
+</ul>
+</section>
+<section id="bonus-hw-problem" class="level1">
+<h1>Bonus HW problem</h1>
+<ul>
+<li>Make it so that when you create an instance of <code>SeqRecord</code>, you can just pass in a string for seq, and it will figure out whether it’s a <code>DNASeq</code> or a <code>RNASeq</code> based on whether it contains U or and T:
+<ul>
+<li>Should error out if it can’t tell.</li>
+<li>Should still be possible to pass in an <code>RNASeq</code> or <code>DNASeq</code> directly, without it checking.</li>
+</ul></li>
+</ul>
+</section>
+<section id="resources" class="level1">
+<h1>Resources</h1>
+<ul>
+<li>See the codecademy section on classes (beware the bit on “member variables”)</li>
+</ul>
+</section>
+</div>
+
+<script src="reveal.js/lib/js/head.min.js"></script>
+<script src="reveal.js/js/reveal.min.js"></script>
+
+<script>
+  // Full list of configuration options available here:
+  // https://github.com/hakimel/reveal.js#configuration
+  Reveal.initialize({
+    controls: true,
+    progress: true,
+    history: true,
+    center: false,
+
+
+    rollingLinks: false,
+  
+  // available themes are in /css/theme
+      theme: Reveal.getQueryHash().theme || 'csmall',
+  
+  // default/cube/page/concave/zoom/linear/fade/none
+      transition: Reveal.getQueryHash().transition || 'fade',
+  
+  // Optional libraries used to extend on reveal.js
+  dependencies: [
+    { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+    { src: 'reveal.js/plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+    { src: 'reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+    { src: 'reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+    { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+    { src: 'MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML'}
+    // { src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+    // { src: 'reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+  ]
+  });
+Reveal.addEventListener( 'slidechanged', function( event ) {
+    MathJax.Hub.Rerender();
+} );
+</script>
+
+</body>
+</html>
