@@ -65,7 +65,7 @@ Even if you don't create your own objects/classes, you can still consume other f
 
 # A pertinent example
 
-Let's look at the Biopython library
+Let's look at the Biopython library (first run `pip install --user biopython` from the Unix shell).
 
 ```python
 # First import the namespace/module
@@ -109,7 +109,21 @@ s.transcribe()
 ```
 
 
+# That's it for _using_ OOP
+
+* Construct objects
+* Access object attributes
+    * `object.attributename`
+* Call methods on objects
+    * methods are just functions bound to objects as attributes of those objects
+    * `object.method(arguments)`
+
+Any Questions?
+
+
 # How do I OOP?
+
+A simple class, modeling data we saw last week:
 
 ```python
 # First we specify the name of the class
@@ -128,7 +142,7 @@ print p
 
 # What about the functionality bit
 
-Suppose we add email (note this is psuedo code):
+Suppose we add email (this is pretend code & won't run):
 
 ```
 import email
@@ -157,7 +171,7 @@ def notify_via_email(person, message):
     email.send(person["email"], message)
 
 p = dict(name="Bob Jones", age=42,
-        occupation="haxxor", email="bob@jon.es"}
+        occupation="haxxor", email="bob@jon.es")
 notify_via_email(person, "your cat was found")
 ```
 
