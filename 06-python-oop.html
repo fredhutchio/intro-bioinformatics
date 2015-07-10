@@ -347,7 +347,7 @@ s.complement().complement()</code></pre>
 <ul>
 <li>Add a <code>transcribe</code> function to the <code>DNASeq</code> class and a <code>reverse_transcribe</code> to the <code>RNASeq</code> class.</li>
 </ul>
-<p><strong>Note</strong>: biopython takes a different approach; Only <em>one</em> Seq class, but with an <code>alphabet</code> attribute. Calling <code>reverse_transcribe</code> on a <code>Seq</code> instance with a DNA alphabet gives an error. It’s nice that in our design <code>reverse_transcribe</code> is <em>only defined</em> if the <code>Seq</code> is a <code>DNASeq</code>.</p>
+<p><strong>Note</strong>: biopython takes a different approach; Only <em>one</em> Seq class, but with an <code>alphabet</code> attribute. Calling <code>reverse_transcribe</code> on a <code>Seq</code> instance with a DNA alphabet gives an error. It’s nice that in our design <code>reverse_transcribe</code> is <em>only defined</em> if the <code>Seq</code> is an <code>RNASeq</code>.</p>
 <p>Overall, I prefer that the <code>alphabet</code> approach separates concerns nicely. But these are the sort of architectural considerations that start coming up when you get into OOP.</p>
 </section>
 <section id="hw-2---reverse_complement" class="level1">

@@ -382,7 +382,7 @@ If you find yourself having trouble figuring out what functions should be gettin
 **Note**: biopython takes a different approach;
 Only _one_ Seq class, but with an `alphabet` attribute.
 Calling `reverse_transcribe` on a `Seq` instance with a DNA alphabet gives an error.
-It's nice that in our design `reverse_transcribe` is _only defined_ if the `Seq` is a `DNASeq`.
+It's nice that in our design `reverse_transcribe` is _only defined_ if the `Seq` is an `RNASeq`.
 
 Overall, I prefer that the `alphabet` approach separates concerns nicely.
 But these are the sort of architectural considerations that start coming up when you get into OOP.
