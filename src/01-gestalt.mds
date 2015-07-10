@@ -358,6 +358,9 @@ Use `tar --help` when you need help.
 
     less data/sfv.csv
 
+<br/>
+
+Use `q` to exit from `less`.
 
 # Now with `column -t`
 

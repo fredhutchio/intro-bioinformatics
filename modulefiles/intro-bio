@@ -1,0 +1,26 @@
+#%Module1.0#####################################################################
+##
+## modulefiles/intro-bio
+##
+proc ModulesHelp { } {
+	global dotversion
+
+	puts stderr "\tLoads modules for the bioinformatics course"
+	puts stderr "\n\tModules loaded are:"
+	puts stderr "\n\t\tpython2"
+	puts stderr "\t\tcsvkit"
+	puts stderr "\t\talnvu"
+	puts stderr "\n\t\tPlease don't use this for your production work"
+	puts stderr "\n\tVersion $dotversion\n"
+}
+
+module-whatis	"adds modules needed for the Intro to Bioinformatics course"
+
+# for Tcl script use only
+set	dotversion	3.2.10
+module load python2
+module load alnvu
+module load FastTree
+module load muscle
+module load newick_utils
+
