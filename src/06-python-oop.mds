@@ -171,6 +171,7 @@ import email
 def notify_via_email(person, message):
     email.send(person["email"], message)
 
+# This is just another way of creating a dictionary
 p = dict(name="Bob Jones", age=42,
         occupation="haxxor", email="bob@jon.es")
 notify_via_email(person, "your cat was found")
@@ -189,10 +190,9 @@ Non-OOP: As long as the `company` dictionary has an `"email"` key/value pair, th
 Moral of the story: Structure can come at the cost of flexibility.
 
 
-# Let's pretend Biopython didn't exist
+# Pretend Biopython didn't exist
 
-The bare bones.
-Let's put this in `scripts/seqs.py`
+Let's create it. Start by creating a python script file in `scripts/seqs.py` using your text editor.
 
 ```
 class SeqRecord(object):
@@ -205,8 +205,13 @@ print s.name
 print s.seq
 ```
 
+You can run this with `python scripts/seqs.py`.
+
+
 
 # Now let's add some functionality
+
+In `scripts/seqs.py` add:
 
 ```
 class SeqRecord(object):
@@ -221,10 +226,12 @@ s = SeqRecord("MBG234Gag1", "AGCTGTCGGTAAGTCGAGT")
 print s.fasta_string()
 ```
 
-You can run this with `python scripts/seqs.py`.
+Run again and see what happens.
 
 
 # Making the `seq` more robust
+
+Suppose we want to add more functionality to the `seq` attribute.
 
 ```python
 # Here we create a "subclass" of str
@@ -243,9 +250,10 @@ Note: Creating a subclass of builtins like `str` is sometimes discouraged, but i
 
 ```python
 class Seq(str):
+    # A class variable, available to all seqs
     complements = dict(A="T", T="A", C="G", G="C")
     def complement(self):
-        # Create list of the characters
+        # Create list of complemented characters
         bps = [self.complements[bp] for bp in self]
         # Join characters together, and Seq them
         joined_bps = "".join(bps)
@@ -270,6 +278,7 @@ print Seq.complements
 
 `complements` here would typically be called a _class variable_.
 The codecademy course confusingly calls them _member variables_...
+I find that name confusing.
 
 
 # What about RNA vs DNA?
@@ -308,9 +317,31 @@ print s.complement()
 ```
 
 
-# How hard should I OOP
+# Woops! A bug!
 
-This is your call.
+When we take the complement, we get a `Seq`, but we should get either a `DNASeq` or an `RNASeq` (as appropriate)!
+
+```python
+s = DNASeq("ACTG")
+print type(s.complement())
+s = RNASeq("ACUG")
+print type(s.complement())
+
+# Now we can't take complement of the complement...
+s.complement().complement()
+```
+
+Try solving this for homework :-) (Solution will be posted soon)
+
+
+# That's all we'll look at for doing OOP
+
+Any Questions?
+
+
+# How hard should I OOP?
+
+Your call.
 Choose wisely.
 
 
@@ -320,7 +351,7 @@ Choose wisely.
 Even printing "hello world" then exiting requires creating a class.
 All data and functionality _must_ be bound to classes/objects.
 
-**The good:**
+**The good with OOP:**
 Easier to conceptualize, because we can think about programs being made of things, like we do in the real world.
 
 **The bad:**
@@ -340,6 +371,8 @@ If you find yourself having trouble figuring out what functions should be gettin
 
 
 # Homework challenges
+
+(Answers to be posted soon)
 
 
 # HW 1 - `transcribe`
@@ -374,8 +407,24 @@ But these are the sort of architectural considerations that start coming up when
     * Should still be possible to pass in an `RNASeq` or `DNASeq` directly, without it checking.
 
 
+# Bonus HW problem 2
+
+Fix up the `Seq`, `RNASeq` and `DNASeq` class definitions so that `DNASeq.complement` returns a `DNASeq` object (similarly for `RNASeq`).
+Ideally:
+
+* Most of the `complement` code stays in the `Seq` class definition
+* Override the `Seq.complement` definition in `RNASeq` and `DNASeq` so that the return value is casted as the correct class
+
+Hint: To solve this "ideally", look into python's `super` function.
+
+
 # Resources
 
 * See the codecademy section on classes (beware the bit on "member variables")
+
+
+# Homework solutions:
+
+To be continued...
 
 

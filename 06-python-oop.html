@@ -100,14 +100,14 @@
 <h1>That’s it in a nutshell</h1>
 <p>Any questions?</p>
 </section>
-<section id="how-do-i-use-others-opp" class="level1">
-<h1>How do I use other’s OPP</h1>
+<section id="how-do-i-use-others-oop" class="level1">
+<h1>How do I use other’s OOP</h1>
 <p>This is the easy part.</p>
 <p>Even if you don’t create your own objects/classes, you can still consume other folk’s OOP.</p>
 </section>
 <section id="a-pertinent-example" class="level1">
 <h1>A pertinent example</h1>
-<p>Let’s look at the Biopython library</p>
+<p>Let’s look at the Biopython library (first run <code>pip install --user biopython</code> from the Unix shell).</p>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="co"># First import the namespace/module</span>
 <span class="ch">import</span> Bio.SeqIO <span class="ch">as</span> SeqIO
 
@@ -138,11 +138,28 @@ dir(s)
 str(s)
 len(s)
 
-# Some real functionality
+# Some real functionality (a method)
 s.transcribe()</code></pre>
+</section>
+<section id="thats-it-for-using-oop" class="level1">
+<h1>That’s it for <em>using</em> OOP</h1>
+<ul>
+<li>Construct objects</li>
+<li>Access object attributes
+<ul>
+<li><code>object.attributename</code></li>
+</ul></li>
+<li>Call methods on objects
+<ul>
+<li>methods are just functions bound to objects as attributes of those objects</li>
+<li><code>object.method(arguments)</code></li>
+</ul></li>
+</ul>
+<p>Any Questions?</p>
 </section>
 <section id="how-do-i-oop" class="level1">
 <h1>How do I OOP?</h1>
+<p>A simple class, modeling data we saw last week:</p>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="co"># First we specify the name of the class</span>
 <span class="kw">class</span> Person(<span class="dt">object</span>):
     <span class="co"># This function gets called on new objects</span>
@@ -157,7 +174,7 @@ p = Person(<span class="st">&quot;Bob Jones&quot;</span>, <span class="dv">42</s
 </section>
 <section id="what-about-the-functionality-bit" class="level1">
 <h1>What about the functionality bit</h1>
-<p>Suppose we add email (note this is psuedo code):</p>
+<p>Suppose we add email (this is pretend code &amp; won’t run):</p>
 <pre><code>import email
 
 class Person(object):
@@ -171,6 +188,7 @@ class Person(object):
         email.send(self.email, message)
 
 p = Person(&quot;Bob Jones&quot;, 42, &quot;haxxor&quot;, &quot;bob@jon.es&quot;)
+# Here, notify_via_email is &quot;bound&quot; to p
 p.notify_via_email(&quot;your cat was found&quot;)</code></pre>
 </section>
 <section id="lets-contrast-this-with-non-oop" class="level1">
@@ -180,20 +198,21 @@ p.notify_via_email(&quot;your cat was found&quot;)</code></pre>
 def notify_via_email(person, message):
     email.send(person[&quot;email&quot;], message)
 
+# This is just another way of creating a dictionary
 p = dict(name=&quot;Bob Jones&quot;, age=42,
-        occupation=&quot;haxxor&quot;, email=&quot;bob@jon.es&quot;}
+        occupation=&quot;haxxor&quot;, email=&quot;bob@jon.es&quot;)
 notify_via_email(person, &quot;your cat was found&quot;)</code></pre>
-<p>Shorter, but it’s less clear in <code>notify_via_email</code> what valid input is. Classes make this patent.</p>
+<p>Shorter, but it’s less clear in <code>notify_via_email</code> what valid input is. Classes make this patent/explicit.</p>
 </section>
 <section id="what-if-a-company-also-has-an-email" class="level1">
 <h1>What if a company also has an email?</h1>
 <p>OOP: Have to write a separate method in the <code>Company</code> class. (There are other ways around this, but they’re a bit of work).</p>
 <p>Non-OOP: As long as the <code>company</code> dictionary has an <code>&quot;email&quot;</code> key/value pair, the function will still work.</p>
-<p>Moral of the story: Structure comes at a cost.</p>
+<p>Moral of the story: Structure can come at the cost of flexibility.</p>
 </section>
-<section id="lets-pretend-biopython-didnt-exist" class="level1">
-<h1>Let’s pretend Biopython didn’t exist</h1>
-<p>The bare bones. Let’s put this in <code>scripts/seqs.py</code></p>
+<section id="pretend-biopython-didnt-exist" class="level1">
+<h1>Pretend Biopython didn’t exist</h1>
+<p>Let’s create it. Start by creating a python script file in <code>scripts/seqs.py</code> using your text editor.</p>
 <pre><code>class SeqRecord(object):
     def __init__(self, name, seq):
         self.name = name
@@ -202,9 +221,11 @@ notify_via_email(person, &quot;your cat was found&quot;)</code></pre>
 s = SeqRecord(&quot;MBG234Gag1&quot;, &quot;AGCTGTCGGTAAGTCGAGT&quot;)
 print s.name
 print s.seq</code></pre>
+<p>You can run this with <code>python scripts/seqs.py</code>.</p>
 </section>
 <section id="now-lets-add-some-functionality" class="level1">
 <h1>Now let’s add some functionality</h1>
+<p>In <code>scripts/seqs.py</code> add:</p>
 <pre><code>class SeqRecord(object):
     ...
 
@@ -215,10 +236,11 @@ print s.seq</code></pre>
 
 s = SeqRecord(&quot;MBG234Gag1&quot;, &quot;AGCTGTCGGTAAGTCGAGT&quot;)
 print s.fasta_string()</code></pre>
-<p>You can run this with <code>python scripts/seqs.py</code>.</p>
+<p>Run again and see what happens.</p>
 </section>
 <section id="making-the-seq-more-robust" class="level1">
 <h1>Making the <code>seq</code> more robust</h1>
+<p>Suppose we want to add more functionality to the <code>seq</code> attribute.</p>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="co"># Here we create a &quot;subclass&quot; of str</span>
 <span class="kw">class</span> Seq(<span class="dt">str</span>):
     <span class="co"># Here we default to str&#39;s init, etc</span>
@@ -231,9 +253,10 @@ s = Seq(<span class="st">&quot;ACGT&quot;</span>)
 <section id="adding-functionality-to-seq" class="level1">
 <h1>Adding functionality to <code>Seq</code></h1>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="kw">class</span> Seq(<span class="dt">str</span>):
+    <span class="co"># A class variable, available to all seqs</span>
     complements = <span class="dt">dict</span>(A=<span class="st">&quot;T&quot;</span>, T=<span class="st">&quot;A&quot;</span>, C=<span class="st">&quot;G&quot;</span>, G=<span class="st">&quot;C&quot;</span>)
     <span class="kw">def</span> complement(<span class="ot">self</span>):
-        <span class="co"># Create list of the characters</span>
+        <span class="co"># Create list of complemented characters</span>
         bps = [<span class="ot">self</span>.complements[bp] <span class="kw">for</span> bp in <span class="ot">self</span>]
         <span class="co"># Join characters together, and Seq them</span>
         joined_bps = <span class="st">&quot;&quot;</span>.join(bps)
@@ -252,7 +275,7 @@ s = Seq(<span class="st">&quot;ACGT&quot;</span>)
 s.complements = <span class="st">&quot;something else&quot;</span>
 <span class="dt">print</span> s.complements
 <span class="dt">print</span> Seq.complements</code></pre>
-<p><code>complements</code> here would typically be called a <em>class variable</em>. The codecademy course confusingly calls them <em>member variables</em>…</p>
+<p><code>complements</code> here would typically be called a <em>class variable</em>. The codecademy course confusingly calls them <em>member variables</em>… I find that name confusing.</p>
 </section>
 <section id="what-about-rna-vs-dna" class="level1">
 <h1>What about RNA vs DNA?</h1>
@@ -283,14 +306,30 @@ s = RNASeq(<span class="st">&quot;ACUG&quot;</span>)
 s = Seq(<span class="st">&quot;ACTG&quot;</span>)
 <span class="dt">print</span> s.complement()</code></pre>
 </section>
+<section id="woops-a-bug" class="level1">
+<h1>Woops! A bug!</h1>
+<p>When we take the complement, we get a <code>Seq</code>, but we should get either a <code>DNASeq</code> or an <code>RNASeq</code> (as appropriate)!</p>
+<pre class="sourceCode python"><code class="sourceCode python">s = DNASeq(<span class="st">&quot;ACTG&quot;</span>)
+<span class="dt">print</span> <span class="dt">type</span>(s.complement())
+s = RNASeq(<span class="st">&quot;ACUG&quot;</span>)
+<span class="dt">print</span> <span class="dt">type</span>(s.complement())
+
+<span class="co"># Now we can&#39;t take complement of the complement...</span>
+s.complement().complement()</code></pre>
+<p>Try solving this for homework :-) (Solution will be posted soon)</p>
+</section>
+<section id="thats-all-well-look-at-for-doing-oop" class="level1">
+<h1>That’s all we’ll look at for doing OOP</h1>
+<p>Any Questions?</p>
+</section>
 <section id="how-hard-should-i-oop" class="level1">
-<h1>How hard should I OOP</h1>
-<p>This is your call. Choose wisely.</p>
+<h1>How hard should I OOP?</h1>
+<p>Your call. Choose wisely.</p>
 </section>
 <section id="one-choice-everything-oop-all-the-time" class="level1">
 <h1>One choice: Everything OOP, all the time</h1>
 <p><strong>Extreme Example:</strong> Java. Even printing “hello world” then exiting requires creating a class. All data and functionality <em>must</em> be bound to classes/objects.</p>
-<p><strong>The good:</strong> Easier to conceptualize, because we can think about programs being made of things, like we do in the real world.</p>
+<p><strong>The good with OOP:</strong> Easier to conceptualize, because we can think about programs being made of things, like we do in the real world.</p>
 <p><strong>The bad:</strong> Extra work, and code can become siloed and difficult to generalize or share between different parts of the program.</p>
 </section>
 <section id="my-recommendation" class="level1">
@@ -301,6 +340,7 @@ s = Seq(<span class="st">&quot;ACTG&quot;</span>)
 </section>
 <section id="homework-challenges" class="level1">
 <h1>Homework challenges</h1>
+<p>(Answers to be posted soon)</p>
 </section>
 <section id="hw-1---transcribe" class="level1">
 <h1>HW 1 - <code>transcribe</code></h1>
@@ -339,11 +379,24 @@ s = Seq(<span class="st">&quot;ACTG&quot;</span>)
 </ul></li>
 </ul>
 </section>
+<section id="bonus-hw-problem-2" class="level1">
+<h1>Bonus HW problem 2</h1>
+<p>Fix up the <code>Seq</code>, <code>RNASeq</code> and <code>DNASeq</code> class definitions so that <code>DNASeq.complement</code> returns a <code>DNASeq</code> object (similarly for <code>RNASeq</code>). Ideally:</p>
+<ul>
+<li>Most of the <code>complement</code> code stays in the <code>Seq</code> class definition</li>
+<li>Override the <code>Seq.complement</code> definition in <code>RNASeq</code> and <code>DNASeq</code> so that the return value is casted as the correct class</li>
+</ul>
+<p>Hint: To solve this “ideally”, look into python’s <code>super</code> function.</p>
+</section>
 <section id="resources" class="level1">
 <h1>Resources</h1>
 <ul>
 <li>See the codecademy section on classes (beware the bit on “member variables”)</li>
 </ul>
+</section>
+<section id="homework-solutions" class="level1">
+<h1>Homework solutions:</h1>
+<p>To be continued…</p>
 </section>
 </div>
 
