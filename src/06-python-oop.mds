@@ -56,7 +56,7 @@ In particular, python's OOP is class based.
 Any questions?
 
 
-# How do I use other's OPP
+# How do I use other's OOP
 
 This is the easy part.
 
@@ -104,7 +104,7 @@ dir(s)
 str(s)
 len(s)
 
-# Some real functionality
+# Some real functionality (a method)
 s.transcribe()
 ```
 
@@ -144,6 +144,7 @@ class Person(object):
         email.send(self.email, message)
 
 p = Person("Bob Jones", 42, "haxxor", "bob@jon.es")
+# Here, notify_via_email is "bound" to p
 p.notify_via_email("your cat was found")
 ```
 
@@ -162,7 +163,7 @@ notify_via_email(person, "your cat was found")
 ```
 
 Shorter, but it's less clear in `notify_via_email` what valid input is.
-Classes make this patent.
+Classes make this patent/explicit.
 
 
 # What if a company also has an email?
@@ -171,7 +172,7 @@ OOP: Have to write a separate method in the `Company` class. (There are other wa
 
 Non-OOP: As long as the `company` dictionary has an `"email"` key/value pair, the function will still work.
 
-Moral of the story: Structure comes at a cost.
+Moral of the story: Structure can come at the cost of flexibility.
 
 
 # Let's pretend Biopython didn't exist
