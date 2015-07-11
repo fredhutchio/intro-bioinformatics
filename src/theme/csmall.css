@@ -10,7 +10,11 @@
 }
 
 div.slides section h1 {
-  font-size: 70px;
+  font-size: 65px;
+  margin-top: -10px;
+}
+div.slides section h1 code {
+  font-size: 55px !important;
 }
 
 div.slides section ul,
@@ -33,7 +37,7 @@ div.slides section > p {
 
 div.slides section pre code {
   max-height: 500px;
-  font-size: 28px;
+  font-size: 23px;
   line-height: 34px;
   padding: 15px 10px;
   white-space: pre-wrap;
@@ -44,5 +48,6 @@ div.slides section :not(pre) > code {
   background-color: lightgrey;
   padding: 3px 10px;
   margin: 5px;
+  font-size: 27px;
 }
 
