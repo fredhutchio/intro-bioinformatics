@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+
+<title>Introduction to Bioinformatics</title>
+
+<meta name="description" content="Introduction to Bioinformatics">
+
+<!-- Disabled for now - embeds HTML in author string -->
+<!--  <meta name="author" content="Lesson 7 - Writing Python programs" /> -->
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<link rel="stylesheet" href="reveal.js/css/reveal.css">
+  <link rel="stylesheet" href="src/theme/csmall.css" id="theme">
+
+
+<!-- For syntax highlighting -->
+  <link rel="stylesheet" href="reveal.js/lib/css/zenburn.css">
+
+
+<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+<script>
+  document.write( '<link rel="stylesheet" href="reveal.js/css/print/' +
+    ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) +
+    '.css" type="text/css" media="print">' );
+</script>
+
+<!--[if lt IE 9]>
+<script src="reveal.js/lib/js/html5shiv.js"></script>
+<![endif]-->
+
+<!-- Note escaped dollars -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+  </script>
+
+</head>
+
+<body>
+
+<div class="reveal">
+
+<!-- Any section element inside of this container is displayed as a slide -->
+<div class="slides">
+
+<section>
+<h1>Introduction to Bioinformatics</h1>
+<h3>Lesson 7 - Writing Python programs</h3>
+<p>
+<h4></h4>
+</p>
+</section>
+
+
+<section id="writing-your-own-program" class="level1">
+<h1>Writing your own program</h1>
+<p><em>Wherein with our knoweldge we take flight and soar through the clouds of logic</em></p>
+</section>
+<section id="today" class="level1">
+<h1>Today</h1>
+<ul>
+<li>Dive head first into writing a python script to compute something interesting</li>
+<li>Hook this up to our bash pipeline</li>
+<li>Talk about some higher level things to keep in mind when writing programs</li>
+<li>Reflect on everything we’ve learned, and think again about the “big picture”</li>
+</ul>
+</section>
+<section id="objective" class="level1">
+<h1>Objective</h1>
+<p>Let’s write a script that:</p>
+<ul>
+<li>Takes an aligned Fasta file</li>
+<li>Computes the average distance between sequences</li>
+<li>Prints to stdout</li>
+<li>Takes an optional argument to return data in csv format</li>
+<li>Takes another optional argument to add a location to the csv output</li>
+</ul>
+</section>
+<section id="starting-things-off" class="level1">
+<h1>Starting things off</h1>
+<p>Create a new file at <code>scripts/treedists.py</code> using your text editor.</p>
+</section>
+<section id="setting-up-as-executable" class="level1">
+<h1>Setting up as executable</h1>
+<p>We can use the follow shebang to make sure the script runs with the active python environment (modules and all).</p>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="co">#!/usr/bin/env python</span></code></pre>
+<p>Make sure to <code>chmod +x scripts/treedists.py</code> so you can run as an executable.</p>
+</section>
+<section id="getting-arguments-using-argparse" class="level1">
+<h1>Getting arguments using <code>argparse</code></h1>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="ch">import</span> argparse
+
+<span class="kw">def</span> get_args():
+    parser = argparse.ArgumentParser()
+    <span class="co"># add parsing rules</span>
+    parser.add_argument(<span class="st">&quot;treefile&quot;</span>)
+    <span class="kw">return</span> parser.parse_args()
+
+args = get_args()
+<span class="dt">print</span> <span class="st">&quot;args is:&quot;</span>, args
+<span class="dt">print</span> <span class="st">&quot;treefile is:&quot;</span>, args.treefile</code></pre>
+<p>Try running with <code>./scripts/treedists.py sometreefile</code>.</p>
+</section>
+<section id="setting-up-a-main-function" class="level1">
+<h1>Setting up a <code>main</code> function</h1>
+<p>This is a common pattern in many languages. A main function is a place for putting all of your “top-level” program logic.</p>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> main():
+    args = get_args()
+    <span class="dt">print</span> <span class="st">&quot;args is:&quot;</span>, args
+    <span class="dt">print</span> <span class="st">&quot;treefile is:&quot;</span>, args.treefile
+
+<span class="co"># This only gets run if the file is being run as a script</span>
+<span class="kw">if</span> <span class="ot">__name__</span> == <span class="st">&#39;__main__&#39;</span>:
+    main()</code></pre>
+<p>This let’s us <code>import</code> the file from another program as a module, without executing the <code>main</code> function.</p>
+</section>
+<section id="loading-our-data" class="level1">
+<h1>Loading our data</h1>
+<p>Let’s start by loading our tree data in the main function of the code here.</p>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="co"># At the top add</span>
+<span class="ch">from</span> Bio <span class="ch">import</span> Phylo
+
+<span class="kw">def</span> main():
+    args = get_args()
+    <span class="co"># parse returns a generator, so we&#39;ll grab first</span>
+    trees = Phylo.parse(args.treefile, <span class="st">&#39;newick&#39;</span>)
+    tree = trees.<span class="dt">next</span>()
+    <span class="co"># For now, just print</span>
+    <span class="dt">print</span> tree</code></pre>
+<p>Run <code>./scripts/treedists.py output/Karamjal/tree.nw</code></p>
+</section>
+<section id="what-to-do-with-the-tree" class="level1">
+<h1>What to do with the tree</h1>
+<p>Strategy:</p>
+<ul>
+<li>Find all tree tips</li>
+<li>For each pair of distinct tree tips:
+<ul>
+<li>Find the distance through the tree between those tree tips</li>
+</ul></li>
+<li>Average all such distances</li>
+</ul>
+</section>
+<section id="lets-hit-the-repl" class="level1">
+<h1>Let’s hit the REPL</h1>
+<p>Open up a python REPL:</p>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="ch">from</span> Bio <span class="ch">import</span> Phylo
+<span class="co"># This returns an generator of trees, so we&#39;ll use next to get the first (and only)</span>
+trees = Phylo.parse(<span class="st">&#39;output/tree.nw&#39;</span>, <span class="st">&#39;newick&#39;</span>)
+t = trees.<span class="dt">next</span>()
+
+<span class="co"># First, how do we get the tips of the tree?</span>
+<span class="dt">dir</span>(t)</code></pre>
+</section>
+<section id="what-do-the-terminals-look-like" class="level1">
+<h1>What do the terminals look like?</h1>
+<pre class="sourceCode python"><code class="sourceCode python">t.get_terminals()
+
+<span class="co"># Let&#39;s see what the first of these looks like</span>
+tip = t.get_terminals()[<span class="dv">0</span>]
+<span class="dt">dir</span>(tip)</code></pre>
+<p>How do we get the name?</p>
+</section>
+<section id="getting-the-name" class="level1">
+<h1>Getting the name</h1>
+<pre class="pythyon"><code>tip.name</code></pre>
+</section>
+<section id="how-do-we-get-a-list-of-all-names" class="level1">
+<h1>How do we get a list of all names?</h1>
+</section>
+<section id="list-of-all-names" class="level1">
+<h1>List of all names</h1>
+<pre class="sourceCode python"><code class="sourceCode python">tipnames = [tip.name <span class="kw">for</span> tip in t.get_terminals()]</code></pre>
+</section>
+<section id="what-about-all-pairs-of-names" class="level1">
+<h1>What about all pairs of names?</h1>
+<p>(Note that we don’t want duplicate pairs like <code>[&quot;seq1&quot;, &quot;seq2&quot;]</code> and <code>[&quot;seq2&quot;, &quot;seq1&quot;]</code>)</p>
+</section>
+<section id="all-pairs-of-names" class="level1">
+<h1>All pairs of names</h1>
+<pre class="sourceCode python"><code class="sourceCode python">name_pairs = <span class="dt">set</span>()
+<span class="kw">for</span> tip1 in tipnames:
+    <span class="kw">for</span> tip2 in tipnames:
+        <span class="kw">if</span> tip1 != tip2:
+            pair = [tip1, tip2]
+            <span class="co"># So we don&#39;t have duplicates</span>
+            sorted_pair = <span class="dt">sorted</span>(pair)
+            tuple_pair = <span class="dt">tuple</span>(sorted_pair)
+            name_pairs.add(tuple_pair)
+
+<span class="dt">list</span>(name_pairs)[<span class="dv">0</span>:<span class="dv">10</span>]
+<span class="dt">len</span>(name_pairs)</code></pre>
+</section>
+<section id="lets-make-a-function-of-this" class="level1">
+<h1>Let’s make a function of this!</h1>
+<p>This is a good idea when you have a bunch of modular logic.</p>
+<p>Back in our file:</p>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> unique_pairs(xs):
+    pairs = <span class="dt">set</span>()
+    <span class="kw">for</span> x1 in xs:
+        <span class="kw">for</span> x2 in xs:
+            <span class="kw">if</span> x1 != x2:
+                pair = [x1, x2]
+                pairs.add(<span class="dt">tuple</span>(<span class="dt">sorted</span>(pair)))
+    <span class="kw">return</span> <span class="dt">list</span>(pairs)</code></pre>
+</section>
+<section id="how-about-finding-distance" class="level1">
+<h1>How about finding distance?</h1>
+<p>Back to the REPL:</p>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="co"># What function should we try here?</span>
+<span class="dt">dir</span>(t)</code></pre>
+</section>
+<section id="finding-distance" class="level1">
+<h1>Finding distance</h1>
+<pre class="sourceCode python"><code class="sourceCode python">name_pair = <span class="dt">list</span>(name_pairs)[<span class="dv">0</span>]
+<span class="co"># We can assign multiple variables at once :-)</span>
+<span class="co"># This is called &quot;destructuring&quot;</span>
+t1, t2 = name_pair
+t.distance(t1, t2)</code></pre>
+</section>
+<section id="putting-it-all-together" class="level1">
+<h1>Putting it all together</h1>
+<p>Back in our <code>treedist.py</code> file:</p>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> average_distance(tree):
+    tipnames = [tip.name <span class="kw">for</span> tip in tree.get_terminals()]
+    tipname_pairs = unique_pairs(tipnames)
+    tip_dists = [tree.distance(t1, t2) <span class="kw">for</span> t1, t2 in tipname_pairs]
+    <span class="kw">return</span> <span class="dt">sum</span>(tip_dists) / <span class="dt">len</span>(tip_dists)</code></pre>
+</section>
+<section id="hooking-this-up-in-main" class="level1">
+<h1>Hooking this up in <code>main</code></h1>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> main():
+    args = get_args()
+    trees = Phylo.parse(args.treefile, <span class="st">&#39;newick&#39;</span>)
+    tree = trees.<span class="dt">next</span>()
+    <span class="dt">print</span> <span class="st">&quot;Average distance:&quot;</span>, average_distance(tree)</code></pre>
+</section>
+<section id="lets-test" class="level1">
+<h1>Let’s test</h1>
+<p>Try running again from bash:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">./scripts/treedists.py</span> output/Karamjal/tree.nw</code></pre>
+</section>
+<section id="adding-a---csv-output-option" class="level1">
+<h1>Adding a <code>--csv</code> output option</h1>
+<p>This will let us do a <code>csvstack</code> to get a single data set.</p>
+<p>First the arguments:</p>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> get_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument(<span class="st">&quot;treefile&quot;</span>)
+    <span class="co"># Add optional args; store_true makes this a toggle</span>
+    parser.add_argument(<span class="st">&quot;--csv&quot;</span>, action=<span class="st">&quot;store_true&quot;</span>)
+    <span class="kw">return</span> parser.parse_args()</code></pre>
+</section>
+<section id="and-in-main" class="level1">
+<h1>And in <code>main</code>:</h1>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> main():
+    args = get_args()
+    trees = Phylo.parse(args.treefile, <span class="st">&#39;newick&#39;</span>)
+    tree = trees.<span class="dt">next</span>()
+    result = average_distance(tree)
+    <span class="kw">if</span> args.csv:
+        <span class="co"># We&#39;ll define this later</span>
+        write_csv(result)
+    <span class="kw">else</span>:
+        <span class="dt">print</span> <span class="st">&quot;Average distance:&quot;</span>, result</code></pre>
+</section>
+<section id="filling-out-write_csv" class="level1">
+<h1>Filling out <code>write_csv</code>:</h1>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="ch">import</span> csv
+<span class="ch">import</span> sys
+
+<span class="kw">def</span> write_csv(result):
+    writer = csv.writer(sys.stdout)
+    writer.writerow([<span class="st">&quot;average_distance&quot;</span>])
+    writer.writerow([result])</code></pre>
+</section>
+<section id="testing-again" class="level1">
+<h1>Testing again</h1>
+<p>From bash:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">./scripts/treedists.py</span> --csv output/Karamjal/tree.nw
+<span class="co"># Old behaviour still works</span>
+<span class="kw">./scripts/treedists.py</span> output/Karamjal/tree.nw</code></pre>
+</section>
+<section id="adding-location" class="level1">
+<h1>Adding location</h1>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> get_args():
+    ...
+    <span class="co"># Add the argument</span>
+    parser.add_argument(<span class="st">&quot;-l&quot;</span>, <span class="st">&quot;--location&quot;</span>)
+    ...
+
+<span class="kw">def</span> main():
+    ...
+    <span class="co"># Next pass the location to write_csv</span>
+    <span class="kw">if</span> args.csv:
+        write_csv(result, args.location)
+    ...</code></pre>
+</section>
+<section id="adding-location-to-write_csv" class="level1">
+<h1>Adding location (to <code>write_csv</code>)</h1>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> write_csv(result, location):
+    writer = csv.writer(sys.stdout)
+    <span class="co"># Note the inline if/else assignment</span>
+    header = [<span class="st">&quot;location&quot;</span>, <span class="st">&quot;average_distance&quot;</span>] <span class="kw">if</span> location <span class="kw">else</span> [<span class="st">&quot;average_distance&quot;</span>] 
+    main_row = [location, result] <span class="kw">if</span> location <span class="kw">else</span> [result]
+    writer.writerows([header, main_row])</code></pre>
+</section>
+<section id="testing-out" class="level1">
+<h1>Testing out</h1>
+<p>In bash:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">./scripts/treedists.py</span> --csv output/Karamjal/tree.nw -l karamjal
+<span class="co"># Old behaviour still works</span>
+<span class="kw">./scripts/treedists.py</span> --csv output/Karamjal/tree.nw</code></pre>
+</section>
+<section id="hooking-this-up-in-build.sh" class="level1">
+<h1>Hooking this up in <code>build.sh</code></h1>
+<p>In our <code>build.sh</code> script:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># At the top make sure scripts is in our PATH</span>
+<span class="ot">PATH=</span>./scripts/:<span class="ot">$PATH</span></code></pre>
+</section>
+<section id="hooking-this-up-ctnd" class="level1">
+<h1>Hooking this up (ctnd)</h1>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="ot">treedist_files=()</span>
+
+<span class="kw">for</span> <span class="kw">location</span> in <span class="ot">${locations[*]}</span>
+<span class="kw">do</span>
+  <span class="kw">...</span>
+
+  <span class="co"># Build a location tree</span>
+  <span class="ot">loc_tree=</span><span class="st">&quot;</span><span class="ot">$loc_outdir</span><span class="st">/tree.nw&quot;</span>
+  <span class="kw">FastTree</span> -seed 1234 -nt <span class="ot">$loc_alignment</span> <span class="kw">&gt;</span> <span class="ot">$loc_tree</span>
+
+  <span class="ot">treedists=</span><span class="st">&quot;</span><span class="ot">$loc_outdir</span><span class="st">/treedist.csv&quot;</span>
+  <span class="kw">treedists.py</span> <span class="ot">$loc</span> -l <span class="ot">$location</span> <span class="kw">&gt;</span> <span class="ot">$treedists</span>
+
+  <span class="ot">treedist_files+=($treedists)</span>
+<span class="kw">done</span></code></pre>
+</section>
+<section id="hooking-this-up-final" class="level1">
+<h1>Hooking this up (final)</h1>
+<pre><code>  ...
+  treedist_files+=($treedists)
+done
+
+# Aggregate into single CSV
+all_treedists=&quot;$outdir/all_treedists.csv&quot;
+csvstack ${treedist_files[*]} | csvsort -c average_distance &gt; $all_treedists</code></pre>
+<p>Now try running with <code>./build.sh</code> (but first comment out all <code>FastTree</code> and <code>muscle</code> lines to save time). When done run <code>csvlook output/all_treedists.csv</code>.</p>
+</section>
+<section id="other-programming-things" class="level1">
+<h1>Other programming things</h1>
+</section>
+<section id="importing-our-code-from-another-namespace" class="level1">
+<h1>Importing our code from another namespace</h1>
+<p>To import code from this namespace, we have to create an empty <code>__init__.py</code> file in the directory in which it resides. You can do this in bash with <code>touch scripts/__init__.py</code>.</p>
+<p>Now open a python REPL:</p>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="co"># note this does&#39;t run the main function</span>
+<span class="ch">from</span> scripts <span class="ch">import</span> treedists
+<span class="dt">dir</span>(treedists)
+treedists.unique_pairs([<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>])</code></pre>
+</section>
+<section id="a-bit-about-debugging" class="level1">
+<h1>A bit about debugging</h1>
+<p>You’ll probably spend 2x the time you spent writing your software debugging it.</p>
+<p>This is as much of an art as a science. Think of yourself as a detective.</p>
+<ul>
+<li>Put the clues together</li>
+<li>Investigate by printing things out as the program runs</li>
+<li>Try <code>import pdb; pdb.set_trace()</code></li>
+</ul>
+</section>
+<section id="be-careful-with-state" class="level1">
+<h1>Be careful with state</h1>
+<p>When possible, emphasize functions that don’t modify data in place, but rather return new data. (See <code>import copy; help(copy.copy)</code> for copying mutable data)</p>
+<p>Upside: Your programs will be a lot easier to analyze and think about in the portions that aren’t stateful.</p>
+<p>Downside: Performance can hit you in some situations.</p>
+</section>
+<section id="back-to-the-high-level" class="level1">
+<h1>Back to the high level</h1>
+<p>Stop and think about everything we’ve learned:</p>
+<ul>
+<li>Plain text data is awesome</li>
+<li>Unix for gluing things together</li>
+<li>Git for keeping track of what you do</li>
+<li>Markdown README for explaining what you do</li>
+<li>Python for more advanced logic</li>
+<li>R for plotting &amp; canned stats</li>
+<li>Package up reusable things and make scripts/libraries/programs of them</li>
+</ul>
+</section>
+<section id="above-all" class="level1">
+<h1>Above all</h1>
+<ul>
+<li>Explore</li>
+<li>Hypothesize</li>
+<li>Verify</li>
+</ul>
+</section>
+<section id="questions" class="level1">
+<h1>Questions?</h1>
+</section>
+<section id="homework-1" class="level1">
+<h1>Homework 1</h1>
+<p>Add an argument to <code>treedists.py</code> that let’s you specify the output file.</p>
+</section>
+<section id="homework-2" class="level1">
+<h1>Homework 2</h1>
+<p>Pick a problem and write a little python program for yourself!</p>
+</section>
+<section id="resources" class="level1">
+<h1>Resources</h1>
+<ul>
+<li><a href="https://packaging.python.org/en/latest/distributing.html">Building python packages/modules</a> - For when you want to build bigger python programs, or share/release small/big programs.</li>
+<li><a href="https://virtualenv.pypa.io/en/latest/">Virtualenv</a> - Managing python packages can be a pain, because you can’t install two versions of the same package :-/ Virtualenv is a tool that let’s you create and switch between different environments to avoid conflicts. (Also good for switching between python 2/3).</li>
+<li><a href="http://nhoffman.github.io/bioscons/bioscons.html#module-bioscons.slurm">Bioscons</a> - If you check out my post on using <a href="http://www.metasoarous.com/scons-for-data-science-and-compbio/">SCons for bioinformatics</a>, you might be interested in checking out the <a href="http://nhoffman.github.io/bioscons/bioscons.html#module-bioscons.slurm"><code>slurm</code> module of bioscons</a>. This let’s you distribute computation across a SLURM cluster (such as the one FHCRC has).</li>
+</ul>
+<p>(More next slide)</p>
+</section>
+<section id="resources-ctnd" class="level1">
+<h1>Resources (ctnd)</h1>
+<ul>
+<li><a href="http://biopython.org/DIST/docs/tutorial/Tutorial.html">Biopython Tutorial and Cookbook</a> - For further help using biopython (the <a href="http://biopython.org/wiki/Category:Wiki_Documentation">biopython wiki documentation</a> is also quite good).</li>
+<li><a href="http://pandas.pydata.org/">Pandas</a> - R-like <code>data.frame</code>s in python, complete with plyr and reshape like semantics.</li>
+<li><a href="http://www.scipy.org/">Scipi / Numpi</a> - Tools for doing more computationally intensive work (scientific/math functions, stats, matrix algebra, etc.)</li>
+</ul>
+</section>
+<section id="thats-all-folks" class="level1">
+<h1>That’s all folks!</h1>
+<p><a href="http://fredhutchio.github.io/intro-bioinformatics/">Back to home page</a></p>
+</section>
+</div>
+
+<script src="reveal.js/lib/js/head.min.js"></script>
+<script src="reveal.js/js/reveal.min.js"></script>
+
+<script>
+  // Full list of configuration options available here:
+  // https://github.com/hakimel/reveal.js#configuration
+  Reveal.initialize({
+    controls: true,
+    progress: true,
+    history: true,
+    center: false,
+
+
+    rollingLinks: false,
+  
+  // available themes are in /css/theme
+      theme: Reveal.getQueryHash().theme || 'csmall',
+  
+  // default/cube/page/concave/zoom/linear/fade/none
+      transition: Reveal.getQueryHash().transition || 'fade',
+  
+  // Optional libraries used to extend on reveal.js
+  dependencies: [
+    { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+    { src: 'reveal.js/plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+    { src: 'reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+    { src: 'reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+    { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+    { src: 'MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML'}
+    // { src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+    // { src: 'reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+  ]
+  });
+Reveal.addEventListener( 'slidechanged', function( event ) {
+    MathJax.Hub.Rerender();
+} );
+</script>
+
+</body>
+</html>

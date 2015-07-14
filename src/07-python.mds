@@ -1,14 +1,493 @@
+% Introduction to Bioinformatics
+% Lesson 7 - Writing Python programs
 
 
+# Writing your own program
+
+_Wherein with our knoweldge we take flight and soar through the clouds of logic_
+
+
+# Today
+
+* Dive head first into writing a python script to compute something interesting
+* Hook this up to our bash pipeline
+* Talk about some higher level things to keep in mind when writing programs
+* Reflect on everything we've learned, and think again about the "big picture"
+
+
+# Objective
+
+Let's write a script that:
+
+* Takes an aligned Fasta file
+* Computes the average distance between sequences
+* Prints to stdout
+* Takes an optional argument to return data in csv format
+* Takes another optional argument to add a location to the csv output
+
+
+# Starting things off
+
+Create a new file at `scripts/treedists.py` using your text editor.
+
+
+# Setting up as executable
+
+We can use the follow shebang to make sure the script runs with the active python environment (modules and all).
+
+```python
+#!/usr/bin/env python
+```
+
+Make sure to `chmod +x scripts/treedists.py` so you can run as an executable.
+
+
+# Getting arguments using `argparse`
+
+```python
+import argparse
+
+def get_args():
+    parser = argparse.ArgumentParser()
+    # add parsing rules
+    parser.add_argument("treefile")
+    return parser.parse_args()
+
+args = get_args()
+print "args is:", args
+print "treefile is:", args.treefile
+```
+
+Try running with `./scripts/treedists.py sometreefile`.
+
+
+# Setting up a `main` function
+
+This is a common pattern in many languages.
+A main function is a place for putting all of your "top-level" program logic.
+
+```python
+def main():
+    args = get_args()
+    print "args is:", args
+    print "treefile is:", args.treefile
+
+# This only gets run if the file is being run as a script
+if __name__ == '__main__':
+    main()
+```
+
+This let's us `import` the file from another program as a module, without executing the `main` function.
+
+
+# Loading our data
+
+Let's start by loading our tree data in the main function of the code here.
+
+```python
+# At the top add
+from Bio import Phylo
+
+def main():
+    args = get_args()
+    # parse returns a generator, so we'll grab first
+    trees = Phylo.parse(args.treefile, 'newick')
+    tree = trees.next()
+    # For now, just print
+    print tree
+```
+
+Run `./scripts/treedists.py output/Karamjal/tree.nw`
+
+
+# What to do with the tree
+
+Strategy:
+
+* Find all tree tips
+* For each pair of distinct tree tips:
+    * Find the distance through the tree between those tree tips
+* Average all such distances
+
+
+# Let's hit the REPL
+
+Open up a python REPL:
+
+```python
+from Bio import Phylo
+# This returns an generator of trees, so we'll use next to get the first (and only)
+trees = Phylo.parse('output/tree.nw', 'newick')
+t = trees.next()
+
+# First, how do we get the tips of the tree?
+dir(t)
+```
+
+
+# What do the terminals look like?
+
+```python
+t.get_terminals()
+
+# Let's see what the first of these looks like
+tip = t.get_terminals()[0]
+dir(tip)
+```
+
+How do we get the name?
+
+
+# Getting the name
+
+```pythyon
+tip.name
+```
+
+
+# How do we get a list of all names?
+
+
+# List of all names
+
+```python
+tipnames = [tip.name for tip in t.get_terminals()]
+```
+
+
+# What about all pairs of names?
+
+(Note that we don't want duplicate pairs like `["seq1", "seq2"]` and `["seq2", "seq1"]`)
+
+
+
+# All pairs of names
+
+```python
+name_pairs = set()
+for tip1 in tipnames:
+    for tip2 in tipnames:
+        if tip1 != tip2:
+            pair = [tip1, tip2]
+            # So we don't have duplicates
+            sorted_pair = sorted(pair)
+            tuple_pair = tuple(sorted_pair)
+            name_pairs.add(tuple_pair)
+
+list(name_pairs)[0:10]
+len(name_pairs)
+```
+
+
+# Let's make a function of this!
+
+This is a good idea when you have a bunch of modular logic.
+
+Back in our file:
+
+```python
+def unique_pairs(xs):
+    pairs = set()
+    for x1 in xs:
+        for x2 in xs:
+            if x1 != x2:
+                pair = [x1, x2]
+                pairs.add(tuple(sorted(pair)))
+    return list(pairs)
+```
+
+
+# How about finding distance?
+
+Back to the REPL:
+
+```python
+# What function should we try here?
+dir(t)
+```
+
+
+# Finding distance
+
+```python
+name_pair = list(name_pairs)[0]
+# We can assign multiple variables at once :-)
+# This is called "destructuring"
+t1, t2 = name_pair
+t.distance(t1, t2)
+```
+
+
+# Putting it all together
+
+Back in our `treedist.py` file:
+
+```python
+def average_distance(tree):
+    tipnames = [tip.name for tip in tree.get_terminals()]
+    tipname_pairs = unique_pairs(tipnames)
+    tip_dists = [tree.distance(t1, t2) for t1, t2 in tipname_pairs]
+    return sum(tip_dists) / len(tip_dists)
+```
+
+
+# Hooking this up in `main`
+
+```python
+def main():
+    args = get_args()
+    trees = Phylo.parse(args.treefile, 'newick')
+    tree = trees.next()
+    print "Average distance:", average_distance(tree)
+```
+
+
+# Let's test
+
+Try running again from bash:
+
+```bash
+./scripts/treedists.py output/Karamjal/tree.nw
+```
+
+
+# Adding a `--csv` output option
+
+This will let us do a `csvstack` to get a single data set.
+
+First the arguments:
+
+```python
+def get_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("treefile")
+    # Add optional args; store_true makes this a toggle
+    parser.add_argument("--csv", action="store_true")
+    return parser.parse_args()
+```
+
+
+# And in `main`:
+
+```python
+def main():
+    args = get_args()
+    trees = Phylo.parse(args.treefile, 'newick')
+    tree = trees.next()
+    result = average_distance(tree)
+    if args.csv:
+        # We'll define this later
+        write_csv(result)
+    else:
+        print "Average distance:", result
+```
+
+
+# Filling out `write_csv`:
+
+```python
+import csv
+import sys
+
+def write_csv(result):
+    writer = csv.writer(sys.stdout)
+    writer.writerow(["average_distance"])
+    writer.writerow([result])
+```
+
+
+# Testing again
+
+From bash:
+
+```bash
+./scripts/treedists.py --csv output/Karamjal/tree.nw
+# Old behaviour still works
+./scripts/treedists.py output/Karamjal/tree.nw
+```
+
+
+# Adding location
+
+```python
+def get_args():
+    ...
+    # Add the argument
+    parser.add_argument("-l", "--location")
+    ...
+
+def main():
+    ...
+    # Next pass the location to write_csv
+    if args.csv:
+        write_csv(result, args.location)
+    ...
+```
+
+
+# Adding location (to `write_csv`)
+
+```python
+def write_csv(result, location):
+    writer = csv.writer(sys.stdout)
+    # Note the inline if/else assignment
+    header = ["location", "average_distance"] if location else ["average_distance"] 
+    main_row = [location, result] if location else [result]
+    writer.writerows([header, main_row])
+```
+
+
+# Testing out
+
+In bash:
+
+```bash
+./scripts/treedists.py --csv output/Karamjal/tree.nw -l karamjal
+# Old behaviour still works
+./scripts/treedists.py --csv output/Karamjal/tree.nw
+```
+
+
+# Hooking this up in `build.sh`
+
+In our `build.sh` script:
+
+```bash
+# At the top make sure scripts is in our PATH
+PATH=./scripts/:$PATH
+```
+
+# Hooking this up (ctnd)
+
+```bash
+treedist_files=()
+
+for location in ${locations[*]}
+do
+  ...
+
+  # Build a location tree
+  loc_tree="$loc_outdir/tree.nw"
+  FastTree -seed 1234 -nt $loc_alignment > $loc_tree
+
+  treedists="$loc_outdir/treedist.csv"
+  treedists.py $loc -l $location > $treedists
+
+  treedist_files+=($treedists)
+done
+```
+
+
+# Hooking this up (final)
+
+```
+  ...
+  treedist_files+=($treedists)
+done
+
+# Aggregate into single CSV
+all_treedists="$outdir/all_treedists.csv"
+csvstack ${treedist_files[*]} | csvsort -c average_distance > $all_treedists
+```
+
+Now try running with `./build.sh` (but first comment out all `FastTree` and `muscle` lines to save time).
+When done run `csvlook output/all_treedists.csv`.
+
+
+# Other programming things
+
+
+# Importing our code from another namespace
+
+To import code from this namespace, we have to create an empty `__init__.py` file in the directory in which it resides.
+You can do this in bash with `touch scripts/__init__.py`.
+
+Now open a python REPL:
+
+```python
+# note this does't run the main function
+from scripts import treedists
+dir(treedists)
+treedists.unique_pairs([1,2,3,4])
+```
+
+
+# A bit about debugging
+
+You'll probably spend 2x the time you spent writing your software debugging it.
+
+This is as much of an art as a science.
+Think of yourself as a detective.
+
+* Put the clues together
+* Investigate by printing things out as the program runs
+* Try `import pdb; pdb.set_trace()`
+
+
+# Be careful with state
+
+When possible, emphasize functions that don't modify data in place, but rather return new data.
+(See `import copy; help(copy.copy)` for copying mutable data)
+
+Upside: Your programs will be a lot easier to analyze and think about in the portions that aren't stateful.
+
+Downside: Performance can hit you in some situations.
+
+
+# Back to the high level
+
+Stop and think about everything we've learned:
+
+* Plain text data is awesome
+* Unix for gluing things together
+* Git for keeping track of what you do
+* Markdown README for explaining what you do
+* Python for more advanced logic
+* R for plotting & canned stats
+* Package up reusable things and make scripts/libraries/programs of them
+
+
+# Above all
+
+* Explore
+* Hypothesize
+* Verify
+
+
+# Questions?
+
+
+# Homework 1
+
+Add an argument to `treedists.py` that let's you specify the output file.
+
+
+# Homework 2
+
+Pick a problem and write a little python program for yourself!
 
 
 # Resources
 
-* Building python packages/modules
-* Working with pip
-* Working with virtualenv
-* Bioscons
-* Biopython
-* Pandas
-* Scipi / Numpi
+* [Building python packages/modules](https://packaging.python.org/en/latest/distributing.html) - For when you want to build bigger python programs, or share/release small/big programs.
+* [Virtualenv](https://virtualenv.pypa.io/en/latest/) - Managing python packages can be a pain, because you can't install two versions of the same package :-/
+  Virtualenv is a tool that let's you create and switch between different environments to avoid conflicts.
+  (Also good for switching between python 2/3).
+* [Bioscons](http://nhoffman.github.io/bioscons/bioscons.html#module-bioscons.slurm) - If you check out my post on using [SCons for bioinformatics](http://www.metasoarous.com/scons-for-data-science-and-compbio/), you might be interested in checking out the [`slurm` module of bioscons](http://nhoffman.github.io/bioscons/bioscons.html#module-bioscons.slurm).
+  This let's you distribute computation across a SLURM cluster (such as the one FHCRC has).
+
+(More next slide)
+
+
+# Resources (ctnd)
+
+* [Biopython Tutorial and Cookbook](http://biopython.org/DIST/docs/tutorial/Tutorial.html) - For further help using biopython (the [biopython wiki documentation](http://biopython.org/wiki/Category:Wiki_Documentation) is also quite good).
+* [Pandas](http://pandas.pydata.org/) - R-like `data.frame`s in python, complete with plyr and reshape like semantics.
+* [Scipi / Numpi](http://www.scipy.org/) - Tools for doing more computationally intensive work (scientific/math functions, stats, matrix algebra, etc.)
+
+
+# That's all folks!
+
+[Back to home page](http://fredhutchio.github.io/intro-bioinformatics/)
+
 
