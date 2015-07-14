@@ -425,6 +425,309 @@ Hint: To solve this "ideally", look into python's `super` function.
 
 # Homework solutions:
 
-To be continued...
+Spoiler alert!
+
+
+# HW 1
+
+First the simple solution:
+
+```python
+class DNASeq(Seq):
+    ...
+    transcriptions = dict(T="U")
+    def transcribe(self):
+        # Note use of get
+        bps = [self.transcriptions.get(bp, bp) for bp in self]
+        joined_bps = "".join(bps)
+        return RNASeq(joined_bps)
+
+class RNASeq(Seq):
+    ...
+    transcriptions = dict(U="T")
+    def reverse_transcribe(self):
+        bps = [self.transcriptions.get(bp, bp) for bp in self]
+        joined_bps = "".join(bps)
+        return DNASeq(joined_bps)
+
+s = DNASeq("ACGT")
+print "Transcription of", s, "is:", s.transcribe()
+
+s = RNASeq("ACGU")
+print "Reverse trans of", s, "is:", s.reverse_transcribe()
+```
+
+
+# HW 1 (ctnd)
+
+This works, but note that it's a lot of duplicate code.
+We'll see a more elegant way to solve this using `super`.
+
+
+# HW 2
+
+First let's solve this without worrying too much about the return type (just ensuring it's a Seq).
+
+```python
+class Seq(str):
+    ...
+    def reverse_complement(self):
+        # Take the complement and reverse the bps
+        bps = reversed(self.complement())
+        joined_bps = "".join(bps)
+        return Seq(joined_bps)
+
+s = DNASeq("ACGTCC")
+print "Reverse comp of", s, "is:", s.reverse_complement()
+
+s = RNASeq("ACGUCC")
+print "Reverse comp of", s, "is:", s.reverse_complement()
+
+```
+
+
+# HW 2 (ctnd)
+
+Note that if we felt like being more terse, we could omit all the intermediate variable assignments and just do everything in one line.
+You can decide for yourself what makes code most readable.
+
+```python
+class Seq(str):
+    ...
+    def reverse_complement(self):
+        return Seq("".join(reversed(self.complement())))
+```
+
+
+# Bonus 1
+
+First, we'll solve this just using simple string methods.
+
+```python
+class SeqRecord(object):
+    def __init__(self, name, seq):
+        self.name = name
+        # We'll assume a sequence without U or T is a DNASeq
+        if seq.count("T") >= 0 and seq.count("U") == 0:
+            seq = DNASeq(seq)
+        elif seq.count("U") > 0 and seq.count("T") == 0:
+            seq = RNASeq(seq)
+        else:
+            # Then we have both U and T, so fail
+            raise ValueError, "Seq can't have both U and T"
+        self.seq = seq
+
+    ...
+
+s = SeqRecord("MBG1234", "AGTCTGATA")
+print "Seqrecord seq type:", type(s.seq)
+
+s = SeqRecord("MBG1234", "AGUCUGAUA")
+print "Seqrecord seq type:", type(s.seq)
+
+# This one should fail
+SeqRecord("MBG1234", "AGTCUGATA")
+```
+
+
+# Bonus 1 (ctnd)
+
+This isn't the best solution:
+Right now, only capital letters are considered. A good way to fix this would be to look into [regular expressions](https://docs.python.org/2/howto/regex.html).
+
+There is always something to do to make your code better :-)
+
+
+# Bonus 2
+
+The simple solution to this is to just write two methods, like we did in the solution to HW 1.
+However, there is a better way.
+
+```python
+class DNASeq(Seq):
+    ...
+    def complement(self):
+        # Here we use the superclass' method
+        return DNASeq(Seq.complement(self))
+
+class RNASeq(Seq):
+    ...
+    def complement(self):
+        return RNASeq(Seq.complement(self))
+
+s = DNASeq("ACGT")
+print "Type of complement of", s, "is:", type(s.complement())
+
+s = RNASeq("ACGU")
+print "Type of complement of", s, "is:", type(s.complement())
+```
+
+
+# Bonus 2 (ctnd)
+
+Note: In the assignment, I suggested using `super` to solve this.
+After looking for a good explanation of super as a reference, I found [this stackoverflow post](http://stackoverflow.com/a/1174118/177677), which gave me the idea to just refer to the unbound `Seq.complement` function directly.
+I think this is a lot easier to understand, and it accomplishes the same thing.
+
+
+# Revisiting HW 2
+
+We can use this `super`-like trick to fix our solution to HW 2 as well:
+
+```python
+class DNASeq(Seq):
+    ...
+    def reverse_complement(self):
+        return DNASeq(Seq.reverse_complement(self))
+
+class RNASeq(Seq):
+    ...
+    def reverse_complement(self):
+        return RNASeq(Seq.reverse_complement(self))
+
+s = DNASeq("ACGTCC")
+print "Type of reverse comp of", s, "is:", type(s.reverse_complement()
+s = RNASeq("ACGUCC")
+print "Type of reverse comp of", s, "is:", type(s.reverse_complement()
+```
+
+
+# Revisiting HW 1
+
+Similarly, we can refactor `transcribe` and `reverse_transcribe`.
+
+```python
+class Seq(str):
+    ...
+    def abstract_transcribe(self):
+        bps = [self.transcriptions.get(bp, bp) for bp in self]
+        joined_bps = "".join(bps)
+        return Seq(joined_bps)
+
+
+class DNASeq(Seq):
+    ...
+    def transcribe(self):
+        return RNASeq(Seq.abstract_transcribe(self))
+
+
+class RNASeq(Seq):
+    ...
+    def reverse_transcribe(self):
+        return DNASeq(Seq.abstract_transcribe(self))
+```
+
+
+# Everything all together
+
+```python
+class Seq(str):
+    def complement(self):
+        bps = [self.complements[bp] for bp in self]
+        joined_bps = "".join(bps)
+        return Seq(joined_bps)
+
+    def reverse_complement(self):
+        return Seq("".join(reversed(self.complement())))
+
+    def abstract_transcribe(self):
+        bps = [self.transcriptions.get(bp, bp) for bp in self]
+        joined_bps = "".join(bps)
+        return Seq(joined_bps)
+
+
+class DNASeq(Seq):
+    complements = dict(A="T", T="A", C="G", G="C")
+    transcriptions = dict(T="U")
+
+    def complement(self):
+        return DNASeq(Seq.complement(self))
+
+    def reverse_complement(self):
+        return DNASeq(Seq.reverse_complement(self))
+
+    def transcribe(self):
+        return RNASeq(Seq.abstract_transcribe(self))
+
+
+class RNASeq(Seq):
+    complements = dict(A="U", U="A", C="G", G="C")
+    transcriptions = dict(U="T")
+
+    def complement(self):
+        return RNASeq(Seq.complement(self))
+
+    def reverse_complement(self):
+        return RNASeq(Seq.reverse_complement(self))
+
+    def reverse_transcribe(self):
+        return DNASeq(Seq.abstract_transcribe(self))
+
+
+
+class SeqRecord(object):
+    def __init__(self, name, seq):
+        self.name = name
+        # We'll assume a sequence without U or T is a DNASeq
+        if seq.count("T") >= 0 and seq.count("U") == 0:
+            seq = DNASeq(seq)
+        elif seq.count("U") > 0 and seq.count("T") == 0:
+            seq = RNASeq(seq)
+        else:
+            # Then we have both U and T, so fail
+            raise ValueError, "Can't have a sequence with both U and T"
+        self.seq = seq
+
+    def fasta_string(self):
+        string = ">" + self.name + "\n"
+        string += self.seq + "\n"
+        return string
+
+
+
+s = DNASeq("ACGT")
+print "Transcription of", s, "is:", s.transcribe()
+
+s = RNASeq("ACGU")
+print "Reverse transcription of", s, "is:", s.reverse_transcribe()
+
+print ""
+
+
+s = DNASeq("ACGT")
+print "Complement of", s, "is:", s.complement()
+print "Type of complement of", s, "is:", type(s.complement())
+
+s = RNASeq("ACGU")
+print "Complement of", s, "is:", s.complement()
+print "Type of complement of", s, "is:", type(s.complement())
+
+print ""
+
+
+s = DNASeq("ACGTCC")
+print "Reverse complement of", s, "is:", s.reverse_complement()
+print "Type of reverse complement of", s, "is:", type(s.reverse_complement())
+
+s = RNASeq("ACGUCC")
+print "Reverse complement of", s, "is:", s.reverse_complement()
+print "Type of reverse complement of", s, "is:", type(s.reverse_complement())
+
+print ""
+
+
+s = SeqRecord("MBG1234", "AGTCTGATA")
+print "Seqrecord seq type:", type(s.seq)
+#print s.fasta_string()
+
+s = SeqRecord("MBG1234", "AGUCUGAUA")
+print "Seqrecord seq type:", type(s.seq)
+
+s = SeqRecord("MBG1234", "AGTCUGATA")
+
+```
+
+
+# This page left intentionally almost blank
 
 

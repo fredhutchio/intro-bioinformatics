@@ -396,7 +396,267 @@ s.complement().complement()</code></pre>
 </section>
 <section id="homework-solutions" class="level1">
 <h1>Homework solutions:</h1>
-<p>To be continued…</p>
+<p>Spoiler alert!</p>
+</section>
+<section id="hw-1" class="level1">
+<h1>HW 1</h1>
+<p>First the simple solution:</p>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="kw">class</span> DNASeq(Seq):
+    ...
+    transcriptions = <span class="dt">dict</span>(T=<span class="st">&quot;U&quot;</span>)
+    <span class="kw">def</span> transcribe(<span class="ot">self</span>):
+        <span class="co"># Note use of get</span>
+        bps = [<span class="ot">self</span>.transcriptions.get(bp, bp) <span class="kw">for</span> bp in <span class="ot">self</span>]
+        joined_bps = <span class="st">&quot;&quot;</span>.join(bps)
+        <span class="kw">return</span> RNASeq(joined_bps)
+
+<span class="kw">class</span> RNASeq(Seq):
+    ...
+    transcriptions = <span class="dt">dict</span>(U=<span class="st">&quot;T&quot;</span>)
+    <span class="kw">def</span> reverse_transcribe(<span class="ot">self</span>):
+        bps = [<span class="ot">self</span>.transcriptions.get(bp, bp) <span class="kw">for</span> bp in <span class="ot">self</span>]
+        joined_bps = <span class="st">&quot;&quot;</span>.join(bps)
+        <span class="kw">return</span> DNASeq(joined_bps)
+
+s = DNASeq(<span class="st">&quot;ACGT&quot;</span>)
+<span class="dt">print</span> <span class="st">&quot;Transcription of&quot;</span>, s, <span class="st">&quot;is:&quot;</span>, s.transcribe()
+
+s = RNASeq(<span class="st">&quot;ACGU&quot;</span>)
+<span class="dt">print</span> <span class="st">&quot;Reverse trans of&quot;</span>, s, <span class="st">&quot;is:&quot;</span>, s.reverse_transcribe()</code></pre>
+</section>
+<section id="hw-1-ctnd" class="level1">
+<h1>HW 1 (ctnd)</h1>
+<p>This works, but note that it’s a lot of duplicate code. We’ll see a more elegant way to solve this using <code>super</code>.</p>
+</section>
+<section id="hw-2" class="level1">
+<h1>HW 2</h1>
+<p>First let’s solve this without worrying too much about the return type (just ensuring it’s a Seq).</p>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="kw">class</span> Seq(<span class="dt">str</span>):
+    ...
+    <span class="kw">def</span> reverse_complement(<span class="ot">self</span>):
+        <span class="co"># Take the complement and reverse the bps</span>
+        bps = <span class="dt">reversed</span>(<span class="ot">self</span>.complement())
+        joined_bps = <span class="st">&quot;&quot;</span>.join(bps)
+        <span class="kw">return</span> Seq(joined_bps)
+
+s = DNASeq(<span class="st">&quot;ACGTCC&quot;</span>)
+<span class="dt">print</span> <span class="st">&quot;Reverse comp of&quot;</span>, s, <span class="st">&quot;is:&quot;</span>, s.reverse_complement()
+
+s = RNASeq(<span class="st">&quot;ACGUCC&quot;</span>)
+<span class="dt">print</span> <span class="st">&quot;Reverse comp of&quot;</span>, s, <span class="st">&quot;is:&quot;</span>, s.reverse_complement()</code></pre>
+</section>
+<section id="hw-2-ctnd" class="level1">
+<h1>HW 2 (ctnd)</h1>
+<p>Note that if we felt like being more terse, we could omit all the intermediate variable assignments and just do everything in one line. You can decide for yourself what makes code most readable.</p>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="kw">class</span> Seq(<span class="dt">str</span>):
+    ...
+    <span class="kw">def</span> reverse_complement(<span class="ot">self</span>):
+        <span class="kw">return</span> Seq(<span class="st">&quot;&quot;</span>.join(<span class="dt">reversed</span>(<span class="ot">self</span>.complement())))</code></pre>
+</section>
+<section id="bonus-1" class="level1">
+<h1>Bonus 1</h1>
+<p>First, we’ll solve this just using simple string methods.</p>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="kw">class</span> SeqRecord(<span class="dt">object</span>):
+    <span class="kw">def</span> <span class="ot">__init__</span>(<span class="ot">self</span>, name, seq):
+        <span class="ot">self</span>.name = name
+        <span class="co"># We&#39;ll assume a sequence without U or T is a DNASeq</span>
+        <span class="kw">if</span> seq.count(<span class="st">&quot;T&quot;</span>) &gt;= <span class="dv">0</span> and seq.count(<span class="st">&quot;U&quot;</span>) == <span class="dv">0</span>:
+            seq = DNASeq(seq)
+        <span class="kw">elif</span> seq.count(<span class="st">&quot;U&quot;</span>) &gt; <span class="dv">0</span> and seq.count(<span class="st">&quot;T&quot;</span>) == <span class="dv">0</span>:
+            seq = RNASeq(seq)
+        <span class="kw">else</span>:
+            <span class="co"># Then we have both U and T, so fail</span>
+            <span class="kw">raise</span> <span class="ot">ValueError</span>, <span class="st">&quot;Seq can&#39;t have both U and T&quot;</span>
+        <span class="ot">self</span>.seq = seq
+
+    ...
+
+s = SeqRecord(<span class="st">&quot;MBG1234&quot;</span>, <span class="st">&quot;AGTCTGATA&quot;</span>)
+<span class="dt">print</span> <span class="st">&quot;Seqrecord seq type:&quot;</span>, <span class="dt">type</span>(s.seq)
+
+s = SeqRecord(<span class="st">&quot;MBG1234&quot;</span>, <span class="st">&quot;AGUCUGAUA&quot;</span>)
+<span class="dt">print</span> <span class="st">&quot;Seqrecord seq type:&quot;</span>, <span class="dt">type</span>(s.seq)
+
+<span class="co"># This one should fail</span>
+SeqRecord(<span class="st">&quot;MBG1234&quot;</span>, <span class="st">&quot;AGTCUGATA&quot;</span>)</code></pre>
+</section>
+<section id="bonus-1-ctnd" class="level1">
+<h1>Bonus 1 (ctnd)</h1>
+<p>This isn’t the best solution: Right now, only capital letters are considered. A good way to fix this would be to look into <a href="https://docs.python.org/2/howto/regex.html">regular expressions</a>.</p>
+<p>There is always something to do to make your code better :-)</p>
+</section>
+<section id="bonus-2" class="level1">
+<h1>Bonus 2</h1>
+<p>The simple solution to this is to just write two methods, like we did in the solution to HW 1. However, there is a better way.</p>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="kw">class</span> DNASeq(Seq):
+    ...
+    <span class="kw">def</span> complement(<span class="ot">self</span>):
+        <span class="co"># Here we use the superclass&#39; method</span>
+        <span class="kw">return</span> DNASeq(Seq.complement(<span class="ot">self</span>))
+
+<span class="kw">class</span> RNASeq(Seq):
+    ...
+    <span class="kw">def</span> complement(<span class="ot">self</span>):
+        <span class="kw">return</span> RNASeq(Seq.complement(<span class="ot">self</span>))
+
+s = DNASeq(<span class="st">&quot;ACGT&quot;</span>)
+<span class="dt">print</span> <span class="st">&quot;Type of complement of&quot;</span>, s, <span class="st">&quot;is:&quot;</span>, <span class="dt">type</span>(s.complement())
+
+s = RNASeq(<span class="st">&quot;ACGU&quot;</span>)
+<span class="dt">print</span> <span class="st">&quot;Type of complement of&quot;</span>, s, <span class="st">&quot;is:&quot;</span>, <span class="dt">type</span>(s.complement())</code></pre>
+</section>
+<section id="bonus-2-ctnd" class="level1">
+<h1>Bonus 2 (ctnd)</h1>
+<p>Note: In the assignment, I suggested using <code>super</code> to solve this. After looking for a good explanation of super as a reference, I found <a href="http://stackoverflow.com/a/1174118/177677">this stackoverflow post</a>, which gave me the idea to just refer to the unbound <code>Seq.complement</code> function directly. I think this is a lot easier to understand, and it accomplishes the same thing.</p>
+</section>
+<section id="revisiting-hw-2" class="level1">
+<h1>Revisiting HW 2</h1>
+<p>We can use this <code>super</code>-like trick to fix our solution to HW 2 as well:</p>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="kw">class</span> DNASeq(Seq):
+    ...
+    <span class="kw">def</span> reverse_complement(<span class="ot">self</span>):
+        <span class="kw">return</span> DNASeq(Seq.reverse_complement(<span class="ot">self</span>))
+
+<span class="kw">class</span> RNASeq(Seq):
+    ...
+    <span class="kw">def</span> reverse_complement(<span class="ot">self</span>):
+        <span class="kw">return</span> RNASeq(Seq.reverse_complement(<span class="ot">self</span>))
+
+s = DNASeq(<span class="st">&quot;ACGTCC&quot;</span>)
+<span class="dt">print</span> <span class="st">&quot;Type of reverse comp of&quot;</span>, s, <span class="st">&quot;is:&quot;</span>, <span class="dt">type</span>(s.reverse_complement()
+s = RNASeq(<span class="st">&quot;ACGUCC&quot;</span>)
+<span class="dt">print</span> <span class="st">&quot;Type of reverse comp of&quot;</span>, s, <span class="st">&quot;is:&quot;</span>, <span class="dt">type</span>(s.reverse_complement()</code></pre>
+</section>
+<section id="revisiting-hw-1" class="level1">
+<h1>Revisiting HW 1</h1>
+<p>Similarly, we can refactor <code>transcribe</code> and <code>reverse_transcribe</code>.</p>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="kw">class</span> Seq(<span class="dt">str</span>):
+    ...
+    <span class="kw">def</span> abstract_transcribe(<span class="ot">self</span>):
+        bps = [<span class="ot">self</span>.transcriptions.get(bp, bp) <span class="kw">for</span> bp in <span class="ot">self</span>]
+        joined_bps = <span class="st">&quot;&quot;</span>.join(bps)
+        <span class="kw">return</span> Seq(joined_bps)
+
+
+<span class="kw">class</span> DNASeq(Seq):
+    ...
+    <span class="kw">def</span> transcribe(<span class="ot">self</span>):
+        <span class="kw">return</span> RNASeq(Seq.abstract_transcribe(<span class="ot">self</span>))
+
+
+<span class="kw">class</span> RNASeq(Seq):
+    ...
+    <span class="kw">def</span> reverse_transcribe(<span class="ot">self</span>):
+        <span class="kw">return</span> DNASeq(Seq.abstract_transcribe(<span class="ot">self</span>))</code></pre>
+</section>
+<section id="everything-all-together" class="level1">
+<h1>Everything all together</h1>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="kw">class</span> Seq(<span class="dt">str</span>):
+    <span class="kw">def</span> complement(<span class="ot">self</span>):
+        bps = [<span class="ot">self</span>.complements[bp] <span class="kw">for</span> bp in <span class="ot">self</span>]
+        joined_bps = <span class="st">&quot;&quot;</span>.join(bps)
+        <span class="kw">return</span> Seq(joined_bps)
+
+    <span class="kw">def</span> reverse_complement(<span class="ot">self</span>):
+        <span class="kw">return</span> Seq(<span class="st">&quot;&quot;</span>.join(<span class="dt">reversed</span>(<span class="ot">self</span>.complement())))
+
+    <span class="kw">def</span> abstract_transcribe(<span class="ot">self</span>):
+        bps = [<span class="ot">self</span>.transcriptions.get(bp, bp) <span class="kw">for</span> bp in <span class="ot">self</span>]
+        joined_bps = <span class="st">&quot;&quot;</span>.join(bps)
+        <span class="kw">return</span> Seq(joined_bps)
+
+
+<span class="kw">class</span> DNASeq(Seq):
+    complements = <span class="dt">dict</span>(A=<span class="st">&quot;T&quot;</span>, T=<span class="st">&quot;A&quot;</span>, C=<span class="st">&quot;G&quot;</span>, G=<span class="st">&quot;C&quot;</span>)
+    transcriptions = <span class="dt">dict</span>(T=<span class="st">&quot;U&quot;</span>)
+
+    <span class="kw">def</span> complement(<span class="ot">self</span>):
+        <span class="kw">return</span> DNASeq(Seq.complement(<span class="ot">self</span>))
+
+    <span class="kw">def</span> reverse_complement(<span class="ot">self</span>):
+        <span class="kw">return</span> DNASeq(Seq.reverse_complement(<span class="ot">self</span>))
+
+    <span class="kw">def</span> transcribe(<span class="ot">self</span>):
+        <span class="kw">return</span> RNASeq(Seq.abstract_transcribe(<span class="ot">self</span>))
+
+
+<span class="kw">class</span> RNASeq(Seq):
+    complements = <span class="dt">dict</span>(A=<span class="st">&quot;U&quot;</span>, U=<span class="st">&quot;A&quot;</span>, C=<span class="st">&quot;G&quot;</span>, G=<span class="st">&quot;C&quot;</span>)
+    transcriptions = <span class="dt">dict</span>(U=<span class="st">&quot;T&quot;</span>)
+
+    <span class="kw">def</span> complement(<span class="ot">self</span>):
+        <span class="kw">return</span> RNASeq(Seq.complement(<span class="ot">self</span>))
+
+    <span class="kw">def</span> reverse_complement(<span class="ot">self</span>):
+        <span class="kw">return</span> RNASeq(Seq.reverse_complement(<span class="ot">self</span>))
+
+    <span class="kw">def</span> reverse_transcribe(<span class="ot">self</span>):
+        <span class="kw">return</span> DNASeq(Seq.abstract_transcribe(<span class="ot">self</span>))
+
+
+
+<span class="kw">class</span> SeqRecord(<span class="dt">object</span>):
+    <span class="kw">def</span> <span class="ot">__init__</span>(<span class="ot">self</span>, name, seq):
+        <span class="ot">self</span>.name = name
+        <span class="co"># We&#39;ll assume a sequence without U or T is a DNASeq</span>
+        <span class="kw">if</span> seq.count(<span class="st">&quot;T&quot;</span>) &gt;= <span class="dv">0</span> and seq.count(<span class="st">&quot;U&quot;</span>) == <span class="dv">0</span>:
+            seq = DNASeq(seq)
+        <span class="kw">elif</span> seq.count(<span class="st">&quot;U&quot;</span>) &gt; <span class="dv">0</span> and seq.count(<span class="st">&quot;T&quot;</span>) == <span class="dv">0</span>:
+            seq = RNASeq(seq)
+        <span class="kw">else</span>:
+            <span class="co"># Then we have both U and T, so fail</span>
+            <span class="kw">raise</span> <span class="ot">ValueError</span>, <span class="st">&quot;Can&#39;t have a sequence with both U and T&quot;</span>
+        <span class="ot">self</span>.seq = seq
+
+    <span class="kw">def</span> fasta_string(<span class="ot">self</span>):
+        string = <span class="st">&quot;&gt;&quot;</span> + <span class="ot">self</span>.name + <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>
+        string += <span class="ot">self</span>.seq + <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>
+        <span class="kw">return</span> string
+
+
+
+s = DNASeq(<span class="st">&quot;ACGT&quot;</span>)
+<span class="dt">print</span> <span class="st">&quot;Transcription of&quot;</span>, s, <span class="st">&quot;is:&quot;</span>, s.transcribe()
+
+s = RNASeq(<span class="st">&quot;ACGU&quot;</span>)
+<span class="dt">print</span> <span class="st">&quot;Reverse transcription of&quot;</span>, s, <span class="st">&quot;is:&quot;</span>, s.reverse_transcribe()
+
+<span class="dt">print</span> <span class="st">&quot;&quot;</span>
+
+
+s = DNASeq(<span class="st">&quot;ACGT&quot;</span>)
+<span class="dt">print</span> <span class="st">&quot;Complement of&quot;</span>, s, <span class="st">&quot;is:&quot;</span>, s.complement()
+<span class="dt">print</span> <span class="st">&quot;Type of complement of&quot;</span>, s, <span class="st">&quot;is:&quot;</span>, <span class="dt">type</span>(s.complement())
+
+s = RNASeq(<span class="st">&quot;ACGU&quot;</span>)
+<span class="dt">print</span> <span class="st">&quot;Complement of&quot;</span>, s, <span class="st">&quot;is:&quot;</span>, s.complement()
+<span class="dt">print</span> <span class="st">&quot;Type of complement of&quot;</span>, s, <span class="st">&quot;is:&quot;</span>, <span class="dt">type</span>(s.complement())
+
+<span class="dt">print</span> <span class="st">&quot;&quot;</span>
+
+
+s = DNASeq(<span class="st">&quot;ACGTCC&quot;</span>)
+<span class="dt">print</span> <span class="st">&quot;Reverse complement of&quot;</span>, s, <span class="st">&quot;is:&quot;</span>, s.reverse_complement()
+<span class="dt">print</span> <span class="st">&quot;Type of reverse complement of&quot;</span>, s, <span class="st">&quot;is:&quot;</span>, <span class="dt">type</span>(s.reverse_complement())
+
+s = RNASeq(<span class="st">&quot;ACGUCC&quot;</span>)
+<span class="dt">print</span> <span class="st">&quot;Reverse complement of&quot;</span>, s, <span class="st">&quot;is:&quot;</span>, s.reverse_complement()
+<span class="dt">print</span> <span class="st">&quot;Type of reverse complement of&quot;</span>, s, <span class="st">&quot;is:&quot;</span>, <span class="dt">type</span>(s.reverse_complement())
+
+<span class="dt">print</span> <span class="st">&quot;&quot;</span>
+
+
+s = SeqRecord(<span class="st">&quot;MBG1234&quot;</span>, <span class="st">&quot;AGTCTGATA&quot;</span>)
+<span class="dt">print</span> <span class="st">&quot;Seqrecord seq type:&quot;</span>, <span class="dt">type</span>(s.seq)
+<span class="co">#print s.fasta_string()</span>
+
+s = SeqRecord(<span class="st">&quot;MBG1234&quot;</span>, <span class="st">&quot;AGUCUGAUA&quot;</span>)
+<span class="dt">print</span> <span class="st">&quot;Seqrecord seq type:&quot;</span>, <span class="dt">type</span>(s.seq)
+
+s = SeqRecord(<span class="st">&quot;MBG1234&quot;</span>, <span class="st">&quot;AGTCUGATA&quot;</span>)</code></pre>
+</section>
+<section id="this-page-left-intentionally-almost-blank" class="level1">
+<h1>This page left intentionally almost blank</h1>
 </section>
 </div>
 
