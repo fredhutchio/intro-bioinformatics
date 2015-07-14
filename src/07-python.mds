@@ -4,7 +4,7 @@
 
 # Writing your own program
 
-_Wherein with our knoweldge we take flight and soar through the clouds of logic_
+_Wherein with our knowledge we take flight and soar through the clouds of logic_
 
 
 # Today
@@ -331,7 +331,7 @@ def main():
 def write_csv(result, location):
     writer = csv.writer(sys.stdout)
     # Note the inline if/else assignment
-    header = ["location", "average_distance"] if location else ["average_distance"] 
+    header = ["location", "average_distance"] if location else ["average_distance"]
     main_row = [location, result] if location else [result]
     writer.writerows([header, main_row])
 ```
@@ -470,7 +470,7 @@ Pick a problem and write a little python program for yourself!
 # Resources
 
 * [Building python packages/modules](https://packaging.python.org/en/latest/distributing.html) - For when you want to build bigger python programs, or share/release small/big programs.
-* [Virtualenv](https://virtualenv.pypa.io/en/latest/) - Managing python packages can be a pain, because you can't install two versions of the same package :-/
+* [Virtualenv](https://virtualenv.pypa.io/en/latest/) - Managing python packages can be a pain, because you can't install two versions of the same package 😒.
   Virtualenv is a tool that let's you create and switch between different environments to avoid conflicts.
   (Also good for switching between python 2/3).
 * [Bioscons](http://nhoffman.github.io/bioscons/bioscons.html#module-bioscons.slurm) - If you check out my post on using [SCons for bioinformatics](http://www.metasoarous.com/scons-for-data-science-and-compbio/), you might be interested in checking out the [`slurm` module of bioscons](http://nhoffman.github.io/bioscons/bioscons.html#module-bioscons.slurm).
