@@ -484,6 +484,7 @@ Pick a problem and write a little python program for yourself!
 * [Biopython Tutorial and Cookbook](http://biopython.org/DIST/docs/tutorial/Tutorial.html) - For further help using biopython (the [biopython wiki documentation](http://biopython.org/wiki/Category:Wiki_Documentation) is also quite good).
 * [Pandas](http://pandas.pydata.org/) - R-like `data.frame`s in python, complete with plyr and reshape like semantics.
 * [Scipi / Numpi](http://www.scipy.org/) - Tools for doing more computationally intensive work (scientific/math functions, stats, matrix algebra, etc.)
+* [Codewars](http://www.codewars.com/) - Haven't tried it, but looks like a fun set of programming challenges in multiple languages.
 
 
 # That's all folks!
