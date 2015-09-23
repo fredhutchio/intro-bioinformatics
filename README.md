@@ -11,7 +11,7 @@ A short series offered by [fredhutch.io](http://fredhutch.io) to members of [Fre
 
 ## Overview of class
 
-The following is the tentative outline for courses in the class:
+The class and slides are outlined as follows
 
 1. [Overview & remote server access](01-gestalt.html)
 2. [Unix Shell I - overview](02-unix-shell-intro.html)
@@ -22,44 +22,63 @@ The following is the tentative outline for courses in the class:
 7. [Python III - writing a program](07-python.html)
 
 The class will be loosely following [Bioinformatics Data Skills](http://shop.oreilly.com/product/0636920030157.do) for the overview, unix, and version control sections.
-For the python sections, we'll be following [TBD].
-
-The links in the outline above will eventually point to the slides and resources for the respective sessions.
+For the python sections, we'll be following our own curriculum, and referring to the [Codecademy course](https://www.codecademy.com/tracks/python) as a reference and for additional practice with the concepts.
 
 
-## Prerequisites
+## Prerequisites (connecting to the remote server)
 
-For the first class, please install [NoMachine](https://www.nomachine.com/) on the laptop you plan to bring to class.
-We also ask that you read the first two chapters of [the book](http://shop.oreilly.com/product/0636920030157.do) (particularly the first) before coming to class, but you won't be chastised if you don't.
+You will need to bring a laptop to class to participate in the interactive sessions.
+However, all our work will be happening on a remote server to which we connect.
+Thus, it is vital that you ensure you can connect to this remote server before coming to the first class.
+(Specifically, make sure you can connect over wifi while on the Hutch campus.)
 
+Connecting to the remote server requires the use of a _terminal_ program, which let's us control a computer with text based commands.
+How you open the terminal program depends a bit on what operating system your are using.
+However, once you have the terminal open, you'll execute the following command
 
-## Optional: Running on your own machine instead of NoMachine
-
-After the first class, if you have a Linux or OSX machine and wish to avoid using NoMachine, you can do so as long as you have `sshfs` installed on your computer.
-For Ubuntu users, all you have to do is run `sudo apt-get install sshfs` in a terminal
-For OSX users, you have to
-
-* First install XCode from the Apple Store
-* Then install [homebrew](http://brew.sh)
-* Then run `brew install sshfs` from your OSX terminal
-
-From within the Fred Hutch network you should now be able to run
-
-```bash
-mkdir -p ~/mounts/hutch
-sshfs rhino: ~/mounts/hutch
+```
+ssh <username>@rhino
 ```
 
-Now you can access files in your home directory on the servers as though they lived in `~/mounts/hutch` on your laptop.
-In particular, you can now use your text editor of choice to edit code files for the remainder of this class.
-(We recommend [Sublime Text](http://www.sublimetext.com/), but if you're on Ubuntu you can probably get by with Gedit).
+Here, `<username>` should be replaced by your Fred Hutch network username.
+When this command runs, you'll be prompted for a password; use your Fred Hutch network password.
+You should see an informational message about the system, followed by a prompt that looks something like:
+
+```
+<username>@rhino04:~$ 
+```
+
+Try typing `echo "it is working"`, and hitting enter.
+The terminal should print out "it is working" on the following line, and return a new prompt.
+
+If instead of this behavior you see something that looks like an error message, please notify us so we can help you get set up before the first class starts.
+(Note that you may get `rhino01`, `rhino02` or `rhino03` instead of `rhino04`; this is ok).
+
+Below are the details about how you can get a terminal program with SSH, given your operating system.
+
+### Linux or OSX
+
+Linux operating systems (such as Ubuntu) and Mac OSX come with SSH-capable terminals pre-installed.
+It should be straight forward to Google how to find and run the terminal program for your particular operating system.
+
+Note that if you are using a Linux operating system, you may have problems with the wifi on campus, due to some unusual network settings.
+If you are unable to connect via wifi on your laptop, please ping the Fred Hutch computing Help Desk or Sci Comp to get you running.
+
+In general, using Linux or OSX is recommended for this course.
+
+### Windows
+
+Windows does not ship with an SSH capable terminal.
+As such, you will need to do one of the following:
+
+* [**Recommended**] Install [PuTTY](http://www.putty.org/), which will let you SSH into the `rhino` servers.
+* Use [NoMachine](https://www.nomachine.com/) on the laptop you plan to bring to class to log into a remote Ubuntu/Linux desktop to use its Terminal (see directions [here](nomachine-directions.html)).
+* You can also install [Virtual Box](https://www.virtualbox.org/wiki/Downloads), and an Ubuntu virtual machine if you want to tinker with a Linux environment.
 
 
-### Windows users...
+## Other prereqs
 
-Sorry, running directly from Windows is not supported.
-You can always install [Virtual Box](https://www.virtualbox.org/wiki/Downloads), and an Ubuntu virtual machine if you really want to run things on your own laptop, and in particular if you're interested in having your own Linux environment to play with.
-
+We also ask that you read the first two chapters of [the book](http://shop.oreilly.com/product/0636920030157.do) (particularly the first) before coming to class, as they'll give you some nice big picture context to work from.
 
 
 ## Technical Notes
@@ -67,10 +86,12 @@ You can always install [Virtual Box](https://www.virtualbox.org/wiki/Downloads),
 The slides are written in a little extension of Markdown.
 After processing, the Markdown gets converted to a [reveal.js](http://github.com/hakimel/reveal.js) presentation.
 HTML is rendered by the brilliant [pandoc](http://johnmacfarlane.net/pandoc/).
-Trees are rendered using the [archaeopteryx](http://www.phylosoft.org/archaeopteryx/) tree viewer.
+
+<!--No trees at the moment...-->
+<!--Trees are rendered using the [archaeopteryx](http://www.phylosoft.org/archaeopteryx/) tree viewer.-->
 
 
 ## License
 
-<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Talks</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://matsen.fhcrc.org" property="cc:attributionName" rel="cc:attributionURL">Christopher Small & Frederick A. Matsen IV</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>.
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Intro Bioinformatics curricula and slide processing</span> by <a href="http://metasoarous.com">Christopher Small</a> & <a xmlns:cc="http://creativecommons.org/ns#" href="http://matsen.fhcrc.org" property="cc:attributionName" rel="cc:attributionURL">Frederick A. Matsen IV</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>.
 

@@ -11,7 +11,10 @@ last-modified: $(LAST)
 
 all: $(ALL)
 
-index.html: README.md
+nomachine-directions.html: src/nomachine-directions.md
+	pandoc --css http://matsen.fhcrc.org/webpage.css src/nomachine-directions.md -o nomachine-directions.html
+
+index.html: README.md nomachine-directions.html
 	pandoc --css http://matsen.fhcrc.org/webpage.css README.md -o index.html
 
 %.html: src/template-revealjs.html src/header.html src/%.mds insert.py Makefile build.sh

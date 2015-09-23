@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="http://matsen.fhcrc.org/webpage.css" type="text/css" />
+</head>
+<body>
+<h1 id="setting-up-nomachine-for-ubuntu-desktop-on-campus">Setting up NoMachine for Ubuntu desktop on campus</h1>
+<p><a href="https://www.nomachine.com/">NoMachine</a> is a remote desktop application. With it, you can log into a remote Ubuntu desktop running on the Hutch servers. This let's you use the remote Ubuntu desktop's terminal application for SSHing into the compute servers we'll be using for the class.</p>
+<h2 id="advantages">Advantages</h2>
+<p>One advantage to this is that for the parts of the class that involve editing text/code files, you can use a GUI text editor called GEdit, which comes with Ubuntu. This will likely be easier for beginners to use than a terminal based text editor.</p>
+<p>This is possible because the home directories on the compute servers are also mounted into the Ubuntu desktop sessions, meaning you can read and write data/files in both environments.</p>
+<h2 id="disadvantages">Disadvantages</h2>
+<p>You may find the virtual desktops have high latency, and aren't as responsive as the text based text editors. Also, it's just extra work to have to log into a remote desktop, and then from there into a remote terminal session.</p>
+<h2 id="instructions">Instructions</h2>
+<p>First, <a href="https://www.nomachine.com/">download and install NoMachine</a> on the laptop you'll be using for the class.</p>
+<p>Next, open up NoMachine, and click the &quot;New&quot; button in the orange bar. Name your connection, so you'll remember what it is (e.g., either &quot;lynx&quot; or &quot;manx&quot; (see below)).</p>
+<ol style="list-style-type: decimal">
+<li>Set protocol to <strong>NX</strong></li>
+<li>Set host to <strong>lynx</strong>, <strong>lynx.fhcrc.org</strong>, <strong>manx</strong>, or <strong>manx.fhcrc.org</strong>, and port to <strong>4000</strong></li>
+<li>Set authentication to <strong>Password</strong></li>
+<li><strong>Don't use a proxy</strong></li>
+<li>Name your connection so you can remember what it is.</li>
+</ol>
+<p>Once you have the remote Ubuntu desktop running, open up the terminal application:</p>
+<ol style="list-style-type: decimal">
+<li>Click the square button in the upper left.</li>
+<li>Type in &quot;Terminal&quot;</li>
+<li>Click on the Terminal icon (the one with <code>&gt;_</code> on it)</li>
+</ol>
+<p>Now try running <code>ssh &lt;username&gt;@rhino</code>, using your Hutch password when prompted. If you get a prompt that looks roughly like</p>
+<pre><code>&lt;username&gt;@rhino04:~$ </code></pre>
+<p>then everything has been set up correctly.</p>
+</body>
+</html>

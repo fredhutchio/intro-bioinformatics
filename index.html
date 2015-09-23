@@ -6,25 +6,6 @@
   <meta name="generator" content="pandoc" />
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
-  <style type="text/css">
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; }
-code > span.dt { color: #902000; }
-code > span.dv { color: #40a070; }
-code > span.bn { color: #40a070; }
-code > span.fl { color: #40a070; }
-code > span.ch { color: #4070a0; }
-code > span.st { color: #4070a0; }
-code > span.co { color: #60a0b0; font-style: italic; }
-code > span.ot { color: #007020; }
-code > span.al { color: #ff0000; font-weight: bold; }
-code > span.fu { color: #06287e; }
-code > span.er { color: #ff0000; font-weight: bold; }
-  </style>
   <link rel="stylesheet" href="http://matsen.fhcrc.org/webpage.css" type="text/css" />
 </head>
 <body>
@@ -33,7 +14,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <p>A short series offered by <a href="http://fredhutch.io">fredhutch.io</a> to members of <a href="http://www.fredhutch.org/en.html">Fred Hutch</a>.</p>
 <p><br/> <br/></p>
 <h2 id="overview-of-class">Overview of class</h2>
-<p>The following is the tentative outline for courses in the class:</p>
+<p>The class and slides are outlined as follows</p>
 <ol style="list-style-type: decimal">
 <li><a href="01-gestalt.html">Overview &amp; remote server access</a></li>
 <li><a href="02-unix-shell-intro.html">Unix Shell I - overview</a></li>
@@ -43,26 +24,36 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="06-python-oop.html">Python II - building data structures</a></li>
 <li><a href="07-python.html">Python III - writing a program</a></li>
 </ol>
-<p>The class will be loosely following <a href="http://shop.oreilly.com/product/0636920030157.do">Bioinformatics Data Skills</a> for the overview, unix, and version control sections. For the python sections, we'll be following [TBD].</p>
-<p>The links in the outline above will eventually point to the slides and resources for the respective sessions.</p>
-<h2 id="prerequisites">Prerequisites</h2>
-<p>For the first class, please install <a href="https://www.nomachine.com/">NoMachine</a> on the laptop you plan to bring to class. We also ask that you read the first two chapters of <a href="http://shop.oreilly.com/product/0636920030157.do">the book</a> (particularly the first) before coming to class, but you won't be chastised if you don't.</p>
-<h2 id="optional-running-on-your-own-machine-instead-of-nomachine">Optional: Running on your own machine instead of NoMachine</h2>
-<p>After the first class, if you have a Linux or OSX machine and wish to avoid using NoMachine, you can do so as long as you have <code>sshfs</code> installed on your computer. For Ubuntu users, all you have to do is run <code>sudo apt-get install sshfs</code> in a terminal For OSX users, you have to</p>
+<p>The class will be loosely following <a href="http://shop.oreilly.com/product/0636920030157.do">Bioinformatics Data Skills</a> for the overview, unix, and version control sections. For the python sections, we'll be following our own curriculum, and referring to the <a href="https://www.codecademy.com/tracks/python">Codecademy course</a> as a reference and for additional practice with the concepts.</p>
+<h2 id="prerequisites-connecting-to-the-remote-server">Prerequisites (connecting to the remote server)</h2>
+<p>You will need to bring a laptop to class to participate in the interactive sessions. However, all our work will be happening on a remote server to which we connect. Thus, it is vital that you ensure you can connect to this remote server before coming to the first class. (Specifically, make sure you can connect over wifi while on the Hutch campus.)</p>
+<p>Connecting to the remote server requires the use of a <em>terminal</em> program, which let's us control a computer with text based commands. How you open the terminal program depends a bit on what operating system your are using. However, once you have the terminal open, you'll execute the following command</p>
+<pre><code>ssh &lt;username&gt;@rhino</code></pre>
+<p>Here, <code>&lt;username&gt;</code> should be replaced by your Fred Hutch network username. When this command runs, you'll be prompted for a password; use your Fred Hutch network password. You should see an informational message about the system, followed by a prompt that looks something like:</p>
+<pre><code>&lt;username&gt;@rhino04:~$ </code></pre>
+<p>Try typing <code>echo &quot;it is working&quot;</code>, and hitting enter. The terminal should print out &quot;it is working&quot; on the following line, and return a new prompt.</p>
+<p>If instead of this behavior you see something that looks like an error message, please notify us so we can help you get set up before the first class starts. (Note that you may get <code>rhino01</code>, <code>rhino02</code> or <code>rhino03</code> instead of <code>rhino04</code>; this is ok).</p>
+<p>Below are the details about how you can get a terminal program with SSH, given your operating system.</p>
+<h3 id="linux-or-osx">Linux or OSX</h3>
+<p>Linux operating systems (such as Ubuntu) and Mac OSX come with SSH-capable terminals pre-installed. It should be straight forward to Google how to find and run the terminal program for your particular operating system.</p>
+<p>Note that if you are using a Linux operating system, you may have problems with the wifi on campus, due to some unusual network settings. If you are unable to connect via wifi on your laptop, please ping the Fred Hutch computing Help Desk or Sci Comp to get you running.</p>
+<p>In general, using Linux or OSX is recommended for this course.</p>
+<h3 id="windows">Windows</h3>
+<p>Windows does not ship with an SSH capable terminal. As such, you will need to do one of the following:</p>
 <ul>
-<li>First install XCode from the Apple Store</li>
-<li>Then install <a href="http://brew.sh">homebrew</a></li>
-<li>Then run <code>brew install sshfs</code> from your OSX terminal</li>
+<li>[<strong>Recommended</strong>] Install <a href="http://www.putty.org/">PuTTY</a>, which will let you SSH into the <code>rhino</code> servers.</li>
+<li>Use <a href="https://www.nomachine.com/">NoMachine</a> on the laptop you plan to bring to class to log into a remote Ubuntu/Linux desktop to use its Terminal (see directions <a href="nomachine-directions.html">here</a>).</li>
+<li>You can also install <a href="https://www.virtualbox.org/wiki/Downloads">Virtual Box</a>, and an Ubuntu virtual machine if you want to tinker with a Linux environment.</li>
 </ul>
-<p>From within the Fred Hutch network you should now be able to run</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">mkdir</span> -p ~/mounts/hutch
-<span class="kw">sshfs</span> rhino: ~/mounts/hutch</code></pre>
-<p>Now you can access files in your home directory on the servers as though they lived in <code>~/mounts/hutch</code> on your laptop. In particular, you can now use your text editor of choice to edit code files for the remainder of this class. (We recommend <a href="http://www.sublimetext.com/">Sublime Text</a>, but if you're on Ubuntu you can probably get by with Gedit).</p>
-<h3 id="windows-users...">Windows users...</h3>
-<p>Sorry, running directly from Windows is not supported. You can always install <a href="https://www.virtualbox.org/wiki/Downloads">Virtual Box</a>, and an Ubuntu virtual machine if you really want to run things on your own laptop, and in particular if you're interested in having your own Linux environment to play with.</p>
+<h2 id="other-prereqs">Other prereqs</h2>
+<p>We also ask that you read the first two chapters of <a href="http://shop.oreilly.com/product/0636920030157.do">the book</a> (particularly the first) before coming to class, as they'll give you some nice big picture context to work from.</p>
 <h2 id="technical-notes">Technical Notes</h2>
-<p>The slides are written in a little extension of Markdown. After processing, the Markdown gets converted to a <a href="http://github.com/hakimel/reveal.js">reveal.js</a> presentation. HTML is rendered by the brilliant <a href="http://johnmacfarlane.net/pandoc/">pandoc</a>. Trees are rendered using the <a href="http://www.phylosoft.org/archaeopteryx/">archaeopteryx</a> tree viewer.</p>
+<p>The slides are written in a little extension of Markdown. After processing, the Markdown gets converted to a <a href="http://github.com/hakimel/reveal.js">reveal.js</a> presentation. HTML is rendered by the brilliant <a href="http://johnmacfarlane.net/pandoc/">pandoc</a>.</p>
+<!--No trees at the moment...-->
+<!--Trees are rendered using the [archaeopteryx](http://www.phylosoft.org/archaeopteryx/) tree viewer.-->
+
+
 <h2 id="license">License</h2>
-<p><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Talks</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://matsen.fhcrc.org" property="cc:attributionName" rel="cc:attributionURL">Christopher Small &amp; Frederick A. Matsen IV</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>.</p>
+<p><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Intro Bioinformatics curricula and slide processing</span> by <a href="http://metasoarous.com">Christopher Small</a> &amp; <a xmlns:cc="http://creativecommons.org/ns#" href="http://matsen.fhcrc.org" property="cc:attributionName" rel="cc:attributionURL">Frederick A. Matsen IV</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>.</p>
 </body>
 </html>
