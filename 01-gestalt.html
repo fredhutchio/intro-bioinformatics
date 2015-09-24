@@ -59,6 +59,14 @@
 </section>
 
 
+<section id="first-things-first" class="level1">
+<h1>First things first</h1>
+<p>Did you</p>
+<ul>
+<li>read the first couple chapters?</li>
+<li>successfully ssh into <code>rhino</code>?</li>
+</ul>
+</section>
 <section id="introductions" class="level1">
 <h1>Introductions</h1>
 <ul>
@@ -90,7 +98,7 @@
 <h1>Please spend <em>some</em> time outside class</h1>
 <ul>
 <li>Time is the only way to learn these things</li>
-<li>The waiting list is &gt; 150 long</li>
+<li>The waiting list is very long</li>
 </ul>
 </section>
 <section id="overview-of-class" class="level1">
@@ -135,36 +143,31 @@
 </section>
 <section id="what-is-bioinformatics" class="level1">
 <h1>What is bioinformatics?</h1>
-</section>
-<section id="from-the-book" class="level1">
-<h1>From the book</h1>
-<p>(edited)</p>
-<blockquote>
-<p>A jazz musician can walk into a nightclub, hear a familiar song, recognize the chord changes, and begin playing musical ideas over these chords. Likewise, a bioinformatician may receive a huge sequencing data set, and immediately start using a set of tools to learn about the data, and see what story the data tell.</p>
-<p>… In both cases learning one’s tools is a necessary, but not sufficient step…</p>
-</blockquote>
+<p>The art of applying computation towards the analysis of biological data</p>
 </section>
 <section id="from-the-bird-charlie-parker" class="level1">
 <h1>From the “Bird”, Charlie Parker</h1>
 <blockquote>
-<p>You’ve got to learn your instrument. Then, you practice, practice, practice. And then, when you finally get up there on the bandstand, forget all that and just wail.</p>
-</blockquote>
-<p>Also phrased as</p>
-<blockquote>
 <p>Learn the changes, then forget them.</p>
 </blockquote>
 </section>
-<section id="my-summary" class="level1">
-<h1>My summary</h1>
-<section id="bioinformatics-is-more-than-the-sum-of-the-pieces" class="level2">
-<h2>Bioinformatics is more than the sum of the pieces</h2>
-<p>There is an art to putting the technical pieces together to make science happen.</p>
+<section id="in-other-words" class="level1">
+<h1>In other words…</h1>
+<p>The technical side of bioinformatics is necessary but not sufficient.</p>
+<p>There is an art to putting the techniques together to make science happen.</p>
+</section>
+<section id="but-youre-in-luck" class="level1">
+<h1>But you’re in luck!</h1>
+<section id="youre-already-scientists" class="level2">
+<h2>You’re already scientists!!!</h2>
+<p>You know how to apply technical methods towards the analysis of biological data.</p>
+<p>Hopefully this lends you some comforts.</p>
 </section>
 </section>
 <section id="aspects-of-bioinformatics" class="level1">
 <h1>Aspects of Bioinformatics</h1>
-<p>Categories of things we typically do:</p>
-<p>munging | exploration | conclusions</p>
+<p>Things we typically do with data:</p>
+<p>munging | exploration | draw conclusions</p>
 </section>
 <section id="data-munging" class="level1">
 <h1>Data munging</h1>
@@ -282,24 +285,16 @@
 <h1>Practicum!</h1>
 <p>But first, <strong>Questions?</strong></p>
 </section>
-<section id="fire-up-nomachine" class="level1">
-<h1>Fire up NoMachine</h1>
-<p>Open no machine, and click the “New” button in the orange bar. Name your connection, so you’ll remember what it is (lynx/manx).</p>
-<ol type="1">
-<li>The protocol is <strong>NX</strong></li>
-<li>The host is <strong>lynx</strong> or <strong>lynx.fhcrc.org</strong> or <strong>manx</strong> or <strong>manx.fhcrc.org</strong>, port <strong>4000</strong></li>
-<li>The authentication is <strong>Password</strong></li>
-<li><strong>Don’t use a proxy</strong></li>
-<li>Name your connection so you can remember what it is.</li>
-</ol>
+<section id="ssh-into-the-rhinos" class="level1">
+<h1>SSH into the rhinos</h1>
+<p>However you figured out how to do it for your OS. Write down which rhino you connect to, so you can directly connect to that next time.</p>
 </section>
-<section id="open-a-terminal" class="level1">
-<h1>Open a terminal</h1>
-<ol type="1">
-<li>Click the square button in the upper left.</li>
-<li>Type in “Terminal”</li>
-<li>Click on the Terminal icon (the one with <code>&gt;_</code> on it)</li>
-</ol>
+<section id="what-is-this" class="level1">
+<h1>What is this?</h1>
+<section id="the-linuxunix-command-line" class="level2">
+<h2>The Linux/Unix command line</h2>
+<p>You can now talk somewhat directly with your operating system, telling it what to do.</p>
+</section>
 </section>
 <section id="brief-overview-of-a-unix-command" class="level1">
 <h1>Brief overview of a Unix command</h1>
@@ -310,14 +305,6 @@
 <li><code>-a</code>: A flag (short), which specifies that hidden files should be listed</li>
 <li><code>~</code>: An operand, in this case a special symbol which points to your home directory</li>
 </ul>
-</section>
-<section id="ssh-into-rhino" class="level1">
-<h1>SSH into rhino</h1>
-<ol type="1">
-<li>Enter <code>ssh rhino</code> into the terminal</li>
-<li>Enter your Hutch password when prompted</li>
-<li>Note the machine to which you’re connected (e.g. <code>rhino02</code> v <code>rhino04</code>)</li>
-</ol>
 </section>
 <section id="download-tmux.conf-fire-up-tmux" class="level1">
 <h1>Download tmux.conf &amp; fire up tmux</h1>
@@ -427,9 +414,9 @@ nw_display output/tree.nw | less</code></pre>
 <section id="resources" class="level1">
 <h1>Resources</h1>
 <ul>
-<li>These slides: <a href="http://fredhutchio.github.io/intro-bioinformatics" class="uri">http://fredhutchio.github.io/intro-bioinformatics</a></li>
-<li>Unix command reference: <a href="https://ubuntudanmark.dk/filer/fwunixref.pdf" class="uri">https://ubuntudanmark.dk/filer/fwunixref.pdf</a></li>
-<li>Tmux tutorial: <a href="http://www.fredhutch.io/articles/2014/04/27/terminal-multiplex" class="uri">http://www.fredhutch.io/articles/2014/04/27/terminal-multiplex</a></li>
+<li>These slides: <a href="http://fredhutchio.github.io/intro-bioinformatics">http://fredhutchio.github.io/intro-bioinformatics</a></li>
+<li>Unix command reference: <a href="https://ubuntudanmark.dk/filer/fwunixref.pdf">https://ubuntudanmark.dk/filer/fwunixref.pdf</a></li>
+<li>Tmux tutorial: <a href="http://www.fredhutch.io/articles/2014/04/27/terminal-multiplex">http://www.fredhutch.io/articles/2014/04/27/terminal-multiplex</a></li>
 </ul>
 </section>
 </div>
