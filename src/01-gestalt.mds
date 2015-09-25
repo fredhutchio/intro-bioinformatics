@@ -56,7 +56,7 @@ But hopefully you'll have enough momentum to learn these on your own as needed.
 # Today
 
 * 1/2 overview
-* 1/2 remote access & practicum
+* 1/2 remote access & Unix environment
 
 
 # Why computers?
@@ -93,11 +93,7 @@ The art of applying computation towards the analysis of biological data
 
 > Learn the changes, then forget them.
 
-
-# In other words...
-
-The technical side of bioinformatics is necessary but not sufficient.
-
+In other words: the technical side of bioinformatics is necessary but not sufficient.
 There is an art to putting the techniques together to make science happen.
 
 
@@ -138,6 +134,11 @@ In which we shore things up to tell the world...
 * More visualization
 
 
+# Rinse and repeat...
+
+New insights and conclusions lead to new data and questions, etc.
+
+
 # So this is _what_ we do
 
 <br/>
@@ -168,7 +169,7 @@ Aids: reproducibility, clarity & iterability
 
 # Document **everything**!!!
 
-Hopefully you're already doing this with your biology work.
+Hopefully you're already doing this with your biology work (lab notebook).
 
 Bioinformatics should be no different.
 
@@ -182,7 +183,7 @@ Aids: reproducibility, clarity
 
 # The best documentation is automation
 
-Write _scripts_ for everything:
+Write _scripts_ (little computer programs) for everything:
 
 * Munging
 * Plotting
@@ -194,21 +195,21 @@ Aids: reproducibility, robustness, accuracy, iterability
 
 # Guiding principals & practices towards this end
 
-Unix philosophy | project organization
+Unix philosophy | project/data organization
 
 
 # The Unix Philosophy
 
 * Small, composable tools that do one thing right
-* Plumb tools together into pipelines/scripts
-* Embrace plain text/data (no excel/docx)
+* Plumb tools together into pipelines & scripts
+* Embrace plain-text data (no excel/docx)
 
-Bioinformatics naturally embraces this (more so than most data science).
+Bioinformatics naturally embraces this.
 
 
-# Project layout
+# Project & data layout
 
-Bottom line: Being consistent aids in automation & clarity:
+Being consistent aids in automation & clarity
 
 * naming schemes
 * path schemes
@@ -240,22 +241,55 @@ your-project
 ```
 
 
-# Practicum!
-
-But first, **Questions?**
+# Questions?
 
 
-# SSH into the rhinos
+# The Unix environment
 
-However you figured out how to do it for your OS.
+Unix is a proprietary operating system from the 60s.
+
+True Unix isn't frequently encountered these days, but its philosophy and approach to computing have thrived in "Unix-like" systems.
+So much so that when we say "Unix", we usually mean it in the abstract sense.
+
+We'll be using Ubuntu Linux, a Unix-like operating system.
+
+
+# The Unix shell
+
+One of the core aspects of the Unix environment is the _Unix shell_.
+
+The shell is just a wrapper around the operating system, through which we can use text commands and output to interact with our computer.
+
+
+# Remote servers
+
+Unix was built for remote access, since computers were big and expensive.
+
+
+# Why we care about remote servers
+
+* We can leave long running computations running without worrying about our computer shutting down by necessity or accident
+* We can access running programs and data from any computer capable of connecting to the remote server
+* We can distribute tasks across compute clusters, such as the one the hutch has (See [gizmo class XXX](XXX))
+
+
+# SSH for remote connection
+
+Do this however you figured out how to do it for your OS.
+
+```
+ssh <username>@rhino
+```
+
 Write down which rhino you connect to, so you can directly connect to that next time.
 
+(e.g If you get connected to `rhino03`, next time use `ssh <username>@rhino03`.)
 
-# What is this?
 
-## The Linux/Unix command line
+# You're now in a Unix shell!
 
-You can now talk somewhat directly with your operating system, telling it what to do.
+We'll cover things more thoroughly next class.
+For now just some very basic information for orientation.
 
 
 # Brief overview of a Unix command
@@ -265,37 +299,16 @@ You can now talk somewhat directly with your operating system, telling it what t
 Example: `ls -a ~`
 
 * `ls`: The command, for listing directory contents
-* `-a`: A flag (short), which specifies that hidden files should be listed
+* `-a`: A flag which specifies that hidden files should be listed
 * `~`: An operand, in this case a special symbol which points to your home directory
 
 
-# Download tmux.conf & fire up tmux
-
-    wget https://raw.githubusercontent.com/fredhutchio/intro-bioinformatics/gh-pages/config/tmux.conf
-
-    ls
-
-    mv tmux.conf ~/.tmux.conf
-
-    ls
-    ls -a
-
-    tmux
-
-
-# Quick tmux demo
-
-* `Ctrl-a` - your "Command key"
-* `Ctrl-a ?` - Help
-* `Ctrl-a d` - Detatch session
-
-<br/>
-
-* `Ctrl-a c` - New window
-* `Ctrl-a <Space>` - Next window
+# Let's get some more practice with simple commands
 
 
 # Create a project directory
+
+This class will build around analysis of a single data set, so let's set up a project directory for it.
 
     mkdir ~/bioinfclass
 
@@ -307,9 +320,12 @@ Example: `ls -a ~`
     touch README.md
 
 
-# Dowload data with `wget`
+# Download data with `wget`
 
     wget https://raw.githubusercontent.com/fredhutchio/intro-bioinformatics/gh-pages/data.tar
+
+Note that we get a `tar` file.
+This is an archive type, like `zip`, common on Unix systems.
 
 
 # A bit about tar...
@@ -330,51 +346,46 @@ Use `tar --help` when you need help.
 
 # Let's look at what we've done
 
+`tree` prints out a directory tree as ASCII art.
+
     tree
 
 
-# First let's explore the sequence file
+# Let's explore the sequence file
+
+`cat` prints the output of file[s] to the screen.
 
     cat data/sfv.fasta
 
 
 # Now with `less`
 
+`less` lets us "page" through data, without flooding the screen.
+
     less data/sfv.fasta
+
+<br/>
+
+Press the `q` key to exit from `less`.
 
 
 # Now let's look at the metadata
 
     less data/sfv.csv
 
-<br/>
 
-Use `q` to exit from `less`.
+# Opinionated environment things
 
-# Now with `column -t`
-
-    column -t -s , data/sfv.csv
-
-* `-t` Output as tab separated
-* `-s ,` Read the input data as comma separated
+There are a few things we'll be using throughout the class that will make things a little bit easier.
 
 
-# Now with `column -t` and `|`
+# Supercharging our shell
 
-    column -t -s , data/sfv.csv | less -S
+SciComp has set up a _module_ system for setting up custom environments.
 
-`|` takes the output of one command and passes it as input to the next (covered in more detail next class).
-This is part of the Unix philosophy's composability.
+We'll be using the `intro-bio` module, loaded by executing `module load intro-bio` (note: this *only affects the current shell session!*).
+When you do this, you should see something like:
 
-Use `q` to exit from `less`.
-
-# Ready for takeoff...
-
-SciComp has set up a lovely "module" system that allows us to set up custom environments.
-
-For this class we will be using the `intro-bio` module, loaded by executing `module load intro-bio`, which sets things up *just for the duration of that shell session*.
-
-When you issue this command, you should see something like:
 ```
 matsen@rhino01:~$ module load intro-bio
 Using already loaded python
@@ -382,15 +393,128 @@ matsen@rhino01:~$
 ```
 If you get an error message instead, let us know, because you can't proceed without this module loaded.
 
-# Hello world!
 
-## Make an alignment, and then a tree from the data
+# Tmux - Terminal multiplexer
 
-    muscle -maxiters 2 -in data/sfv.fasta -out output/alignment.fasta
+This is a tool that let's us have multiple Unix shells running at once.
 
-    FastTree -nt output/alignment.fasta > output/tree.nw
+We could just open multiple terminal windows, each with an ssh connection into the remote server.
+But with tmux, if we close or lose our connection to the server, our terminal session doesn't get killed; running programs keep running.
 
-    nw_display output/tree.nw | less
+
+# Setting up tmux
+
+We'll use tmux throughout this class to keep sessions running.
+But first let's download a nice tmux configuration file for making things easier.
+
+    # This is a command that download
+    wget https://raw.githubusercontent.com/fredhutchio/intro-bioinformatics/gh-pages/config/tmux.conf
+
+    ls
+
+    # tmux knows to look for our config file at ~/.tmux.conf
+    mv tmux.conf ~/.tmux.conf
+
+    # Note that this file is hidden once we make it a "dotfile"
+    ls
+    ls -a
+
+
+# Starting a new tmux session
+
+    tmux
+
+You should now see a fresh shell session inside of tmux.
+
+
+# Quick tmux cheatsheet
+
+* `Ctrl-a` - your "Command key"
+* `Ctrl-a ?` - Help
+* `Ctrl-a d` - Detatch session
+
+<br/>
+
+* `Ctrl-a c` - New window
+* `Ctrl-a <Space>` - Next window
+
+
+# Looking at tmux in action
+
+Why we might want to use tmux:
+
+* Keep working on other things while a long running computation runs
+* Switch back and forth quickly between multiple projects
+
+Let's see an example.
+
+
+# Making a sequence alignment
+
+```bash
+# First start the long running alignment
+muscle -maxiters 2 -in data/sfv.fasta -out output/alignment.fasta
+
+# Get bored waiting and want to work on something else...
+<Ctrl-a c> # create new window
+cd ~
+mkdir new-project
+cd new-project
+mkdir data output scripts
+
+# Let's go check on our alignment
+<Ctrl-a <Space>>
+
+# Still running... switch back; etc.
+```
+
+
+# Attaching and detaching a tmux session
+
+SSH sessions can disconnect because of:
+
+* a lost network connection
+* a computer shutdown (power outage; frozen screen; system updates; etc.)
+
+We might also want to stop work on one machine and pick it up on another.
+
+
+# Detaching and attaching a tmux session
+
+1. Close your terminal window, and ignore any warning prompts.
+2. Reconnect just the way you did at the beginning of the class.
+3. Type `tmux attach` to attach.
+
+
+# Manual detach
+
+While in tmux, we can explicitly detach using `<Ctrl-a d>` or by typing `tmux detatch`.
+
+Try doing this and then reattaching.
+
+
+# Checking on our alignment
+
+Yay! It's done!
+
+```bash
+less output/alignment.fasta
+```
+
+
+# Questions?
+
+
+# Homework
+
+Recommended reading:
+
+* Chapters 1 & 2 if you haven't already.
+* Chapters 2 & 3 for basic Unix stuff & tmux.
+
+Reading for next class:
+
+* Chapter 3, and chapter 7 (till around page 148).
 
 
 # Resources

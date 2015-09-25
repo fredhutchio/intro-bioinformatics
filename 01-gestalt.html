@@ -117,7 +117,7 @@
 <h1>Today</h1>
 <ul>
 <li>1/2 overview</li>
-<li>1/2 remote access &amp; practicum</li>
+<li>1/2 remote access &amp; Unix environment</li>
 </ul>
 </section>
 <section id="why-computers" class="level1">
@@ -150,11 +150,7 @@
 <blockquote>
 <p>Learn the changes, then forget them.</p>
 </blockquote>
-</section>
-<section id="in-other-words" class="level1">
-<h1>In other words…</h1>
-<p>The technical side of bioinformatics is necessary but not sufficient.</p>
-<p>There is an art to putting the techniques together to make science happen.</p>
+<p>In other words: the technical side of bioinformatics is necessary but not sufficient. There is an art to putting the techniques together to make science happen.</p>
 </section>
 <section id="but-youre-in-luck" class="level1">
 <h1>But you’re in luck!</h1>
@@ -192,6 +188,10 @@
 <li>More visualization</li>
 </ul>
 </section>
+<section id="rinse-and-repeat" class="level1">
+<h1>Rinse and repeat…</h1>
+<p>New insights and conclusions lead to new data and questions, etc.</p>
+</section>
 <section id="so-this-is-what-we-do" class="level1">
 <h1>So this is <em>what</em> we do</h1>
 <p><br/></p>
@@ -220,7 +220,7 @@
 </section>
 <section id="document-everything" class="level1">
 <h1>Document <strong>everything</strong>!!!</h1>
-<p>Hopefully you’re already doing this with your biology work.</p>
+<p>Hopefully you’re already doing this with your biology work (lab notebook).</p>
 <p>Bioinformatics should be no different.</p>
 <ul>
 <li>Software versions</li>
@@ -232,7 +232,7 @@
 </section>
 <section id="the-best-documentation-is-automation" class="level1">
 <h1>The best documentation is automation</h1>
-<p>Write <em>scripts</em> for everything:</p>
+<p>Write <em>scripts</em> (little computer programs) for everything:</p>
 <ul>
 <li>Munging</li>
 <li>Plotting</li>
@@ -243,27 +243,27 @@
 </section>
 <section id="guiding-principals-practices-towards-this-end" class="level1">
 <h1>Guiding principals &amp; practices towards this end</h1>
-<p>Unix philosophy | project organization</p>
+<p>Unix philosophy | project/data organization</p>
 </section>
 <section id="the-unix-philosophy" class="level1">
 <h1>The Unix Philosophy</h1>
 <ul>
 <li>Small, composable tools that do one thing right</li>
-<li>Plumb tools together into pipelines/scripts</li>
-<li>Embrace plain text/data (no excel/docx)</li>
+<li>Plumb tools together into pipelines &amp; scripts</li>
+<li>Embrace plain-text data (no excel/docx)</li>
 </ul>
-<p>Bioinformatics naturally embraces this (more so than most data science).</p>
+<p>Bioinformatics naturally embraces this.</p>
 </section>
-<section id="project-layout" class="level1">
-<h1>Project layout</h1>
-<p>Bottom line: Being consistent aids in automation &amp; clarity:</p>
+<section id="project-data-layout" class="level1">
+<h1>Project &amp; data layout</h1>
+<p>Being consistent aids in automation &amp; clarity</p>
 <ul>
 <li>naming schemes</li>
 <li>path schemes</li>
 </ul>
 <p><em>Note: I use a somewhat different organizational scheme than the book’s author. Find what works for you…</em></p>
 </section>
-<section id="project-layout-1" class="level1">
+<section id="project-layout" class="level1">
 <h1>Project layout</h1>
 <p>Here’s how I typically organize things:</p>
 <pre class="text"><code>your-project
@@ -281,20 +281,42 @@
     ├── tree.newick
     └── tree_plot.png</code></pre>
 </section>
-<section id="practicum" class="level1">
-<h1>Practicum!</h1>
-<p>But first, <strong>Questions?</strong></p>
+<section id="questions" class="level1">
+<h1>Questions?</h1>
 </section>
-<section id="ssh-into-the-rhinos" class="level1">
-<h1>SSH into the rhinos</h1>
-<p>However you figured out how to do it for your OS. Write down which rhino you connect to, so you can directly connect to that next time.</p>
+<section id="the-unix-environment" class="level1">
+<h1>The Unix environment</h1>
+<p>Unix is a proprietary operating system from the 60s.</p>
+<p>True Unix isn’t frequently encountered these days, but its philosophy and approach to computing have thrived in “Unix-like” systems. So much so that when we say “Unix”, we usually mean it in the abstract sense.</p>
+<p>We’ll be using Ubuntu Linux, a Unix-like operating system.</p>
 </section>
-<section id="what-is-this" class="level1">
-<h1>What is this?</h1>
-<section id="the-linuxunix-command-line" class="level2">
-<h2>The Linux/Unix command line</h2>
-<p>You can now talk somewhat directly with your operating system, telling it what to do.</p>
+<section id="the-unix-shell" class="level1">
+<h1>The Unix shell</h1>
+<p>One of the core aspects of the Unix environment is the <em>Unix shell</em>.</p>
+<p>The shell is just a wrapper around the operating system, through which we can use text commands and output to interact with our computer.</p>
 </section>
+<section id="remote-servers" class="level1">
+<h1>Remote servers</h1>
+<p>Unix was built for remote access, since computers were big and expensive.</p>
+</section>
+<section id="why-we-care-about-remote-servers" class="level1">
+<h1>Why we care about remote servers</h1>
+<ul>
+<li>We can leave long running computations running without worrying about our computer shutting down by necessity or accident</li>
+<li>We can access running programs and data from any computer capable of connecting to the remote server</li>
+<li>We can distribute tasks across compute clusters, such as the one the hutch has (See <a href="XXX">gizmo class XXX</a>)</li>
+</ul>
+</section>
+<section id="ssh-for-remote-connection" class="level1">
+<h1>SSH for remote connection</h1>
+<p>Do this however you figured out how to do it for your OS.</p>
+<pre><code>ssh &lt;username&gt;@rhino</code></pre>
+<p>Write down which rhino you connect to, so you can directly connect to that next time.</p>
+<p>(e.g If you get connected to <code>rhino03</code>, next time use <code>ssh &lt;username&gt;@rhino03</code>.)</p>
+</section>
+<section id="youre-now-in-a-unix-shell" class="level1">
+<h1>You’re now in a Unix shell!</h1>
+<p>We’ll cover things more thoroughly next class. For now just some very basic information for orientation.</p>
 </section>
 <section id="brief-overview-of-a-unix-command" class="level1">
 <h1>Brief overview of a Unix command</h1>
@@ -302,38 +324,16 @@
 <p>Example: <code>ls -a ~</code></p>
 <ul>
 <li><code>ls</code>: The command, for listing directory contents</li>
-<li><code>-a</code>: A flag (short), which specifies that hidden files should be listed</li>
+<li><code>-a</code>: A flag which specifies that hidden files should be listed</li>
 <li><code>~</code>: An operand, in this case a special symbol which points to your home directory</li>
 </ul>
 </section>
-<section id="download-tmux.conf-fire-up-tmux" class="level1">
-<h1>Download tmux.conf &amp; fire up tmux</h1>
-<pre><code>wget https://raw.githubusercontent.com/fredhutchio/intro-bioinformatics/gh-pages/config/tmux.conf
-
-ls
-
-mv tmux.conf ~/.tmux.conf
-
-ls
-ls -a
-
-tmux</code></pre>
-</section>
-<section id="quick-tmux-demo" class="level1">
-<h1>Quick tmux demo</h1>
-<ul>
-<li><code>Ctrl-a</code> - your “Command key”</li>
-<li><code>Ctrl-a ?</code> - Help</li>
-<li><code>Ctrl-a d</code> - Detatch session</li>
-</ul>
-<p><br/></p>
-<ul>
-<li><code>Ctrl-a c</code> - New window</li>
-<li><code>Ctrl-a &lt;Space&gt;</code> - Next window</li>
-</ul>
+<section id="lets-get-some-more-practice-with-simple-commands" class="level1">
+<h1>Let’s get some more practice with simple commands</h1>
 </section>
 <section id="create-a-project-directory" class="level1">
 <h1>Create a project directory</h1>
+<p>This class will build around analysis of a single data set, so let’s set up a project directory for it.</p>
 <pre><code>mkdir ~/bioinfclass
 
 cd ~/bioinfclass
@@ -343,9 +343,10 @@ mkdir data output scripts
 
 touch README.md</code></pre>
 </section>
-<section id="dowload-data-with-wget" class="level1">
-<h1>Dowload data with <code>wget</code></h1>
+<section id="download-data-with-wget" class="level1">
+<h1>Download data with <code>wget</code></h1>
 <pre><code>wget https://raw.githubusercontent.com/fredhutchio/intro-bioinformatics/gh-pages/data.tar</code></pre>
+<p>Note that we get a <code>tar</code> file. This is an archive type, like <code>zip</code>, common on Unix systems.</p>
 </section>
 <section id="a-bit-about-tar" class="level1">
 <h1>A bit about tar…</h1>
@@ -360,56 +361,143 @@ touch README.md</code></pre>
 </section>
 <section id="lets-look-at-what-weve-done" class="level1">
 <h1>Let’s look at what we’ve done</h1>
+<p><code>tree</code> prints out a directory tree as ASCII art.</p>
 <pre><code>tree</code></pre>
 </section>
-<section id="first-lets-explore-the-sequence-file" class="level1">
-<h1>First let’s explore the sequence file</h1>
+<section id="lets-explore-the-sequence-file" class="level1">
+<h1>Let’s explore the sequence file</h1>
+<p><code>cat</code> prints the output of file[s] to the screen.</p>
 <pre><code>cat data/sfv.fasta</code></pre>
 </section>
 <section id="now-with-less" class="level1">
 <h1>Now with <code>less</code></h1>
+<p><code>less</code> lets us “page” through data, without flooding the screen.</p>
 <pre><code>less data/sfv.fasta</code></pre>
+<p><br/></p>
+<p>Press the <code>q</code> key to exit from <code>less</code>.</p>
 </section>
 <section id="now-lets-look-at-the-metadata" class="level1">
 <h1>Now let’s look at the metadata</h1>
 <pre><code>less data/sfv.csv</code></pre>
-<p><br/></p>
-<p>Use <code>q</code> to exit from <code>less</code>.</p>
 </section>
-<section id="now-with-column--t" class="level1">
-<h1>Now with <code>column -t</code></h1>
-<pre><code>column -t -s , data/sfv.csv</code></pre>
-<ul>
-<li><code>-t</code> Output as tab separated</li>
-<li><code>-s ,</code> Read the input data as comma separated</li>
-</ul>
+<section id="opinionated-environment-things" class="level1">
+<h1>Opinionated environment things</h1>
+<p>There are a few things we’ll be using throughout the class that will make things a little bit easier.</p>
 </section>
-<section id="now-with-column--t-and" class="level1">
-<h1>Now with <code>column -t</code> and <code>|</code></h1>
-<pre><code>column -t -s , data/sfv.csv | less -S</code></pre>
-<p><code>|</code> takes the output of one command and passes it as input to the next (covered in more detail next class). This is part of the Unix philosophy’s composability.</p>
-<p>Use <code>q</code> to exit from <code>less</code>.</p>
-</section>
-<section id="ready-for-takeoff" class="level1">
-<h1>Ready for takeoff…</h1>
-<p>SciComp has set up a lovely “module” system that allows us to set up custom environments.</p>
-<p>For this class we will be using the <code>intro-bio</code> module, loaded by executing <code>module load intro-bio</code>, which sets things up <em>just for the duration of that shell session</em>.</p>
-<p>When you issue this command, you should see something like:</p>
+<section id="supercharging-our-shell" class="level1">
+<h1>Supercharging our shell</h1>
+<p>SciComp has set up a <em>module</em> system for setting up custom environments.</p>
+<p>We’ll be using the <code>intro-bio</code> module, loaded by executing <code>module load intro-bio</code> (note: this <em>only affects the current shell session!</em>). When you do this, you should see something like:</p>
 <pre><code>matsen@rhino01:~$ module load intro-bio
 Using already loaded python
 matsen@rhino01:~$</code></pre>
 <p>If you get an error message instead, let us know, because you can’t proceed without this module loaded.</p>
 </section>
-<section id="hello-world" class="level1">
-<h1>Hello world!</h1>
-<section id="make-an-alignment-and-then-a-tree-from-the-data" class="level2">
-<h2>Make an alignment, and then a tree from the data</h2>
-<pre><code>muscle -maxiters 2 -in data/sfv.fasta -out output/alignment.fasta
-
-FastTree -nt output/alignment.fasta &gt; output/tree.nw
-
-nw_display output/tree.nw | less</code></pre>
+<section id="tmux---terminal-multiplexer" class="level1">
+<h1>Tmux - Terminal multiplexer</h1>
+<p>This is a tool that let’s us have multiple Unix shells running at once.</p>
+<p>We could just open multiple terminal windows, each with an ssh connection into the remote server. But with tmux, if we close or lose our connection to the server, our terminal session doesn’t get killed; running programs keep running.</p>
 </section>
+<section id="setting-up-tmux" class="level1">
+<h1>Setting up tmux</h1>
+<p>We’ll use tmux throughout this class to keep sessions running. But first let’s download a nice tmux configuration file for making things easier.</p>
+<pre><code># This is a command that download
+wget https://raw.githubusercontent.com/fredhutchio/intro-bioinformatics/gh-pages/config/tmux.conf
+
+ls
+
+# tmux knows to look for our config file at ~/.tmux.conf
+mv tmux.conf ~/.tmux.conf
+
+# Note that this file is hidden once we make it a &quot;dotfile&quot;
+ls
+ls -a</code></pre>
+</section>
+<section id="starting-a-new-tmux-session" class="level1">
+<h1>Starting a new tmux session</h1>
+<pre><code>tmux</code></pre>
+<p>You should now see a fresh shell session inside of tmux.</p>
+</section>
+<section id="quick-tmux-cheatsheet" class="level1">
+<h1>Quick tmux cheatsheet</h1>
+<ul>
+<li><code>Ctrl-a</code> - your “Command key”</li>
+<li><code>Ctrl-a ?</code> - Help</li>
+<li><code>Ctrl-a d</code> - Detatch session</li>
+</ul>
+<p><br/></p>
+<ul>
+<li><code>Ctrl-a c</code> - New window</li>
+<li><code>Ctrl-a &lt;Space&gt;</code> - Next window</li>
+</ul>
+</section>
+<section id="looking-at-tmux-in-action" class="level1">
+<h1>Looking at tmux in action</h1>
+<p>Why we might want to use tmux:</p>
+<ul>
+<li>Keep working on other things while a long running computation runs</li>
+<li>Switch back and forth quickly between multiple projects</li>
+</ul>
+<p>Let’s see an example.</p>
+</section>
+<section id="making-a-sequence-alignment" class="level1">
+<h1>Making a sequence alignment</h1>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># First start the long running alignment</span>
+<span class="kw">muscle</span> -maxiters 2 -in data/sfv.fasta -out output/alignment.fasta
+
+<span class="co"># Get bored waiting and want to work on something else...</span>
+<span class="kw">&lt;Ctrl-a</span> c<span class="kw">&gt;</span> <span class="co"># create new window</span>
+<span class="kw">cd</span> ~
+<span class="kw">mkdir</span> new-project
+<span class="kw">cd</span> new-project
+<span class="kw">mkdir</span> data output scripts
+
+<span class="co"># Let&#39;s go check on our alignment</span>
+<span class="kw">&lt;Ctrl-a</span> <span class="kw">&lt;</span>Space<span class="kw">&gt;&gt;</span>
+
+<span class="co"># Still running... switch back; etc.</span></code></pre>
+</section>
+<section id="attaching-and-detaching-a-tmux-session" class="level1">
+<h1>Attaching and detaching a tmux session</h1>
+<p>SSH sessions can disconnect because of:</p>
+<ul>
+<li>a lost network connection</li>
+<li>a computer shutdown (power outage; frozen screen; system updates; etc.)</li>
+</ul>
+<p>We might also want to stop work on one machine and pick it up on another.</p>
+</section>
+<section id="detaching-and-attaching-a-tmux-session" class="level1">
+<h1>Detaching and attaching a tmux session</h1>
+<ol type="1">
+<li>Close your terminal window, and ignore any warning prompts.</li>
+<li>Reconnect just the way you did at the beginning of the class.</li>
+<li>Type <code>tmux attach</code> to attach.</li>
+</ol>
+</section>
+<section id="manual-detach" class="level1">
+<h1>Manual detach</h1>
+<p>While in tmux, we can explicitly detach using <code>&lt;Ctrl-a d&gt;</code> or by typing <code>tmux detatch</code>.</p>
+<p>Try doing this and then reattaching.</p>
+</section>
+<section id="checking-on-our-alignment" class="level1">
+<h1>Checking on our alignment</h1>
+<p>Yay! It’s done!</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">less</span> output/alignment.fasta</code></pre>
+</section>
+<section id="questions-1" class="level1">
+<h1>Questions?</h1>
+</section>
+<section id="homework" class="level1">
+<h1>Homework</h1>
+<p>Recommended reading:</p>
+<ul>
+<li>Chapters 1 &amp; 2 if you haven’t already.</li>
+<li>Chapters 2 &amp; 3 for basic Unix stuff &amp; tmux.</li>
+</ul>
+<p>Reading for next class:</p>
+<ul>
+<li>Chapter 3, and chapter 7 (till around page 148).</li>
+</ul>
 </section>
 <section id="resources" class="level1">
 <h1>Resources</h1>
