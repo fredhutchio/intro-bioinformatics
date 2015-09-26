@@ -5,17 +5,20 @@ LAST_MDS = $(shell ls -tu src/*.mds | head -1)
 LAST = $(notdir $(LAST_MDS:mds=html))
 
 SVGS=$(shell grep svg $(LAST_MDS) | cut -f 2 -d' ')
+CSS = --css /public/css/poole.css --css /public/css/syntax.css --css /public/css/hyde.css --css /public/css/MyFontsWebfontsKit.css
 
 # Default target: last modified .mds file
 last-modified: $(LAST)
 
 all: $(ALL)
 
+
+
 nomachine-directions.html: src/nomachine-directions.md
-	pandoc --css http://matsen.fhcrc.org/webpage.css src/nomachine-directions.md -o nomachine-directions.html
+	pandoc $(CSS) src/nomachine-directions.md -o nomachine-directions.html
 
 index.html: README.md nomachine-directions.html
-	pandoc --css http://matsen.fhcrc.org/webpage.css README.md -o index.html
+	pandoc $(CSS) README.md -o index.html
 
 %.html: src/template-revealjs.html src/header.html src/%.mds insert.py Makefile build.sh
 	./build.sh src/$*.mds $@
