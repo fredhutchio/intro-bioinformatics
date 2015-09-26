@@ -14,7 +14,7 @@
 <p>A short series offered by <a href="http://fredhutch.io">fredhutch.io</a> to members of <a href="http://www.fredhutch.org/en.html">Fred Hutch</a>.</p>
 <p><br/> <br/></p>
 <h2 id="overview-of-class">Overview of class</h2>
-<p>The class and slides are outlined as follows</p>
+<p>Class outline:</p>
 <ol style="list-style-type: decimal">
 <li><a href="01-gestalt.html">Overview &amp; remote server access</a></li>
 <li><a href="02-unix-shell-intro.html">Unix Shell I - overview</a></li>
@@ -26,8 +26,8 @@
 </ol>
 <p>The class will be loosely following <a href="http://shop.oreilly.com/product/0636920030157.do">Bioinformatics Data Skills</a> for the overview, unix, and version control sections. For the python sections, we'll be following our own curriculum, and referring to the <a href="https://www.codecademy.com/tracks/python">Codecademy course</a> as a reference and for additional practice with the concepts.</p>
 <h2 id="prerequisites-connecting-to-the-remote-server">Prerequisites (connecting to the remote server)</h2>
-<p>You will need to bring a laptop to class to participate in the interactive sessions. However, all our work will be happening on a remote server to which we connect. Thus, it is vital that you ensure you can connect to this remote server before coming to the first class. (Specifically, make sure you can connect over wifi while on the Hutch campus.)</p>
-<p>Connecting to the remote server requires the use of a <em>terminal</em> program, which let's us control a computer with text based commands. How you open the terminal program depends a bit on what operating system your are using. However, once you have the terminal open, you'll execute the following command</p>
+<p>You will need to bring a laptop to class to participate in the interactive sessions. However, all our work will be happening on a remote server to which we connect. Thus, it is vital that you ensure you can connect to this remote server before coming to the first class. (Specifically, make sure you can connect over the Marconi wifi network while on the Hutch campus.)</p>
+<p>Connecting to the remote server requires the use of a <em>terminal</em> program, which let's us control a computer with text based commands. How you open the terminal program depends a bit on what operating system you are using. However, once you have the terminal open, you'll execute the following command</p>
 <pre><code>ssh &lt;username&gt;@rhino</code></pre>
 <p>Here, <code>&lt;username&gt;</code> should be replaced by your Fred Hutch network username. When this command runs, you'll be prompted for a password; use your Fred Hutch network password. You should see an informational message about the system, followed by a prompt that looks something like:</p>
 <pre><code>&lt;username&gt;@rhino04:~$ </code></pre>
@@ -37,7 +37,6 @@
 <h3 id="linux-or-osx">Linux or OSX</h3>
 <p>Linux operating systems (such as Ubuntu) and Mac OSX come with SSH-capable terminals pre-installed. It should be straight forward to Google how to find and run the terminal program for your particular operating system.</p>
 <p>Note that if you are using a Linux operating system, you may have problems with the wifi on campus, due to some unusual network settings. If you are unable to connect via wifi on your laptop, please ping the Fred Hutch computing Help Desk or Sci Comp to get you running.</p>
-<p>In general, using Linux or OSX is recommended for this course.</p>
 <h3 id="windows">Windows</h3>
 <p>Windows does not ship with an SSH capable terminal. As such, you will need to do one of the following:</p>
 <ul>
@@ -46,6 +45,7 @@
 <li>You can also install <a href="https://www.virtualbox.org/wiki/Downloads">Virtual Box</a>, and an Ubuntu virtual machine if you want to tinker with a Linux environment.</li>
 </ul>
 <h2 id="other-prereqs">Other prereqs</h2>
+<p>You should also be able to copy and paste text to and from the terminal. In Mac OSX, you can do this with Command-c and Command-v, as you normally would. On a Linux terminal, you need Ctrl-Shift-C and Ctrl-Shift-V. For Windows/PuTTY users, copying and pasting is accomplished using select and right click (see <a href="http://kb.site5.com/shell-access-ssh/putty/putty-how-to-copy-and-paste-to-and-from-a-putty-window/">here</a>). Make sure to try pasting and copying from the terminal before coming to the first class, so that you can copy and paste longer commands from the slides.</p>
 <p>We also ask that you read the first two chapters of <a href="http://shop.oreilly.com/product/0636920030157.do">the book</a> (particularly the first) before coming to class, as they'll give you some nice big picture context to work from.</p>
 <h2 id="technical-notes">Technical Notes</h2>
 <p>The slides are written in a little extension of Markdown. After processing, the Markdown gets converted to a <a href="http://github.com/hakimel/reveal.js">reveal.js</a> presentation. HTML is rendered by the brilliant <a href="http://johnmacfarlane.net/pandoc/">pandoc</a>.</p>

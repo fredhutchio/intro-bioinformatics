@@ -89,23 +89,6 @@ We can now get it
 The art of applying computation towards the analysis of biological data
 
 
-# From the "Bird", Charlie Parker
-
-> Learn the changes, then forget them.
-
-In other words: the technical side of bioinformatics is necessary but not sufficient.
-There is an art to putting the techniques together to make science happen.
-
-
-# But you're in luck!
-
-## You're already scientists!!!
-
-You know how to apply technical methods towards the analysis of biological data.
-
-Hopefully this lends you some comforts.
-
-
 # Aspects of Bioinformatics
 
 Things we typically do with data:
@@ -202,7 +185,7 @@ Unix philosophy | project/data organization
 
 * Small, composable tools that do one thing right
 * Plumb tools together into pipelines & scripts
-* Embrace plain-text data (no excel/docx)
+* Embrace plain-text data
 
 Bioinformatics naturally embraces this.
 
@@ -260,6 +243,8 @@ One of the core aspects of the Unix environment is the _Unix shell_.
 
 The shell is just a wrapper around the operating system, through which we can use text commands and output to interact with our computer.
 
+This is analogous to the desktop environment on your personal computer, which has a graphical rather than a textual user interface.
+
 
 # Remote servers
 
@@ -268,6 +253,7 @@ Unix was built for remote access, since computers were big and expensive.
 
 # Why we care about remote servers
 
+* The Hutch servers are really powerful
 * We can leave long running computations running without worrying about our computer shutting down by necessity or accident
 * We can access running programs and data from any computer capable of connecting to the remote server
 * We can distribute tasks across compute clusters, such as the one the hutch has (See [gizmo class XXX](XXX))
@@ -303,6 +289,15 @@ Example: `ls -a ~`
 * `~`: An operand, in this case a special symbol which points to your home directory
 
 
+# Getting help for a Unix command
+
+Most Unix programs will take either a `-h`, `--help`, or `-help` flag and return useful information about how to construct a valid command.
+
+Some commands also have _man pages_, which you can access using `man <command-name>`.
+
+Example: `ls --help`
+
+
 # Let's get some more practice with simple commands
 
 
@@ -328,20 +323,9 @@ Note that we get a `tar` file.
 This is an archive type, like `zip`, common on Unix systems.
 
 
-# A bit about tar...
-
-^imghl "figures/tar.png" 300
-
-
-# It's not _that_ bad
+# Unpacking the tar
 
     tar -vxf data.tar
-
-This unpacks the data into the `data` dir for us.
-
-Use `tar --help` when you need help.
-
-(Also see `gunzip` and `gzip` for `.zip` files.)
 
 
 # Let's look at what we've done
@@ -372,11 +356,6 @@ Press the `q` key to exit from `less`.
 # Now let's look at the metadata
 
     less data/sfv.csv
-
-
-# Opinionated environment things
-
-There are a few things we'll be using throughout the class that will make things a little bit easier.
 
 
 # Supercharging our shell

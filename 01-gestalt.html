@@ -145,21 +145,6 @@
 <h1>What is bioinformatics?</h1>
 <p>The art of applying computation towards the analysis of biological data</p>
 </section>
-<section id="from-the-bird-charlie-parker" class="level1">
-<h1>From the “Bird”, Charlie Parker</h1>
-<blockquote>
-<p>Learn the changes, then forget them.</p>
-</blockquote>
-<p>In other words: the technical side of bioinformatics is necessary but not sufficient. There is an art to putting the techniques together to make science happen.</p>
-</section>
-<section id="but-youre-in-luck" class="level1">
-<h1>But you’re in luck!</h1>
-<section id="youre-already-scientists" class="level2">
-<h2>You’re already scientists!!!</h2>
-<p>You know how to apply technical methods towards the analysis of biological data.</p>
-<p>Hopefully this lends you some comforts.</p>
-</section>
-</section>
 <section id="aspects-of-bioinformatics" class="level1">
 <h1>Aspects of Bioinformatics</h1>
 <p>Things we typically do with data:</p>
@@ -250,7 +235,7 @@
 <ul>
 <li>Small, composable tools that do one thing right</li>
 <li>Plumb tools together into pipelines &amp; scripts</li>
-<li>Embrace plain-text data (no excel/docx)</li>
+<li>Embrace plain-text data</li>
 </ul>
 <p>Bioinformatics naturally embraces this.</p>
 </section>
@@ -294,6 +279,7 @@
 <h1>The Unix shell</h1>
 <p>One of the core aspects of the Unix environment is the <em>Unix shell</em>.</p>
 <p>The shell is just a wrapper around the operating system, through which we can use text commands and output to interact with our computer.</p>
+<p>This is analogous to the desktop environment on your personal computer, which has a graphical rather than a textual user interface.</p>
 </section>
 <section id="remote-servers" class="level1">
 <h1>Remote servers</h1>
@@ -302,6 +288,7 @@
 <section id="why-we-care-about-remote-servers" class="level1">
 <h1>Why we care about remote servers</h1>
 <ul>
+<li>The Hutch servers are really powerful</li>
 <li>We can leave long running computations running without worrying about our computer shutting down by necessity or accident</li>
 <li>We can access running programs and data from any computer capable of connecting to the remote server</li>
 <li>We can distribute tasks across compute clusters, such as the one the hutch has (See <a href="XXX">gizmo class XXX</a>)</li>
@@ -328,6 +315,12 @@
 <li><code>~</code>: An operand, in this case a special symbol which points to your home directory</li>
 </ul>
 </section>
+<section id="getting-help-for-a-unix-command" class="level1">
+<h1>Getting help for a Unix command</h1>
+<p>Most Unix programs will take either a <code>-h</code>, <code>--help</code>, or <code>-help</code> flag and return useful information about how to construct a valid command.</p>
+<p>Some commands also have <em>man pages</em>, which you can access using <code>man &lt;command-name&gt;</code>.</p>
+<p>Example: <code>ls --help</code></p>
+</section>
 <section id="lets-get-some-more-practice-with-simple-commands" class="level1">
 <h1>Let’s get some more practice with simple commands</h1>
 </section>
@@ -348,16 +341,9 @@ touch README.md</code></pre>
 <pre><code>wget https://raw.githubusercontent.com/fredhutchio/intro-bioinformatics/gh-pages/data.tar</code></pre>
 <p>Note that we get a <code>tar</code> file. This is an archive type, like <code>zip</code>, common on Unix systems.</p>
 </section>
-<section id="a-bit-about-tar" class="level1">
-<h1>A bit about tar…</h1>
-<p><a href="figures/tar.png" target="_blank"><img src="figures/tar.png" height="300"></a></p>
-</section>
-<section id="its-not-that-bad" class="level1">
-<h1>It’s not <em>that</em> bad</h1>
+<section id="unpacking-the-tar" class="level1">
+<h1>Unpacking the tar</h1>
 <pre><code>tar -vxf data.tar</code></pre>
-<p>This unpacks the data into the <code>data</code> dir for us.</p>
-<p>Use <code>tar --help</code> when you need help.</p>
-<p>(Also see <code>gunzip</code> and <code>gzip</code> for <code>.zip</code> files.)</p>
 </section>
 <section id="lets-look-at-what-weve-done" class="level1">
 <h1>Let’s look at what we’ve done</h1>
@@ -379,10 +365,6 @@ touch README.md</code></pre>
 <section id="now-lets-look-at-the-metadata" class="level1">
 <h1>Now let’s look at the metadata</h1>
 <pre><code>less data/sfv.csv</code></pre>
-</section>
-<section id="opinionated-environment-things" class="level1">
-<h1>Opinionated environment things</h1>
-<p>There are a few things we’ll be using throughout the class that will make things a little bit easier.</p>
 </section>
 <section id="supercharging-our-shell" class="level1">
 <h1>Supercharging our shell</h1>

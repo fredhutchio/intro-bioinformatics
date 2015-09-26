@@ -11,7 +11,7 @@ A short series offered by [fredhutch.io](http://fredhutch.io) to members of [Fre
 
 ## Overview of class
 
-The class and slides are outlined as follows
+Class outline:
 
 1. [Overview & remote server access](01-gestalt.html)
 2. [Unix Shell I - overview](02-unix-shell-intro.html)
@@ -30,10 +30,10 @@ For the python sections, we'll be following our own curriculum, and referring to
 You will need to bring a laptop to class to participate in the interactive sessions.
 However, all our work will be happening on a remote server to which we connect.
 Thus, it is vital that you ensure you can connect to this remote server before coming to the first class.
-(Specifically, make sure you can connect over wifi while on the Hutch campus.)
+(Specifically, make sure you can connect over the Marconi wifi network while on the Hutch campus.)
 
 Connecting to the remote server requires the use of a _terminal_ program, which let's us control a computer with text based commands.
-How you open the terminal program depends a bit on what operating system your are using.
+How you open the terminal program depends a bit on what operating system you are using.
 However, once you have the terminal open, you'll execute the following command
 
 ```
@@ -64,8 +64,6 @@ It should be straight forward to Google how to find and run the terminal program
 Note that if you are using a Linux operating system, you may have problems with the wifi on campus, due to some unusual network settings.
 If you are unable to connect via wifi on your laptop, please ping the Fred Hutch computing Help Desk or Sci Comp to get you running.
 
-In general, using Linux or OSX is recommended for this course.
-
 ### Windows
 
 Windows does not ship with an SSH capable terminal.
@@ -77,6 +75,12 @@ As such, you will need to do one of the following:
 
 
 ## Other prereqs
+
+You should also be able to copy and paste text to and from the terminal.
+In Mac OSX, you can do this with Command-c and Command-v, as you normally would.
+On a Linux terminal, you need Ctrl-Shift-C and Ctrl-Shift-V.
+For Windows/PuTTY users, copying and pasting is accomplished using select and right click (see [here](http://kb.site5.com/shell-access-ssh/putty/putty-how-to-copy-and-paste-to-and-from-a-putty-window/)).
+Make sure to try pasting and copying from the terminal before coming to the first class, so that you can copy and paste longer commands from the slides.
 
 We also ask that you read the first two chapters of [the book](http://shop.oreilly.com/product/0636920030157.do) (particularly the first) before coming to class, as they'll give you some nice big picture context to work from.
 
