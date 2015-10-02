@@ -253,6 +253,8 @@ a.sidebar-nav-item:focus {
 /* *** Fred Hutch Specific *** */
 .theme-fredhutch {
   background-color: #f8f8f8;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 .theme-fredhutch html {
   font-family: "Geogrotesque-Regular", Helvetica, Arial, sans-serif;
