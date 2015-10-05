@@ -6,9 +6,13 @@
   <meta name="generator" content="pandoc" />
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
-  <link rel="stylesheet" href="http://matsen.fhcrc.org/webpage.css" type="text/css" />
+  <link rel="stylesheet" href="public/css/poole.css" type="text/css" />
+  <link rel="stylesheet" href="public/css/syntax.css" type="text/css" />
+  <link rel="stylesheet" href="public/css/hyde.css" type="text/css" />
+  <link rel="stylesheet" href="public/css/MyFontsWebfontsKit.css" type="text/css" />
 </head>
 <body>
+<div class="theme-fredhutch">
 <h1 id="intro-to-bioinformatics">Intro to Bioinformatics</h1>
 <p><img alt="Class poster" src="figures/course.png" style="max-width: 300px; text-align: center; margin-left: 30px; float: right;"/></p>
 <p>A short series offered by <a href="http://fredhutch.io">fredhutch.io</a> to members of <a href="http://www.fredhutch.org/en.html">Fred Hutch</a>.</p>
@@ -30,7 +34,7 @@
 <p>Connecting to the remote server requires the use of a <em>terminal</em> program, which let's us control a computer with text based commands. How you open the terminal program depends a bit on what operating system you are using. However, once you have the terminal open, you'll execute the following command</p>
 <pre><code>ssh &lt;username&gt;@rhino</code></pre>
 <p>Here, <code>&lt;username&gt;</code> should be replaced by your Fred Hutch network username. When this command runs, you'll be prompted for a password; use your Fred Hutch network password. You should see an informational message about the system, followed by a prompt that looks something like:</p>
-<pre><code>&lt;username&gt;@rhino04:~$ </code></pre>
+<pre><code>&lt;username&gt;@rhino04:~$</code></pre>
 <p>Try typing <code>echo &quot;it is working&quot;</code>, and hitting enter. The terminal should print out &quot;it is working&quot; on the following line, and return a new prompt.</p>
 <p>If instead of this behavior you see something that looks like an error message, please notify us so we can help you get set up before the first class starts. (Note that you may get <code>rhino01</code>, <code>rhino02</code> or <code>rhino03</code> instead of <code>rhino04</code>; this is ok).</p>
 <p>Below are the details about how you can get a terminal program with SSH, given your operating system.</p>
@@ -51,9 +55,8 @@
 <p>The slides are written in a little extension of Markdown. After processing, the Markdown gets converted to a <a href="http://github.com/hakimel/reveal.js">reveal.js</a> presentation. HTML is rendered by the brilliant <a href="http://johnmacfarlane.net/pandoc/">pandoc</a>.</p>
 <!--No trees at the moment...-->
 <!--Trees are rendered using the [archaeopteryx](http://www.phylosoft.org/archaeopteryx/) tree viewer.-->
-
-
 <h2 id="license">License</h2>
 <p><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Intro Bioinformatics curricula and slide processing</span> by <a href="http://metasoarous.com">Christopher Small</a> &amp; <a xmlns:cc="http://creativecommons.org/ns#" href="http://matsen.fhcrc.org" property="cc:attributionName" rel="cc:attributionURL">Frederick A. Matsen IV</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>.</p>
+</div>
 </body>
 </html>

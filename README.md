@@ -1,3 +1,5 @@
+<div class="theme-fredhutch">
+
 # Intro to Bioinformatics
 
 <img alt="Class poster" src="figures/course.png" style="max-width: 300px; text-align: center; margin-left: 30px; float: right;"/>
@@ -45,7 +47,7 @@ When this command runs, you'll be prompted for a password; use your Fred Hutch n
 You should see an informational message about the system, followed by a prompt that looks something like:
 
 ```
-<username>@rhino04:~$ 
+<username>@rhino04:~$
 ```
 
 Try typing `echo "it is working"`, and hitting enter.
@@ -99,3 +101,4 @@ HTML is rendered by the brilliant [pandoc](http://johnmacfarlane.net/pandoc/).
 
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Intro Bioinformatics curricula and slide processing</span> by <a href="http://metasoarous.com">Christopher Small</a> & <a xmlns:cc="http://creativecommons.org/ns#" href="http://matsen.fhcrc.org" property="cc:attributionName" rel="cc:attributionURL">Frederick A. Matsen IV</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>.
 
+</div>
