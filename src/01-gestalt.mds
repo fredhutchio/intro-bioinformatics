@@ -256,7 +256,7 @@ Unix was built for remote access, since computers were big and expensive.
 * The Hutch servers are really powerful
 * We can leave long running computations running without worrying about our computer shutting down by necessity or accident
 * We can access running programs and data from any computer capable of connecting to the remote server
-* We can distribute tasks across compute clusters, such as the one the hutch has (See [gizmo class XXX](XXX))
+* We can distribute tasks across compute clusters, such as the one the hutch has (See [gizmo class](http://www.fredhutch.io/events/2015/05/20/spring-2015-unix-hpc/))
 
 
 # SSH for remote connection
