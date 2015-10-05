@@ -176,7 +176,7 @@ Write _scripts_ (little computer programs) for everything:
 Aids: reproducibility, robustness, accuracy, iterability
 
 
-# Guiding principles & practices towards this end
+# Guiding principals & practices towards this end
 
 Unix philosophy | project/data organization
 
@@ -395,8 +395,8 @@ But first let's download a nice tmux configuration file for making things easier
     mv tmux.conf ~/.tmux.conf
 
     # Note that this file is hidden once we make it a "dotfile"
-    ls
-    ls -a
+    ls ~
+    ls -a ~
 
 
 # Starting a new tmux session

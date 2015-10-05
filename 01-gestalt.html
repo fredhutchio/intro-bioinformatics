@@ -291,7 +291,7 @@
 <li>The Hutch servers are really powerful</li>
 <li>We can leave long running computations running without worrying about our computer shutting down by necessity or accident</li>
 <li>We can access running programs and data from any computer capable of connecting to the remote server</li>
-<li>We can distribute tasks across compute clusters, such as the one the hutch has (See <a href="XXX">gizmo class XXX</a>)</li>
+<li>We can distribute tasks across compute clusters, such as the one the hutch has (See <a href="http://www.fredhutch.io/events/2015/05/20/spring-2015-unix-hpc/">gizmo class</a>)</li>
 </ul>
 </section>
 <section id="ssh-for-remote-connection" class="level1">
@@ -392,8 +392,8 @@ ls
 mv tmux.conf ~/.tmux.conf
 
 # Note that this file is hidden once we make it a &quot;dotfile&quot;
-ls
-ls -a</code></pre>
+ls ~
+ls -a ~</code></pre>
 </section>
 <section id="starting-a-new-tmux-session" class="level1">
 <h1>Starting a new tmux session</h1>
@@ -424,7 +424,7 @@ ls -a</code></pre>
 </section>
 <section id="making-a-sequence-alignment" class="level1">
 <h1>Making a sequence alignment</h1>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># First start the long running alignment</span>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># First start the long running alignment</span>
 <span class="kw">muscle</span> -maxiters 2 -in data/sfv.fasta -out output/alignment.fasta
 
 <span class="co"># Get bored waiting and want to work on something else...</span>
@@ -437,7 +437,7 @@ ls -a</code></pre>
 <span class="co"># Let&#39;s go check on our alignment</span>
 <span class="kw">&lt;Ctrl-a</span> <span class="kw">&lt;</span>Space<span class="kw">&gt;&gt;</span>
 
-<span class="co"># Still running... switch back; etc.</span></code></pre></div>
+<span class="co"># Still running... switch back; etc.</span></code></pre>
 </section>
 <section id="attaching-and-detaching-a-tmux-session" class="level1">
 <h1>Attaching and detaching a tmux session</h1>
@@ -464,7 +464,7 @@ ls -a</code></pre>
 <section id="checking-on-our-alignment" class="level1">
 <h1>Checking on our alignment</h1>
 <p>Yay! It’s done!</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">less</span> output/alignment.fasta</code></pre></div>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">less</span> output/alignment.fasta</code></pre>
 </section>
 <section id="questions-1" class="level1">
 <h1>Questions?</h1>
@@ -484,9 +484,9 @@ ls -a</code></pre>
 <section id="resources" class="level1">
 <h1>Resources</h1>
 <ul>
-<li>These slides: <a href="http://fredhutchio.github.io/intro-bioinformatics" class="uri">http://fredhutchio.github.io/intro-bioinformatics</a></li>
-<li>Unix command reference: <a href="https://ubuntudanmark.dk/filer/fwunixref.pdf" class="uri">https://ubuntudanmark.dk/filer/fwunixref.pdf</a></li>
-<li>Tmux tutorial: <a href="http://www.fredhutch.io/articles/2014/04/27/terminal-multiplex" class="uri">http://www.fredhutch.io/articles/2014/04/27/terminal-multiplex</a></li>
+<li>These slides: <a href="http://fredhutchio.github.io/intro-bioinformatics">http://fredhutchio.github.io/intro-bioinformatics</a></li>
+<li>Unix command reference: <a href="https://ubuntudanmark.dk/filer/fwunixref.pdf">https://ubuntudanmark.dk/filer/fwunixref.pdf</a></li>
+<li>Tmux tutorial: <a href="http://www.fredhutch.io/articles/2014/04/27/terminal-multiplex">http://www.fredhutch.io/articles/2014/04/27/terminal-multiplex</a></li>
 </ul>
 </section>
 </div>
