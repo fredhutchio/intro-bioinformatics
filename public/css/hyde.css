@@ -278,7 +278,7 @@ a.sidebar-nav-item:focus {
   margin-bottom: 0.5em;
 }
 .theme-fredhutch .sidebar {
-  background-color: #123054;
+  background-color: #fdfbf9;
 /* Font color for links in sidebar (dark background). Obtained by scaling the saturation of 123054.*/
   /* color: #90b8e8; */
   color: #9acece;
