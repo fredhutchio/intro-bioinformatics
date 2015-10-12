@@ -448,14 +448,18 @@ mkdir data output scripts
 ```
 
 
-# Attaching and detaching a tmux session
+# Attaching and detaching tmux
 
 SSH sessions can disconnect because of:
 
 * a lost network connection
 * a computer shutdown (power outage; frozen screen; system updates; etc.)
 
-We might also want to stop work on one machine and pick it up on another.
+We might also stop work on one machine and pick it up on another.
+
+<br>
+
+**Note:** if you get a "command not found" error, you probably need to re-load your modules, but tmux will keep those modules loaded per shell window.
 
 
 # Detaching and attaching a tmux session

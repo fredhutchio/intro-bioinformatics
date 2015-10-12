@@ -424,7 +424,7 @@ ls -a ~</code></pre>
 </section>
 <section id="making-a-sequence-alignment" class="level1">
 <h1>Making a sequence alignment</h1>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># First start the long running alignment</span>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># First start the long running alignment</span>
 <span class="kw">muscle</span> -maxiters 2 -in data/sfv.fasta -out output/alignment.fasta
 
 <span class="co"># Get bored waiting and want to work on something else...</span>
@@ -437,16 +437,18 @@ ls -a ~</code></pre>
 <span class="co"># Let&#39;s go check on our alignment</span>
 <span class="kw">&lt;Ctrl-a</span> <span class="kw">&lt;</span>Space<span class="kw">&gt;&gt;</span>
 
-<span class="co"># Still running... switch back; etc.</span></code></pre>
+<span class="co"># Still running... switch back; etc.</span></code></pre></div>
 </section>
-<section id="attaching-and-detaching-a-tmux-session" class="level1">
-<h1>Attaching and detaching a tmux session</h1>
+<section id="attaching-and-detaching-tmux" class="level1">
+<h1>Attaching and detaching tmux</h1>
 <p>SSH sessions can disconnect because of:</p>
 <ul>
 <li>a lost network connection</li>
 <li>a computer shutdown (power outage; frozen screen; system updates; etc.)</li>
 </ul>
-<p>We might also want to stop work on one machine and pick it up on another.</p>
+<p>We might also stop work on one machine and pick it up on another.</p>
+<p><br></p>
+<p><strong>Note:</strong> if you get a “command not found” error, you probably need to re-load your modules, but tmux will keep those modules loaded per shell window.</p>
 </section>
 <section id="detaching-and-attaching-a-tmux-session" class="level1">
 <h1>Detaching and attaching a tmux session</h1>
@@ -464,7 +466,7 @@ ls -a ~</code></pre>
 <section id="checking-on-our-alignment" class="level1">
 <h1>Checking on our alignment</h1>
 <p>Yay! It’s done!</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">less</span> output/alignment.fasta</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">less</span> output/alignment.fasta</code></pre></div>
 </section>
 <section id="questions-1" class="level1">
 <h1>Questions?</h1>
@@ -484,9 +486,9 @@ ls -a ~</code></pre>
 <section id="resources" class="level1">
 <h1>Resources</h1>
 <ul>
-<li>These slides: <a href="http://fredhutchio.github.io/intro-bioinformatics">http://fredhutchio.github.io/intro-bioinformatics</a></li>
-<li>Unix command reference: <a href="https://ubuntudanmark.dk/filer/fwunixref.pdf">https://ubuntudanmark.dk/filer/fwunixref.pdf</a></li>
-<li>Tmux tutorial: <a href="http://www.fredhutch.io/articles/2014/04/27/terminal-multiplex">http://www.fredhutch.io/articles/2014/04/27/terminal-multiplex</a></li>
+<li>These slides: <a href="http://fredhutchio.github.io/intro-bioinformatics" class="uri">http://fredhutchio.github.io/intro-bioinformatics</a></li>
+<li>Unix command reference: <a href="https://ubuntudanmark.dk/filer/fwunixref.pdf" class="uri">https://ubuntudanmark.dk/filer/fwunixref.pdf</a></li>
+<li>Tmux tutorial: <a href="http://www.fredhutch.io/articles/2014/04/27/terminal-multiplex" class="uri">http://www.fredhutch.io/articles/2014/04/27/terminal-multiplex</a></li>
 </ul>
 </section>
 </div>
