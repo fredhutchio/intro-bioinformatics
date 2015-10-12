@@ -130,48 +130,48 @@
 </section>
 <section id="example-using-path-tools" class="level1">
 <h1>Example: Using path tools</h1>
-<pre><code>cd ~
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">cd</span> ~
 
-pwd
+<span class="kw">pwd</span>
 
-# list the contents of this directory
-ls bioinfclass/data
+<span class="co"># list the contents of this directory</span>
+<span class="kw">ls</span> bioinfclass/data
 
-cd bioinfclass
+<span class="kw">cd</span> bioinfclass
 
-pwd
+<span class="kw">pwd</span>
 
-ls data</code></pre>
+<span class="kw">ls</span> data</code></pre>
 </section>
 <section id="exercise-going-up-the-directory-chain" class="level1">
 <h1>Exercise: going up the directory chain</h1>
 <p>Try</p>
-<pre><code>ls ..
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">ls</span> ..
 
-ls ../..
+<span class="kw">ls</span> ../..
 
-cd /</code></pre>
+<span class="kw">cd</span> /</code></pre>
 <p><strong>Excecise:</strong> Where are we now? How can we get back to our home directory?</p>
 </section>
 <section id="we-can-change-the-path-of-a-file-using-mv" class="level1">
 <h1>We can change the path of a file using <code>mv</code></h1>
-<pre><code>mv bioinfclass/data foobar
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">mv</span> bioinfclass/data foobar
 
-ls
+<span class="kw">ls</span>
 
-ls foobar
+<span class="kw">ls</span> foobar
 
-ls bioinfclass</code></pre>
+<span class="kw">ls</span> bioinfclass</code></pre>
 <p><strong>Excercise:</strong> How do we get <code>data</code> back?</p>
 </section>
 <section id="mv-is-for-renaming-as-well" class="level1">
 <h1><code>mv</code> is for renaming as well</h1>
 <p>If the directory of the file is the same, we just <em>rename</em> the file, but the command stays the same.</p>
-<pre><code>mv bioinfclass foobar
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">mv</span> bioinfclass foobar
 
-ls
+<span class="kw">ls</span>
 
-mv foobar bioinfclass</code></pre>
+<span class="kw">mv</span> foobar bioinfclass</code></pre>
 </section>
 <section id="we-can-make-new-directories-or-files-with-mkdir-and-touch" class="level1">
 <h1>We can make new directories or files with <code>mkdir</code> and <code>touch</code></h1>
@@ -216,8 +216,7 @@ mv foobar bioinfclass</code></pre>
 </section>
 <section id="help-with-flags" class="level1">
 <h1>Help with flags</h1>
-<pre><code>ls --help
-</code></pre>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">ls</span> --help</code></pre>
 </section>
 <section id="getting-help-with-man-and-apropos" class="level1">
 <h1>Getting help with <code>man</code> and <code>apropos</code></h1>
@@ -229,18 +228,18 @@ mv foobar bioinfclass</code></pre>
 </section>
 <section id="programs-are-just-files" class="level1">
 <h1>Programs are just files!</h1>
-<pre><code>which tree
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">which</span> tree
 
-# -l: &quot;long&quot; list output; lots of info that we will ignore except for `x` presence/absence
-ls -l /usr/bin/tree
+<span class="co"># -l: &quot;long&quot; list output; lots of info that we will ignore except for `x` presence/absence</span>
+<span class="kw">ls</span> -l /usr/bin/tree
 
-# super secret shortcut
-ls -l $(which tree)
+<span class="co"># super secret shortcut</span>
+<span class="kw">ls</span> -l <span class="ot">$(</span><span class="kw">which</span> tree<span class="ot">)</span>
 
-touch testfile
+<span class="kw">touch</span> testfile
 
-# Notice no x; not executable...
-ls -l testfile</code></pre>
+<span class="co"># Notice no x; not executable...</span>
+<span class="kw">ls</span> -l testfile</code></pre>
 </section>
 <section id="what-else-is-in-usrbin" class="level1">
 <h1>What else is in <code>/usr/bin</code>?</h1>
@@ -285,10 +284,17 @@ ls -l testfile</code></pre>
 </section>
 <section id="example" class="level1">
 <h1>Example</h1>
-<p><code>column -t -s , data/svf.csv | less -S</code></p>
+<p><code>column -t -s , data/sfv.csv | less -S</code></p>
 <ul>
-<li><code>column</code> writes it’s output to <code>stdout</code></li>
-<li><code>less</code> reads from <code>/dev/stdin</code> if no file is specified</li>
+<li><code>column</code> writes it’s output to <code>stdout</code>
+<ul>
+<li><code>-t</code> specifies tabs for output</li>
+<li><code>-s ,</code> specifies command for separator</li>
+</ul></li>
+<li><code>less</code> reads from <code>/dev/stdin</code> if no file is specified
+<ul>
+<li><code>-S</code> specifies don’t wrap</li>
+</ul></li>
 </ul>
 </section>
 <section id="section" class="level1">
@@ -312,33 +318,42 @@ ls -l testfile</code></pre>
 </section>
 <section id="head-first" class="level1">
 <h1>Head first…</h1>
-<pre><code>head data/sfv.csv
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">head</span> data/sfv.csv
 
-column -t -s , data/sfv.csv | head</code></pre>
+<span class="kw">column</span> -t -s , data/sfv.csv <span class="kw">|</span> <span class="kw">head</span></code></pre>
 </section>
-<section id="how-many-humans-are-there" class="level1">
-<h1>How many humans are there?</h1>
-<pre><code>grep human data/sfv.csv | wc -l
+<section id="how-many-human-sequences-are-there" class="level1">
+<h1>How many human sequences are there?</h1>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">grep</span> human data/sfv.csv <span class="kw">|</span> <span class="kw">wc</span> -l
 
-grep monkey data/sfv.csv | wc -l</code></pre>
+<span class="co"># what about monkey sequences?</span>
+<span class="kw">grep</span> monkey data/sfv.csv <span class="kw">|</span> <span class="kw">wc</span> -l</code></pre>
 </section>
 <section id="another-way-we-could-do-these-together" class="level1">
 <h1>Another way we could do these together</h1>
 <p>How many sequences are there for each species?</p>
-<pre><code>cut -d , -f 3 data/sfv.csv | sort | uniq -c</code></pre>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">cut</span> -d , -f 3 data/sfv.csv <span class="kw">|</span> <span class="kw">sort</span> <span class="kw">|</span> <span class="kw">uniq</span> -c</code></pre>
+<ul>
+<li><code>-d ,</code> sets delimeter to “<code>,</code>”</li>
+<li><p><code>-f 3</code> selects the 3rd column</p></li>
+<li><p><code>sort | uniq -c</code> makes a count of occurances for each unique entry</p></li>
+</ul>
 </section>
 <section id="how-about-how-many-specimens-there-are-per-species" class="level1">
 <h1>How about how many specimens there are per species?</h1>
-<pre><code># First, uniq specimens, with species info
-cut -d , -f 2,3 data/sfv.csv | sort | uniq | head
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># First, uniq specimens, with species info</span>
+<span class="kw">cut</span> -d , -f 2,3 data/sfv.csv <span class="kw">|</span> <span class="kw">sort</span> <span class="kw">|</span> <span class="kw">uniq</span> <span class="kw">|</span> <span class="kw">head</span>
 
-# Next count that by species
-cut -d , -f 2,3 data/sfv.csv | sort | uniq | cut -d , -f 2 | sort | uniq -c</code></pre>
+<span class="co"># Next count that by species</span>
+<span class="kw">cut</span> -d , -f 2,3 data/sfv.csv <span class="kw">|</span> <span class="kw">sort</span> <span class="kw">|</span> <span class="kw">uniq</span> <span class="kw">|</span> <span class="kw">cut</span> -d , -f 2 <span class="kw">|</span> <span class="kw">sort</span> <span class="kw">|</span> <span class="kw">uniq</span> -c</code></pre>
 </section>
 <section id="what-about-specimens-by-location" class="level1">
 <h1>What about specimens by location?</h1>
-<pre><code>cut -d , -f 2,3,5 data/sfv.csv | sort | uniq | cut -d , -f 2,3 | sort | uniq -c</code></pre>
-<p>Super powerful and fast.</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">cut</span> -d , -f 2,3,5 data/sfv.csv <span class="kw">|</span> <span class="kw">sort</span> <span class="kw">|</span> <span class="kw">uniq</span> <span class="kw">|</span> <span class="kw">cut</span> -d , -f 2,3 <span class="kw">|</span> <span class="kw">sort</span> <span class="kw">|</span> <span class="kw">uniq</span> -c</code></pre>
+</section>
+<section id="moral-of-the-story" class="level1">
+<h1>Moral of the story</h1>
+<p>Small composable tools offer a lot of power and flexibility.</p>
 </section>
 <section id="is-anyone-else-getting-tired-of-all-this--d--f-235-business" class="level1">
 <h1>Is anyone else getting tired of all this <code>-d , -f 2,3,5</code> business?</h1>
@@ -358,25 +373,28 @@ cut -d , -f 2,3 data/sfv.csv | sort | uniq | cut -d , -f 2 | sort | uniq -c</cod
 </section>
 <section id="looking-at-just-the-human-sequences" class="level1">
 <h1>Looking at just the human sequences</h1>
-<pre><code>csvgrep -c species -m human data/sfv.csv | csvlook | less -S</code></pre>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">csvgrep</span> -c species -m human data/sfv.csv <span class="kw">|</span> <span class="kw">csvlook</span> <span class="kw">|</span> <span class="kw">less</span> -S</code></pre>
 </section>
 <section id="the-one-missing-piece-csvuniq" class="level1">
 <h1>The one missing piece: csvuniq</h1>
-<pre><code># ~/bin is one of the places we can put programs
-mkdir ~/bin
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># ~/bin is one of the places we can put programs</span>
+<span class="kw">mkdir</span> ~/bin
 
-wget https://goo.gl/ZdNoUL -O ~/bin/csvuniq
+<span class="kw">wget</span> https://goo.gl/ZdNoUL -O ~/bin/csvuniq
 
-# Need to let the shell know this should be executable
-chmod +x ~/bin/csvuniq
+<span class="co"># Mark as executable, and add ~/bin to PATH</span>
+<span class="kw">chmod</span> +x ~/bin/csvuniq
+<span class="kw">export</span> <span class="ot">PATH=</span>~/bin:<span class="ot">$PATH</span>
 
-# Have to install some dependencies
-R
-install.packages(c(&#39;optparse&#39;, &#39;plyr&#39;))</code></pre>
+<span class="co"># Have to install some dependencies</span>
+<span class="kw">R</span>
+<span class="kw">install.packages</span>(c(<span class="st">&#39;optparse&#39;</span>, <span class="st">&#39;plyr&#39;</span>))
+<span class="co"># then follow prompts...</span>
+<span class="fu">quit()</span></code></pre>
 </section>
 <section id="now-lets-see-what-our-example-looks-like" class="level1">
 <h1>Now let’s see what our example looks like:</h1>
-<pre><code>csvuniq -c specimen,species,location data/sfv.csv | csvuniq -zc species,location | csvlook</code></pre>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">csvuniq</span> -c specimen,species,location data/sfv.csv <span class="kw">|</span> <span class="kw">csvuniq</span> -zc species,location <span class="kw">|</span> <span class="kw">csvlook</span></code></pre>
 <p>Notice that <code>csvuniq</code> does all of the sorting and cutting for us…</p>
 </section>
 <section id="lets-finish-our-example-from-last-week" class="level1">
@@ -386,25 +404,30 @@ install.packages(c(&#39;optparse&#39;, &#39;plyr&#39;))</code></pre>
 <h1>First let’s take a look at our alignment</h1>
 <section id="always-do-this" class="level2">
 <h2>Always do this!</h2>
-<pre><code># We&#39;ll use the `alnvu` program
-av -L 99999 -w 99999 -c output/alignment.fasta | less -S</code></pre>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># We&#39;ll use the `alnvu` program</span>
+<span class="kw">av</span> -L 99999 -w 99999 -c output/alignment.fasta <span class="kw">|</span> <span class="kw">less</span> -S</code></pre>
 </section>
 </section>
 <section id="now-we-can-look-at-our-tree" class="level1">
 <h1>Now we can look at our tree</h1>
-<pre><code>FastTree -nt output/alignment.fasta &gt; output/tree.nw
-
-nw_display output/tree.nw | less -S</code></pre>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">nw_display</span> output/tree.nw <span class="kw">|</span> <span class="kw">less</span> -S</code></pre>
 </section>
-<section id="feedback" class="level1">
-<h1>Feedback</h1>
-<p>Was last week too much? Would having taken things more slowly and foundationally like today have helped things?</p>
+<section id="homework" class="level1">
+<h1>Homework</h1>
+<p>Recommended reading:</p>
+<ul>
+<li>Chapter 3, and chapter 7 (till around page 148).</li>
+</ul>
+<p>Reading for next class (if you want to read ahead):</p>
+<ul>
+<li>Chapter 12</li>
+</ul>
 </section>
 <section id="resources" class="level1">
 <h1>Resources</h1>
 <ul>
-<li>These slides: <a href="http://fredhutchio.github.io/intro-bioinformatics" class="uri">http://fredhutchio.github.io/intro-bioinformatics</a></li>
-<li>Unix command reference: <a href="https://ubuntudanmark.dk/filer/fwunixref.pdf" class="uri">https://ubuntudanmark.dk/filer/fwunixref.pdf</a></li>
+<li>These slides: <a href="http://fredhutchio.github.io/intro-bioinformatics">http://fredhutchio.github.io/intro-bioinformatics</a></li>
+<li>Unix command reference: <a href="https://ubuntudanmark.dk/filer/fwunixref.pdf">https://ubuntudanmark.dk/filer/fwunixref.pdf</a></li>
 </ul>
 </section>
 </div>

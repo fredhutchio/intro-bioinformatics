@@ -71,7 +71,7 @@ If `bioinfclass` has a subdirectory called `data`, it's path is `~/bioinfclass/d
 
 # Example: Using path tools
 
-```
+```bash
 cd ~
 
 pwd
@@ -91,7 +91,7 @@ ls data
 
 Try
 
-```
+```bash
 ls ..
 
 ls ../..
@@ -104,7 +104,7 @@ cd /
 
 # We can change the path of a file using `mv`
 
-```
+```bash
 mv bioinfclass/data foobar
 
 ls
@@ -121,7 +121,7 @@ ls bioinfclass
 
 If the directory of the file is the same, we just _rename_ the file, but the command stays the same.
 
-```
+```bash
 mv bioinfclass foobar
 
 ls
@@ -170,7 +170,7 @@ In which the things take flight and evolve!
 
 # Help with flags
 
-```
+```bash
 ls --help
 
 ```
@@ -186,7 +186,7 @@ There is built in help on the command line:
 
 # Programs are just files!
 
-```
+```bash
 which tree
 
 # -l: "long" list output; lots of info that we will ignore except for `x` presence/absence
@@ -265,10 +265,13 @@ don't forget to `module load intro-bio`!]
 
 # Example
 
-`column -t -s , data/svf.csv | less -S`
+`column -t -s , data/sfv.csv | less -S`
 
 * `column` writes it's output to `stdout`
+    * `-t` specifies tabs for output
+    * `-s ,` specifies command for separator
 * `less` reads from `/dev/stdin` if no file is specified
+    * `-S` specifies don't wrap
 
 
 #
@@ -293,18 +296,19 @@ In which we apply our knowledge of these flying, speaking beasts.
 
 # Head first...
 
-```
+```bash
 head data/sfv.csv
 
 column -t -s , data/sfv.csv | head
 ```
 
 
-# How many humans are there?
+# How many human sequences are there?
 
-```
+```bash
 grep human data/sfv.csv | wc -l
 
+# what about monkey sequences?
 grep monkey data/sfv.csv | wc -l
 ```
 
@@ -313,14 +317,19 @@ grep monkey data/sfv.csv | wc -l
 
 How many sequences are there for each species?
 
-```
+```bash
 cut -d , -f 3 data/sfv.csv | sort | uniq -c
 ```
+
+* `-d ,` sets delimeter to "`,`"
+* `-f 3` selects the 3rd column
+
+* `sort | uniq -c` makes a count of occurances for each unique entry
 
 
 # How about how many specimens there are per species?
 
-```
+```bash
 # First, uniq specimens, with species info
 cut -d , -f 2,3 data/sfv.csv | sort | uniq | head
 
@@ -331,11 +340,14 @@ cut -d , -f 2,3 data/sfv.csv | sort | uniq | cut -d , -f 2 | sort | uniq -c
 
 # What about specimens by location?
 
-```
+```bash
 cut -d , -f 2,3,5 data/sfv.csv | sort | uniq | cut -d , -f 2,3 | sort | uniq -c
 ```
 
-Super powerful and fast.
+
+# Moral of the story
+
+Small composable tools offer a lot of power and flexibility.
 
 
 # Is anyone else getting tired of all this `-d , -f 2,3,5` business?
@@ -362,31 +374,34 @@ We have `csv...` versions of many of the standard Unix utils:
 
 # Looking at just the human sequences
 
-```
+```bash
 csvgrep -c species -m human data/sfv.csv | csvlook | less -S
 ```
 
 
 # The one missing piece: csvuniq
 
-```
+```bash
 # ~/bin is one of the places we can put programs
 mkdir ~/bin
 
 wget https://goo.gl/ZdNoUL -O ~/bin/csvuniq
 
-# Need to let the shell know this should be executable
+# Mark as executable, and add ~/bin to PATH
 chmod +x ~/bin/csvuniq
+export PATH=~/bin:$PATH
 
 # Have to install some dependencies
 R
 install.packages(c('optparse', 'plyr'))
+# then follow prompts...
+quit()
 ```
 
 
 # Now let's see what our example looks like:
 
-```
+```bash
 csvuniq -c specimen,species,location data/sfv.csv | csvuniq -zc species,location | csvlook
 ```
 
@@ -400,7 +415,7 @@ Notice that `csvuniq` does all of the sorting and cutting for us...
 
 ## Always do this!
 
-```
+```bash
 # We'll use the `alnvu` program
 av -L 99999 -w 99999 -c output/alignment.fasta | less -S
 ```
@@ -408,17 +423,20 @@ av -L 99999 -w 99999 -c output/alignment.fasta | less -S
 
 # Now we can look at our tree
 
-```
-FastTree -nt output/alignment.fasta > output/tree.nw
-
+```bash
 nw_display output/tree.nw | less -S
 ```
 
 
-# Feedback
+# Homework
 
-Was last week too much?
-Would having taken things more slowly and foundationally like today have helped things?
+Recommended reading:
+
+* Chapter 3, and chapter 7 (till around page 148).
+
+Reading for next class (if you want to read ahead):
+
+* Chapter 12
 
 
 # Resources
