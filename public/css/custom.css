@@ -1,0 +1,23 @@
+/* Customizations to default margins for headers */
+
+h1 {
+  font-size: 3.5rem;
+}
+h2 {
+  margin-top: 3rem;
+  font-size: 2rem;
+}
+h3 {
+  margin-top: 2rem;
+  font-size: 1.25rem;
+}
+h4, h5, h6 {
+  margin-top: 1rem;
+  font-size: 1rem;
+}
+
+pre {
+  padding: 0 20px;
+  font-size: 20px;
+}
+

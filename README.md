@@ -1,5 +1,7 @@
 <div class="theme-fredhutch">
 
+<br/>
+
 # Intro to Bioinformatics
 
 <img alt="Class poster" src="figures/course.png" style="max-width: 300px; text-align: center; margin-left: 30px; float: right;"/>

@@ -5,7 +5,7 @@ LAST_MDS = $(shell ls -tu src/*.mds | head -1)
 LAST = $(notdir $(LAST_MDS:mds=html))
 
 SVGS=$(shell grep svg $(LAST_MDS) | cut -f 2 -d' ')
-CSS = --css public/css/poole.css --css public/css/syntax.css --css public/css/hyde.css --css public/css/MyFontsWebfontsKit.css
+CSS = --css public/css/poole.css --css public/css/syntax.css --css public/css/hyde.css --css public/css/MyFontsWebfontsKit.css --css public/css/custom.css
 
 # Default target: last modified .mds file
 last-modified: $(LAST)

@@ -10,14 +10,16 @@
   <link rel="stylesheet" href="public/css/syntax.css" type="text/css" />
   <link rel="stylesheet" href="public/css/hyde.css" type="text/css" />
   <link rel="stylesheet" href="public/css/MyFontsWebfontsKit.css" type="text/css" />
+  <link rel="stylesheet" href="public/css/custom.css" type="text/css" />
 </head>
 <body>
 <div class="theme-fredhutch">
-<h1 id="intro-to-bioinformatics">Intro to Bioinformatics</h1>
+<p><br/></p>
+<h1>Intro to Bioinformatics</h1>
 <p><img alt="Class poster" src="figures/course.png" style="max-width: 300px; text-align: center; margin-left: 30px; float: right;"/></p>
 <p>A short series offered by <a href="http://fredhutch.io">fredhutch.io</a> to members of <a href="http://www.fredhutch.org/en.html">Fred Hutch</a>.</p>
 <p><br/> <br/></p>
-<h2 id="overview-of-class">Overview of class</h2>
+<h2>Overview of class</h2>
 <p>Class outline:</p>
 <ol style="list-style-type: decimal">
 <li><a href="01-gestalt.html">Overview &amp; remote server access</a></li>
@@ -29,7 +31,7 @@
 <li><a href="07-python.html">Python III - writing a program</a></li>
 </ol>
 <p>The class will be loosely following <a href="http://shop.oreilly.com/product/0636920030157.do">Bioinformatics Data Skills</a> for the overview, unix, and version control sections. For the python sections, we'll be following our own curriculum, and referring to the <a href="https://www.codecademy.com/tracks/python">Codecademy course</a> as a reference and for additional practice with the concepts.</p>
-<h2 id="prerequisites-connecting-to-the-remote-server">Prerequisites (connecting to the remote server)</h2>
+<h2>Prerequisites (connecting to the remote server)</h2>
 <p>You will need to bring a laptop to class to participate in the interactive sessions. However, all our work will be happening on a remote server to which we connect. Thus, it is vital that you ensure you can connect to this remote server before coming to the first class. (Specifically, make sure you can connect over the Marconi wifi network while on the Hutch campus.)</p>
 <p>Connecting to the remote server requires the use of a <em>terminal</em> program, which let's us control a computer with text based commands. How you open the terminal program depends a bit on what operating system you are using. However, once you have the terminal open, you'll execute the following command</p>
 <pre><code>ssh &lt;username&gt;@rhino</code></pre>
@@ -38,24 +40,26 @@
 <p>Try typing <code>echo &quot;it is working&quot;</code>, and hitting enter. The terminal should print out &quot;it is working&quot; on the following line, and return a new prompt.</p>
 <p>If instead of this behavior you see something that looks like an error message, please notify us so we can help you get set up before the first class starts. (Note that you may get <code>rhino01</code>, <code>rhino02</code> or <code>rhino03</code> instead of <code>rhino04</code>; this is ok).</p>
 <p>Below are the details about how you can get a terminal program with SSH, given your operating system.</p>
-<h3 id="linux-or-osx">Linux or OSX</h3>
+<h3>Linux or OSX</h3>
 <p>Linux operating systems (such as Ubuntu) and Mac OSX come with SSH-capable terminals pre-installed. It should be straight forward to Google how to find and run the terminal program for your particular operating system.</p>
 <p>Note that if you are using a Linux operating system, you may have problems with the wifi on campus, due to some unusual network settings. If you are unable to connect via wifi on your laptop, please ping the Fred Hutch computing Help Desk or Sci Comp to get you running.</p>
-<h3 id="windows">Windows</h3>
+<h3>Windows</h3>
 <p>Windows does not ship with an SSH capable terminal. As such, you will need to do one of the following:</p>
 <ul>
 <li>[<strong>Recommended</strong>] Install <a href="http://www.putty.org/">PuTTY</a>, which will let you SSH into the <code>rhino</code> servers.</li>
 <li>Use <a href="https://www.nomachine.com/">NoMachine</a> on the laptop you plan to bring to class to log into a remote Ubuntu/Linux desktop to use its Terminal (see directions <a href="nomachine-directions.html">here</a>).</li>
 <li>You can also install <a href="https://www.virtualbox.org/wiki/Downloads">Virtual Box</a>, and an Ubuntu virtual machine if you want to tinker with a Linux environment.</li>
 </ul>
-<h2 id="other-prereqs">Other prereqs</h2>
+<h2>Other prereqs</h2>
 <p>You should also be able to copy and paste text to and from the terminal. In Mac OSX, you can do this with Command-c and Command-v, as you normally would. On a Linux terminal, you need Ctrl-Shift-C and Ctrl-Shift-V. For Windows/PuTTY users, copying and pasting is accomplished using select and right click (see <a href="http://kb.site5.com/shell-access-ssh/putty/putty-how-to-copy-and-paste-to-and-from-a-putty-window/">here</a>). Make sure to try pasting and copying from the terminal before coming to the first class, so that you can copy and paste longer commands from the slides.</p>
 <p>We also ask that you read the first two chapters of <a href="http://shop.oreilly.com/product/0636920030157.do">the book</a> (particularly the first) before coming to class, as they'll give you some nice big picture context to work from.</p>
-<h2 id="technical-notes">Technical Notes</h2>
+<h2>Technical Notes</h2>
 <p>The slides are written in a little extension of Markdown. After processing, the Markdown gets converted to a <a href="http://github.com/hakimel/reveal.js">reveal.js</a> presentation. HTML is rendered by the brilliant <a href="http://johnmacfarlane.net/pandoc/">pandoc</a>.</p>
 <!--No trees at the moment...-->
 <!--Trees are rendered using the [archaeopteryx](http://www.phylosoft.org/archaeopteryx/) tree viewer.-->
-<h2 id="license">License</h2>
+
+
+<h2>License</h2>
 <p><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Intro Bioinformatics curricula and slide processing</span> by <a href="http://metasoarous.com">Christopher Small</a> &amp; <a xmlns:cc="http://creativecommons.org/ns#" href="http://matsen.fhcrc.org" property="cc:attributionName" rel="cc:attributionURL">Frederick A. Matsen IV</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>.</p>
 </div>
 </body>
