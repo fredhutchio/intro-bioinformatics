@@ -291,7 +291,19 @@ Some conventions:
 In which we apply our knowledge of these flying, speaking beasts.
 
 
-# Let's look at our CSV data a bit more
+# First, let's look at our CSV data a bit more
+
+
+# Side note: strategy
+
+The way to work through and understand these examples:
+
+* run the first part of the command and think about what it's doing
+* add the next part of the pipe to see what that does
+* repeat, till we've done the whole command
+* reflect and think about the strategy used to put each of these pieces together towards the end goal
+
+This is useful in part because this is typically how we write.
 
 
 # Head first...
@@ -441,7 +453,7 @@ Reading for next class (if you want to read ahead):
 
 # Resources
 
-* These slides: <http://fredhutchio.github.io/intro-bioinformatics>
+* Home page: <http://fredhutchio.github.io/intro-bioinformatics>
 * Unix command reference: <https://ubuntudanmark.dk/filer/fwunixref.pdf>
 
 
