@@ -4,11 +4,8 @@
 
 # First some housekeeping:
 
-* Sharing emails for support?
+* Questions from last week?
 * Recover last week's pipe example?
-* Have you been using the resources?
-* How has reading the book been?
-* You are all awesome; thanks for bearing with us...
 
 
 # Shell scripting
@@ -40,20 +37,13 @@ Building new commands out of old commands is part of Unix composability
 Let's start by creating a build script that automates some of the things we've done so far
 
 
-# Editing text files on the server
+# Editing text files with `nano`
 
-* Reconnect to your favorite rhino, `tmux attach`, load modules if needed, etc.
-* Click the square on the top left of the NoMachine window
-* Type in Gedit, and hit enter
-* Click the "Save" button
-* Save to `~/bioinfclass/build.sh`
+* Reconnect to your favorite rhino, `tmux attach`
+* Type `nano ~/bioinfclass/build.sh`
 
-
-# Editing text files on the server
-
-The home directory on NoMachine is the same as your home directory on the rhinos.
-
-(PS This is where you can use `sshfs` on a mac/Linux computer or `vim`/`emacs` directly on the server if you wish)
+You are now in `nano`.
+The commands used to save and exit this file are at the bottom of the screen.
 
 
 # A shell script is just a list of commands to be executed
@@ -120,6 +110,41 @@ file build.sh
 ./build.sh
 ```
 
+# Taking a step back to optimize our environment with dotfiles
+
+We've already seen dotfiles in use with Tmux.
+Many other Unix programs accept configuration from dotfiles, including `nano` and our Unix shell itself.
+
+
+# First some things to make nano nicer
+
+Run `nano ~/.nanorc`, then enter:
+
+```
+set tabsize 4
+set tabstospaces
+set autoindent
+```
+
+It's not perfect, but it's a start.
+
+
+# Now our environment
+
+Tired of running `module load intro-bio`?
+Or editing your `PATH` variable?
+`nano ~/.bashrc`:
+
+```
+module load intro-bio
+export PATH=~/bin/:$PATH
+```
+
+Now run `source ~/.bashrc` to reload.
+
+
+# Back to biology
+
 
 # Counting sequences per species
 
@@ -171,6 +196,7 @@ In the shell:
 
 csvlook output/seqs_per_specimen.csv | less -S
 ```
+
 
 # How shell variables work
 
@@ -228,7 +254,7 @@ csvuniq -zc species,location $seqs_per_specimen > $specs_per_species_location
 
 # Verify that it runs
 
-```
+```bash
 ./build.sh
 
 ls output
@@ -268,8 +294,6 @@ Here `$@` is a "magic" variable that points to all of the arguments passed to th
 In the shell:
 
 ```
-export PATH=~/bin:$PATH
-
 chmod +x ~/bin/csvless
 
 csvless data/sfv.csv
@@ -400,13 +424,25 @@ done
 Don't forget to read through the book!
 
 
+# Reading
+
+Recommended reading:
+
+* Chapter 12
+
+Reading for next class (if you want to read ahead):
+
+* Chapter 5
+
+
 # Resources
 
 * SCons (sane `make` alternative) for bioinformatics post - <http://www.metasoarous.com/scons-for-data-science-and-compbio/>
 * seqmagick - <http://fhcrc.github.io/seqmagick/> for munging sequence data
 * `nano` for simple file editing on the rhinos
-* Vim for very powerful though obscure file editing - (just type `vimtutor` at the terminal...)
+* Vim for more powerful text editing - (type `vimtutor` at the terminal...)
 * Erick's favorite [video](https://www.youtube.com/watch?v=olH-9b3VJfs) about shell scripting, and [website](http://shellhaters.org/)
+
 
 # SPOILER ALERT!!!
 
@@ -448,4 +484,5 @@ FastTree -nt $alignment > $tree
 
 # This slide intentionally left almost blank...
 
+[Back to homepage](http://fredhutchio.github.io/intro-bioinformatics)
 

@@ -62,11 +62,8 @@
 <section id="first-some-housekeeping" class="level1">
 <h1>First some housekeeping:</h1>
 <ul>
-<li>Sharing emails for support?</li>
+<li>Questions from last week?</li>
 <li>Recover last week’s pipe example?</li>
-<li>Have you been using the resources?</li>
-<li>How has reading the book been?</li>
-<li>You are all awesome; thanks for bearing with us…</li>
 </ul>
 </section>
 <section id="shell-scripting" class="level1">
@@ -96,20 +93,13 @@
 <h1>Our first script!</h1>
 <p>Let’s start by creating a build script that automates some of the things we’ve done so far</p>
 </section>
-<section id="editing-text-files-on-the-server" class="level1">
-<h1>Editing text files on the server</h1>
+<section id="editing-text-files-with-nano" class="level1">
+<h1>Editing text files with <code>nano</code></h1>
 <ul>
-<li>Reconnect to your favorite rhino, <code>tmux attach</code>, load modules if needed, etc.</li>
-<li>Click the square on the top left of the NoMachine window</li>
-<li>Type in Gedit, and hit enter</li>
-<li>Click the “Save” button</li>
-<li>Save to <code>~/bioinfclass/build.sh</code></li>
+<li>Reconnect to your favorite rhino, <code>tmux attach</code></li>
+<li>Type <code>nano ~/bioinfclass/build.sh</code></li>
 </ul>
-</section>
-<section id="editing-text-files-on-the-server-1" class="level1">
-<h1>Editing text files on the server</h1>
-<p>The home directory on NoMachine is the same as your home directory on the rhinos.</p>
-<p>(PS This is where you can use <code>sshfs</code> on a mac/Linux computer or <code>vim</code>/<code>emacs</code> directly on the server if you wish)</p>
+<p>You are now in <code>nano</code>. The commands used to save and exit this file are at the bottom of the screen.</p>
 </section>
 <section id="a-shell-script-is-just-a-list-of-commands-to-be-executed" class="level1">
 <h1>A shell script is just a list of commands to be executed</h1>
@@ -156,6 +146,28 @@ file build.sh
 
 # Now it&#39;s a command/program!
 ./build.sh</code></pre>
+</section>
+<section id="taking-a-step-back-to-optimize-our-environment-with-dotfiles" class="level1">
+<h1>Taking a step back to optimize our environment with dotfiles</h1>
+<p>We’ve already seen dotfiles in use with Tmux. Many other Unix programs accept configuration from dotfiles, including <code>nano</code> and our Unix shell itself.</p>
+</section>
+<section id="first-some-things-to-make-nano-nicer" class="level1">
+<h1>First some things to make nano nicer</h1>
+<p>Run <code>nano ~/.nanorc</code>, then enter:</p>
+<pre><code>set tabsize 4
+set tabstospaces
+set autoindent</code></pre>
+<p>It’s not perfect, but it’s a start.</p>
+</section>
+<section id="now-our-environment" class="level1">
+<h1>Now our environment</h1>
+<p>Tired of running <code>module load intro-bio</code>? Or editing your <code>PATH</code> variable? <code>nano ~/.bashrc</code>:</p>
+<pre><code>module load intro-bio
+export PATH=~/bin/:$PATH</code></pre>
+<p>Now run <code>source ~/.bashrc</code> to reload.</p>
+</section>
+<section id="back-to-biology" class="level1">
+<h1>Back to biology</h1>
 </section>
 <section id="counting-sequences-per-species" class="level1">
 <h1>Counting sequences per species</h1>
@@ -233,15 +245,17 @@ csvuniq -zc species $seqs_per_specimen &gt; $specs_per_species
 specs_per_species_location=&quot;$outdir/specs_per_species_location.csv&quot;
 csvuniq -zc species,location $seqs_per_specimen &gt; $specs_per_species_location</code></pre>
 <!-- 18 minutes so far -->
+
+
 </section>
 </section>
 <section id="verify-that-it-runs" class="level1">
 <h1>Verify that it runs</h1>
-<pre><code>./build.sh
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">./build.sh</span>
 
-ls output
+<span class="kw">ls</span> output
 
-csvlook output/seqs_per_specimen.csv</code></pre>
+<span class="kw">csvlook</span> output/seqs_per_specimen.csv</code></pre>
 </section>
 <section id="writing-your-own-commands" class="level1">
 <h1>Writing your own commands</h1>
@@ -267,9 +281,7 @@ csvlook $@ | less -S</code></pre>
 <section id="testing-our-csvless-script" class="level1">
 <h1>Testing our <code>csvless</code> script</h1>
 <p>In the shell:</p>
-<pre><code>export PATH=~/bin:$PATH
-
-chmod +x ~/bin/csvless
+<pre><code>chmod +x ~/bin/csvless
 
 csvless data/sfv.csv
 
@@ -387,13 +399,24 @@ done
 </ul>
 <p>Don’t forget to read through the book!</p>
 </section>
+<section id="reading" class="level1">
+<h1>Reading</h1>
+<p>Recommended reading:</p>
+<ul>
+<li>Chapter 12</li>
+</ul>
+<p>Reading for next class (if you want to read ahead):</p>
+<ul>
+<li>Chapter 5</li>
+</ul>
+</section>
 <section id="resources" class="level1">
 <h1>Resources</h1>
 <ul>
-<li>SCons (sane <code>make</code> alternative) for bioinformatics post - <a href="http://www.metasoarous.com/scons-for-data-science-and-compbio/" class="uri">http://www.metasoarous.com/scons-for-data-science-and-compbio/</a></li>
-<li>seqmagick - <a href="http://fhcrc.github.io/seqmagick/" class="uri">http://fhcrc.github.io/seqmagick/</a> for munging sequence data</li>
+<li>SCons (sane <code>make</code> alternative) for bioinformatics post - <a href="http://www.metasoarous.com/scons-for-data-science-and-compbio/">http://www.metasoarous.com/scons-for-data-science-and-compbio/</a></li>
+<li>seqmagick - <a href="http://fhcrc.github.io/seqmagick/">http://fhcrc.github.io/seqmagick/</a> for munging sequence data</li>
 <li><code>nano</code> for simple file editing on the rhinos</li>
-<li>Vim for very powerful though obscure file editing - (just type <code>vimtutor</code> at the terminal…)</li>
+<li>Vim for more powerful text editing - (type <code>vimtutor</code> at the terminal…)</li>
 <li>Erick’s favorite <a href="https://www.youtube.com/watch?v=olH-9b3VJfs">video</a> about shell scripting, and <a href="http://shellhaters.org/">website</a></li>
 </ul>
 </section>
@@ -431,6 +454,7 @@ FastTree -nt $alignment &gt; $tree</code></pre>
 </section>
 <section id="this-slide-intentionally-left-almost-blank" class="level1">
 <h1>This slide intentionally left almost blank…</h1>
+<p><a href="http://fredhutchio.github.io/intro-bioinformatics">Back to homepage</a></p>
 </section>
 </div>
 
