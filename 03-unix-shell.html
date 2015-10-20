@@ -97,7 +97,8 @@
 <h1>Editing text files with <code>nano</code></h1>
 <ul>
 <li>Reconnect to your favorite rhino, <code>tmux attach</code></li>
-<li>Type <code>nano ~/bioinfclass/build.sh</code></li>
+<li>Type <code>cd ~/bioinfclass</code> to get back to our working directory</li>
+<li>Type <code>nano build.sh</code> to open a new text file called <code>build.sh</code></li>
 </ul>
 <p>You are now in <code>nano</code>. The commands used to save and exit this file are at the bottom of the screen.</p>
 </section>
@@ -174,6 +175,7 @@ export PATH=~/bin/:$PATH</code></pre>
 <p>In our <code>build.sh</code> file:</p>
 <pre><code># Compute number of sequences per species
 csvuniq -zc species data/sfv.csv &gt; output/seqs_per_species.csv</code></pre>
+<p>Type <code>Ctrl-o</code> to save without exiting. Then <code>Ctrl-a c</code> to start a new tmux window.</p>
 </section>
 <section id="run-and-investigate" class="level1">
 <h1>Run and investigate</h1>
@@ -185,6 +187,7 @@ csvuniq -zc species data/sfv.csv &gt; output/seqs_per_species.csv</code></pre>
 ls output
 
 csvlook output/seqs_per_species.csv</code></pre>
+<p>Then <code>Ctrl-a &lt;Space&gt;</code> to switch back to the last tmux window.</p>
 </section>
 <section id="add-some-other-steps" class="level1">
 <h1>Add some other steps</h1>

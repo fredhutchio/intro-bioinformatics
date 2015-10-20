@@ -40,7 +40,8 @@ Let's start by creating a build script that automates some of the things we've d
 # Editing text files with `nano`
 
 * Reconnect to your favorite rhino, `tmux attach`
-* Type `nano ~/bioinfclass/build.sh`
+* Type `cd ~/bioinfclass` to get back to our working directory
+* Type `nano build.sh` to open a new text file called `build.sh`
 
 You are now in `nano`.
 The commands used to save and exit this file are at the bottom of the screen.
@@ -155,6 +156,9 @@ In our `build.sh` file:
 csvuniq -zc species data/sfv.csv > output/seqs_per_species.csv
 ```
 
+Type `Ctrl-o` to save without exiting.
+Then `Ctrl-a c` to start a new tmux window.
+
 
 # Run and investigate
 
@@ -169,6 +173,8 @@ ls output
 
 csvlook output/seqs_per_species.csv
 ```
+
+Then `Ctrl-a <Space>` to switch back to the last tmux window.
 
 
 # Add some other steps
