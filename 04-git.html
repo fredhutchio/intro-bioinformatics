@@ -63,6 +63,10 @@
 <h1>Git for Version control!</h1>
 <p><em>In which with our fleets of flying, speaking beasts we gain mastery over time</em></p>
 </section>
+<section id="everyone-have-a-github-account" class="level1">
+<h1>Everyone have a GitHub account?</h1>
+<p>If not please go to <a href="https://github.com">github.com</a> and sign up while we get started (it’s free).</p>
+</section>
 <section id="the-basic-idea" class="level1">
 <h1>The basic idea</h1>
 <p>Like Back to the Future on steroids (without the DeLorean):</p>
@@ -81,6 +85,12 @@
 </blockquote>
 <p>This is functionally equivalent to not versioning your code…</p>
 </section>
+<section id="some-perspective-on-this-class" class="level1">
+<h1>Some perspective on this class</h1>
+<p>The skills here are <em>incidental</em>.</p>
+<p>There are four or five commands you should know and start using <em>now</em>. The goal for the rest of the class is to generally understand what is possible should you need it.</p>
+<p>So relax and enjoy the ride.</p>
+</section>
 <section id="git" class="level1">
 <h1>Git</h1>
 <p>We’ll be using <code>git</code> to version our project from here on out.</p>
@@ -93,6 +103,7 @@ git config --global user.email &quot;bob@bobjones.edu&quot;
 
 # Some nice color modes for git output
 git config --global color.ui true</code></pre>
+<p>(Note: You can see all of your current settings with <code>cat ~/.gitconfig</code>)</p>
 </section>
 <section id="getting-git-set-up-in-our-repository" class="level1">
 <h1>Getting git set up in our repository</h1>
@@ -105,17 +116,17 @@ git status</code></pre>
 </section>
 <section id="making-our-first-commit" class="level1">
 <h1>Making our first commit</h1>
-<pre><code># Tell git what files to track
-git add *
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># Tell git what files to track</span>
+<span class="kw">git</span> add *
 
-# Make initial commit
-git commit -m &quot;Initial commit&quot;</code></pre>
+<span class="co"># Make initial commit</span>
+<span class="kw">git</span> commit -m <span class="st">&quot;Initial commit&quot;</span></code></pre>
 <p>We now have a saved state on which to build without fear of “messing things up”.</p>
 </section>
 <section id="lets-make-some-edits-and-save-the-changes" class="level1">
 <h1>Let’s make some edits, and save the changes</h1>
 <p>Write some things in <code>README.md</code>:</p>
-<pre><code># Bioinfclass Notes
+<pre class="md"><code># Bioinfclass Notes
 
 Where you type out notes and stuff...
 
@@ -123,8 +134,8 @@ Where you type out notes and stuff...
 ## Jun 24, 2015
 
 Learned how to use git!
-It was pretty fun.
-</code></pre>
+It was pretty fun.</code></pre>
+<p>Note: This is formatted in <a href="http://assemble.io/docs/Cheatsheet-Markdown.html">Markdown</a>.</p>
 </section>
 <section id="seeing-whats-changed" class="level1">
 <h1>Seeing what’s changed</h1>
@@ -133,19 +144,19 @@ git status
 
 # Seeing specific changes
 git diff</code></pre>
-<p>Git diff uses + and - to show what’s changed, and can be made to color dadditions / deletions.</p>
+<p>Git diff uses + and - to show what’s changed, and can be made to color additions / deletions.</p>
 </section>
 <section id="saving-our-changes" class="level1">
 <h1>Saving our changes</h1>
-<pre><code># Stage the changed file
-git add README.md
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># Stage the changed file</span>
+<span class="kw">git</span> add README.md
 
-# Commit the changes, and add a commit message
-git commit -m &quot;Adding notes to README.md&quot;
+<span class="co"># Commit the changes, and add a commit message</span>
+<span class="kw">git</span> commit -m <span class="st">&quot;Adding notes to README.md&quot;</span>
 
-# Checking our status
-git status
-git log</code></pre>
+<span class="co"># Checking our status</span>
+<span class="kw">git</span> status
+<span class="kw">git</span> log</code></pre>
 </section>
 <section id="github" class="level1">
 <h1>GitHub!</h1>
@@ -157,7 +168,7 @@ git log</code></pre>
 <section id="a-way-of-copying-a-project-over-to-your-account" class="level2">
 <h2>A way of copying a project over to your account</h2>
 <ul>
-<li>Go to <a href="https://github.com/fredhutchio/bioinfclass-sample-project">https://github.com/fredhutchio/bioinfclass-sample-project</a></li>
+<li>Go to <a href="https://github.com/fredhutchio/bioinfclass-sample-project" class="uri">https://github.com/fredhutchio/bioinfclass-sample-project</a></li>
 <li>Click on the button that says “Fork”</li>
 <li>Copy the “HTTPS clone URL” of the project (may have to click on “HTTPS” link below the SSH url)</li>
 </ul>
@@ -197,6 +208,13 @@ git glog
 
 git glog -n 5</code></pre>
 </section>
+<section id="grab-all-the-branches" class="level1">
+<h1>Grab all the branches</h1>
+<p>When we clone, we only pull down the <code>master</code> branch, but we can get all branches with <code>fetch</code>.</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> fetch
+<span class="kw">git</span> glog</code></pre>
+<p>Note we can now see the histories of other branches as a tree.</p>
+</section>
 <section id="tracing-history" class="level1">
 <h1>Tracing history</h1>
 <p>We can see the diffs for each commit with <code>git show</code>:</p>
@@ -206,13 +224,21 @@ git show cac1218
 # Skipping a couple..
 git show d07378b</code></pre>
 </section>
-<section id="git-show-only-some-files" class="level1">
-<h1><code>git show</code> only some files</h1>
-<pre><code># Very long...
-git show 2c17799
+<section id="doing-more-with-diff" class="level1">
+<h1>Doing more with <code>diff</code></h1>
+<p>We can also compare specific commits with <code>git diff</code>.</p>
+<pre><code>git diff 1aa457d d07378b</code></pre>
+</section>
+<section id="git-show-or-diff-select-files" class="level1">
+<h1><code>git show</code> or <code>diff</code> select files</h1>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># Very long...</span>
+<span class="kw">git</span> show 2c17799
 
-# If we really just care about build.sh changes...
-git show build.sh</code></pre>
+<span class="co"># If we really just care about build.sh changes...</span>
+<span class="kw">git</span> show build.sh
+
+<span class="co"># Or with diff</span>
+<span class="kw">git</span> diff 1aa457d d07378b build.sh</code></pre>
 <p>This is pretty valuable as your project gets big and lots of things change.</p>
 </section>
 <section id="lets-make-some-changes" class="level1">
@@ -243,8 +269,10 @@ git push origin master
 <p>Like “forking”, this is a GitHub specific thing.</p>
 <ul>
 <li>Click on the little “double arrows” next to the branch drop down</li>
-<li>Note the “base” and “head” forks: base is where the changes will go, head is where they’re from</li>
-<li>Sometime you might change the branches</li>
+<li>Note the “base” and “head” forks: base is where the changes will go, head is where they’re from
+<ul>
+<li>(Sometimes you might change the branches; not today though)</li>
+</ul></li>
 <li>Click “Create pull request”</li>
 </ul>
 </section>
@@ -277,11 +305,11 @@ find $outdir -name seqcount | xargs cat &gt; $loc_spec_counts</code></pre>
 </section>
 <section id="now-commit-and-look-at-our-tree" class="level1">
 <h1>Now commit and look at our tree</h1>
-<pre><code>git add build.sh
-git commit -m &quot;Added direct sequence per location count&quot;
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> add build.sh
+<span class="kw">git</span> commit -m <span class="st">&quot;Added direct sequence per location count&quot;</span>
 
-# Now look at our history; we&#39;ve branched!
-git glog</code></pre>
+<span class="co"># Now look at our history; we&#39;ve branched!</span>
+<span class="kw">git</span> glog</code></pre>
 </section>
 <section id="some-guidelines-for-using-git" class="level1">
 <h1>Some guidelines for using Git</h1>
@@ -303,7 +331,47 @@ git glog</code></pre>
 </section>
 <section id="dont-freak-out" class="level1">
 <h1>Don’t freak out!</h1>
-<p>Git can be intimidating</p>
+<p>Git can be intimidating…</p>
+<p><a href="figures/git-expert.gif" target="_blank"><img src="figures/git-expert.gif" height="400"></a></p>
+<p><em>When the office git expert has to come fix everything</em></p>
+</section>
+<section id="but-90-of-the-time-youll-be-using" class="level1">
+<h1>But 90% of the time, you’ll be using</h1>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> add ...
+<span class="kw">git</span> commit -m <span class="st">&quot;...&quot;</span>
+<span class="kw">git</span> status
+<span class="kw">git</span> log  <span class="co"># (or git glog, as you wish)</span></code></pre>
+<p>Learn those, start using them, and Google the rest as you need it</p>
+</section>
+<section id="exercises" class="level1">
+<h1>Exercises</h1>
+<ul>
+<li>Create a new branch and add something to it, then merge back in to master</li>
+<li>Merge the <code>backintime</code> branch we created with your master branch</li>
+<li>Create a new repository and push it to your account on GitHub</li>
+</ul>
+</section>
+<section id="reading" class="level1">
+<h1>Reading</h1>
+<p>For this class:</p>
+<ul>
+<li>Chapter 5</li>
+</ul>
+<p>For next class (if you want to jump ahead):</p>
+<ul>
+<li>Start the Codecademy <a href="http://www.codecademy.com/tracks/python">Python course</a></li>
+</ul>
+</section>
+<section id="resources" class="level1">
+<h1>Resources</h1>
+<ul>
+<li><a href="http://www.git-tower.com/blog/git-cheat-sheet/">Git Cheat sheet</a></li>
+<li>Tutorial: <a href="https://try.github.io/" class="uri">https://try.github.io/</a></li>
+<li><a href="https://www.codeschool.com/courses/try-git">Codeschool tutorial</a></li>
+<li><a href="http://assemble.io/docs/Cheatsheet-Markdown.html">Markdown cheat sheet</a> (note that there are different “flavors” of markdown, with subtle differences…)</li>
+<li>Git humor: <a href="http://wheningit.tumblr.com/">When in git</a></li>
+</ul>
+<p><a href="http://fredhutchio.github.io/intro-bioinformatics/">Back to class website</a></p>
 </section>
 </div>
 

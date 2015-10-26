@@ -7,6 +7,11 @@
 _In which with our fleets of flying, speaking beasts we gain mastery over time_
 
 
+# Everyone have a GitHub account?
+
+If not please go to [github.com](https://github.com) and sign up while we get started (it's free).
+
+
 # The basic idea
 
 Like Back to the Future on steroids (without the DeLorean):
@@ -27,6 +32,16 @@ Analogy from the book:
 This is functionally equivalent to not versioning your code...
 
 
+# Some perspective on this class
+
+The skills here are _incidental_.
+
+There are four or five commands you should know and start using _now_.
+The goal for the rest of the class is to generally understand what is possible should you need it.
+
+So relax and enjoy the ride.
+
+
 # Git
 
 We'll be using `git` to version our project from here on out.
@@ -44,6 +59,8 @@ git config --global user.email "bob@bobjones.edu"
 git config --global color.ui true
 ```
 
+(Note: You can see all of your current settings with `cat ~/.gitconfig`)
+
 
 # Getting git set up in our repository
 
@@ -59,7 +76,7 @@ git status
 
 # Making our first commit
 
-```
+```bash
 # Tell git what files to track
 git add *
 
@@ -74,7 +91,7 @@ We now have a saved state on which to build without fear of "messing things up".
 
 Write some things in `README.md`:
 
-```
+```md
 # Bioinfclass Notes
 
 Where you type out notes and stuff...
@@ -84,8 +101,9 @@ Where you type out notes and stuff...
 
 Learned how to use git!
 It was pretty fun.
-
 ```
+
+Note: This is formatted in [Markdown](http://assemble.io/docs/Cheatsheet-Markdown.html).
 
 
 # Seeing what's changed
@@ -98,12 +116,12 @@ git status
 git diff
 ```
 
-Git diff uses + and - to show what's changed, and can be made to color dadditions / deletions.
+Git diff uses + and - to show what's changed, and can be made to color additions / deletions.
 
 
 # Saving our changes
 
-```
+```bash
 # Stage the changed file
 git add README.md
 
@@ -174,6 +192,18 @@ git glog -n 5
 ```
 
 
+# Grab all the branches
+
+When we clone, we only pull down the `master` branch, but we can get all branches with `fetch`.
+
+```bash
+git fetch
+git glog
+```
+
+Note we can now see the histories of other branches as a tree.
+
+
 # Tracing history
 
 We can see the diffs for each commit with `git show`:
@@ -188,14 +218,26 @@ git show d07378b
 ```
 
 
-# `git show` only some files
+# Doing more with `diff`
+
+We can also compare specific commits with `git diff`.
 
 ```
+git diff 1aa457d d07378b
+```
+
+
+# `git show` or `diff` select files
+
+```bash
 # Very long...
 git show 2c17799
 
 # If we really just care about build.sh changes...
 git show build.sh
+
+# Or with diff
+git diff 1aa457d d07378b build.sh
 ```
 
 This is pretty valuable as your project gets big and lots of things change.
@@ -241,7 +283,7 @@ Like "forking", this is a GitHub specific thing.
 
 * Click on the little "double arrows" next to the branch drop down
 * Note the "base" and "head" forks: base is where the changes will go, head is where they're from
-  * Sometime you might change the branches
+    * (Sometimes you might change the branches; not today though)
 * Click "Create pull request"
 
 
@@ -279,7 +321,7 @@ find $outdir -name seqcount | xargs cat > $loc_spec_counts
 
 # Now commit and look at our tree
 
-```
+```bash
 git add build.sh
 git commit -m "Added direct sequence per location count"
 
@@ -310,16 +352,16 @@ GitHub is [solving this for large files](https://github.com/blog/1986-announcing
 
 # Don't freak out!
 
-Git can be intimidating
+Git can be intimidating...
 
-^imghl "figures/git-expert.gif
+^imghl "figures/git-expert.gif" 400
 
 _When the office git expert has to come fix everything_
 
 
 # But 90% of the time, you'll be using
 
-```
+```bash
 git add ...
 git commit -m "..."
 git status
@@ -336,6 +378,17 @@ Learn those, start using them, and Google the rest as you need it
 * Create a new repository and push it to your account on GitHub
 
 
+# Reading
+
+For this class:
+
+* Chapter 5
+
+For next class (if you want to jump ahead):
+
+* Start the Codecademy [Python course](http://www.codecademy.com/tracks/python)
+
+
 # Resources
 
 * [Git Cheat sheet](http://www.git-tower.com/blog/git-cheat-sheet/)
@@ -343,3 +396,6 @@ Learn those, start using them, and Google the rest as you need it
 * [Codeschool tutorial](https://www.codeschool.com/courses/try-git)
 * [Markdown cheat sheet](http://assemble.io/docs/Cheatsheet-Markdown.html) (note that there are different "flavors" of markdown, with subtle differences...)
 * Git humor: [When in git](http://wheningit.tumblr.com/)
+
+[Back to class website](http://fredhutchio.github.io/intro-bioinformatics/)
+

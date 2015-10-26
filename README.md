@@ -86,6 +86,9 @@ On a Linux terminal, you need Ctrl-Shift-C and Ctrl-Shift-V.
 For Windows/PuTTY users, copying and pasting is accomplished using select and right click (see [here](http://kb.site5.com/shell-access-ssh/putty/putty-how-to-copy-and-paste-to-and-from-a-putty-window/)).
 Make sure to try pasting and copying from the terminal before coming to the first class, so that you can copy and paste longer commands from the slides.
 
+You will also need a [GitHub](https://github.com) account for the course.
+You can sign up for free [here](https://github.com).
+
 We also ask that you read the first two chapters of [the book](http://shop.oreilly.com/product/0636920030157.do) (particularly the first) before coming to class, as they'll give you some nice big picture context to work from.
 
 
