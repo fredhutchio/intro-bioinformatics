@@ -50,8 +50,8 @@ There are other version control systems out there (`svn`, `mercurial`, etc.), bu
 # Getting yourself set up with git
 
 ```
-git config --global user.name "Bob Jones"
-git config --global user.email "bob@bobjones.edu"
+git config --global user.name "<your-real-name>"
+git config --global user.email "<your-email-address>"
 
 # Some nice color modes for git output
 git config --global color.ui true
@@ -232,7 +232,7 @@ git diff 1aa457d d07378b
 git show 2c17799
 
 # If we really just care about build.sh changes...
-git show build.sh
+git show 2c17799 build.sh
 
 # Or with diff
 git diff 1aa457d d07378b build.sh

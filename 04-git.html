@@ -97,8 +97,8 @@
 </section>
 <section id="getting-yourself-set-up-with-git" class="level1">
 <h1>Getting yourself set up with git</h1>
-<pre><code>git config --global user.name &quot;Bob Jones&quot;
-git config --global user.email &quot;bob@bobjones.edu&quot;
+<pre><code>git config --global user.name &quot;&lt;your-real-name&gt;&quot;
+git config --global user.email &quot;&lt;your-email-address&gt;&quot;
 
 # Some nice color modes for git output
 git config --global color.ui true</code></pre>
@@ -234,7 +234,7 @@ git show d07378b</code></pre>
 <span class="kw">git</span> show 2c17799
 
 <span class="co"># If we really just care about build.sh changes...</span>
-<span class="kw">git</span> show build.sh
+<span class="kw">git</span> show 2c17799 build.sh
 
 <span class="co"># Or with diff</span>
 <span class="kw">git</span> diff 1aa457d d07378b build.sh</code></pre>
