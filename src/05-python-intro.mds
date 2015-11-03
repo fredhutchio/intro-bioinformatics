@@ -54,7 +54,7 @@ _In which we investigate the building blocks of logic_
 
 REPL is short for Read Evaluate Print Loop.
 
-```
+```python
 python
 > print "Hello world"
 ```
@@ -156,7 +156,7 @@ You can create more complex expressions using parentheses for grouping: `(4 + 5)
 
 Like in the shell, we can give things names
 
-```
+```python
 age = 42
 name = "Bob Jones"
 person = {"name": name, "age": age}
@@ -208,14 +208,15 @@ Together, they form a _key-value pair_.
 
 Keys are often strings, but don't have to be:
 
-```
-crazy_hash = {4: "some string", (1,2,3): 999}
+```python
+crazy_dict = {4: "some string", (1,2,3): 999}
 
-crazy_hash[4]
-crazy_hash[(1,2,3)]
+crazy_dict[4]
+crazy_dict[(1,2,3)]
 ```
 
-(Note: there are some things that _can't_ be used as keys, but most simple data are fine)
+They can be numbers, tuples or anything _hashable_.
+However, they cannot be lists or other dictionaries.
 
 
 # Functions
@@ -225,7 +226,7 @@ _In which from our rules of logic we compose spells_
 
 # Writing a simple function
 
-```
+```python
 def square(n):
     ans = n * n
     return ans
@@ -233,8 +234,9 @@ def square(n):
 square(4)
 ```
 
+* When we call the function with the argument `4`, that value gets passed in for the variable `n` in the _body_ of the function.
 * To get a value out of the function we must use `return`
-* Python uses 4 spaces of indentation to separate what's in the function from what's not
+* Python uses 4 spaces of indentation to separate what's in the body of the function from what's not
     * In other languages, indentation is just "good practice" for readability; Python enforces it as part of the _syntax_
 
 
@@ -242,10 +244,8 @@ square(4)
 
 Functions are "first class", in that they can be passed around as data just like numbers, strings, etc.
 
-```
-def f(x):
-    print x
-
+```python
+# Using our square function as a value
 print square
 [square, "data"]
 ```
@@ -273,7 +273,7 @@ _In which we gain mastery over the rules of logic_
 
 # If statements
 
-```
+```python
 if 3 < 4:
     print "You should see this"
 else:
@@ -290,7 +290,7 @@ Things to note:
 
 `elif` is a combination of an `else` and an `if`.
 
-```
+```python
 def f(n):
     if n < 5:
         print "Cond 1"
@@ -309,7 +309,7 @@ f(12)
 
 Do something for every thing in a collection:
 
-```
+```python
 for n in xs:
     print "On int:", n
 
@@ -319,12 +319,12 @@ for n in xs:
 # Iterating over key-value pairs in a dictionary
 
 Dictionaries have an `items` method that gives all of the <br/> key, value pairs. Try
-```
+```python
 person.items()
 ```
 
 Now loop over them:
-```
+```python
 for k, v in person.items():
     print "key:", k, "val:", v
 
@@ -333,7 +333,7 @@ for k, v in person.items():
 
 # Using `for` to build results
 
-```
+```python
 ys = []
 for x in xs:
     y = square(x)
@@ -349,7 +349,7 @@ This is _imperative_; we're telling the computer _how_ to build `ys`
 
 List comprehensions:
 
-```
+```python
 ys = [square(x) for x in xs]
 
 print ys
@@ -358,15 +358,21 @@ print ys
 
 # The functional way
 
-When possible, it better to be _functional_. Let the computer figure out _how_ to build things, just tell it _what_ to build.
-
-```
+```python
 ys = map(square, xs)
 
 print ys
 ```
 
 Note that we're passing the function `square` as an _argument_ to the function `map`.
+
+
+# Declarative is better
+
+List comprehension and functional approaches are more _declarative_.
+
+We tell the computer _what_ to compute, not _how_ we want it computed.
+This is usually a good thing (cleaner code; sometimes better performance).
 
 
 # Higher level concerns
@@ -376,7 +382,7 @@ _In which we begin to rise to the level of systems_
 
 # Importing modules
 
-```
+```python
 import math
 
 dir(math)
@@ -395,14 +401,18 @@ We also talk about modules as being _namespaces_.
 A namespace is just a path to some data or function or module.
 In this case `math` can also be thought of as a namespace.
 
+Namespaces help us avoid naming conflicts.
+If we have a function called `square`, and we import a module like `math` with a function called `square`, namespaces let
+us distingush between them.
+
 
 # Installing your own packages with pip
 
 Collections of modules are called _packages_.
 
-The command line tool `pip` can be used to install packages:
+You can install Python packages using the `pip` command line tool (the "App Store" for Python packages):
 
-```
+```python
 pip install --user biopython
 ```
 
@@ -413,8 +423,10 @@ You would only omit that if you were installing _system wide_ on your own comput
 # Beware Python 3
 
 We're using Python 2.
-Sadly Python 3 has been out for YEARS, but hardly anyone is using it.
-It's rather different in a number of ways, so watch out for it.
+Python 3 has been out for YEARS, but adoption has been slow.
+Eventually, Python 3 will become the system default and more widely used, but till then...
+
+Bottom line: Python 3 is rather different in a number of ways, so be aware.
 
 
 # Resources
@@ -422,4 +434,5 @@ It's rather different in a number of ways, so watch out for it.
 * Code Academy [Python course](http://www.codecademy.com/tracks/python) (I highly recommend working through as much of this as you like)
 * Very clear blog post on [how python variables work](http://nedbatchelder.com/text/names.html)
 
+[Back to homepage](http://fredhutchio.github.io/intro-bioinformatics/)
 

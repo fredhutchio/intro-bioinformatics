@@ -113,8 +113,8 @@
 <section id="firing-up-a-python-repl" class="level1">
 <h1>Firing up a python “REPL”</h1>
 <p>REPL is short for Read Evaluate Print Loop.</p>
-<pre><code>python
-&gt; print &quot;Hello world&quot;</code></pre>
+<pre class="sourceCode python"><code class="sourceCode python">python
+&gt; <span class="dt">print</span> <span class="st">&quot;Hello world&quot;</span></code></pre>
 <p>Now you can enter in little bits of code as we go (type Ctrl-d or <code>exit</code> to get out)</p>
 </section>
 <section id="basic-data-types" class="level1">
@@ -217,12 +217,12 @@
 <section id="variables" class="level1">
 <h1>Variables</h1>
 <p>Like in the shell, we can give things names</p>
-<pre><code>age = 42
-name = &quot;Bob Jones&quot;
-person = {&quot;name&quot;: name, &quot;age&quot;: age}
+<pre class="sourceCode python"><code class="sourceCode python">age = <span class="dv">42</span>
+name = <span class="st">&quot;Bob Jones&quot;</span>
+person = {<span class="st">&quot;name&quot;</span>: name, <span class="st">&quot;age&quot;</span>: age}
 
-# We can use variables just as though they were their values
-age / 4</code></pre>
+<span class="co"># We can use variables just as though they were their values</span>
+age / <span class="dv">4</span></code></pre>
 </section>
 <section id="variable-name-rules" class="level1">
 <h1>Variable name rules</h1>
@@ -265,11 +265,11 @@ age / 4</code></pre>
 <section id="dictionaries---arbitrary-keys" class="level1">
 <h1>Dictionaries - arbitrary keys</h1>
 <p>Keys are often strings, but don’t have to be:</p>
-<pre><code>crazy_hash = {4: &quot;some string&quot;, (1,2,3): 999}
+<pre class="sourceCode python"><code class="sourceCode python">crazy_dict = {<span class="dv">4</span>: <span class="st">&quot;some string&quot;</span>, (<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>): <span class="dv">999</span>}
 
-crazy_hash[4]
-crazy_hash[(1,2,3)]</code></pre>
-<p>(Note: there are some things that <em>can’t</em> be used as keys, but most simple data are fine)</p>
+crazy_dict[<span class="dv">4</span>]
+crazy_dict[(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)]</code></pre>
+<p>They can be numbers, tuples or anything <em>hashable</em>. However, they cannot be lists or other dictionaries.</p>
 </section>
 <section id="functions" class="level1">
 <h1>Functions</h1>
@@ -277,14 +277,15 @@ crazy_hash[(1,2,3)]</code></pre>
 </section>
 <section id="writing-a-simple-function" class="level1">
 <h1>Writing a simple function</h1>
-<pre><code>def square(n):
+<pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> square(n):
     ans = n * n
-    return ans
+    <span class="kw">return</span> ans
 
-square(4)</code></pre>
+square(<span class="dv">4</span>)</code></pre>
 <ul>
+<li>When we call the function with the argument <code>4</code>, that value gets passed in for the variable <code>n</code> in the <em>body</em> of the function.</li>
 <li>To get a value out of the function we must use <code>return</code></li>
-<li>Python uses 4 spaces of indentation to separate what’s in the function from what’s not
+<li>Python uses 4 spaces of indentation to separate what’s in the body of the function from what’s not
 <ul>
 <li>In other languages, indentation is just “good practice” for readability; Python enforces it as part of the <em>syntax</em></li>
 </ul></li>
@@ -293,11 +294,9 @@ square(4)</code></pre>
 <section id="other-things-about-functions" class="level1">
 <h1>Other things about functions</h1>
 <p>Functions are “first class”, in that they can be passed around as data just like numbers, strings, etc.</p>
-<pre><code>def f(x):
-    print x
-
-print square
-[square, &quot;data&quot;]</code></pre>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="co"># Using our square function as a value</span>
+<span class="dt">print</span> square
+[square, <span class="st">&quot;data&quot;</span>]</code></pre>
 <p>We’ll see how this is useful later.</p>
 </section>
 <section id="methods" class="level1">
@@ -314,10 +313,10 @@ print square
 </section>
 <section id="if-statements" class="level1">
 <h1>If statements</h1>
-<pre><code>if 3 &lt; 4:
-    print &quot;You should see this&quot;
-else:
-    print &quot;You should NOT see this!&quot;</code></pre>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="kw">if</span> <span class="dv">3</span> &lt; <span class="dv">4</span>:
+    <span class="dt">print</span> <span class="st">&quot;You should see this&quot;</span>
+<span class="kw">else</span>:
+    <span class="dt">print</span> <span class="st">&quot;You should NOT see this!&quot;</span></code></pre>
 <p>Things to note:</p>
 <ul>
 <li>We used indentation here as well to determine the structure of the statements</li>
@@ -327,58 +326,60 @@ else:
 <section id="you-can-have-elif-sections-too" class="level1">
 <h1>You can have elif sections too</h1>
 <p><code>elif</code> is a combination of an <code>else</code> and an <code>if</code>.</p>
-<pre><code>def f(n):
-    if n &lt; 5:
-        print &quot;Cond 1&quot;
-    elif n &gt; 10:
-        print &quot;Cond 2&quot;
-    else:
-        print &quot;Cond 3&quot;
+<pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> f(n):
+    <span class="kw">if</span> n &lt; <span class="dv">5</span>:
+        <span class="dt">print</span> <span class="st">&quot;Cond 1&quot;</span>
+    <span class="kw">elif</span> n &gt; <span class="dv">10</span>:
+        <span class="dt">print</span> <span class="st">&quot;Cond 2&quot;</span>
+    <span class="kw">else</span>:
+        <span class="dt">print</span> <span class="st">&quot;Cond 3&quot;</span>
 
-f(3)
-f(7)
-f(12)</code></pre>
+f(<span class="dv">3</span>)
+f(<span class="dv">7</span>)
+f(<span class="dv">12</span>)</code></pre>
 </section>
 <section id="for-statements" class="level1">
 <h1>For statements</h1>
 <p>Do something for every thing in a collection:</p>
-<pre><code>for n in xs:
-    print &quot;On int:&quot;, n
-</code></pre>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="kw">for</span> n in xs:
+    <span class="dt">print</span> <span class="st">&quot;On int:&quot;</span>, n</code></pre>
 </section>
 <section id="iterating-over-key-value-pairs-in-a-dictionary" class="level1">
 <h1>Iterating over key-value pairs in a dictionary</h1>
 <p>Dictionaries have an <code>items</code> method that gives all of the <br/> key, value pairs. Try</p>
-<pre><code>person.items()</code></pre>
+<pre class="sourceCode python"><code class="sourceCode python">person.items()</code></pre>
 <p>Now loop over them:</p>
-<pre><code>for k, v in person.items():
-    print &quot;key:&quot;, k, &quot;val:&quot;, v
-</code></pre>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="kw">for</span> k, v in person.items():
+    <span class="dt">print</span> <span class="st">&quot;key:&quot;</span>, k, <span class="st">&quot;val:&quot;</span>, v</code></pre>
 </section>
 <section id="using-for-to-build-results" class="level1">
 <h1>Using <code>for</code> to build results</h1>
-<pre><code>ys = []
-for x in xs:
+<pre class="sourceCode python"><code class="sourceCode python">ys = []
+<span class="kw">for</span> x in xs:
     y = square(x)
     ys.append(y)
 
-print ys</code></pre>
+<span class="dt">print</span> ys</code></pre>
 <p>This is <em>imperative</em>; we’re telling the computer <em>how</em> to build <code>ys</code></p>
 </section>
 <section id="a-better-way" class="level1">
 <h1>A better way</h1>
 <p>List comprehensions:</p>
-<pre><code>ys = [square(x) for x in xs]
+<pre class="sourceCode python"><code class="sourceCode python">ys = [square(x) <span class="kw">for</span> x in xs]
 
-print ys</code></pre>
+<span class="dt">print</span> ys</code></pre>
 </section>
 <section id="the-functional-way" class="level1">
 <h1>The functional way</h1>
-<p>When possible, it better to be <em>functional</em>. Let the computer figure out <em>how</em> to build things, just tell it <em>what</em> to build.</p>
-<pre><code>ys = map(square, xs)
+<pre class="sourceCode python"><code class="sourceCode python">ys = <span class="dt">map</span>(square, xs)
 
-print ys</code></pre>
+<span class="dt">print</span> ys</code></pre>
 <p>Note that we’re passing the function <code>square</code> as an <em>argument</em> to the function <code>map</code>.</p>
+</section>
+<section id="declarative-is-better" class="level1">
+<h1>Declarative is better</h1>
+<p>List comprehension and functional approaches are more <em>declarative</em>.</p>
+<p>We tell the computer <em>what</em> to compute, not <em>how</em> we want it computed. This is usually a good thing (cleaner code; sometimes better performance).</p>
 </section>
 <section id="higher-level-concerns" class="level1">
 <h1>Higher level concerns</h1>
@@ -386,28 +387,30 @@ print ys</code></pre>
 </section>
 <section id="importing-modules" class="level1">
 <h1>Importing modules</h1>
-<pre><code>import math
+<pre class="sourceCode python"><code class="sourceCode python"><span class="ch">import</span> math
 
-dir(math)
-help(math.log)
+<span class="dt">dir</span>(math)
+<span class="dt">help</span>(math.log)
 
-math.log(3.14)</code></pre>
+math.log(<span class="fl">3.14</span>)</code></pre>
 <p><code>math</code> is a <em>module</em>. Modules, just like objects, have <em>attributes</em>, and these attributes are typically functions that we can use in our programs (though sometimes they’re just useful data, like <code>math.e</code>).</p>
 </section>
 <section id="namespaces" class="level1">
 <h1>Namespaces</h1>
 <p>We also talk about modules as being <em>namespaces</em>. A namespace is just a path to some data or function or module. In this case <code>math</code> can also be thought of as a namespace.</p>
+<p>Namespaces help us avoid naming conflicts. If we have a function called <code>square</code>, and we import a module like <code>math</code> with a function called <code>square</code>, namespaces let us distingush between them.</p>
 </section>
 <section id="installing-your-own-packages-with-pip" class="level1">
 <h1>Installing your own packages with pip</h1>
 <p>Collections of modules are called <em>packages</em>.</p>
-<p>The command line tool <code>pip</code> can be used to install packages:</p>
-<pre><code>pip install --user biopython</code></pre>
+<p>You can install Python packages using the <code>pip</code> command line tool (the “App Store” for Python packages):</p>
+<pre class="sourceCode python"><code class="sourceCode python">pip install --user biopython</code></pre>
 <p>The <code>--user</code> flag tells pip to install things in your <em>local</em> python lib directory. You would only omit that if you were installing <em>system wide</em> on your own computer.</p>
 </section>
 <section id="beware-python-3" class="level1">
 <h1>Beware Python 3</h1>
-<p>We’re using Python 2. Sadly Python 3 has been out for YEARS, but hardly anyone is using it. It’s rather different in a number of ways, so watch out for it.</p>
+<p>We’re using Python 2. Python 3 has been out for YEARS, but adoption has been slow. Eventually, Python 3 will become the system default and more widely used, but till then…</p>
+<p>Bottom line: Python 3 is rather different in a number of ways, so be aware.</p>
 </section>
 <section id="resources" class="level1">
 <h1>Resources</h1>
@@ -415,6 +418,7 @@ math.log(3.14)</code></pre>
 <li>Code Academy <a href="http://www.codecademy.com/tracks/python">Python course</a> (I highly recommend working through as much of this as you like)</li>
 <li>Very clear blog post on <a href="http://nedbatchelder.com/text/names.html">how python variables work</a></li>
 </ul>
+<p><a href="http://fredhutchio.github.io/intro-bioinformatics/">Back to homepage</a></p>
 </section>
 </div>
 
