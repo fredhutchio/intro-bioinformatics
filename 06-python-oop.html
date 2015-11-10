@@ -82,7 +82,7 @@
 </section>
 <section id="why-do-we-have-oop" class="level1">
 <h1>Why do we have OOP?</h1>
-<p>Before OOP, large programs were difficult to analyze. It was hard to keep track of all the different data and functionality.</p>
+<p>Before OOP, large programs were often difficult to analyze. It was hard to keep track of all the different data and functionality.</p>
 <p>OOP is a way of organizing data and functionality such that it’s easier to conceptualize how they relate to each other. The goal is to make it easier to conceptualize the whole system.</p>
 </section>
 <section id="the-objects-in-oop" class="level1">
@@ -212,15 +212,15 @@ notify_via_email(person, &quot;your cat was found&quot;)</code></pre>
 </section>
 <section id="pretend-biopython-didnt-exist" class="level1">
 <h1>Pretend Biopython didn’t exist</h1>
-<p>Let’s create it. Start by creating a python script file in <code>scripts/seqs.py</code> using your text editor.</p>
-<pre><code>class SeqRecord(object):
-    def __init__(self, name, seq):
-        self.name = name
-        self.seq = seq
+<p>Let’s create it. Start by creating a python script file in <code>scripts/seqs.py</code> using nano (<code>nano scripts/seqs.py</code>).</p>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="kw">class</span> SeqRecord(<span class="dt">object</span>):
+    <span class="kw">def</span> <span class="ot">__init__</span>(<span class="ot">self</span>, name, seq):
+        <span class="ot">self</span>.name = name
+        <span class="ot">self</span>.seq = seq
 
-s = SeqRecord(&quot;MBG234Gag1&quot;, &quot;AGCTGTCGGTAAGTCGAGT&quot;)
-print s.name
-print s.seq</code></pre>
+s = SeqRecord(<span class="st">&quot;MBG234Gag1&quot;</span>, <span class="st">&quot;AGCTGTCGGTAAGTCGAGT&quot;</span>)
+<span class="dt">print</span> s.name
+<span class="dt">print</span> s.seq</code></pre>
 <p>You can run this with <code>python scripts/seqs.py</code>.</p>
 </section>
 <section id="now-lets-add-some-functionality" class="level1">
@@ -275,7 +275,7 @@ s = Seq(<span class="st">&quot;ACGT&quot;</span>)
 s.complements = <span class="st">&quot;something else&quot;</span>
 <span class="dt">print</span> s.complements
 <span class="dt">print</span> Seq.complements</code></pre>
-<p><code>complements</code> here would typically be called a <em>class variable</em>. The codecademy course confusingly calls them <em>member variables</em>… I find that name confusing.</p>
+<p><code>complements</code> here would typically be called a <em>class variable</em>. The codecademy course confusingly calls them <em>member variables</em>… I’ve never heard them called that elsewhere.</p>
 </section>
 <section id="what-about-rna-vs-dna" class="level1">
 <h1>What about RNA vs DNA?</h1>
@@ -316,7 +316,7 @@ s = RNASeq(<span class="st">&quot;ACUG&quot;</span>)
 
 <span class="co"># Now we can&#39;t take complement of the complement...</span>
 s.complement().complement()</code></pre>
-<p>Try solving this for homework :-) (Solution will be posted soon)</p>
+<p>Try solving this for homework :-) (Solution at end of slides)</p>
 </section>
 <section id="thats-all-well-look-at-for-doing-oop" class="level1">
 <h1>That’s all we’ll look at for doing OOP</h1>
@@ -340,15 +340,14 @@ s.complement().complement()</code></pre>
 </section>
 <section id="homework-challenges" class="level1">
 <h1>Homework challenges</h1>
-<p>(Answers to be posted soon)</p>
+<p>(Answers at end of slides)</p>
 </section>
 <section id="hw-1---transcribe" class="level1">
 <h1>HW 1 - <code>transcribe</code></h1>
-<ul>
-<li>Add a <code>transcribe</code> function to the <code>DNASeq</code> class and a <code>reverse_transcribe</code> to the <code>RNASeq</code> class.</li>
-</ul>
-<p><strong>Note</strong>: biopython takes a different approach; Only <em>one</em> Seq class, but with an <code>alphabet</code> attribute. Calling <code>reverse_transcribe</code> on a <code>Seq</code> instance with a DNA alphabet gives an error. It’s nice that in our design <code>reverse_transcribe</code> is <em>only defined</em> if the <code>Seq</code> is an <code>RNASeq</code>.</p>
-<p>Overall, I prefer that the <code>alphabet</code> approach separates concerns nicely. But these are the sort of architectural considerations that start coming up when you get into OOP.</p>
+<p><strong>Problem</strong>: Add a <code>transcribe</code> method to the <code>DNASeq</code> class and a <code>reverse_transcribe</code> method to the <code>RNASeq</code> class.</p>
+<p><br/></p>
+<p>SideNote: biopython does this differently; Only <em>one</em> Seq class, and an <code>alphabet</code> attribute pointing to DNA/RNA. In this approach, calling <code>reverse_transcribe</code> on a <code>Seq</code> instance with a DNA alphabet gives an error. In contrast, with our approach <code>reverse_transcribe</code> is <em>only defined</em> if the <code>Seq</code> is an <code>RNASeq</code>.</p>
+<p>Thinking through these architectural trade-offs is important in OOP.</p>
 </section>
 <section id="hw-2---reverse_complement" class="level1">
 <h1>HW 2 - <code>reverse_complement</code></h1>
@@ -359,10 +358,10 @@ s.complement().complement()</code></pre>
 </ul></li>
 </ul>
 </section>
-<section id="hw-3---reverse_complement" class="level1">
-<h1>HW 3 - <code>reverse_complement</code></h1>
+<section id="hw-3---reverse_complement-ctnd" class="level1">
+<h1>HW 3 - <code>reverse_complement</code> (ctnd)</h1>
 <ul>
-<li>Add a “complementary” <code>reservse_complement</code> function in your <code>SeqRecord</code> class, which returns a new seqrecord with:
+<li>Add a <code>reservse_complement</code> method in your <code>SeqRecord</code> class, which returns a new seqrecord with:
 <ul>
 <li><code>seq</code> attribute the <code>reservse_complement</code> of the original sequence.</li>
 <li>a modified <code>name</code> attribute (append <code>&quot;_rc&quot;</code> to the original name).</li>
@@ -426,7 +425,7 @@ s = RNASeq(<span class="st">&quot;ACGU&quot;</span>)
 </section>
 <section id="hw-1-ctnd" class="level1">
 <h1>HW 1 (ctnd)</h1>
-<p>This works, but note that it’s a lot of duplicate code. We’ll see a more elegant way to solve this using <code>super</code>.</p>
+<p>This works, but note that it’s a lot of duplicate code. We’ll see a more elegant way to solve this using <code>super</code> (see Bonus problem 2).</p>
 </section>
 <section id="hw-2" class="level1">
 <h1>HW 2</h1>
