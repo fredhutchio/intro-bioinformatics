@@ -107,39 +107,50 @@
 </section>
 <section id="a-pertinent-example" class="level1">
 <h1>A pertinent example</h1>
-<p>Let’s look at the Biopython library (first run <code>pip install --user biopython</code> from the Unix shell).</p>
+<p>Let’s look at the Biopython library (this should be accessible as long as you’ve loaded your python modules).</p>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="co"># First import the namespace/module</span>
 <span class="ch">import</span> Bio.SeqIO <span class="ch">as</span> SeqIO
 
 <span class="co"># Next, create a sequence parser, specifying file and format</span>
-seqs = SeqIO.parse(<span class="st">&quot;data/sfv.fasta&quot;</span>, <span class="st">&quot;fasta&quot;</span>)
+seqrecords = SeqIO.parse(<span class="st">&quot;data/sfv.fasta&quot;</span>, <span class="st">&quot;fasta&quot;</span>)
 
 <span class="co"># Now let&#39;s inspect things a bit (bonus: intro to generators!)</span>
-seqs
-seqs.<span class="dt">next</span>()
-seqs.<span class="dt">next</span>()</code></pre>
+seqrecords
+<span class="co"># You can use the `next` method to get the &quot;next&quot; thing from a generator.</span>
+seqrecords.<span class="dt">next</span>()
+seqrecords.<span class="dt">next</span>()</code></pre>
 </section>
-<section id="lets-look-at-one-of-these-seqs-in-more-detail" class="level1">
-<h1>Let’s look at one of these <code>seqs</code> in more detail</h1>
+<section id="lets-look-at-one-of-these-seqrecords-in-more-detail" class="level1">
+<h1>Let’s look at one of these <code>seqrecords</code> in more detail</h1>
 <pre><code># More investigating
-seq = seqs.next()
-seq
-type(seq)
-dir(seq)
-seq.name</code></pre>
+seqrecord = seqrecords.next()
+seqrecord
+type(seqrecord)</code></pre>
 </section>
-<section id="lets-look-at-the-seqs-seq" class="level1">
-<h1>Let’s look at the seq’s <code>seq</code></h1>
+<section id="attributes" class="level1">
+<h1>Attributes</h1>
+<p>Objects have <em>attributes</em>. You can see what attributes an object has with <code>dir(object)</code>, and access them with <code>object.attribute_name</code>.</p>
+<pre><code>dir(seqrecord)
+seqrecord.name</code></pre>
+</section>
+<section id="lets-look-at-the-seqrecords-seq" class="level1">
+<h1>Let’s look at the seqrecord’s <code>seq</code></h1>
 <pre><code># Here&#39;s where the actual &quot;sequence&quot; is
-seq.seq
-s = seq.seq
+seqrecord.seq
+s = seqrecord.seq
 type(s)
-dir(s)
-str(s)
-len(s)
+dir(s)</code></pre>
+<p>So an attribute of an object can be another object.</p>
+</section>
+<section id="attributes-can-be-functions" class="level1">
+<h1>Attributes can be functions</h1>
+<pre class="sourceCode python"><code class="sourceCode python">s.transcribe
 
-# Some real functionality (a method)
-s.transcribe()</code></pre>
+<span class="co"># You can call these functions just like normal functions (appending `(...)`)</span>
+s.transcribe()
+
+<span class="co"># This returns the transcription of sequence s</span></code></pre>
+<p>We call functions bound to objects <em>methods</em>. Methods describe the “behavior” of objects.</p>
 </section>
 <section id="thats-it-for-using-oop" class="level1">
 <h1>That’s it for <em>using</em> OOP</h1>
@@ -158,8 +169,8 @@ s.transcribe()</code></pre>
 <p>Any Questions?</p>
 </section>
 <section id="how-do-i-oop" class="level1">
-<h1>How do I OOP?</h1>
-<p>A simple class, modeling data we saw last week:</p>
+<h1>How do <em>I</em> OOP?</h1>
+<p>A simple class, modeling data we saw last week: <!--Switch over to SeqRecord right off the bat--></p>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="co"># First we specify the name of the class</span>
 <span class="kw">class</span> Person(<span class="dt">object</span>):
     <span class="co"># This function gets called on new objects</span>
@@ -191,6 +202,16 @@ p = Person(&quot;Bob Jones&quot;, 42, &quot;haxxor&quot;, &quot;bob@jon.es&quot;
 # Here, notify_via_email is &quot;bound&quot; to p
 p.notify_via_email(&quot;your cat was found&quot;)</code></pre>
 </section>
+<section id="some-things-about-what-just-happened" class="level1">
+<h1>Some things about what just happened</h1>
+<p>(And how this all works)</p>
+<ul>
+<li>When we define class <code>Person</code>, we get a <em>constructor</em> function named <code>Person</code> that returns an <em>instance</em> of class <code>Person</code>.</li>
+<li>When this function is called, a blank object gets created, and the <code>__init__</code> function is called with <code>self</code> bound to the new object.</li>
+<li>This function <em>initializes</em> the object.</li>
+<li>Other methods follow the same pattern; when we call <code>p.notify_via_email</code>, the <code>notify_via_email</code> function gets called with object <code>p</code> as the first argument.</li>
+</ul>
+</section>
 <section id="lets-contrast-this-with-non-oop" class="level1">
 <h1>Let’s contrast this with non-OOP</h1>
 <pre><code>import email
@@ -202,10 +223,12 @@ def notify_via_email(person, message):
 p = dict(name=&quot;Bob Jones&quot;, age=42,
         occupation=&quot;haxxor&quot;, email=&quot;bob@jon.es&quot;)
 notify_via_email(person, &quot;your cat was found&quot;)</code></pre>
+<!--Would have to come up with a similar example like this if I want to switch to SeqRecord right off the bat-->
 <p>Shorter, but it’s less clear in <code>notify_via_email</code> what valid input is. Classes make this patent/explicit.</p>
 </section>
 <section id="what-if-a-company-also-has-an-email" class="level1">
 <h1>What if a company also has an email?</h1>
+<!--It'll be really hard to capture this moral moving to SeqRecord right away-->
 <p>OOP: Have to write a separate method in the <code>Company</code> class. (There are other ways around this, but they’re a bit of work).</p>
 <p>Non-OOP: As long as the <code>company</code> dictionary has an <code>&quot;email&quot;</code> key/value pair, the function will still work.</p>
 <p>Moral of the story: Structure can come at the cost of flexibility.</p>
@@ -227,7 +250,7 @@ s = SeqRecord(<span class="st">&quot;MBG234Gag1&quot;</span>, <span class="st">&
 <h1>Now let’s add some functionality</h1>
 <p>In <code>scripts/seqs.py</code> add:</p>
 <pre><code>class SeqRecord(object):
-    ...
+    # ...
 
     def fasta_string(self):
         string_rep = &quot;&gt;&quot; + self.name + &quot;\n&quot;
@@ -275,7 +298,7 @@ s = Seq(<span class="st">&quot;ACGT&quot;</span>)
 s.complements = <span class="st">&quot;something else&quot;</span>
 <span class="dt">print</span> s.complements
 <span class="dt">print</span> Seq.complements</code></pre>
-<p><code>complements</code> here would typically be called a <em>class variable</em>. The codecademy course confusingly calls them <em>member variables</em>… I’ve never heard them called that elsewhere.</p>
+<p>Note: <code>complements</code> here would typically be called a <em>class variable</em>, since all members of the class have access to it. The codecademy course calls them <em>member variables</em>, which is a more general term you don’t hear as often. The <em>instance variables</em> we’ve seen before (like <code>seqrecord.name</code>) are also considered member variables. Usually we want to be specific (I don’t hear “member variable” used frequently).</p>
 </section>
 <section id="what-about-rna-vs-dna" class="level1">
 <h1>What about RNA vs DNA?</h1>
@@ -391,7 +414,9 @@ s.complement().complement()</code></pre>
 <h1>Resources</h1>
 <ul>
 <li>See the codecademy section on classes (beware the bit on “member variables”)</li>
+<li>Documentation on <code>transcbribe</code>: http://biopython.org/DIST/docs/api/Bio.Seq.Seq-class.html#transcribe (click the “source code” link to see the source code)</li>
 </ul>
+<p><a href="http://fredhutchio.github.io/intro-bioinformatics">Back to homepage</a></p>
 </section>
 <section id="homework-solutions" class="level1">
 <h1>Homework solutions:</h1>
@@ -401,7 +426,7 @@ s.complement().complement()</code></pre>
 <h1>HW 1</h1>
 <p>First the simple solution:</p>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="kw">class</span> DNASeq(Seq):
-    ...
+    <span class="co"># ...</span>
     transcriptions = <span class="dt">dict</span>(T=<span class="st">&quot;U&quot;</span>)
     <span class="kw">def</span> transcribe(<span class="ot">self</span>):
         <span class="co"># Note use of get</span>
@@ -410,7 +435,7 @@ s.complement().complement()</code></pre>
         <span class="kw">return</span> RNASeq(joined_bps)
 
 <span class="kw">class</span> RNASeq(Seq):
-    ...
+    <span class="co"># ...</span>
     transcriptions = <span class="dt">dict</span>(U=<span class="st">&quot;T&quot;</span>)
     <span class="kw">def</span> reverse_transcribe(<span class="ot">self</span>):
         bps = [<span class="ot">self</span>.transcriptions.get(bp, bp) <span class="kw">for</span> bp in <span class="ot">self</span>]
@@ -431,7 +456,7 @@ s = RNASeq(<span class="st">&quot;ACGU&quot;</span>)
 <h1>HW 2</h1>
 <p>First let’s solve this without worrying too much about the return type (just ensuring it’s a Seq).</p>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="kw">class</span> Seq(<span class="dt">str</span>):
-    ...
+    <span class="co"># ...</span>
     <span class="kw">def</span> reverse_complement(<span class="ot">self</span>):
         <span class="co"># Take the complement and reverse the bps</span>
         bps = <span class="dt">reversed</span>(<span class="ot">self</span>.complement())
@@ -448,7 +473,7 @@ s = RNASeq(<span class="st">&quot;ACGUCC&quot;</span>)
 <h1>HW 2 (ctnd)</h1>
 <p>Note that if we felt like being more terse, we could omit all the intermediate variable assignments and just do everything in one line. You can decide for yourself what makes code most readable.</p>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="kw">class</span> Seq(<span class="dt">str</span>):
-    ...
+    <span class="co"># ...</span>
     <span class="kw">def</span> reverse_complement(<span class="ot">self</span>):
         <span class="kw">return</span> Seq(<span class="st">&quot;&quot;</span>.join(<span class="dt">reversed</span>(<span class="ot">self</span>.complement())))</code></pre>
 </section>
@@ -468,7 +493,7 @@ s = RNASeq(<span class="st">&quot;ACGUCC&quot;</span>)
             <span class="kw">raise</span> <span class="ot">ValueError</span>, <span class="st">&quot;Seq can&#39;t have both U and T&quot;</span>
         <span class="ot">self</span>.seq = seq
 
-    ...
+    <span class="co"># ...</span>
 
 s = SeqRecord(<span class="st">&quot;MBG1234&quot;</span>, <span class="st">&quot;AGTCTGATA&quot;</span>)
 <span class="dt">print</span> <span class="st">&quot;Seqrecord seq type:&quot;</span>, <span class="dt">type</span>(s.seq)
@@ -488,13 +513,13 @@ SeqRecord(<span class="st">&quot;MBG1234&quot;</span>, <span class="st">&quot;AG
 <h1>Bonus 2</h1>
 <p>The simple solution to this is to just write two methods, like we did in the solution to HW 1. However, there is a better way.</p>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="kw">class</span> DNASeq(Seq):
-    ...
+    <span class="co"># ...</span>
     <span class="kw">def</span> complement(<span class="ot">self</span>):
         <span class="co"># Here we use the superclass&#39; method</span>
         <span class="kw">return</span> DNASeq(Seq.complement(<span class="ot">self</span>))
 
 <span class="kw">class</span> RNASeq(Seq):
-    ...
+    <span class="co"># ...</span>
     <span class="kw">def</span> complement(<span class="ot">self</span>):
         <span class="kw">return</span> RNASeq(Seq.complement(<span class="ot">self</span>))
 
@@ -512,12 +537,12 @@ s = RNASeq(<span class="st">&quot;ACGU&quot;</span>)
 <h1>Revisiting HW 2</h1>
 <p>We can use this <code>super</code>-like trick to fix our solution to HW 2 as well:</p>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="kw">class</span> DNASeq(Seq):
-    ...
+    <span class="co"># ...</span>
     <span class="kw">def</span> reverse_complement(<span class="ot">self</span>):
         <span class="kw">return</span> DNASeq(Seq.reverse_complement(<span class="ot">self</span>))
 
 <span class="kw">class</span> RNASeq(Seq):
-    ...
+    <span class="co"># ...</span>
     <span class="kw">def</span> reverse_complement(<span class="ot">self</span>):
         <span class="kw">return</span> RNASeq(Seq.reverse_complement(<span class="ot">self</span>))
 
@@ -530,7 +555,7 @@ s = RNASeq(<span class="st">&quot;ACGUCC&quot;</span>)
 <h1>Revisiting HW 1</h1>
 <p>Similarly, we can refactor <code>transcribe</code> and <code>reverse_transcribe</code>.</p>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="kw">class</span> Seq(<span class="dt">str</span>):
-    ...
+    <span class="co"># ...</span>
     <span class="kw">def</span> abstract_transcribe(<span class="ot">self</span>):
         bps = [<span class="ot">self</span>.transcriptions.get(bp, bp) <span class="kw">for</span> bp in <span class="ot">self</span>]
         joined_bps = <span class="st">&quot;&quot;</span>.join(bps)
@@ -538,13 +563,13 @@ s = RNASeq(<span class="st">&quot;ACGUCC&quot;</span>)
 
 
 <span class="kw">class</span> DNASeq(Seq):
-    ...
+    <span class="co"># ...</span>
     <span class="kw">def</span> transcribe(<span class="ot">self</span>):
         <span class="kw">return</span> RNASeq(Seq.abstract_transcribe(<span class="ot">self</span>))
 
 
 <span class="kw">class</span> RNASeq(Seq):
-    ...
+    <span class="co"># ...</span>
     <span class="kw">def</span> reverse_transcribe(<span class="ot">self</span>):
         <span class="kw">return</span> DNASeq(Seq.abstract_transcribe(<span class="ot">self</span>))</code></pre>
 </section>
