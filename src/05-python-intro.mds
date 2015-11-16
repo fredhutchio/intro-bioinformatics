@@ -156,6 +156,13 @@ You can create more complex expressions using parentheses for grouping: `(4 + 5)
 
 Like in the shell, we can give things names
 
+<!--Next time around should focus on seqrecord examples instead of person examples from here on out.-->
+<!--```python-->
+<!--seqname = "BG234"-->
+<!--seq = "AGCTAGCT"-->
+<!--seqrecord = {"seqname": seqname, "seq": seq}-->
+<!--```-->
+
 ```python
 age = 42
 name = "Bob Jones"

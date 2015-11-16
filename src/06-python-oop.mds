@@ -124,6 +124,7 @@ Any Questions?
 # How do I OOP?
 
 A simple class, modeling data we saw last week:
+<!--Switch over to SeqRecord right off the bat-->
 
 ```python
 # First we specify the name of the class
@@ -177,11 +178,15 @@ p = dict(name="Bob Jones", age=42,
 notify_via_email(person, "your cat was found")
 ```
 
+<!--Would have to come up with a similar example like this if I want to switch to SeqRecord right off the bat-->
+
 Shorter, but it's less clear in `notify_via_email` what valid input is.
 Classes make this patent/explicit.
 
 
 # What if a company also has an email?
+
+<!--It'll be really hard to capture this moral moving to SeqRecord right away-->
 
 OOP: Have to write a separate method in the `Company` class. (There are other ways around this, but they're a bit of work).
 
