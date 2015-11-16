@@ -65,48 +65,69 @@ Even if you don't create your own objects/classes, you can still consume other f
 
 # A pertinent example
 
-Let's look at the Biopython library (first run `pip install --user biopython` from the Unix shell).
+Let's look at the Biopython library (this should be accessible as long as you've loaded your python modules).
 
 ```python
 # First import the namespace/module
 import Bio.SeqIO as SeqIO
 
 # Next, create a sequence parser, specifying file and format
-seqs = SeqIO.parse("data/sfv.fasta", "fasta")
+seqrecords = SeqIO.parse("data/sfv.fasta", "fasta")
 
 # Now let's inspect things a bit (bonus: intro to generators!)
-seqs
-seqs.next()
-seqs.next()
+seqrecords
+# You can use the `next` method to get the "next" thing from a generator.
+seqrecords.next()
+seqrecords.next()
 ```
 
 
-# Let's look at one of these `seqs` in more detail
+# Let's look at one of these `seqrecords` in more detail
 
 ```
 # More investigating
-seq = seqs.next()
-seq
-type(seq)
-dir(seq)
-seq.name
+seqrecord = seqrecords.next()
+seqrecord
+type(seqrecord)
+```
+
+# Attributes
+
+Objects have _attributes_.
+You can see what attributes an object has with `dir(object)`, and access them with `object.attribute_name`.
+
+```
+dir(seqrecord)
+seqrecord.name
 ```
 
 
-# Let's look at the seq's `seq`
+# Let's look at the seqrecord's `seq`
 
 ```
 # Here's where the actual "sequence" is
-seq.seq
-s = seq.seq
+seqrecord.seq
+s = seqrecord.seq
 type(s)
 dir(s)
-str(s)
-len(s)
-
-# Some real functionality (a method)
-s.transcribe()
 ```
+
+So an attribute of an object can be another object.
+
+
+# Attributes can be functions
+
+```python
+s.transcribe
+
+# You can call these functions just like normal functions (appending `(...)`)
+s.transcribe()
+
+# This returns the transcription of sequence s
+```
+
+We call functions bound to objects _methods_.
+Methods describe the "behavior" of objects.
 
 
 # That's it for _using_ OOP
@@ -121,7 +142,7 @@ s.transcribe()
 Any Questions?
 
 
-# How do I OOP?
+# How do _I_ OOP?
 
 A simple class, modeling data we saw last week:
 <!--Switch over to SeqRecord right off the bat-->
@@ -162,6 +183,15 @@ p = Person("Bob Jones", 42, "haxxor", "bob@jon.es")
 # Here, notify_via_email is "bound" to p
 p.notify_via_email("your cat was found")
 ```
+
+# Some things about what just happened
+
+(And how this all works)
+
+* When we define class `Person`, we get a _constructor_ function named `Person` that returns an _instance_ of class `Person`.
+* When this function is called, a blank object gets created, and the `__init__` function is called with `self` bound to the new object.
+* This function _initializes_ the object.
+* Other methods follow the same pattern; when we call `p.notify_via_email`, the `notify_via_email` function gets called with object `p` as the first argument.
 
 
 # Let's contrast this with non-OOP
@@ -221,7 +251,7 @@ In `scripts/seqs.py` add:
 
 ```
 class SeqRecord(object):
-    ...
+    # ...
 
     def fasta_string(self):
         string_rep = ">" + self.name + "\n"
@@ -282,9 +312,10 @@ print s.complements
 print Seq.complements
 ```
 
-`complements` here would typically be called a _class variable_.
-The codecademy course confusingly calls them _member variables_...
-I've never heard them called that elsewhere.
+Note: `complements` here would typically be called a _class variable_, since all members of the class have access to it.
+The codecademy course calls them _member variables_, which is a more general term you don't hear as often.
+The _instance variables_ we've seen before (like `seqrecord.name`) are also considered member variables.
+Usually we want to be specific (I don't hear "member variable" used frequently).
 
 
 # What about RNA vs DNA?
@@ -428,6 +459,7 @@ Hint: To solve this "ideally", look into python's `super` function.
 # Resources
 
 * See the codecademy section on classes (beware the bit on "member variables")
+* Documentation on `transcbribe`: http://biopython.org/DIST/docs/api/Bio.Seq.Seq-class.html#transcribe (click the "source code" link to see the source code)
 
 [Back to homepage](http://fredhutchio.github.io/intro-bioinformatics)
 
@@ -443,7 +475,7 @@ First the simple solution:
 
 ```python
 class DNASeq(Seq):
-    ...
+    # ...
     transcriptions = dict(T="U")
     def transcribe(self):
         # Note use of get
@@ -452,7 +484,7 @@ class DNASeq(Seq):
         return RNASeq(joined_bps)
 
 class RNASeq(Seq):
-    ...
+    # ...
     transcriptions = dict(U="T")
     def reverse_transcribe(self):
         bps = [self.transcriptions.get(bp, bp) for bp in self]
@@ -479,7 +511,7 @@ First let's solve this without worrying too much about the return type (just ens
 
 ```python
 class Seq(str):
-    ...
+    # ...
     def reverse_complement(self):
         # Take the complement and reverse the bps
         bps = reversed(self.complement())
@@ -502,7 +534,7 @@ You can decide for yourself what makes code most readable.
 
 ```python
 class Seq(str):
-    ...
+    # ...
     def reverse_complement(self):
         return Seq("".join(reversed(self.complement())))
 ```
@@ -526,7 +558,7 @@ class SeqRecord(object):
             raise ValueError, "Seq can't have both U and T"
         self.seq = seq
 
-    ...
+    # ...
 
 s = SeqRecord("MBG1234", "AGTCTGATA")
 print "Seqrecord seq type:", type(s.seq)
@@ -554,13 +586,13 @@ However, there is a better way.
 
 ```python
 class DNASeq(Seq):
-    ...
+    # ...
     def complement(self):
         # Here we use the superclass' method
         return DNASeq(Seq.complement(self))
 
 class RNASeq(Seq):
-    ...
+    # ...
     def complement(self):
         return RNASeq(Seq.complement(self))
 
@@ -585,12 +617,12 @@ We can use this `super`-like trick to fix our solution to HW 2 as well:
 
 ```python
 class DNASeq(Seq):
-    ...
+    # ...
     def reverse_complement(self):
         return DNASeq(Seq.reverse_complement(self))
 
 class RNASeq(Seq):
-    ...
+    # ...
     def reverse_complement(self):
         return RNASeq(Seq.reverse_complement(self))
 
@@ -607,7 +639,7 @@ Similarly, we can refactor `transcribe` and `reverse_transcribe`.
 
 ```python
 class Seq(str):
-    ...
+    # ...
     def abstract_transcribe(self):
         bps = [self.transcriptions.get(bp, bp) for bp in self]
         joined_bps = "".join(bps)
@@ -615,13 +647,13 @@ class Seq(str):
 
 
 class DNASeq(Seq):
-    ...
+    # ...
     def transcribe(self):
         return RNASeq(Seq.abstract_transcribe(self))
 
 
 class RNASeq(Seq):
-    ...
+    # ...
     def reverse_transcribe(self):
         return DNASeq(Seq.abstract_transcribe(self))
 ```
