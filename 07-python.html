@@ -85,16 +85,26 @@
 </section>
 <section id="starting-things-off" class="level1">
 <h1>Starting things off</h1>
-<p>Create a new file at <code>scripts/treedists.py</code> using your text editor.</p>
+<p>Go to your project directory and create a new file at <code>scripts/treedists.py</code> using <code>nano</code>:</p>
+<pre><code>tmux attach
+cd ~/bioinfclass
+nano scripts/treedists.py</code></pre>
 </section>
-<section id="setting-up-as-executable" class="level1">
-<h1>Setting up as executable</h1>
-<p>We can use the follow shebang to make sure the script runs with the active python environment (modules and all).</p>
+<section id="python-shebang" class="level1">
+<h1>Python shebang</h1>
+<p>When nano starts, type in the following shebang:</p>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="co">#!/usr/bin/env python</span></code></pre>
-<p>Make sure to <code>chmod +x scripts/treedists.py</code> so you can run as an executable.</p>
+<p>This tells the shell to use whatever python environment is currently active. This means our <code>intro-bio</code> modules will be available to us.</p>
 </section>
-<section id="getting-arguments-using-argparse" class="level1">
-<h1>Getting arguments using <code>argparse</code></h1>
+<section id="setting-up-as-executable-tmux-panes" class="level1">
+<h1>Setting up as executable (+ tmux <em>panes</em>)</h1>
+<p>Create and switch to a new tmux <em>pane</em> with <code>Ctrl-a |</code>.</p>
+<p>In the bash shell type <code>chmod +x scripts/treedists.py</code> to mark our file as executable.</p>
+<p>Use <code>Ctrl-a →</code> to switch back and forth between panes.</p>
+</section>
+<section id="command-line-arguments" class="level1">
+<h1>Command line arguments</h1>
+<p>In nano, add the following after our shebang:</p>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="ch">import</span> argparse
 
 <span class="kw">def</span> get_args():
@@ -129,12 +139,12 @@ args = get_args()
 
 <span class="kw">def</span> main():
     args = get_args()
-    <span class="co"># parse returns a generator, so we&#39;ll grab first</span>
+    <span class="co"># parse the tree file and return a generator</span>
     trees = Phylo.parse(args.treefile, <span class="st">&#39;newick&#39;</span>)
     tree = trees.<span class="dt">next</span>()
     <span class="co"># For now, just print</span>
     <span class="dt">print</span> tree</code></pre>
-<p>Run <code>./scripts/treedists.py output/Karamjal/tree.nw</code></p>
+<p>Save and run <code>./scripts/treedists.py output/Karamjal/tree.nw</code></p>
 </section>
 <section id="what-to-do-with-the-tree" class="level1">
 <h1>What to do with the tree</h1>
@@ -148,16 +158,17 @@ args = get_args()
 <li>Average all such distances</li>
 </ul>
 </section>
-<section id="lets-hit-the-repl" class="level1">
-<h1>Let’s hit the REPL</h1>
-<p>Open up a python REPL:</p>
+<section id="repl-driven-development" class="level1">
+<h1>REPL driven development</h1>
+<p>Switch to the bash pane (<code>Ctrl-a →</code>), then open a new <em>vertical</em> pane with <code>Ctrl-a -</code>. Next, start a python REPL (<code>python</code>):</p>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="ch">from</span> Bio <span class="ch">import</span> Phylo
 <span class="co"># This returns an generator of trees, so we&#39;ll use next to get the first (and only)</span>
 trees = Phylo.parse(<span class="st">&#39;output/tree.nw&#39;</span>, <span class="st">&#39;newick&#39;</span>)
 t = trees.<span class="dt">next</span>()
 
-<span class="co"># First, how do we get the tips of the tree?</span>
+<span class="co"># Inspect attributes</span>
 <span class="dt">dir</span>(t)</code></pre>
+<p>Question: How do we get the tips of the tree?</p>
 </section>
 <section id="what-do-the-terminals-look-like" class="level1">
 <h1>What do the terminals look like?</h1>
@@ -170,6 +181,7 @@ tip = t.get_terminals()[<span class="dv">0</span>]
 </section>
 <section id="getting-the-name" class="level1">
 <h1>Getting the name</h1>
+<p>Yup, you guessed it…</p>
 <pre class="pythyon"><code>tip.name</code></pre>
 </section>
 <section id="how-do-we-get-a-list-of-all-names" class="level1">
@@ -177,6 +189,7 @@ tip = t.get_terminals()[<span class="dv">0</span>]
 </section>
 <section id="list-of-all-names" class="level1">
 <h1>List of all names</h1>
+<p>Let’s use list compreshension:</p>
 <pre class="sourceCode python"><code class="sourceCode python">tipnames = [tip.name <span class="kw">for</span> tip in t.get_terminals()]</code></pre>
 </section>
 <section id="what-about-all-pairs-of-names" class="level1">
@@ -201,7 +214,7 @@ tip = t.get_terminals()[<span class="dv">0</span>]
 <section id="lets-make-a-function-of-this" class="level1">
 <h1>Let’s make a function of this!</h1>
 <p>This is a good idea when you have a bunch of modular logic.</p>
-<p>Back in our file:</p>
+<p>Back in our file (<code>Ctrl-a →</code>):</p>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> unique_pairs(xs):
     pairs = <span class="dt">set</span>()
     <span class="kw">for</span> x1 in xs:
@@ -213,7 +226,7 @@ tip = t.get_terminals()[<span class="dv">0</span>]
 </section>
 <section id="how-about-finding-distance" class="level1">
 <h1>How about finding distance?</h1>
-<p>Back to the REPL:</p>
+<p>Back to the REPL (<code>Ctrl-a →</code> for over, and <code>Ctrl-a ↑</code> for up/down):</p>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="co"># What function should we try here?</span>
 <span class="dt">dir</span>(t)</code></pre>
 </section>
@@ -244,13 +257,13 @@ t.distance(t1, t2)</code></pre>
 </section>
 <section id="lets-test" class="level1">
 <h1>Let’s test</h1>
-<p>Try running again from bash:</p>
+<p>Go back to the bash pane and try running again:</p>
 <pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">./scripts/treedists.py</span> output/Karamjal/tree.nw</code></pre>
 </section>
 <section id="adding-a---csv-output-option" class="level1">
 <h1>Adding a <code>--csv</code> output option</h1>
 <p>This will let us do a <code>csvstack</code> to get a single data set.</p>
-<p>First the arguments:</p>
+<p>First the arguments (back in <code>treedists.py</code> file):</p>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> get_args():
     parser = argparse.ArgumentParser()
     parser.add_argument(<span class="st">&quot;treefile&quot;</span>)
@@ -290,18 +303,19 @@ t.distance(t1, t2)</code></pre>
 </section>
 <section id="adding-location" class="level1">
 <h1>Adding location</h1>
+<p>Back in <code>treedists.py</code>:</p>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> get_args():
-    ...
+    <span class="co"># ...</span>
     <span class="co"># Add the argument</span>
     parser.add_argument(<span class="st">&quot;-l&quot;</span>, <span class="st">&quot;--location&quot;</span>)
-    ...
+    <span class="co"># ...</span>
 
 <span class="kw">def</span> main():
-    ...
+    <span class="co"># ...</span>
     <span class="co"># Next pass the location to write_csv</span>
     <span class="kw">if</span> args.csv:
         write_csv(result, args.location)
-    ...</code></pre>
+    <span class="co"># ...</span></code></pre>
 </section>
 <section id="adding-location-to-write_csv" class="level1">
 <h1>Adding location (to <code>write_csv</code>)</h1>
@@ -331,7 +345,7 @@ t.distance(t1, t2)</code></pre>
 
 <span class="kw">for</span> <span class="kw">location</span> in <span class="ot">${locations[*]}</span>
 <span class="kw">do</span>
-  <span class="kw">...</span>
+  <span class="co"># ..</span>
 
   <span class="co"># Build a location tree</span>
   <span class="ot">loc_tree=</span><span class="st">&quot;</span><span class="ot">$loc_outdir</span><span class="st">/tree.nw&quot;</span>
@@ -345,7 +359,7 @@ t.distance(t1, t2)</code></pre>
 </section>
 <section id="hooking-this-up-final" class="level1">
 <h1>Hooking this up (final)</h1>
-<pre><code>  ...
+<pre><code>  # ..
   treedist_files+=($treedists)
 done
 

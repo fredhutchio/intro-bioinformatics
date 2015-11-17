@@ -28,21 +28,39 @@ Let's write a script that:
 
 # Starting things off
 
-Create a new file at `scripts/treedists.py` using your text editor.
+Go to your project directory and create a new file at `scripts/treedists.py` using `nano`:
+
+```
+tmux attach
+cd ~/bioinfclass
+nano scripts/treedists.py
+```
 
 
-# Setting up as executable
+# Python shebang
 
-We can use the follow shebang to make sure the script runs with the active python environment (modules and all).
+When nano starts, type in the following shebang:
 
 ```python
 #!/usr/bin/env python
 ```
 
-Make sure to `chmod +x scripts/treedists.py` so you can run as an executable.
+This tells the shell to use whatever python environment is currently active.
+This means our `intro-bio` modules will be available to us.
 
 
-# Getting arguments using `argparse`
+# Setting up as executable (+ tmux _panes_)
+
+Create and switch to a new tmux _pane_ with `Ctrl-a |`.
+
+In the bash shell type `chmod +x scripts/treedists.py` to mark our file as executable.
+
+Use `Ctrl-a →` to switch back and forth between panes.
+
+
+# Command line arguments
+
+In nano, add the following after our shebang:
 
 ```python
 import argparse
@@ -90,14 +108,14 @@ from Bio import Phylo
 
 def main():
     args = get_args()
-    # parse returns a generator, so we'll grab first
+    # parse the tree file and return a generator
     trees = Phylo.parse(args.treefile, 'newick')
     tree = trees.next()
     # For now, just print
     print tree
 ```
 
-Run `./scripts/treedists.py output/Karamjal/tree.nw`
+Save and run `./scripts/treedists.py output/Karamjal/tree.nw`
 
 
 # What to do with the tree
@@ -110,9 +128,10 @@ Strategy:
 * Average all such distances
 
 
-# Let's hit the REPL
+# REPL driven development
 
-Open up a python REPL:
+Switch to the bash pane (`Ctrl-a →`), then open a new _vertical_ pane with `Ctrl-a -`.
+Next, start a python REPL (`python`):
 
 ```python
 from Bio import Phylo
@@ -120,9 +139,11 @@ from Bio import Phylo
 trees = Phylo.parse('output/tree.nw', 'newick')
 t = trees.next()
 
-# First, how do we get the tips of the tree?
+# Inspect attributes
 dir(t)
 ```
+
+Question: How do we get the tips of the tree?
 
 
 # What do the terminals look like?
@@ -140,6 +161,8 @@ How do we get the name?
 
 # Getting the name
 
+Yup, you guessed it...
+
 ```pythyon
 tip.name
 ```
@@ -149,6 +172,8 @@ tip.name
 
 
 # List of all names
+
+Let's use list compreshension:
 
 ```python
 tipnames = [tip.name for tip in t.get_terminals()]
@@ -183,7 +208,7 @@ len(name_pairs)
 
 This is a good idea when you have a bunch of modular logic.
 
-Back in our file:
+Back in our file (`Ctrl-a →`):
 
 ```python
 def unique_pairs(xs):
@@ -199,7 +224,7 @@ def unique_pairs(xs):
 
 # How about finding distance?
 
-Back to the REPL:
+Back to the REPL (`Ctrl-a →` for over, and `Ctrl-a ↑` for up/down):
 
 ```python
 # What function should we try here?
@@ -244,7 +269,7 @@ def main():
 
 # Let's test
 
-Try running again from bash:
+Save, then go back to the bash pane and try running again:
 
 ```bash
 ./scripts/treedists.py output/Karamjal/tree.nw
@@ -255,7 +280,7 @@ Try running again from bash:
 
 This will let us do a `csvstack` to get a single data set.
 
-First the arguments:
+First the arguments (back in `treedists.py` file):
 
 ```python
 def get_args():
@@ -309,19 +334,21 @@ From bash:
 
 # Adding location
 
+Save, then back in `treedists.py`:
+
 ```python
 def get_args():
-    ...
+    # ...
     # Add the argument
     parser.add_argument("-l", "--location")
-    ...
+    # ...
 
 def main():
-    ...
+    # ...
     # Next pass the location to write_csv
     if args.csv:
         write_csv(result, args.location)
-    ...
+    # ...
 ```
 
 
@@ -339,7 +366,7 @@ def write_csv(result, location):
 
 # Testing out
 
-In bash:
+Save, then back in bash:
 
 ```bash
 ./scripts/treedists.py --csv output/Karamjal/tree.nw -l karamjal
@@ -350,7 +377,8 @@ In bash:
 
 # Hooking this up in `build.sh`
 
-In our `build.sh` script:
+Switch to the `nano` pane, and close `treedists.py`.
+Then `nano build.sh` and enter:
 
 ```bash
 # At the top make sure scripts is in our PATH
@@ -364,7 +392,7 @@ treedist_files=()
 
 for location in ${locations[*]}
 do
-  ...
+  # ...
 
   # Build a location tree
   loc_tree="$loc_outdir/tree.nw"
@@ -381,7 +409,7 @@ done
 # Hooking this up (final)
 
 ```
-  ...
+  # ...
   treedist_files+=($treedists)
 done
 
@@ -390,7 +418,7 @@ all_treedists="$outdir/all_treedists.csv"
 csvstack ${treedist_files[*]} | csvsort -c average_distance > $all_treedists
 ```
 
-Now try running with `./build.sh` (but first comment out all `FastTree` and `muscle` lines to save time).
+Save, then try running with `./build.sh` (but first comment out all `FastTree` and `muscle` lines to save time).
 When done run `csvlook output/all_treedists.csv`.
 
 
@@ -402,7 +430,7 @@ When done run `csvlook output/all_treedists.csv`.
 To import code from this namespace, we have to create an empty `__init__.py` file in the directory in which it resides.
 You can do this in bash with `touch scripts/__init__.py`.
 
-Now open a python REPL:
+Now back in the python REPL:
 
 ```python
 # note this does't run the main function
