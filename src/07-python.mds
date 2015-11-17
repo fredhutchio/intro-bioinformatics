@@ -51,7 +51,8 @@ This means our `intro-bio` modules will be available to us.
 
 # Setting up as executable (+ tmux _panes_)
 
-Create and switch to a new tmux _pane_ with `Ctrl-a |`.
+Save the file.
+Then Create and switch to a new tmux _pane_ with `Ctrl-a |`, and enter `cd ~/bioinfclass` into the new bash prompt.
 
 In the bash shell type `chmod +x scripts/treedists.py` to mark our file as executable.
 
@@ -103,7 +104,7 @@ This let's us `import` the file from another program as a module, without execut
 Let's start by loading our tree data in the main function of the code here.
 
 ```python
-# At the top add
+# At the top below other imports, add:
 from Bio import Phylo
 
 def main():
@@ -116,6 +117,7 @@ def main():
 ```
 
 Save and run `./scripts/treedists.py output/Karamjal/tree.nw`
+You'll see an object representation of the [clades](https://en.wikipedia.org/wiki/Clade) on the phylogenetic tree.
 
 
 # What to do with the tree
@@ -149,10 +151,10 @@ Question: How do we get the tips of the tree?
 # What do the terminals look like?
 
 ```python
-t.get_terminals()
+terminals = t.get_terminals()
 
 # Let's see what the first of these looks like
-tip = t.get_terminals()[0]
+tip = terminals[0]
 dir(tip)
 ```
 
@@ -170,13 +172,17 @@ tip.name
 
 # How do we get a list of all names?
 
+We have a list of tips.
+
+How do we get a list of all the tips names?
+
 
 # List of all names
 
-Let's use list compreshension:
+Let's use list comprehension:
 
 ```python
-tipnames = [tip.name for tip in t.get_terminals()]
+tipnames = [tip.name for tip in terminals]
 ```
 
 

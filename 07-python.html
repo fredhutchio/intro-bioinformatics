@@ -98,7 +98,7 @@ nano scripts/treedists.py</code></pre>
 </section>
 <section id="setting-up-as-executable-tmux-panes" class="level1">
 <h1>Setting up as executable (+ tmux <em>panes</em>)</h1>
-<p>Create and switch to a new tmux <em>pane</em> with <code>Ctrl-a |</code>.</p>
+<p>Save the file. Then Create and switch to a new tmux <em>pane</em> with <code>Ctrl-a |</code>, and enter <code>cd ~/bioinfclass</code> into the new bash prompt.</p>
 <p>In the bash shell type <code>chmod +x scripts/treedists.py</code> to mark our file as executable.</p>
 <p>Use <code>Ctrl-a →</code> to switch back and forth between panes.</p>
 </section>
@@ -134,7 +134,7 @@ args = get_args()
 <section id="loading-our-data" class="level1">
 <h1>Loading our data</h1>
 <p>Let’s start by loading our tree data in the main function of the code here.</p>
-<pre class="sourceCode python"><code class="sourceCode python"><span class="co"># At the top add</span>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="co"># At the top below other imports, add:</span>
 <span class="ch">from</span> Bio <span class="ch">import</span> Phylo
 
 <span class="kw">def</span> main():
@@ -144,7 +144,7 @@ args = get_args()
     tree = trees.<span class="dt">next</span>()
     <span class="co"># For now, just print</span>
     <span class="dt">print</span> tree</code></pre>
-<p>Save and run <code>./scripts/treedists.py output/Karamjal/tree.nw</code></p>
+<p>Save and run <code>./scripts/treedists.py output/Karamjal/tree.nw</code> You’ll see an object representation of the <a href="https://en.wikipedia.org/wiki/Clade">clades</a> on the phylogenetic tree.</p>
 </section>
 <section id="what-to-do-with-the-tree" class="level1">
 <h1>What to do with the tree</h1>
@@ -172,10 +172,10 @@ t = trees.<span class="dt">next</span>()
 </section>
 <section id="what-do-the-terminals-look-like" class="level1">
 <h1>What do the terminals look like?</h1>
-<pre class="sourceCode python"><code class="sourceCode python">t.get_terminals()
+<pre class="sourceCode python"><code class="sourceCode python">terminals = t.get_terminals()
 
 <span class="co"># Let&#39;s see what the first of these looks like</span>
-tip = t.get_terminals()[<span class="dv">0</span>]
+tip = terminals[<span class="dv">0</span>]
 <span class="dt">dir</span>(tip)</code></pre>
 <p>How do we get the name?</p>
 </section>
@@ -186,11 +186,13 @@ tip = t.get_terminals()[<span class="dv">0</span>]
 </section>
 <section id="how-do-we-get-a-list-of-all-names" class="level1">
 <h1>How do we get a list of all names?</h1>
+<p>We have a list of tips.</p>
+<p>How do we get a list of all the tips names?</p>
 </section>
 <section id="list-of-all-names" class="level1">
 <h1>List of all names</h1>
-<p>Let’s use list compreshension:</p>
-<pre class="sourceCode python"><code class="sourceCode python">tipnames = [tip.name <span class="kw">for</span> tip in t.get_terminals()]</code></pre>
+<p>Let’s use list comprehension:</p>
+<pre class="sourceCode python"><code class="sourceCode python">tipnames = [tip.name <span class="kw">for</span> tip in terminals]</code></pre>
 </section>
 <section id="what-about-all-pairs-of-names" class="level1">
 <h1>What about all pairs of names?</h1>
@@ -257,7 +259,7 @@ t.distance(t1, t2)</code></pre>
 </section>
 <section id="lets-test" class="level1">
 <h1>Let’s test</h1>
-<p>Go back to the bash pane and try running again:</p>
+<p>Save, then go back to the bash pane and try running again:</p>
 <pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">./scripts/treedists.py</span> output/Karamjal/tree.nw</code></pre>
 </section>
 <section id="adding-a---csv-output-option" class="level1">
@@ -303,7 +305,7 @@ t.distance(t1, t2)</code></pre>
 </section>
 <section id="adding-location" class="level1">
 <h1>Adding location</h1>
-<p>Back in <code>treedists.py</code>:</p>
+<p>Save, then back in <code>treedists.py</code>:</p>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> get_args():
     <span class="co"># ...</span>
     <span class="co"># Add the argument</span>
@@ -328,14 +330,14 @@ t.distance(t1, t2)</code></pre>
 </section>
 <section id="testing-out" class="level1">
 <h1>Testing out</h1>
-<p>In bash:</p>
+<p>Save, then back in bash:</p>
 <pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">./scripts/treedists.py</span> --csv output/Karamjal/tree.nw -l karamjal
 <span class="co"># Old behaviour still works</span>
 <span class="kw">./scripts/treedists.py</span> --csv output/Karamjal/tree.nw</code></pre>
 </section>
 <section id="hooking-this-up-in-build.sh" class="level1">
 <h1>Hooking this up in <code>build.sh</code></h1>
-<p>In our <code>build.sh</code> script:</p>
+<p>Switch to the <code>nano</code> pane, and close <code>treedists.py</code>. Then <code>nano build.sh</code> and enter:</p>
 <pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># At the top make sure scripts is in our PATH</span>
 <span class="ot">PATH=</span>./scripts/:<span class="ot">$PATH</span></code></pre>
 </section>
@@ -345,7 +347,7 @@ t.distance(t1, t2)</code></pre>
 
 <span class="kw">for</span> <span class="kw">location</span> in <span class="ot">${locations[*]}</span>
 <span class="kw">do</span>
-  <span class="co"># ..</span>
+  <span class="co"># ...</span>
 
   <span class="co"># Build a location tree</span>
   <span class="ot">loc_tree=</span><span class="st">&quot;</span><span class="ot">$loc_outdir</span><span class="st">/tree.nw&quot;</span>
@@ -359,14 +361,14 @@ t.distance(t1, t2)</code></pre>
 </section>
 <section id="hooking-this-up-final" class="level1">
 <h1>Hooking this up (final)</h1>
-<pre><code>  # ..
+<pre><code>  # ...
   treedist_files+=($treedists)
 done
 
 # Aggregate into single CSV
 all_treedists=&quot;$outdir/all_treedists.csv&quot;
 csvstack ${treedist_files[*]} | csvsort -c average_distance &gt; $all_treedists</code></pre>
-<p>Now try running with <code>./build.sh</code> (but first comment out all <code>FastTree</code> and <code>muscle</code> lines to save time). When done run <code>csvlook output/all_treedists.csv</code>.</p>
+<p>Save, then try running with <code>./build.sh</code> (but first comment out all <code>FastTree</code> and <code>muscle</code> lines to save time). When done run <code>csvlook output/all_treedists.csv</code>.</p>
 </section>
 <section id="other-programming-things" class="level1">
 <h1>Other programming things</h1>
@@ -374,7 +376,7 @@ csvstack ${treedist_files[*]} | csvsort -c average_distance &gt; $all_treedists<
 <section id="importing-our-code-from-another-namespace" class="level1">
 <h1>Importing our code from another namespace</h1>
 <p>To import code from this namespace, we have to create an empty <code>__init__.py</code> file in the directory in which it resides. You can do this in bash with <code>touch scripts/__init__.py</code>.</p>
-<p>Now open a python REPL:</p>
+<p>Now back in the python REPL:</p>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="co"># note this does&#39;t run the main function</span>
 <span class="ch">from</span> scripts <span class="ch">import</span> treedists
 <span class="dt">dir</span>(treedists)
