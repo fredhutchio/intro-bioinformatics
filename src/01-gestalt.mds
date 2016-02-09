@@ -4,10 +4,7 @@
 
 # First things first
 
-Did you
-
-* read the first couple chapters?
-* successfully ssh into `rhino`?
+Did everyone successfully ssh into `rhino`?
 
 
 # Introductions
@@ -39,6 +36,7 @@ But hopefully you'll have enough momentum to learn these on your own as needed.
 # Please spend _some_ time outside class
 
 * Time is the only way to learn these things
+* Help keep this class moving smoothly
 * The waiting list is very long
 
 
@@ -53,50 +51,22 @@ But hopefully you'll have enough momentum to learn these on your own as needed.
 7. Python - writing a program
 
 
-# Today
-
-* 1/2 overview
-* 1/2 remote access & Unix environment
-
-
-# Why computers?
-
-<br/>
-
-**DATA**
-
-
-# Biology data
-
-We can now get it
-
-* Cheaper & Faster
-
-=>
-
-* We have more of it
-
-
-# To understand biology, we need to understand data
-
-<br/>
-
-**ENTER BIOINFORMATICS**
+# What is bioinformatics?
 
 
 # What is bioinformatics?
 
-The art of applying computation towards the analysis of biological data
+The application of computation towards the analysis of biological data
 
 
-# Aspects of Bioinformatics
+# In practice this entails
 
-Things we typically do with data:
-
-munging | exploration | draw conclusions
+data munging | data exploration | drawing conclusions
 
 
 # Data munging
+
+This is where a lot of day to day work goes
 
 * Cleaning data
 * Transforming data
@@ -122,6 +92,13 @@ In which we shore things up to tell the world...
 New insights and conclusions lead to new data and questions, etc.
 
 
+# This should be nothing new
+
+This is what you're likely _already_ doing at the lab bench, but with computers instead of test tubes.
+
+The difference is in knowing how to approach scientific problems with the computational toolset.
+
+
 # So this is _what_ we do
 
 <br/>
@@ -130,6 +107,8 @@ New insights and conclusions lead to new data and questions, etc.
 
 
 # Specific goals for research
+
+General goals for good science:
 
 * Reproducibility
 * Robustness
@@ -140,17 +119,17 @@ New insights and conclusions lead to new data and questions, etc.
 
 # Things we can do towards these goals
 
-immutability | documentation | automation
+Immutable data | Documentation | Automation
 
 
-# Treat data as immutable!
+# Immutability
 
 **Never** change data in place; data in, data out.
 
 Aids: reproducibility, clarity & iterability
 
 
-# Document **everything**!!!
+# Document **everything**
 
 Hopefully you're already doing this with your biology work (lab notebook).
 
@@ -224,6 +203,21 @@ your-project
 ```
 
 
+# And if you have nested data...
+
+```text
+...
+├── data
+│   ├── trial-a
+│   │   ├── sequences.fasta
+│   │   └── metadata.csv
+│   ├── trial-b
+│   │   ├── sequences.fasta
+│   │   └── metadata.csv
+...
+```
+
+
 # Questions?
 
 
@@ -259,6 +253,12 @@ Unix was built for remote access, since computers were big and expensive.
 * We can distribute tasks across compute clusters, such as the one the hutch has (See [gizmo class](http://www.fredhutch.io/events/2015/05/20/spring-2015-unix-hpc/))
 
 
+# Questions?
+
+
+# Let's connect to a Unix shell
+
+
 # SSH for remote connection
 
 Do this however you figured out how to do it for your OS.
@@ -275,16 +275,18 @@ Write down which rhino you connect to, so you can directly connect to that next 
 # You're now in a Unix shell!
 
 We'll cover things more thoroughly next class.
-For now just some very basic information for orientation.
+For now, just some basic information for orientation.
 
 
 # Brief overview of a Unix command
 
 `command [flags] [operands]`
 
-Example: `ls -a ~`
+```
+ls -a ~
+```
 
-* `ls`: The command, for listing directory contents
+* `ls`: The command, in this case for listing directory contents
 * `-a`: A flag which specifies that hidden files should be listed
 * `~`: An operand, in this case a special symbol which points to your home directory
 
@@ -295,7 +297,15 @@ Most Unix programs will take either a `-h`, `--help`, or `-help` flag and return
 
 Some commands also have _man pages_, which you can access using `man <command-name>`.
 
-Example: `ls --help`
+Example: `ls --help` & `man ls`
+
+
+
+# Stuck in a terminal?
+
+If you are in the terminal and things seem "stuck" (a program is running that won't stop), try the following:
+
+`Ctrl-c`, `Esc`, `q`, `Ctrl-d`
 
 
 # Let's get some more practice with simple commands
@@ -305,48 +315,76 @@ Example: `ls --help`
 
 This class will build around analysis of a single data set, so let's set up a project directory for it.
 
-    mkdir ~/bioinfclass
+```bash
+mkdir ~/bioinfclass
 
-    cd ~/bioinfclass
-    pwd
+cd ~/bioinfclass
+pwd
 
-    mkdir data output scripts
+mkdir data output scripts
 
-    touch README.md
+ls
+```
+
+(You'll always enter in the things you see in these black boxes)
 
 
 # Download data with `wget`
 
-    wget https://raw.githubusercontent.com/fredhutchio/intro-bioinformatics/gh-pages/data.tar
+```bash
+wget https://goo.gl/8Nk5tZ
+ls
+```
 
-Note that we get a `tar` file.
-This is an archive type, like `zip`, common on Unix systems.
+Note that we now have a `data.tar` file in this directory.
+This is an archive type (like `zip`) common on Unix systems.
+To unpack it
+
+```bash
+tar -vxf data.tar
+```
 
 
-# Unpacking the tar
+# Editing text files with `nano`
 
-    tar -vxf data.tar
+Type `nano README.md` to open a new text file called `README.md`
+
+```bash
+nano README.md`
+```
+
+You are now in the `nano` text editing program.
+
+To save, type `Ctrl-o` and hit enter.
+To save and exit type `Ctrl-x` (if there are unsaved changes, next type `y` then `Enter` to save the changes).
+
 
 
 # Let's look at what we've done
 
 `tree` prints out a directory tree as ASCII art.
 
-    tree
+```bash
+tree
+```
 
 
 # Let's explore the sequence file
 
-`cat` prints the output of file[s] to the screen.
+`cat` prints the output of file(s) to the screen.
 
-    cat data/sfv.fasta
+```bash
+cat data/sfv.fasta
+```
 
 
 # Now with `less`
 
 `less` lets us "page" through data, without flooding the screen.
 
-    less data/sfv.fasta
+```bash
+less data/sfv.fasta
+```
 
 <br/>
 
@@ -355,22 +393,33 @@ Press the `q` key to exit from `less`.
 
 # Now let's look at the metadata
 
-    less data/sfv.csv
+```bash
+less data/sfv.csv
+```
+
+
+# Questions?
 
 
 # Supercharging our shell
 
-SciComp has set up a _module_ system for setting up custom environments.
+SciComp has set up a _module_ system for customizing your environment.
 
 We'll be using the `intro-bio` module, loaded by executing `module load intro-bio` (note: this *only affects the current shell session!*).
 When you do this, you should see something like:
 
-```
+```bash
 matsen@rhino01:~$ module load intro-bio
 Using already loaded python
 matsen@rhino01:~$
 ```
+
 If you get an error message instead, let us know, because you can't proceed without this module loaded.
+
+
+# Module system side note
+
+**Note:** if you _ever_ get a "command not found" error, you probably need to re-load your modules, but tmux will keep those modules loaded per shell window.
 
 
 # Tmux - Terminal multiplexer
@@ -386,17 +435,19 @@ But with tmux, if we close or lose our connection to the server, our terminal se
 We'll use tmux throughout this class to keep sessions running.
 But first let's download a nice tmux configuration file for making things easier.
 
-    # This is a command that download
-    wget https://raw.githubusercontent.com/fredhutchio/intro-bioinformatics/gh-pages/config/tmux.conf
+```bash
+# This is a command that download
+wget https://raw.githubusercontent.com/fredhutchio/intro-bioinformatics/gh-pages/config/tmux.conf
 
-    ls
+ls
 
-    # tmux knows to look for our config file at ~/.tmux.conf
-    mv tmux.conf ~/.tmux.conf
+# tmux knows to look for our config file at ~/.tmux.conf
+mv tmux.conf ~/.tmux.conf
 
-    # Note that this file is hidden once we make it a "dotfile"
-    ls ~
-    ls -a ~
+# Note that this file is hidden once we make it a "dotfile"
+ls ~
+ls -a ~
+```
 
 
 # Starting a new tmux session
@@ -410,12 +461,22 @@ You should now see a fresh shell session inside of tmux.
 
 * `Ctrl-a` - your "Command key"
 * `Ctrl-a ?` - Help
-* `Ctrl-a d` - Detatch session
+* `Ctrl-a d` - Detach session
 
-<br/>
+Windows:
 
 * `Ctrl-a c` - New window
 * `Ctrl-a <Space>` - Next window
+
+
+# Quick tmux cheatsheet
+
+Panes:
+
+* `Ctrl-a |` - Split window into panes vertically
+* `Ctrl-a -` - Split window into panes horizontally
+* `Ctrl-a <arrow>` - Move between 
+* `Ctrl-d` - Close a pane or window
 
 
 # Looking at tmux in action
@@ -435,16 +496,12 @@ Let's see an example.
 muscle -maxiters 2 -in data/sfv.fasta -out output/alignment.fasta
 
 # Get bored waiting and want to work on something else...
-<Ctrl-a c> # create new window
+<Ctrl-a |> # create new pane
+
 cd ~
 mkdir new-project
 cd new-project
 mkdir data output scripts
-
-# Let's go check on our alignment
-<Ctrl-a <Space>>
-
-# Still running... switch back; etc.
 ```
 
 
@@ -457,35 +514,32 @@ SSH sessions can disconnect because of:
 
 We might also stop work on one machine and pick it up on another.
 
-<br>
-
-**Note:** if you get a "command not found" error, you probably need to re-load your modules, but tmux will keep those modules loaded per shell window.
-
 
 # Detaching and attaching a tmux session
 
 1. Close your terminal window, and ignore any warning prompts.
 2. Reconnect just the way you did at the beginning of the class.
-3. Type `tmux attach` to attach.
+3. Type `tmux attach` to attach to an existing session.
+
+**Remember:** `tmux attach` will fail if you don't have a session open already; if that happens just enter `tmux` to start a new session.
 
 
 # Manual detach
 
-While in tmux, we can explicitly detach using `<Ctrl-a d>` or by typing `tmux detatch`.
+While in tmux, we can explicitly detach by typing `tmux detatch`.
 
 Try doing this and then reattaching.
 
 
-# Checking on our alignment
-
-Yay! It's done!
-
-```bash
-less output/alignment.fasta
-```
-
-
 # Questions?
+
+
+# Homework
+
+Please, _please_, _**please!**_
+
+Go over `tmux` and `nano` and memorize the basics of how to use them.
+We'll use these tools over and over and this will help keep things moving.
 
 
 # Homework

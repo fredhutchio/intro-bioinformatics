@@ -93,15 +93,6 @@
 <h1>Our first script!</h1>
 <p>Let’s start by creating a build script that automates some of the things we’ve done so far</p>
 </section>
-<section id="editing-text-files-with-nano" class="level1">
-<h1>Editing text files with <code>nano</code></h1>
-<ul>
-<li>Reconnect to your favorite rhino, <code>tmux attach</code></li>
-<li>Type <code>cd ~/bioinfclass</code> to get back to our working directory</li>
-<li>Type <code>nano build.sh</code> to open a new text file called <code>build.sh</code></li>
-</ul>
-<p>You are now in <code>nano</code>. The commands used to save and exit this file are at the bottom of the screen.</p>
-</section>
 <section id="a-shell-script-is-just-a-list-of-commands-to-be-executed" class="level1">
 <h1>A shell script is just a list of commands to be executed</h1>
 <p>In your <code>build.sh</code> file, try:</p>
@@ -248,8 +239,6 @@ csvuniq -zc species $seqs_per_specimen &gt; $specs_per_species
 specs_per_species_location=&quot;$outdir/specs_per_species_location.csv&quot;
 csvuniq -zc species,location $seqs_per_specimen &gt; $specs_per_species_location</code></pre>
 <!-- 18 minutes so far -->
-
-
 </section>
 </section>
 <section id="verify-that-it-runs" class="level1">
@@ -416,8 +405,8 @@ done
 <section id="resources" class="level1">
 <h1>Resources</h1>
 <ul>
-<li>SCons (sane <code>make</code> alternative) for bioinformatics post - <a href="http://www.metasoarous.com/scons-for-data-science-and-compbio/">http://www.metasoarous.com/scons-for-data-science-and-compbio/</a></li>
-<li>seqmagick - <a href="http://fhcrc.github.io/seqmagick/">http://fhcrc.github.io/seqmagick/</a> for munging sequence data</li>
+<li>SCons (sane <code>make</code> alternative) for bioinformatics post - <a href="http://www.metasoarous.com/scons-for-data-science-and-compbio/" class="uri">http://www.metasoarous.com/scons-for-data-science-and-compbio/</a></li>
+<li>seqmagick - <a href="http://fhcrc.github.io/seqmagick/" class="uri">http://fhcrc.github.io/seqmagick/</a> for munging sequence data</li>
 <li><code>nano</code> for simple file editing on the rhinos</li>
 <li>Vim for more powerful text editing - (type <code>vimtutor</code> at the terminal…)</li>
 <li>Erick’s favorite <a href="https://www.youtube.com/watch?v=olH-9b3VJfs">video</a> about shell scripting, and <a href="http://shellhaters.org/">website</a></li>

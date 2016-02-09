@@ -37,16 +37,6 @@ Building new commands out of old commands is part of Unix composability
 Let's start by creating a build script that automates some of the things we've done so far
 
 
-# Editing text files with `nano`
-
-* Reconnect to your favorite rhino, `tmux attach`
-* Type `cd ~/bioinfclass` to get back to our working directory
-* Type `nano build.sh` to open a new text file called `build.sh`
-
-You are now in `nano`.
-The commands used to save and exit this file are at the bottom of the screen.
-
-
 # A shell script is just a list of commands to be executed
 
 In your `build.sh` file, try:

@@ -61,11 +61,7 @@
 
 <section id="first-things-first" class="level1">
 <h1>First things first</h1>
-<p>Did you</p>
-<ul>
-<li>read the first couple chapters?</li>
-<li>successfully ssh into <code>rhino</code>?</li>
-</ul>
+<p>Did everyone successfully ssh into <code>rhino</code>?</p>
 </section>
 <section id="introductions" class="level1">
 <h1>Introductions</h1>
@@ -98,6 +94,7 @@
 <h1>Please spend <em>some</em> time outside class</h1>
 <ul>
 <li>Time is the only way to learn these things</li>
+<li>Help keep this class moving smoothly</li>
 <li>The waiting list is very long</li>
 </ul>
 </section>
@@ -113,45 +110,20 @@
 <li>Python - writing a program</li>
 </ol>
 </section>
-<section id="today" class="level1">
-<h1>Today</h1>
-<ul>
-<li>1/2 overview</li>
-<li>1/2 remote access &amp; Unix environment</li>
-</ul>
-</section>
-<section id="why-computers" class="level1">
-<h1>Why computers?</h1>
-<p><br/></p>
-<p><strong>DATA</strong></p>
-</section>
-<section id="biology-data" class="level1">
-<h1>Biology data</h1>
-<p>We can now get it</p>
-<ul>
-<li>Cheaper &amp; Faster</li>
-</ul>
-<p>=&gt;</p>
-<ul>
-<li>We have more of it</li>
-</ul>
-</section>
-<section id="to-understand-biology-we-need-to-understand-data" class="level1">
-<h1>To understand biology, we need to understand data</h1>
-<p><br/></p>
-<p><strong>ENTER BIOINFORMATICS</strong></p>
-</section>
 <section id="what-is-bioinformatics" class="level1">
 <h1>What is bioinformatics?</h1>
-<p>The art of applying computation towards the analysis of biological data</p>
 </section>
-<section id="aspects-of-bioinformatics" class="level1">
-<h1>Aspects of Bioinformatics</h1>
-<p>Things we typically do with data:</p>
-<p>munging | exploration | draw conclusions</p>
+<section id="what-is-bioinformatics-1" class="level1">
+<h1>What is bioinformatics?</h1>
+<p>The application of computation towards the analysis of biological data</p>
+</section>
+<section id="in-practice-this-entails" class="level1">
+<h1>In practice this entails</h1>
+<p>data munging | data exploration | drawing conclusions</p>
 </section>
 <section id="data-munging" class="level1">
 <h1>Data munging</h1>
+<p>This is where a lot of day to day work goes</p>
 <ul>
 <li>Cleaning data</li>
 <li>Transforming data</li>
@@ -177,6 +149,11 @@
 <h1>Rinse and repeat…</h1>
 <p>New insights and conclusions lead to new data and questions, etc.</p>
 </section>
+<section id="this-should-be-nothing-new" class="level1">
+<h1>This should be nothing new</h1>
+<p>This is what you’re likely <em>already</em> doing at the lab bench, but with computers instead of test tubes.</p>
+<p>The difference is in knowing how to approach scientific problems with the computational toolset.</p>
+</section>
 <section id="so-this-is-what-we-do" class="level1">
 <h1>So this is <em>what</em> we do</h1>
 <p><br/></p>
@@ -186,6 +163,7 @@
 </section>
 <section id="specific-goals-for-research" class="level1">
 <h1>Specific goals for research</h1>
+<p>General goals for good science:</p>
 <ul>
 <li>Reproducibility</li>
 <li>Robustness</li>
@@ -196,15 +174,15 @@
 </section>
 <section id="things-we-can-do-towards-these-goals" class="level1">
 <h1>Things we can do towards these goals</h1>
-<p>immutability | documentation | automation</p>
+<p>Immutable data | Documentation | Automation</p>
 </section>
-<section id="treat-data-as-immutable" class="level1">
-<h1>Treat data as immutable!</h1>
+<section id="immutability" class="level1">
+<h1>Immutability</h1>
 <p><strong>Never</strong> change data in place; data in, data out.</p>
 <p>Aids: reproducibility, clarity &amp; iterability</p>
 </section>
 <section id="document-everything" class="level1">
-<h1>Document <strong>everything</strong>!!!</h1>
+<h1>Document <strong>everything</strong></h1>
 <p>Hopefully you’re already doing this with your biology work (lab notebook).</p>
 <p>Bioinformatics should be no different.</p>
 <ul>
@@ -266,6 +244,18 @@
     ├── tree.newick
     └── tree_plot.png</code></pre>
 </section>
+<section id="and-if-you-have-nested-data" class="level1">
+<h1>And if you have nested data…</h1>
+<pre class="text"><code>...
+├── data
+│   ├── trial-a
+│   │   ├── sequences.fasta
+│   │   └── metadata.csv
+│   ├── trial-b
+│   │   ├── sequences.fasta
+│   │   └── metadata.csv
+...</code></pre>
+</section>
 <section id="questions" class="level1">
 <h1>Questions?</h1>
 </section>
@@ -294,6 +284,12 @@
 <li>We can distribute tasks across compute clusters, such as the one the hutch has (See <a href="http://www.fredhutch.io/events/2015/05/20/spring-2015-unix-hpc/">gizmo class</a>)</li>
 </ul>
 </section>
+<section id="questions-1" class="level1">
+<h1>Questions?</h1>
+</section>
+<section id="lets-connect-to-a-unix-shell" class="level1">
+<h1>Let’s connect to a Unix shell</h1>
+</section>
 <section id="ssh-for-remote-connection" class="level1">
 <h1>SSH for remote connection</h1>
 <p>Do this however you figured out how to do it for your OS.</p>
@@ -303,14 +299,14 @@
 </section>
 <section id="youre-now-in-a-unix-shell" class="level1">
 <h1>You’re now in a Unix shell!</h1>
-<p>We’ll cover things more thoroughly next class. For now just some very basic information for orientation.</p>
+<p>We’ll cover things more thoroughly next class. For now, just some basic information for orientation.</p>
 </section>
 <section id="brief-overview-of-a-unix-command" class="level1">
 <h1>Brief overview of a Unix command</h1>
 <p><code>command [flags] [operands]</code></p>
-<p>Example: <code>ls -a ~</code></p>
+<pre><code>ls -a ~</code></pre>
 <ul>
-<li><code>ls</code>: The command, for listing directory contents</li>
+<li><code>ls</code>: The command, in this case for listing directory contents</li>
 <li><code>-a</code>: A flag which specifies that hidden files should be listed</li>
 <li><code>~</code>: An operand, in this case a special symbol which points to your home directory</li>
 </ul>
@@ -319,7 +315,12 @@
 <h1>Getting help for a Unix command</h1>
 <p>Most Unix programs will take either a <code>-h</code>, <code>--help</code>, or <code>-help</code> flag and return useful information about how to construct a valid command.</p>
 <p>Some commands also have <em>man pages</em>, which you can access using <code>man &lt;command-name&gt;</code>.</p>
-<p>Example: <code>ls --help</code></p>
+<p>Example: <code>ls --help</code> &amp; <code>man ls</code></p>
+</section>
+<section id="stuck-in-a-terminal" class="level1">
+<h1>Stuck in a terminal?</h1>
+<p>If you are in the terminal and things seem “stuck” (a program is running that won’t stop), try the following:</p>
+<p><code>Ctrl-c</code>, <code>Esc</code>, <code>q</code>, <code>Ctrl-d</code></p>
 </section>
 <section id="lets-get-some-more-practice-with-simple-commands" class="level1">
 <h1>Let’s get some more practice with simple commands</h1>
@@ -327,53 +328,66 @@
 <section id="create-a-project-directory" class="level1">
 <h1>Create a project directory</h1>
 <p>This class will build around analysis of a single data set, so let’s set up a project directory for it.</p>
-<pre><code>mkdir ~/bioinfclass
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">mkdir</span> ~/bioinfclass
 
-cd ~/bioinfclass
-pwd
+<span class="kw">cd</span> ~/bioinfclass
+<span class="kw">pwd</span>
 
-mkdir data output scripts
+<span class="kw">mkdir</span> data output scripts
 
-touch README.md</code></pre>
+<span class="kw">ls</span></code></pre>
+<p>(You’ll always enter in the things you see in these black boxes)</p>
 </section>
 <section id="download-data-with-wget" class="level1">
 <h1>Download data with <code>wget</code></h1>
-<pre><code>wget https://raw.githubusercontent.com/fredhutchio/intro-bioinformatics/gh-pages/data.tar</code></pre>
-<p>Note that we get a <code>tar</code> file. This is an archive type, like <code>zip</code>, common on Unix systems.</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">wget</span> https://goo.gl/8Nk5tZ
+<span class="kw">ls</span></code></pre>
+<p>Note that we now have a <code>data.tar</code> file in this directory. This is an archive type (like <code>zip</code>) common on Unix systems. To unpack it</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">tar</span> -vxf data.tar</code></pre>
 </section>
-<section id="unpacking-the-tar" class="level1">
-<h1>Unpacking the tar</h1>
-<pre><code>tar -vxf data.tar</code></pre>
+<section id="editing-text-files-with-nano" class="level1">
+<h1>Editing text files with <code>nano</code></h1>
+<p>Type <code>nano README.md</code> to open a new text file called <code>README.md</code></p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">nano</span> README.md<span class="kw">`</span></code></pre>
+<p>You are now in the <code>nano</code> text editing program.</p>
+<p>To save, type <code>Ctrl-o</code> and hit enter. To save and exit type <code>Ctrl-x</code> (if there are unsaved changes, next type <code>y</code> then <code>Enter</code> to save the changes).</p>
 </section>
 <section id="lets-look-at-what-weve-done" class="level1">
 <h1>Let’s look at what we’ve done</h1>
 <p><code>tree</code> prints out a directory tree as ASCII art.</p>
-<pre><code>tree</code></pre>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">tree</span></code></pre>
 </section>
 <section id="lets-explore-the-sequence-file" class="level1">
 <h1>Let’s explore the sequence file</h1>
-<p><code>cat</code> prints the output of file[s] to the screen.</p>
-<pre><code>cat data/sfv.fasta</code></pre>
+<p><code>cat</code> prints the output of file(s) to the screen.</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">cat</span> data/sfv.fasta</code></pre>
 </section>
 <section id="now-with-less" class="level1">
 <h1>Now with <code>less</code></h1>
 <p><code>less</code> lets us “page” through data, without flooding the screen.</p>
-<pre><code>less data/sfv.fasta</code></pre>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">less</span> data/sfv.fasta</code></pre>
 <p><br/></p>
 <p>Press the <code>q</code> key to exit from <code>less</code>.</p>
 </section>
 <section id="now-lets-look-at-the-metadata" class="level1">
 <h1>Now let’s look at the metadata</h1>
-<pre><code>less data/sfv.csv</code></pre>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">less</span> data/sfv.csv</code></pre>
+</section>
+<section id="questions-2" class="level1">
+<h1>Questions?</h1>
 </section>
 <section id="supercharging-our-shell" class="level1">
 <h1>Supercharging our shell</h1>
-<p>SciComp has set up a <em>module</em> system for setting up custom environments.</p>
+<p>SciComp has set up a <em>module</em> system for customizing your environment.</p>
 <p>We’ll be using the <code>intro-bio</code> module, loaded by executing <code>module load intro-bio</code> (note: this <em>only affects the current shell session!</em>). When you do this, you should see something like:</p>
-<pre><code>matsen@rhino01:~$ module load intro-bio
-Using already loaded python
-matsen@rhino01:~$</code></pre>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">matsen@rhino01</span>:~$ module load intro-bio
+<span class="kw">Using</span> already loaded python
+<span class="kw">matsen@rhino01</span>:~$</code></pre>
 <p>If you get an error message instead, let us know, because you can’t proceed without this module loaded.</p>
+</section>
+<section id="module-system-side-note" class="level1">
+<h1>Module system side note</h1>
+<p><strong>Note:</strong> if you <em>ever</em> get a “command not found” error, you probably need to re-load your modules, but tmux will keep those modules loaded per shell window.</p>
 </section>
 <section id="tmux---terminal-multiplexer" class="level1">
 <h1>Tmux - Terminal multiplexer</h1>
@@ -383,17 +397,17 @@ matsen@rhino01:~$</code></pre>
 <section id="setting-up-tmux" class="level1">
 <h1>Setting up tmux</h1>
 <p>We’ll use tmux throughout this class to keep sessions running. But first let’s download a nice tmux configuration file for making things easier.</p>
-<pre><code># This is a command that download
-wget https://raw.githubusercontent.com/fredhutchio/intro-bioinformatics/gh-pages/config/tmux.conf
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># This is a command that download</span>
+<span class="kw">wget</span> https://raw.githubusercontent.com/fredhutchio/intro-bioinformatics/gh-pages/config/tmux.conf
 
-ls
+<span class="kw">ls</span>
 
-# tmux knows to look for our config file at ~/.tmux.conf
-mv tmux.conf ~/.tmux.conf
+<span class="co"># tmux knows to look for our config file at ~/.tmux.conf</span>
+<span class="kw">mv</span> tmux.conf ~/.tmux.conf
 
-# Note that this file is hidden once we make it a &quot;dotfile&quot;
-ls ~
-ls -a ~</code></pre>
+<span class="co"># Note that this file is hidden once we make it a &quot;dotfile&quot;</span>
+<span class="kw">ls</span> ~
+<span class="kw">ls</span> -a ~</code></pre>
 </section>
 <section id="starting-a-new-tmux-session" class="level1">
 <h1>Starting a new tmux session</h1>
@@ -405,12 +419,22 @@ ls -a ~</code></pre>
 <ul>
 <li><code>Ctrl-a</code> - your “Command key”</li>
 <li><code>Ctrl-a ?</code> - Help</li>
-<li><code>Ctrl-a d</code> - Detatch session</li>
+<li><code>Ctrl-a d</code> - Detach session</li>
 </ul>
-<p><br/></p>
+<p>Windows:</p>
 <ul>
 <li><code>Ctrl-a c</code> - New window</li>
 <li><code>Ctrl-a &lt;Space&gt;</code> - Next window</li>
+</ul>
+</section>
+<section id="quick-tmux-cheatsheet-1" class="level1">
+<h1>Quick tmux cheatsheet</h1>
+<p>Panes:</p>
+<ul>
+<li><code>Ctrl-a |</code> - Split window into panes vertically</li>
+<li><code>Ctrl-a -</code> - Split window into panes horizontally</li>
+<li><code>Ctrl-a &lt;arrow&gt;</code> - Move between</li>
+<li><code>Ctrl-d</code> - Close a pane or window</li>
 </ul>
 </section>
 <section id="looking-at-tmux-in-action" class="level1">
@@ -428,16 +452,12 @@ ls -a ~</code></pre>
 <span class="kw">muscle</span> -maxiters 2 -in data/sfv.fasta -out output/alignment.fasta
 
 <span class="co"># Get bored waiting and want to work on something else...</span>
-<span class="kw">&lt;Ctrl-a</span> c<span class="kw">&gt;</span> <span class="co"># create new window</span>
+<span class="kw">&lt;Ctrl-a</span> <span class="kw">|&gt;</span> <span class="co"># create new pane</span>
+
 <span class="kw">cd</span> ~
 <span class="kw">mkdir</span> new-project
 <span class="kw">cd</span> new-project
-<span class="kw">mkdir</span> data output scripts
-
-<span class="co"># Let&#39;s go check on our alignment</span>
-<span class="kw">&lt;Ctrl-a</span> <span class="kw">&lt;</span>Space<span class="kw">&gt;&gt;</span>
-
-<span class="co"># Still running... switch back; etc.</span></code></pre>
+<span class="kw">mkdir</span> data output scripts</code></pre>
 </section>
 <section id="attaching-and-detaching-tmux" class="level1">
 <h1>Attaching and detaching tmux</h1>
@@ -447,31 +467,30 @@ ls -a ~</code></pre>
 <li>a computer shutdown (power outage; frozen screen; system updates; etc.)</li>
 </ul>
 <p>We might also stop work on one machine and pick it up on another.</p>
-<p><br></p>
-<p><strong>Note:</strong> if you get a “command not found” error, you probably need to re-load your modules, but tmux will keep those modules loaded per shell window.</p>
 </section>
 <section id="detaching-and-attaching-a-tmux-session" class="level1">
 <h1>Detaching and attaching a tmux session</h1>
 <ol type="1">
 <li>Close your terminal window, and ignore any warning prompts.</li>
 <li>Reconnect just the way you did at the beginning of the class.</li>
-<li>Type <code>tmux attach</code> to attach.</li>
+<li>Type <code>tmux attach</code> to attach to an existing session.</li>
 </ol>
+<p><strong>Remember:</strong> <code>tmux attach</code> will fail if you don’t have a session open already; if that happens just enter <code>tmux</code> to start a new session.</p>
 </section>
 <section id="manual-detach" class="level1">
 <h1>Manual detach</h1>
-<p>While in tmux, we can explicitly detach using <code>&lt;Ctrl-a d&gt;</code> or by typing <code>tmux detatch</code>.</p>
+<p>While in tmux, we can explicitly detach by typing <code>tmux detatch</code>.</p>
 <p>Try doing this and then reattaching.</p>
 </section>
-<section id="checking-on-our-alignment" class="level1">
-<h1>Checking on our alignment</h1>
-<p>Yay! It’s done!</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">less</span> output/alignment.fasta</code></pre>
-</section>
-<section id="questions-1" class="level1">
+<section id="questions-3" class="level1">
 <h1>Questions?</h1>
 </section>
 <section id="homework" class="level1">
+<h1>Homework</h1>
+<p>Please, <em>please</em>, <em><strong>please!</strong></em></p>
+<p>Go over <code>tmux</code> and <code>nano</code> and memorize the basics of how to use them. We’ll use these tools over and over and this will help keep things moving.</p>
+</section>
+<section id="homework-1" class="level1">
 <h1>Homework</h1>
 <p>Recommended reading:</p>
 <ul>
