@@ -221,7 +221,7 @@ your-project
 # Questions?
 
 
-# The Unix environment
+# More on Unix
 
 Unix is a proprietary operating system from the 60s.
 
@@ -256,7 +256,14 @@ Unix was built for remote access, since computers were big and expensive.
 # Questions?
 
 
-# Let's connect to a Unix shell
+# Practicum!
+
+* Connect to a remote server
+* Unix survival guide
+* Set up a project directory and load it with data
+* Learn how to edit files on a server
+* Tmux for session management
+* Play with some data
 
 
 # SSH for remote connection
@@ -290,6 +297,8 @@ ls -a ~
 * `-a`: A flag which specifies that hidden files should be listed
 * `~`: An operand, in this case a special symbol which points to your home directory
 
+Note: Spaces are important here (but not how many).
+
 
 # Getting help for a Unix command
 
@@ -300,7 +309,6 @@ Some commands also have _man pages_, which you can access using `man <command-na
 Example: `ls --help` & `man ls`
 
 
-
 # Stuck in a terminal?
 
 If you are in the terminal and things seem "stuck" (a program is running that won't stop), try the following:
@@ -308,10 +316,7 @@ If you are in the terminal and things seem "stuck" (a program is running that wo
 `Ctrl-c`, `Esc`, `q`, `Ctrl-d`
 
 
-# Let's get some more practice with simple commands
-
-
-# Create a project directory
+# Time to set up our project directory
 
 This class will build around analysis of a single data set, so let's set up a project directory for it.
 
@@ -332,7 +337,7 @@ ls
 # Download data with `wget`
 
 ```bash
-wget https://goo.gl/8Nk5tZ
+wget https://goo.gl/8Nk5tZ -o data.tar
 ls
 ```
 
@@ -350,13 +355,14 @@ tar -vxf data.tar
 Type `nano README.md` to open a new text file called `README.md`
 
 ```bash
-nano README.md`
+nano README.md
 ```
 
 You are now in the `nano` text editing program.
+Type your thoughts about the class so far...
 
 To save, type `Ctrl-o` and hit enter.
-To save and exit type `Ctrl-x` (if there are unsaved changes, next type `y` then `Enter` to save the changes).
+To exit type `Ctrl-x` (if there are unsaved changes, next type `y` then `Enter` to save them).
 
 
 
@@ -367,6 +373,8 @@ To save and exit type `Ctrl-x` (if there are unsaved changes, next type `y` then
 ```bash
 tree
 ```
+
+Note: This may not turn out right on Windows PuTTY terminals.
 
 
 # Let's explore the sequence file
@@ -397,6 +405,10 @@ Press the `q` key to exit from `less`.
 less data/sfv.csv
 ```
 
+Press the `/` key to enter a search string
+
+(Try `human` or `monkey`; Use `n` and `N` to toggle through results).
+
 
 # Questions?
 
@@ -409,17 +421,17 @@ We'll be using the `intro-bio` module, loaded by executing `module load intro-bi
 When you do this, you should see something like:
 
 ```bash
-matsen@rhino01:~$ module load intro-bio
-Using already loaded python
-matsen@rhino01:~$
+module load intro-bio
 ```
 
-If you get an error message instead, let us know, because you can't proceed without this module loaded.
+You might get a message that says `Using already loaded python`, but don't worry about it.
+If you get an error message though, let us know. 
+You can't proceed without this module loaded.
 
 
 # Module system side note
 
-**Note:** if you _ever_ get a "command not found" error, you probably need to re-load your modules, but tmux will keep those modules loaded per shell window.
+**Note:** if you _ever_ get a "command not found" error, you probably need to re-load your modules.
 
 
 # Tmux - Terminal multiplexer
@@ -428,6 +440,11 @@ This is a tool that let's us have multiple Unix shells running at once.
 
 We could just open multiple terminal windows, each with an ssh connection into the remote server.
 But with tmux, if we close or lose our connection to the server, our terminal session doesn't get killed; running programs keep running.
+This let's us:
+
+* Put down and pick up work from multiple machines
+* Keep working on other things while a long running computation runs
+* Switch back and forth quickly between multiple projects
 
 
 # Setting up tmux
@@ -479,20 +496,32 @@ Panes:
 * `Ctrl-d` - Close a pane or window
 
 
-# Looking at tmux in action
+# Tmux commands
 
-Why we might want to use tmux:
+You can also interact with tmux using commands, and you can see a lit of commands and explanations on the man page:
 
-* Keep working on other things while a long running computation runs
-* Switch back and forth quickly between multiple projects
+```
+man tmux
+```
 
-Let's see an example.
+All of the key combos above are just bindings to these commands, so this is a good place to go if you're trying to figure something out.
+
+You can also type `tmux ` and hit `<Tab>` to see a list of commands (this will autocomplete if you type the first part of the command; try `tmux kill-` then `<Tab>`).
+
+
+# Lets put Tmux to the test
+
+And also do our first sequence alignment!
+
+
+# What is a sequence alignment?
 
 
 # Making a sequence alignment
 
 ```bash
 # First start the long running alignment
+cd ~/bioinfclass
 muscle -maxiters 2 -in data/sfv.fasta -out output/alignment.fasta
 
 # Get bored waiting and want to work on something else...
@@ -503,16 +532,6 @@ mkdir new-project
 cd new-project
 mkdir data output scripts
 ```
-
-
-# Attaching and detaching tmux
-
-SSH sessions can disconnect because of:
-
-* a lost network connection
-* a computer shutdown (power outage; frozen screen; system updates; etc.)
-
-We might also stop work on one machine and pick it up on another.
 
 
 # Detaching and attaching a tmux session
@@ -559,4 +578,5 @@ Reading for next class:
 * These slides (homepage): <http://fredhutchio.github.io/intro-bioinformatics>
 * Unix command reference: <https://ubuntudanmark.dk/filer/fwunixref.pdf>
 * Tmux tutorial: <http://www.fredhutch.io/articles/2014/04/27/terminal-multiplex>
+* Stack overflow: <https://stackoverflow.com>
 

@@ -55,6 +55,9 @@ You should see an informational message about the system, followed by a prompt t
 Try typing `echo "it is working"`, and hitting enter.
 The terminal should print out "it is working" on the following line, and return a new prompt.
 
+Next, try typing `cd ~` and hitting enter.
+The terminal should return a new prompt.
+
 If instead of this behavior you see something that looks like an error message, please notify us so we can help you get set up before the first class starts.
 (Note that you may get `rhino01`, `rhino02` or `rhino03` instead of `rhino04`; this is ok).
 
