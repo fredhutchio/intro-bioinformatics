@@ -133,7 +133,7 @@ mv foobar bioinfclass
 # We can make new directories or files with `mkdir` and `touch`
 
 * `mkdir name` will create a directory `name`
-* `touch name` will create a file `name`
+* `touch name` will create an empty file `name`
 
 &nbsp;
 
@@ -293,6 +293,8 @@ In which we apply our knowledge of these flying, speaking beasts.
 
 # First, let's look at our CSV data a bit more
 
+We'll be using several programs with `stdin`, `stdout` and redirection to answer questions about our data.
+
 
 # Side note: strategy
 
@@ -308,14 +310,50 @@ This is useful in part because this is typically how we write.
 
 # Head first...
 
+Head writes to `stdout` the first several lines of `stdin`.
+
 ```bash
 head data/sfv.csv
 
 column -t -s , data/sfv.csv | head
 ```
 
+This is useful for working with big files.
+
+
+# Let's take a look at our alignment from last week
+
+## Always do this with alignments!
+
+```bash
+# We'll use the `alnvu` program
+av -L 99999 -w 99999 -c output/alignment.fasta | less -S
+```
+
+
+# We can also look at our tree
+
+```bash
+nw_display output/tree.nw | less -S
+```
+
+
+# So we can look at data in Unix
+
+But how can we actually analyze data and answer questions?
+
 
 # How many human sequences are there?
+
+There is a species column in our data set with `human` and `monkey` entries.
+
+<br/>
+
+How would we figure out how many human and monkey sequences there are in the data?
+
+
+# How many human sequences are there?
+
 
 ```bash
 grep human data/sfv.csv | wc -l
@@ -324,8 +362,20 @@ grep human data/sfv.csv | wc -l
 grep monkey data/sfv.csv | wc -l
 ```
 
+* `grep` searches through files for a pattern
+* `wc -l` counts the number of lines
+* Thus, `grep ... | wc -l` counts the number of lines in a file matching some pattern
 
-# Another way we could do these together
+
+# Some problems with this:
+
+We're not accounting for the tabular structure:
+
+* We can't restrict matches to just a particular column in the data
+* We have to do this twice; if we had many categories, this could take forever
+
+
+# A better way
 
 How many sequences are there for each species?
 
@@ -333,13 +383,79 @@ How many sequences are there for each species?
 cut -d , -f 3 data/sfv.csv | sort | uniq -c
 ```
 
-* `-d ,` sets delimeter to "`,`"
-* `-f 3` selects the 3rd column
-
+* `cut -d , -f 3` extracts the third "," separated entry out of each line
 * `sort | uniq -c` makes a count of occurances for each unique entry
 
 
+# How to visualize this
+
+The first few columns in the data
+
+    |-----------------+----------+---------+------+-------------|
+    |  sequence       | specimen | species | gene | location    |
+    |-----------------+----------+---------+------+-------------|
+    |  BGH150WBGag2   | BGH150   | human   | gag  | Charmaguria |
+    |  BGH31WBGag2    | BGH31    | human   | gag  | Bormi       |
+    |  BGH150WBGag4   | BGH150   | human   | gag  | Charmaguria |
+    |  BGH150WBGag8   | BGH150   | human   | gag  | Charmaguria |
+    |  MBG103WBGag101 | MBG103   | monkey  | gag  | Narayanganj |
+    |  BGH31WBGag3    | BGH31    | human   | gag  | Bormi       |
+    |  MBG103WBGag102 | MBG103   | monkey  | gag  | Narayanganj |
+    |  BGH31WBGag1    | BGH31    | human   | gag  | Bormi       |
+    |  MBG103WBGag104 | MBG103   | monkey  | gag  | Narayanganj |
+    |  MBG104WBGag101 | MBG104   | monkey  | gag  | Narayanganj |
+    |  ...
+
+# The results of cutting out the third column
+
+    |---------|
+    | species |
+    |---------|
+    | human   |
+    | human   |
+    | human   |
+    | human   |
+    | monkey  |
+    | human   |
+    | monkey  |
+    | human   |
+    | monkey  |
+    | monkey  |
+    | ...
+
+
+# The result of sorting
+
+    |---------|
+    | species |
+    |---------|
+    | human   |
+    | human   |
+    | human   |
+    | human   |
+    | human   |
+    | human   |
+    | ...
+    | monkey  |
+    | monkey  |
+    | monkey  |
+    | monkey  |
+    | ...
+
+
+# The result of counting
+
+      77 human
+    1097 monkey
+       1 species
+
+
+# How would we count how many specimens there are per species?
+
+
 # How about how many specimens there are per species?
+
+We can do this with a two step version of the `cut | uniq | sort` pattern we used above:
 
 ```bash
 # First, uniq specimens, with species info
@@ -348,6 +464,55 @@ cut -d , -f 2,3 data/sfv.csv | sort | uniq | head
 # Next count that by species
 cut -d , -f 2,3 data/sfv.csv | sort | uniq | cut -d , -f 2 | sort | uniq -c
 ```
+
+
+# How to visualize this
+
+Columns 2 and 3 cut out of the data
+
+    |----------+---------|
+    | specimen | species |
+    |----------+---------|
+    | BGH150   | human   |
+    | BGH31    | human   |
+    | BGH150   | human   |
+    | BGH150   | human   |
+    | MBG103   | monkey  |
+    | BGH31    | human   |
+    | MBG103   | monkey  |
+    | BGH31    | human   |
+    | MBG103   | monkey  |
+    | MBG104   | monkey  |
+    | ...
+
+
+# The results of the first sort and uniq (without `-c`)
+
+    |----------+---------|
+    | specimen | species |
+    |----------+---------|
+    | BGH150   | human   |
+    | BGH31    | human   |
+    | MBG103   | monkey  |
+    | MBG104   | monkey  |
+    | ...
+
+Now we now have exactly 1 column per specimen (species just comes along for the ride).
+
+
+# Now we cut out the species, and count
+
+      8 human
+    169 monkey
+      1 species
+
+There is exactly one row in the last result set for each unique specimen.
+Thus, the number of times we see a species in that table is the number of specimens corresponding to that species.
+
+
+# What if we wanted to include location in this data?
+
+What would we do?
 
 
 # What about specimens by location?
@@ -418,26 +583,6 @@ csvuniq -c specimen,species,location data/sfv.csv | csvuniq -zc species,location
 ```
 
 Notice that `csvuniq` does all of the sorting and cutting for us...
-
-
-# Let's finish our example from last week
-
-
-# First let's take a look at our alignment
-
-## Always do this!
-
-```bash
-# We'll use the `alnvu` program
-av -L 99999 -w 99999 -c output/alignment.fasta | less -S
-```
-
-
-# Now we can look at our tree
-
-```bash
-nw_display output/tree.nw | less -S
-```
 
 
 # Homework

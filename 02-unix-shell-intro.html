@@ -177,7 +177,7 @@
 <h1>We can make new directories or files with <code>mkdir</code> and <code>touch</code></h1>
 <ul>
 <li><code>mkdir name</code> will create a directory <code>name</code></li>
-<li><code>touch name</code> will create a file <code>name</code></li>
+<li><code>touch name</code> will create an empty file <code>name</code></li>
 </ul>
 <p> </p>
 <p><strong>Exercise:</strong> create a file in a subdirectory from your home directory</p>
@@ -315,6 +315,7 @@
 </section>
 <section id="first-lets-look-at-our-csv-data-a-bit-more" class="level1">
 <h1>First, let’s look at our CSV data a bit more</h1>
+<p>We’ll be using several programs with <code>stdin</code>, <code>stdout</code> and redirection to answer questions about our data.</p>
 </section>
 <section id="side-note-strategy" class="level1">
 <h1>Side note: strategy</h1>
@@ -329,34 +330,174 @@
 </section>
 <section id="head-first" class="level1">
 <h1>Head first…</h1>
+<p>Head writes to <code>stdout</code> the first several lines of <code>stdin</code>.</p>
 <pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">head</span> data/sfv.csv
 
 <span class="kw">column</span> -t -s , data/sfv.csv <span class="kw">|</span> <span class="kw">head</span></code></pre>
+<p>This is useful for working with big files.</p>
+</section>
+<section id="lets-take-a-look-at-our-alignment-from-last-week" class="level1">
+<h1>Let’s take a look at our alignment from last week</h1>
+<section id="always-do-this-with-alignments" class="level2">
+<h2>Always do this with alignments!</h2>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># We&#39;ll use the `alnvu` program</span>
+<span class="kw">av</span> -L 99999 -w 99999 -c output/alignment.fasta <span class="kw">|</span> <span class="kw">less</span> -S</code></pre>
+</section>
+</section>
+<section id="we-can-also-look-at-our-tree" class="level1">
+<h1>We can also look at our tree</h1>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">nw_display</span> output/tree.nw <span class="kw">|</span> <span class="kw">less</span> -S</code></pre>
+</section>
+<section id="so-we-can-look-at-data-in-unix" class="level1">
+<h1>So we can look at data in Unix</h1>
+<p>But how can we actually analyze data and answer questions?</p>
 </section>
 <section id="how-many-human-sequences-are-there" class="level1">
+<h1>How many human sequences are there?</h1>
+<p>There is a species column in our data set with <code>human</code> and <code>monkey</code> entries.</p>
+<p><br/></p>
+<p>How would we figure out how many human and monkey sequences there are in the data?</p>
+</section>
+<section id="how-many-human-sequences-are-there-1" class="level1">
 <h1>How many human sequences are there?</h1>
 <pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">grep</span> human data/sfv.csv <span class="kw">|</span> <span class="kw">wc</span> -l
 
 <span class="co"># what about monkey sequences?</span>
 <span class="kw">grep</span> monkey data/sfv.csv <span class="kw">|</span> <span class="kw">wc</span> -l</code></pre>
+<ul>
+<li><code>grep</code> searches through files for a pattern</li>
+<li><code>wc -l</code> counts the number of lines</li>
+<li>Thus, <code>grep ... | wc -l</code> counts the number of lines in a file matching some pattern</li>
+</ul>
 </section>
-<section id="another-way-we-could-do-these-together" class="level1">
-<h1>Another way we could do these together</h1>
+<section id="some-problems-with-this" class="level1">
+<h1>Some problems with this:</h1>
+<p>We’re not accounting for the tabular structure:</p>
+<ul>
+<li>We can’t restrict matches to just a particular column in the data</li>
+<li>We have to do this twice; if we had many categories, this could take forever</li>
+</ul>
+</section>
+<section id="a-better-way" class="level1">
+<h1>A better way</h1>
 <p>How many sequences are there for each species?</p>
 <pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">cut</span> -d , -f 3 data/sfv.csv <span class="kw">|</span> <span class="kw">sort</span> <span class="kw">|</span> <span class="kw">uniq</span> -c</code></pre>
 <ul>
-<li><code>-d ,</code> sets delimeter to “<code>,</code>”</li>
-<li><p><code>-f 3</code> selects the 3rd column</p></li>
-<li><p><code>sort | uniq -c</code> makes a count of occurances for each unique entry</p></li>
+<li><code>cut -d , -f 3</code> extracts the third “,” separated entry out of each line</li>
+<li><code>sort | uniq -c</code> makes a count of occurances for each unique entry</li>
 </ul>
+</section>
+<section id="how-to-visualize-this" class="level1">
+<h1>How to visualize this</h1>
+<p>The first few columns in the data</p>
+<pre><code>|-----------------+----------+---------+------+-------------|
+|  sequence       | specimen | species | gene | location    |
+|-----------------+----------+---------+------+-------------|
+|  BGH150WBGag2   | BGH150   | human   | gag  | Charmaguria |
+|  BGH31WBGag2    | BGH31    | human   | gag  | Bormi       |
+|  BGH150WBGag4   | BGH150   | human   | gag  | Charmaguria |
+|  BGH150WBGag8   | BGH150   | human   | gag  | Charmaguria |
+|  MBG103WBGag101 | MBG103   | monkey  | gag  | Narayanganj |
+|  BGH31WBGag3    | BGH31    | human   | gag  | Bormi       |
+|  MBG103WBGag102 | MBG103   | monkey  | gag  | Narayanganj |
+|  BGH31WBGag1    | BGH31    | human   | gag  | Bormi       |
+|  MBG103WBGag104 | MBG103   | monkey  | gag  | Narayanganj |
+|  MBG104WBGag101 | MBG104   | monkey  | gag  | Narayanganj |
+|  ...</code></pre>
+</section>
+<section id="the-results-of-cutting-out-the-third-column" class="level1">
+<h1>The results of cutting out the third column</h1>
+<pre><code>|---------|
+| species |
+|---------|
+| human   |
+| human   |
+| human   |
+| human   |
+| monkey  |
+| human   |
+| monkey  |
+| human   |
+| monkey  |
+| monkey  |
+| ...</code></pre>
+</section>
+<section id="the-result-of-sorting" class="level1">
+<h1>The result of sorting</h1>
+<pre><code>|---------|
+| species |
+|---------|
+| human   |
+| human   |
+| human   |
+| human   |
+| human   |
+| human   |
+| ...
+| monkey  |
+| monkey  |
+| monkey  |
+| monkey  |
+| ...</code></pre>
+</section>
+<section id="the-result-of-counting" class="level1">
+<h1>The result of counting</h1>
+<pre><code>  77 human
+1097 monkey
+   1 species</code></pre>
+</section>
+<section id="how-would-we-count-how-many-specimens-there-are-per-species" class="level1">
+<h1>How would we count how many specimens there are per species?</h1>
 </section>
 <section id="how-about-how-many-specimens-there-are-per-species" class="level1">
 <h1>How about how many specimens there are per species?</h1>
+<p>We can do this with a two step version of the <code>cut | uniq | sort</code> pattern we used above:</p>
 <pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># First, uniq specimens, with species info</span>
 <span class="kw">cut</span> -d , -f 2,3 data/sfv.csv <span class="kw">|</span> <span class="kw">sort</span> <span class="kw">|</span> <span class="kw">uniq</span> <span class="kw">|</span> <span class="kw">head</span>
 
 <span class="co"># Next count that by species</span>
 <span class="kw">cut</span> -d , -f 2,3 data/sfv.csv <span class="kw">|</span> <span class="kw">sort</span> <span class="kw">|</span> <span class="kw">uniq</span> <span class="kw">|</span> <span class="kw">cut</span> -d , -f 2 <span class="kw">|</span> <span class="kw">sort</span> <span class="kw">|</span> <span class="kw">uniq</span> -c</code></pre>
+</section>
+<section id="how-to-visualize-this-1" class="level1">
+<h1>How to visualize this</h1>
+<p>Columns 2 and 3 cut out of the data</p>
+<pre><code>|----------+---------|
+| specimen | species |
+|----------+---------|
+| BGH150   | human   |
+| BGH31    | human   |
+| BGH150   | human   |
+| BGH150   | human   |
+| MBG103   | monkey  |
+| BGH31    | human   |
+| MBG103   | monkey  |
+| BGH31    | human   |
+| MBG103   | monkey  |
+| MBG104   | monkey  |
+| ...</code></pre>
+</section>
+<section id="the-results-of-the-first-sort-and-uniq-without--c" class="level1">
+<h1>The results of the first sort and uniq (without <code>-c</code>)</h1>
+<pre><code>|----------+---------|
+| specimen | species |
+|----------+---------|
+| BGH150   | human   |
+| BGH31    | human   |
+| MBG103   | monkey  |
+| MBG104   | monkey  |
+| ...</code></pre>
+<p>Now we now have exactly 1 column per specimen (species just comes along for the ride).</p>
+</section>
+<section id="now-we-cut-out-the-species-and-count" class="level1">
+<h1>Now we cut out the species, and count</h1>
+<pre><code>  8 human
+169 monkey
+  1 species</code></pre>
+<p>There is exactly one row in the last result set for each unique specimen. Thus, the number of times we see a species in that table is the number of specimens corresponding to that species.</p>
+</section>
+<section id="what-if-we-wanted-to-include-location-in-this-data" class="level1">
+<h1>What if we wanted to include location in this data?</h1>
+<p>What would we do?</p>
 </section>
 <section id="what-about-specimens-by-location" class="level1">
 <h1>What about specimens by location?</h1>
@@ -407,21 +548,6 @@
 <h1>Now let’s see what our example looks like:</h1>
 <pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">csvuniq</span> -c specimen,species,location data/sfv.csv <span class="kw">|</span> <span class="kw">csvuniq</span> -zc species,location <span class="kw">|</span> <span class="kw">csvlook</span></code></pre>
 <p>Notice that <code>csvuniq</code> does all of the sorting and cutting for us…</p>
-</section>
-<section id="lets-finish-our-example-from-last-week" class="level1">
-<h1>Let’s finish our example from last week</h1>
-</section>
-<section id="first-lets-take-a-look-at-our-alignment" class="level1">
-<h1>First let’s take a look at our alignment</h1>
-<section id="always-do-this" class="level2">
-<h2>Always do this!</h2>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># We&#39;ll use the `alnvu` program</span>
-<span class="kw">av</span> -L 99999 -w 99999 -c output/alignment.fasta <span class="kw">|</span> <span class="kw">less</span> -S</code></pre>
-</section>
-</section>
-<section id="now-we-can-look-at-our-tree" class="level1">
-<h1>Now we can look at our tree</h1>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">nw_display</span> output/tree.nw <span class="kw">|</span> <span class="kw">less</span> -S</code></pre>
 </section>
 <section id="homework" class="level1">
 <h1>Homework</h1>
