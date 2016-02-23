@@ -5,7 +5,8 @@
 # First some housekeeping:
 
 * Questions from last week?
-* Recover last week's pipe example?
+* Try alnvu again: `av -L 99999 -w 99999 -c output/alignment.fasta | less -S`
+* Tmux bindings?: Replace `#{pane_current_path}` with `$PWD` in `nano ~/.tmux.conf`
 
 
 # Shell scripting
@@ -39,21 +40,22 @@ Let's start by creating a build script that automates some of the things we've d
 
 # A shell script is just a list of commands to be executed
 
-In your `build.sh` file, try:
+Run `nano build.sh`, then add:
 
 ```
 ls -l | column -t
 echo "IT WORKED!"
 ```
 
-Then run `bash build.sh` from within the `bioinfclass` directory.
+Save, switch to a new t-mux pane, then run `bash build.sh` from within the `bioinfclass` directory.
 
 This tells the shell to run your script.
 
 
 # A more complete example
 
-In your `build.sh` file:
+In `nano build.sh`:
+
 ```
 # Sane error handling settings
 set -euf -o pipefail
@@ -64,13 +66,15 @@ asdfasdfasdf
 
 echo "IT WORKED!"
 ```
-Lines that start with `# ` are comments and aren't executed. <br/>
-Again try `bash build.sh`.
-Then remove the "bug" and run.
+
+Lines starting with `# ` are comments and not executed. <br/>
+Save and rerun `bash build.sh`.
+Then remove the "bug" and rerun again.
+
 
 # Let's make the script more of a proper command
 
-In your `build.sh` file:
+In `nano build.sh`:
 
 ```
 #!/bin/bash
@@ -124,7 +128,8 @@ It's not perfect, but it's a start.
 
 Tired of running `module load intro-bio`?
 Or editing your `PATH` variable?
-`nano ~/.bashrc`:
+
+Run `nano ~/.bashrc`:
 
 ```
 module load intro-bio
@@ -147,7 +152,6 @@ csvuniq -zc species data/sfv.csv > output/seqs_per_species.csv
 ```
 
 Type `Ctrl-o` to save without exiting.
-Then `Ctrl-a c` to start a new tmux window.
 
 
 # Run and investigate
@@ -164,12 +168,10 @@ ls output
 csvlook output/seqs_per_species.csv
 ```
 
-Then `Ctrl-a <Space>` to switch back to the last tmux window.
-
 
 # Add some other steps
 
-In our `build.sh` file:
+In `nano build.sh` file, add:
 
 ```
 # Compute number of sequences per specimen

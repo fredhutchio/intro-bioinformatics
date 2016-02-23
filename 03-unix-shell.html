@@ -63,7 +63,8 @@
 <h1>First some housekeeping:</h1>
 <ul>
 <li>Questions from last week?</li>
-<li>Recover last week’s pipe example?</li>
+<li>Try alnvu again: <code>av -L 99999 -w 99999 -c output/alignment.fasta | less -S</code></li>
+<li>Tmux bindings?: Replace <code>#{pane_current_path}</code> with <code>$PWD</code> in <code>nano ~/.tmux.conf</code></li>
 </ul>
 </section>
 <section id="shell-scripting" class="level1">
@@ -95,15 +96,15 @@
 </section>
 <section id="a-shell-script-is-just-a-list-of-commands-to-be-executed" class="level1">
 <h1>A shell script is just a list of commands to be executed</h1>
-<p>In your <code>build.sh</code> file, try:</p>
+<p>Run <code>nano build.sh</code>, then add:</p>
 <pre><code>ls -l | column -t
 echo &quot;IT WORKED!&quot;</code></pre>
-<p>Then run <code>bash build.sh</code> from within the <code>bioinfclass</code> directory.</p>
+<p>Save, switch to a new t-mux pane, then run <code>bash build.sh</code> from within the <code>bioinfclass</code> directory.</p>
 <p>This tells the shell to run your script.</p>
 </section>
 <section id="a-more-complete-example" class="level1">
 <h1>A more complete example</h1>
-<p>In your <code>build.sh</code> file:</p>
+<p>In <code>nano build.sh</code>:</p>
 <pre><code># Sane error handling settings
 set -euf -o pipefail
 
@@ -112,11 +113,11 @@ ls -l | column -t
 asdfasdfasdf
 
 echo &quot;IT WORKED!&quot;</code></pre>
-<p>Lines that start with <code>#</code> are comments and aren’t executed. <br/> Again try <code>bash build.sh</code>. Then remove the “bug” and run.</p>
+<p>Lines starting with <code>#</code> are comments and not executed. <br/> Save and rerun <code>bash build.sh</code>. Then remove the “bug” and rerun again.</p>
 </section>
 <section id="lets-make-the-script-more-of-a-proper-command" class="level1">
 <h1>Let’s make the script more of a proper command</h1>
-<p>In your <code>build.sh</code> file:</p>
+<p>In <code>nano build.sh</code>:</p>
 <pre><code>#!/bin/bash
 
 # Sane error handling settings
@@ -153,7 +154,8 @@ set autoindent</code></pre>
 </section>
 <section id="now-our-environment" class="level1">
 <h1>Now our environment</h1>
-<p>Tired of running <code>module load intro-bio</code>? Or editing your <code>PATH</code> variable? <code>nano ~/.bashrc</code>:</p>
+<p>Tired of running <code>module load intro-bio</code>? Or editing your <code>PATH</code> variable?</p>
+<p>Run <code>nano ~/.bashrc</code>:</p>
 <pre><code>module load intro-bio
 export PATH=~/bin/:$PATH</code></pre>
 <p>Now run <code>source ~/.bashrc</code> to reload.</p>
@@ -166,7 +168,7 @@ export PATH=~/bin/:$PATH</code></pre>
 <p>In our <code>build.sh</code> file:</p>
 <pre><code># Compute number of sequences per species
 csvuniq -zc species data/sfv.csv &gt; output/seqs_per_species.csv</code></pre>
-<p>Type <code>Ctrl-o</code> to save without exiting. Then <code>Ctrl-a c</code> to start a new tmux window.</p>
+<p>Type <code>Ctrl-o</code> to save without exiting.</p>
 </section>
 <section id="run-and-investigate" class="level1">
 <h1>Run and investigate</h1>
@@ -178,11 +180,10 @@ csvuniq -zc species data/sfv.csv &gt; output/seqs_per_species.csv</code></pre>
 ls output
 
 csvlook output/seqs_per_species.csv</code></pre>
-<p>Then <code>Ctrl-a &lt;Space&gt;</code> to switch back to the last tmux window.</p>
 </section>
 <section id="add-some-other-steps" class="level1">
 <h1>Add some other steps</h1>
-<p>In our <code>build.sh</code> file:</p>
+<p>In <code>nano build.sh</code> file, add:</p>
 <pre><code># Compute number of sequences per specimen
 csvuniq -zc specimen,species,location data/sfv.csv &gt; output/seqs_per_specimen.csv
 
