@@ -337,7 +337,7 @@ ls
 # Download data with `wget`
 
 ```bash
-wget https://goo.gl/8Nk5tZ -o data.tar
+wget https://goo.gl/8Nk5tZ -O data.tar
 ls
 ```
 
