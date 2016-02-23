@@ -57,9 +57,10 @@ Paths are the addresses for files, and are based on _directories_.
 
 # How paths work
 
-If we have a directory called `bioinfclass` in the directory `~`, the path to this directory is `~/bioinfclass`.
+We have a directory called `bioinfclass` in the directory `~`.
+The path to this directory is `~/bioinfclass`.
 
-If `bioinfclass` has a subdirectory called `data`, it's path is `~/bioinfclass/data`.
+`bioinfclass` also has a subdirectory called `data`, so it's path is `~/bioinfclass/data`.
 
 
 # Path tools
@@ -408,6 +409,8 @@ The first few columns in the data
 
 # The results of cutting out the third column
 
+`cut -d , -f 3 data/sfv.csv`
+
     |---------|
     | species |
     |---------|
@@ -425,6 +428,8 @@ The first few columns in the data
 
 
 # The result of sorting
+
+`cut -d , -f 3 data/sfv.csv | sort`
 
     |---------|
     | species |
@@ -444,6 +449,8 @@ The first few columns in the data
 
 
 # The result of counting
+
+`cut -d , -f 3 data/sfv.csv | sort | uniq -c`
 
       77 human
     1097 monkey
@@ -466,9 +473,9 @@ cut -d , -f 2,3 data/sfv.csv | sort | uniq | cut -d , -f 2 | sort | uniq -c
 ```
 
 
-# How to visualize this
+# Columns 2 and 3 cut out of data
 
-Columns 2 and 3 cut out of the data
+`cut -d , -f 2,3 data/sfv.csv`
 
     |----------+---------|
     | specimen | species |
@@ -488,6 +495,8 @@ Columns 2 and 3 cut out of the data
 
 # The results of the first sort and uniq (without `-c`)
 
+`cut -d , -f 2,3 data/sfv.csv | sort | uniq`
+
     |----------+---------|
     | specimen | species |
     |----------+---------|
@@ -497,10 +506,12 @@ Columns 2 and 3 cut out of the data
     | MBG104   | monkey  |
     | ...
 
-Now we now have exactly 1 column per specimen (species just comes along for the ride).
+Now we now have exactly 1 row per specimen (species just comes along for the ride).
 
 
 # Now we cut out the species, and count
+
+`cut -d , -f 2,3 data/sfv.csv | sort | uniq | cut -d , -f 2 | sort | uniq -c`
 
       8 human
     169 monkey
@@ -571,7 +582,8 @@ export PATH=~/bin:$PATH
 # Have to install some dependencies
 R
 install.packages(c('optparse', 'plyr'))
-# then follow prompts...
+# Enter y at all prompts, and select the WA CRAN mirror when asked.
+# When done, exit with
 quit()
 ```
 
@@ -586,6 +598,8 @@ Notice that `csvuniq` does all of the sorting and cutting for us...
 
 
 # Homework
+
+For homework go over these examples, and translate into the equivalents using `csvkit` utils.
 
 Recommended reading:
 

@@ -117,8 +117,8 @@
 </section>
 <section id="how-paths-work" class="level1">
 <h1>How paths work</h1>
-<p>If we have a directory called <code>bioinfclass</code> in the directory <code>~</code>, the path to this directory is <code>~/bioinfclass</code>.</p>
-<p>If <code>bioinfclass</code> has a subdirectory called <code>data</code>, it’s path is <code>~/bioinfclass/data</code>.</p>
+<p>We have a directory called <code>bioinfclass</code> in the directory <code>~</code>. The path to this directory is <code>~/bioinfclass</code>.</p>
+<p><code>bioinfclass</code> also has a subdirectory called <code>data</code>, so it’s path is <code>~/bioinfclass/data</code>.</p>
 </section>
 <section id="path-tools" class="level1">
 <h1>Path tools</h1>
@@ -407,6 +407,7 @@
 </section>
 <section id="the-results-of-cutting-out-the-third-column" class="level1">
 <h1>The results of cutting out the third column</h1>
+<p><code>cut -d , -f 3 data/sfv.csv</code></p>
 <pre><code>|---------|
 | species |
 |---------|
@@ -424,6 +425,7 @@
 </section>
 <section id="the-result-of-sorting" class="level1">
 <h1>The result of sorting</h1>
+<p><code>cut -d , -f 3 data/sfv.csv | sort</code></p>
 <pre><code>|---------|
 | species |
 |---------|
@@ -442,6 +444,7 @@
 </section>
 <section id="the-result-of-counting" class="level1">
 <h1>The result of counting</h1>
+<p><code>cut -d , -f 3 data/sfv.csv | sort | uniq -c</code></p>
 <pre><code>  77 human
 1097 monkey
    1 species</code></pre>
@@ -458,9 +461,9 @@
 <span class="co"># Next count that by species</span>
 <span class="kw">cut</span> -d , -f 2,3 data/sfv.csv <span class="kw">|</span> <span class="kw">sort</span> <span class="kw">|</span> <span class="kw">uniq</span> <span class="kw">|</span> <span class="kw">cut</span> -d , -f 2 <span class="kw">|</span> <span class="kw">sort</span> <span class="kw">|</span> <span class="kw">uniq</span> -c</code></pre>
 </section>
-<section id="how-to-visualize-this-1" class="level1">
-<h1>How to visualize this</h1>
-<p>Columns 2 and 3 cut out of the data</p>
+<section id="columns-2-and-3-cut-out-of-data" class="level1">
+<h1>Columns 2 and 3 cut out of data</h1>
+<p><code>cut -d , -f 2,3 data/sfv.csv</code></p>
 <pre><code>|----------+---------|
 | specimen | species |
 |----------+---------|
@@ -478,6 +481,7 @@
 </section>
 <section id="the-results-of-the-first-sort-and-uniq-without--c" class="level1">
 <h1>The results of the first sort and uniq (without <code>-c</code>)</h1>
+<p><code>cut -d , -f 2,3 data/sfv.csv | sort | uniq</code></p>
 <pre><code>|----------+---------|
 | specimen | species |
 |----------+---------|
@@ -486,10 +490,11 @@
 | MBG103   | monkey  |
 | MBG104   | monkey  |
 | ...</code></pre>
-<p>Now we now have exactly 1 column per specimen (species just comes along for the ride).</p>
+<p>Now we now have exactly 1 row per specimen (species just comes along for the ride).</p>
 </section>
 <section id="now-we-cut-out-the-species-and-count" class="level1">
 <h1>Now we cut out the species, and count</h1>
+<p><code>cut -d , -f 2,3 data/sfv.csv | sort | uniq | cut -d , -f 2 | sort | uniq -c</code></p>
 <pre><code>  8 human
 169 monkey
   1 species</code></pre>
@@ -541,7 +546,8 @@
 <span class="co"># Have to install some dependencies</span>
 <span class="kw">R</span>
 <span class="kw">install.packages</span>(c(<span class="st">&#39;optparse&#39;</span>, <span class="st">&#39;plyr&#39;</span>))
-<span class="co"># then follow prompts...</span>
+<span class="co"># Enter y at all prompts, and select the WA CRAN mirror when asked.</span>
+<span class="co"># When done, exit with</span>
 <span class="fu">quit()</span></code></pre>
 </section>
 <section id="now-lets-see-what-our-example-looks-like" class="level1">
@@ -551,6 +557,7 @@
 </section>
 <section id="homework" class="level1">
 <h1>Homework</h1>
+<p>For homework go over these examples, and translate into the equivalents using <code>csvkit</code> utils.</p>
 <p>Recommended reading:</p>
 <ul>
 <li>Chapter 3, and chapter 7 (till around page 148).</li>
