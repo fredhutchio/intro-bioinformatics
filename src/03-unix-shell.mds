@@ -35,7 +35,7 @@ Building new commands out of old commands is part of Unix composability
 
 # Our first script!
 
-Let's start by creating a build script that automates some of the things we've done so far
+We're going to create a `build.sh` script to automate our analyses.
 
 
 # A shell script is just a list of commands to be executed
@@ -47,14 +47,14 @@ ls -l | column -t
 echo "IT WORKED!"
 ```
 
-Save, switch to a new t-mux pane, then run `bash build.sh` from within the `bioinfclass` directory.
+* Save (`Ctrl-o`)
+* Switch to a new t-mux pane (`Ctrl-a |`)
+* Run `bash build.sh` from within the `bioinfclass` directory
 
-This tells the shell to run your script.
 
+# Error handling
 
-# A more complete example
-
-In `nano build.sh`:
+Back in our `nano build.sh` pane, edit to look like:
 
 ```
 # Sane error handling settings
@@ -67,14 +67,15 @@ asdfasdfasdf
 echo "IT WORKED!"
 ```
 
-Lines starting with `# ` are comments and not executed. <br/>
 Save and rerun `bash build.sh`.
-Then remove the "bug" and rerun again.
+Remove the "bug" and rerun again.
+
+Note: Lines starting with `# ` are comments and not executed.
 
 
-# Let's make the script more of a proper command
+# Making into a proper command
 
-In `nano build.sh`:
+Edit your `nano build.sh` to look like:
 
 ```
 #!/bin/bash
@@ -86,7 +87,7 @@ ls -l | column -t
 echo "IT WORKED!"
 ```
 
-The `#!` is a "shebang": tells computer how to run script
+The `#!` is a "shebang": a special comment line that tells computer how to run our script
 
 
 # Now make the script executable!
@@ -104,6 +105,7 @@ file build.sh
 # Now it's a command/program!
 ./build.sh
 ```
+
 
 # Taking a step back to optimize our environment with dotfiles
 
@@ -144,7 +146,7 @@ Now run `source ~/.bashrc` to reload.
 
 # Counting sequences per species
 
-In our `build.sh` file:
+In our `build.sh` file, replace the `column -t` command with:
 
 ```
 # Compute number of sequences per species
@@ -171,7 +173,7 @@ csvlook output/seqs_per_species.csv
 
 # Add some other steps
 
-In `nano build.sh` file, add:
+In `nano build.sh` file, add to the end:
 
 ```
 # Compute number of sequences per specimen
@@ -296,7 +298,7 @@ chmod +x ~/bin/csvless
 
 csvless data/sfv.csv
 
-csvcut -c sequence,specimen,species | csvless
+csvcut -c sequence,specimen,species data/sfv.csv | csvless
 ```
 
 
@@ -324,9 +326,40 @@ Most of this we'll leave to the book...
 
 # Simple iteration
 
+One line in the terminal:
+
 ```
 for i in $(ls); do echo "My file $i is cool"; done
 ```
+
+In a file, you can expand this:
+
+```
+for i in $(ls)
+do
+  echo "My file $i is cool"
+done
+```
+
+
+# How we might use this?
+
+We could do a series of computations for partitions of our data.
+For instance:
+
+```
+# For each location...
+locations=($(csvuniq -c location $metadata | tail -n +2))
+for location in ${locations[*]}
+do
+  # Create a location outdir, if it doesn't already exist
+  loc_outdir="$outdir/$location"
+  mkdir -p $loc_outdir
+  
+  # Do some computations for $location
+done
+```
+
 
 # Conditionals
 
@@ -356,6 +389,8 @@ else
 fi
 ```
 
+Question: Why do we use `> /dev/null` here?
+
 
 # find/xargs/parallel
 
@@ -368,7 +403,7 @@ There is lots of explanation in the book, so you can learn more there. But to ge
 * `parallel`: More robust version of xargs, with better control over parallelization
 
 
-# Build tools such as `make` offer the following advantages over shell scripts:
+# Build tools such as `Scons` and `make` offer the following advantages over shell scripts:
 
 * Only rebuild what's needed (very important with long running programs) by tracking:
     * whether data has changed
@@ -379,13 +414,14 @@ There is lots of explanation in the book, so you can learn more there. But to ge
 
 # Excercise 1
 
-Let's add the following to the end of our `build.sh` script:
+Add the alignment and tree building we did in the last two sessions to our `build.sh` script.
 
-```
-#!/bin/bash
 
-# ...
+# Excercise 2
 
+Add the following to the end of our `build.sh` script, and complete the TODO items in comments:
+
+```bash
 # For each location...
 locations=($(csvuniq -c location $metadata | tail -n +2))
 for location in ${locations[*]}
@@ -402,24 +438,16 @@ do
   loc_sequences="$loc_outdir/sequences"
   csvcut -c sequence $loc_metadata > $loc_sequences
 
-  # Do something interesting with each location's sequences, etc
-  # ...
+  # TODO:
+  # * Subset Ex. 1 alignment to sequences from $location using `seqmagick convert`
+  # * Build a phylogenetic tree from this alignment subset using FastTree
 done
-
-# Do something interesting with the things done for each location
-# ...
 ```
 
 
 # Other exercises
 
-* Fill in our little `build.sh` script with some of the other things we've done, like the alignment and tree building.
 * Write a handy little shell script for doing something (for example, printing the last 20 commands entered)
-* Flesh out the for loop by
-    * Subset the main alignment to each location using `seqmagick convert`
-    * Build a tree from that subset alignment
-
-Don't forget to read through the book!
 
 
 # Reading
@@ -449,7 +477,7 @@ Reading for next class (if you want to read ahead):
 Go no further if you're keen to solve the problems yourself.
 
 
-# Automating alignment and tree building
+# Ex. 1: Automating alignment and tree building
 
 ```
 #!/bin/bash
@@ -467,7 +495,7 @@ FastTree -nt $alignment > $tree
 ```
 
 
-# The for loop thing
+# Ex. 2: Finish location for loop
 
 ```
   # Subset our alignment to just that location
