@@ -69,16 +69,15 @@
 </section>
 <section id="the-basic-idea" class="level1">
 <h1>The basic idea</h1>
-<p>Like Back to the Future on steroids (without the DeLorean):</p>
+<p>Like Back to the Future for data/code (on steroids, sans DeLorean):</p>
 <ul>
-<li>Save your current state, with a helpful message</li>
+<li>Save current state, with a helpful message</li>
 <li>Go back to an old state to try a different strategy, saving steps along the way</li>
 <li>Take two alternate histories and merge results</li>
 </ul>
 </section>
 <section id="in-computational-biology" class="level1">
 <h1>In computational biology</h1>
-<p>Version control lets us keep track of our project</p>
 <p>Analogy from the book:</p>
 <blockquote>
 <p>Imagine you keep a lab notebook in pencil, and each time you run a PCR you erase your past specifics and jot down the newest ones…</p>
@@ -95,8 +94,8 @@
 <p>We’ll be using <code>git</code> to version our project from here on out.</p>
 <p>There are other version control systems out there (<code>svn</code>, <code>mercurial</code>, etc.), but <code>git</code> is currently by far the most popular in bioinformatics, and it’s lovely!</p>
 </section>
-<section id="getting-yourself-set-up-with-git" class="level1">
-<h1>Getting yourself set up with git</h1>
+<section id="customizing-git" class="level1">
+<h1>Customizing git</h1>
 <pre><code>git config --global user.name &quot;&lt;your-real-name&gt;&quot;
 git config --global user.email &quot;&lt;your-email-address&gt;&quot;
 
@@ -104,26 +103,33 @@ git config --global user.email &quot;&lt;your-email-address&gt;&quot;
 git config --global color.ui true</code></pre>
 <p>(Note: You can see all of your current settings with <code>cat ~/.gitconfig</code>)</p>
 </section>
-<section id="getting-git-set-up-in-our-repository" class="level1">
-<h1>Getting git set up in our repository</h1>
+<section id="initializing-git" class="level1">
+<h1>Initializing git</h1>
+<p>Before you can use git on a project, you have to <em>initialize</em> a git <em>repository</em>.</p>
 <pre><code># Get to project dir
 cd ~/bioinfclass
+git status
 
-# Initialize our &quot;repository&quot;
+# Initialize
 git init
 git status</code></pre>
 </section>
+<section id="commits" class="level1">
+<h1>Commits</h1>
+<p><em>Commits</em> are the basis for most of git. They are our waypoints as we travel through time.</p>
+<p>Initializing a project only sets things up; we still have to make our first commit (save state).</p>
+</section>
 <section id="making-our-first-commit" class="level1">
 <h1>Making our first commit</h1>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># Tell git what files to track</span>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># Tell git what files to track (staging)</span>
 <span class="kw">git</span> add *
 
 <span class="co"># Make initial commit</span>
 <span class="kw">git</span> commit -m <span class="st">&quot;Initial commit&quot;</span></code></pre>
 <p>We now have a saved state on which to build without fear of “messing things up”.</p>
 </section>
-<section id="lets-make-some-edits-and-save-the-changes" class="level1">
-<h1>Let’s make some edits, and save the changes</h1>
+<section id="lets-make-some-edits-and-commit-them" class="level1">
+<h1>Let’s make some edits, and commit them</h1>
 <p>Write some things in <code>README.md</code>:</p>
 <pre class="md"><code># Bioinfclass Notes
 
@@ -136,26 +142,32 @@ Learned how to use git!
 It was pretty fun.</code></pre>
 <p>Note: This is formatted in <a href="http://assemble.io/docs/Cheatsheet-Markdown.html">Markdown</a>.</p>
 </section>
-<section id="seeing-whats-changed" class="level1">
-<h1>Seeing what’s changed</h1>
+<section id="first-seeing-whats-changed" class="level1">
+<h1>First, seeing what’s changed</h1>
 <pre><code># Check the status of the repo
 git status
 
 # Seeing specific changes
 git diff</code></pre>
-<p>Git diff uses + and - to show what’s changed, and can be made to color additions / deletions.</p>
+<p>Git diff uses + and - (and optionally, colors) to show what’s changed.</p>
 </section>
-<section id="saving-our-changes" class="level1">
-<h1>Saving our changes</h1>
+<section id="committing-our-changes" class="level1">
+<h1>Committing our changes</h1>
 <pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># Stage the changed file</span>
 <span class="kw">git</span> add README.md
 
-<span class="co"># Commit the changes, and add a commit message</span>
+<span class="co"># Commit staged changes, with commit message</span>
 <span class="kw">git</span> commit -m <span class="st">&quot;Adding notes to README.md&quot;</span>
 
 <span class="co"># Checking our status</span>
 <span class="kw">git</span> status
 <span class="kw">git</span> log</code></pre>
+</section>
+<section id="thats-all-folks" class="level1">
+<h1>That’s all folks!</h1>
+<p>Seriously; that’s like 90% of what you need to know.</p>
+<p>Start doing this immediately on all projects, and learn the rest as needed.</p>
+<p>The rest of this class is a survey of the more advanced features of git. Some are generally useful, but a lot are most valuable for collaboration. As such, it’s more important at this point to know <em>what’s</em> possible than <em>how</em> to do it all.</p>
 </section>
 <section id="github" class="level1">
 <h1>GitHub!</h1>
@@ -168,26 +180,25 @@ git diff</code></pre>
 <h2>A way of copying a project over to your account</h2>
 <ul>
 <li>Go to <a href="https://github.com/fredhutchio/bioinfclass-sample-project" class="uri">https://github.com/fredhutchio/bioinfclass-sample-project</a></li>
-<li>Click on the button that says “Fork”</li>
-<li>Copy the “HTTPS clone URL” of the project (may have to click on “HTTPS” link below the SSH url)</li>
+<li>Click on the button that says “Fork” and select your account</li>
 </ul>
+<p>You are now on your “fork” or copy of the project</p>
 </section>
 </section>
 <section id="cloning-a-repository" class="level1">
 <h1>Cloning a repository</h1>
 <section id="this-is-how-we-get-a-remote-repository-from-github-checked-out-on-our-computers" class="level2">
 <h2>This is how we get a remote repository from GitHub checked out on our computers</h2>
+<p>Copy the “HTTPS” clone url of the project on GitHub, then</p>
 <pre><code># Go home, and rename the directory we&#39;ve been working on
 cd ~
 mv bioinfclass old_bioinfclass
 
 # Make the checkout
-git clone &lt;your-https-url&gt; bioinfclass
+git clone &lt;paste-your-https-url&gt; bioinfclass
 
-# Enter the directory we created
+# Enter the directory we created, and see what&#39;s there
 cd bioinfclass
-
-# See what&#39;s there
 tree
 git status</code></pre>
 </section>
@@ -196,16 +207,30 @@ git status</code></pre>
 <h1>Looking at history</h1>
 <pre><code># See the list of commits
 git log</code></pre>
+<p>So much commit history</p>
 </section>
 <section id="a-slightly-better-way" class="level1">
 <h1>A slightly better way…</h1>
 <pre><code># Add an alias to a prettier log command
 git config --global alias.glog &quot;log --graph --pretty=format:&#39;%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)&lt;%an&gt;%Creset&#39; --abbrev-commit --all&quot;
 
+
 # Try it out!
 git glog
-
 git glog -n 5</code></pre>
+</section>
+<section id="breaing-this-down" class="level1">
+<h1>Breaing this down</h1>
+<p>Notice the history branching, the <em>sha hashes</em> (<code>a4b8893</code>, etc), commit messages, author, and human friendly time string.</p>
+<pre class="text"><code>* a4b8893 - Added previous tree and alignment analysis to build.sh (9 months ago)&lt;Christopher Small&gt;
+* 2683a24 - Added csvhead script (9 months ago)&lt;Christopher Small&gt;
+* 9596b65 - Added csvless script (9 months ago)&lt;Christopher Small&gt;
+| * 5553b9e - (HEAD -&gt; other-idea, origin/other-idea) Ran results of sequences by location (9 months ago)&lt;Christopher T Small&gt;
+| * de48429 - Looking at sequences by location (9 months ago)&lt;Christopher T Small&gt;
+|/
+* 3b0fac2 - Rewrote build.sh with env variables (9 months ago)&lt;Christopher Small&gt;
+* 2c17799 - Added other metadata counting steps (9 months ago)&lt;Christopher Small&gt;
+* d07378b - Computing number of sequences per species in build.sh (9 months ago)&lt;Christopher Small&gt;</code></pre>
 </section>
 <section id="grab-all-the-branches" class="level1">
 <h1>Grab all the branches</h1>
@@ -240,8 +265,13 @@ git show d07378b</code></pre>
 <span class="kw">git</span> diff 1aa457d d07378b build.sh</code></pre>
 <p>This is pretty valuable as your project gets big and lots of things change.</p>
 </section>
-<section id="lets-make-some-changes" class="level1">
-<h1>Let’s make some changes</h1>
+<section id="pushing-the-data-back-up" class="level1">
+<h1>Pushing the data back up</h1>
+<p>So far, we’ve forked a repository and cloned that fork locally.</p>
+<p>Let’s complete the circle by making some changes and pushing them back up to the main repository.</p>
+</section>
+<section id="first-some-changes" class="level1">
+<h1>First, some changes</h1>
 <p>In README.md, add:</p>
 <pre><code>## June 24, 3:30PM
 
@@ -255,20 +285,21 @@ Thinking about some other studies now.</code></pre>
 
 git commit -m &quot;README notes about location analyses&quot;</code></pre>
 </section>
-<section id="pushing-our-changes-to-github" class="level1">
-<h1>Pushing our changes to GitHub</h1>
+<section id="pushing-changes-to-our-github-fork" class="level1">
+<h1>Pushing changes to our GitHub fork</h1>
 <pre><code># Pushing changes on branch `master` to remote `origin`
 git push origin master
 
 # When prompted enter your GH username and password</code></pre>
-<p>Now pull up github, reload and see the new commit there.</p>
+<p>Pull up github, reload and see the new commit there.</p>
 </section>
 <section id="sharing-your-changes-with-a-pull-request" class="level1">
 <h1>Sharing your changes with a “pull request”</h1>
-<p>Like “forking”, this is a GitHub specific thing.</p>
+<p><em>Pull requests</em> are a way of <em>suggesting</em> changes to other people’s repositories.</p>
+<p>Like “forking”, it’s a GitHub specific thing.</p>
 <ul>
-<li>Click on the little “double arrows” next to the branch drop down</li>
-<li>Note the “base” and “head” forks: base is where the changes will go, head is where they’re from
+<li>Click on the green “New pull request” button just above the list of files on your fork’s page</li>
+<li>Note “base” and “head” forks: base is where the changes will go, head is where they’re from
 <ul>
 <li>(Sometimes you might change the branches; not today though)</li>
 </ul></li>
@@ -279,6 +310,15 @@ git push origin master
 <h1>If you get a pull request, you can merge it</h1>
 <p>This will show up on the repository page.</p>
 <p>Some pull requests can be merged automatically, others need to be done from the command line.</p>
+</section>
+<section id="weve-now-seen-changes-make-the-whole-circuit" class="level1">
+<h1>We’ve now seen changes make the whole circuit!</h1>
+<p>Some things to keep in mind</p>
+<ul>
+<li>Changes move neither up nor down without being requested</li>
+<li>You can’t change a repository you haven’t been given access/permissions to</li>
+<li>Fork / Clone / Edit / Push / Pull Request</li>
+</ul>
 </section>
 <section id="how-to-go-back-in-time" class="level1">
 <h1>How to go “back in time”</h1>
@@ -310,6 +350,37 @@ find $outdir -name seqcount | xargs cat &gt; $loc_spec_counts</code></pre>
 <span class="co"># Now look at our history; we&#39;ve branched!</span>
 <span class="kw">git</span> glog</code></pre>
 </section>
+<section id="merging-back-into-master" class="level1">
+<h1>Merging back into master</h1>
+<p>Say we want to keep these changes and merge them into the most up to date code.</p>
+<p>We have to do a <em>merge</em>.</p>
+</section>
+<section id="git-merge" class="level1">
+<h1>Git merge</h1>
+<pre><code># Switch to branch into which you want to merge changes (aka the HEAD branch).
+git co master
+
+# Next merge backintime into master
+git merge backintime</code></pre>
+</section>
+<section id="clean-merges-and-conflicting-merges" class="level1">
+<h1>Clean merges and conflicting merges</h1>
+<p>If all of your changes are in different parts of the code that any changes on the other branch since the histories split, you’re done! The branches can be automatically merged, and there will be peace in the kingdom.</p>
+<p>In our case however, the changes overlap. This means we need to resolve the conflicts.</p>
+</section>
+<section id="resolving-conflicts" class="level1">
+<h1>Resolving conflicts</h1>
+<pre><code># Note that status tells us what files need resolution
+git status
+
+# Open the file to resolve commits
+nano build.sh</code></pre>
+</section>
+<section id="exercise" class="level1">
+<h1>Exercise</h1>
+<p>Edit the build.sh file so that you keep all the changes from both branches.</p>
+<p>Note: git edits files with conflict and puts the changes in between <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</code>, <code>========</code> and <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code> demarcations. Delete these once you’re done resolving, then save, exit, add the resolution changes, and commit them.</p>
+</section>
 <section id="some-guidelines-for-using-git" class="level1">
 <h1>Some guidelines for using Git</h1>
 <ul>
@@ -340,14 +411,14 @@ find $outdir -name seqcount | xargs cat &gt; $loc_spec_counts</code></pre>
 <span class="kw">git</span> commit -m <span class="st">&quot;...&quot;</span>
 <span class="kw">git</span> status
 <span class="kw">git</span> log  <span class="co"># (or git glog, as you wish)</span></code></pre>
-<p>Learn those, start using them, and Google the rest as you need it</p>
+<p>Learn those, start using them, and Google the rest as you need it.</p>
 </section>
 <section id="exercises" class="level1">
 <h1>Exercises</h1>
 <ul>
 <li>Create a new branch and add something to it, then merge back in to master</li>
-<li>Merge the <code>backintime</code> branch we created with your master branch</li>
 <li>Create a new repository and push it to your account on GitHub</li>
+<li>Create two clones of a repository, make conflicting changes in them, and then push them both up to master (hint: you’ll have to do a merge on one of the machines)</li>
 </ul>
 </section>
 <section id="reading" class="level1">
