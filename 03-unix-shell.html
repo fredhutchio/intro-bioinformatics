@@ -169,7 +169,7 @@ export PATH=~/bin/:$PATH</code></pre>
 </section>
 <section id="counting-sequences-per-species" class="level1">
 <h1>Counting sequences per species</h1>
-<p>In our <code>build.sh</code> file:</p>
+<p>In our <code>build.sh</code> file, replace the <code>column -t</code> command with:</p>
 <pre><code># Compute number of sequences per species
 csvuniq -zc species data/sfv.csv &gt; output/seqs_per_species.csv</code></pre>
 <p>Type <code>Ctrl-o</code> to save without exiting.</p>
@@ -187,7 +187,7 @@ csvlook output/seqs_per_species.csv</code></pre>
 </section>
 <section id="add-some-other-steps" class="level1">
 <h1>Add some other steps</h1>
-<p>In <code>nano build.sh</code> file, add:</p>
+<p>In <code>nano build.sh</code> file, add to the end:</p>
 <pre><code># Compute number of sequences per specimen
 csvuniq -zc specimen,species,location data/sfv.csv &gt; output/seqs_per_specimen.csv
 
