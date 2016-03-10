@@ -61,22 +61,35 @@
 
 <section id="what-well-cover-today" class="level1">
 <h1>What we’ll cover today</h1>
+<p>Big picture overview and contextualization of Python:</p>
 <ul>
-<li>Basic data types: What kinds of data does python know about</li>
-<li>Syntax: What constitutes a valid expression</li>
-<li>Variables: How we keep track of and pass around data</li>
+<li>Basic data types: What kinds of data are available</li>
+<li>Syntax: What constitutes a valid python expression</li>
+<li>Variables: How we keep track of and pass around python data</li>
 <li>Control flow: How we specify the behaviour of our program</li>
 <li>Functions: How we package functionality</li>
 </ul>
+<p>Conceptually, 90% of python can be explained in terms of these things</p>
+</section>
+<section id="next-week" class="level1">
+<h1>Next week</h1>
+<p>We’ll fill in the final 90%, and start building our own data structures using Object Oriented Programming (OOP).</p>
+<p>These concepts can be explained largely in terms of those from this session.</p>
+</section>
+<section id="filling-in-the-pieces" class="level1">
+<h1>Filling in the pieces</h1>
+<p>Please refer to the Codecademy <a href="http://www.codecademy.com/tracks/python">Python course</a> for more practice and fluency with these concepts, and how they relate to each other.</p>
 </section>
 <section id="context-motivation" class="level1">
 <h1>Context &amp; motivation</h1>
+<p>Why do we care about Python?</p>
 </section>
 <section id="whywhen-shell-scripts" class="level1">
 <h1>Why/when shell scripts?</h1>
 <ul>
-<li>Plumbing together existing command line programs…</li>
+<li>Plumbing together existing command line programs (duct tape)…</li>
 </ul>
+<p>Not so good for actual logic or anything too complex</p>
 </section>
 <section id="whywhen-r" class="level1">
 <h1>Why/when R?</h1>
@@ -86,6 +99,7 @@
 <li>Plotting (ggplot2, shiny)</li>
 <li>Ready to go statistics functions</li>
 </ul>
+<p>However, R has some pain points…</p>
 </section>
 <section id="whywhen-python" class="level1">
 <h1>Why/when python?</h1>
@@ -96,6 +110,11 @@
 <li>Better organization for building bigger programs</li>
 <li>Better stream (Unix stdin/stdout) support than R</li>
 </ul>
+</section>
+<section id="together-the-three-make-a-great-combination" class="level1">
+<h1>Together, the three make a great combination</h1>
+<p>Don’t limit yourself necessarily to one tool…</p>
+<p>Living in Unix makes it easy to use both R and Python in the context of a single project.</p>
 </section>
 <section id="other-languages" class="level1">
 <h1>Other languages?</h1>
@@ -119,15 +138,24 @@
 </section>
 <section id="basic-data-types" class="level1">
 <h1>Basic data types</h1>
-<p><em>The elements of logic</em></p>
+<p><em>The elements of logic; our nouns</em></p>
 </section>
-<section id="why-we-want-different-data-types" class="level1">
-<h1>Why we want different data types</h1>
-<p>They allow us to be more expressive and careful about the things we’re doing.</p>
-<p>They let us more easily manage information, and relate it to the things in the world it represents.</p>
+<section id="questioning-the-unix-plain-text-philosophy" class="level1">
+<h1>Questioning the Unix plain text philosophy</h1>
+<p>The Unix philosophy embraces plain text data.</p>
+<ul>
+<li>In theory means universal interoperability, and composability</li>
+<li>But at the expense of richness/standardization in the structure of data.</li>
+</ul>
+</section>
+<section id="python-has-many-data-types" class="level1">
+<h1>Python has many data types</h1>
+<p>Data types let us more easily manage information, and relate it to the things in the world it represents.</p>
+<p>This comes at the expense of universal interoperability.</p>
 </section>
 <section id="scalar-data-types" class="level1">
 <h1>Scalar data types</h1>
+<p>The most basic data types are <em>scalars</em>. We think of them as <em>atomic</em> values.</p>
 <ul>
 <li>strings: <code>&quot;this is a string&quot;</code></li>
 <li>ints: <code>42</code></li>
@@ -175,12 +203,14 @@
 <ul>
 <li>unique entries</li>
 <li>no order guarantees</li>
+<li>variable length</li>
+<li>mutable</li>
 </ul></li>
 </ul>
 </section>
 <section id="operations" class="level1">
 <h1>Operations</h1>
-<p><em>In which we manipulate and reason about objects</em></p>
+<p><em>In which we manipulate and reason about objects; our verbs</em></p>
 </section>
 <section id="numeric" class="level1">
 <h1>Numeric</h1>
@@ -233,9 +263,9 @@ age / <span class="dv">4</span></code></pre>
 <section id="variable-name-rules" class="level1">
 <h1>Variable name rules</h1>
 <ul>
-<li>Must start with a character</li>
-<li>Can contain characters, numbers, and underscores (<code>_</code>); nothing else</li>
-<li>Standard convention is to use all lower case, with words separated by <code>_</code></li>
+<li>Must start with an alphabetical character or an underscore (<code>_</code>)</li>
+<li>Can contain alphabetical characters, numbers, and underscores; nothing else</li>
+<li>Convention is to use all lower case, and separate words with underscores</li>
 </ul>
 <p>Example: <code>bobs_occupation = &quot;haxxor&quot;</code></p>
 </section>
@@ -261,7 +291,7 @@ age / <span class="dv">4</span></code></pre>
 </section>
 <section id="dictionaries" class="level1">
 <h1>Dictionaries</h1>
-<p>These work similarly to lists, but the indices are (almost) whatever we want:</p>
+<p>These work similarly to lists, but we have more flexibility over the indices:</p>
 <ul>
 <li>Get the value: <code>person[&quot;name&quot;]</code></li>
 <li>Set the value: <code>person[&quot;occupation&quot;] = &quot;haxxor&quot;</code></li>
@@ -275,7 +305,12 @@ age / <span class="dv">4</span></code></pre>
 
 crazy_dict[<span class="dv">4</span>]
 crazy_dict[(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)]</code></pre>
-<p>They can be numbers, tuples or anything <em>hashable</em>. However, they cannot be lists or other dictionaries.</p>
+<p>They can be numbers, tuples or anything <em>hashable</em>:</p>
+<ul>
+<li>Most immutable data is hashable.</li>
+<li>You can tell whether data pointed to by variable <code>x</code> is hashable by running <code>hash(x)</code></li>
+<li>Lists and dictionaries are not hashable.</li>
+</ul>
 </section>
 <section id="functions" class="level1">
 <h1>Functions</h1>
@@ -319,7 +354,8 @@ square(<span class="dv">4</span>)</code></pre>
 </section>
 <section id="if-statements" class="level1">
 <h1>If statements</h1>
-<pre class="sourceCode python"><code class="sourceCode python"><span class="kw">if</span> <span class="dv">3</span> &lt; <span class="dv">4</span>:
+<pre class="sourceCode python"><code class="sourceCode python">x = <span class="dv">3</span>
+<span class="kw">if</span> x &lt; <span class="dv">4</span>:
     <span class="dt">print</span> <span class="st">&quot;You should see this&quot;</span>
 <span class="kw">else</span>:
     <span class="dt">print</span> <span class="st">&quot;You should NOT see this!&quot;</span></code></pre>
@@ -358,6 +394,10 @@ f(<span class="dv">12</span>)</code></pre>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="kw">for</span> k, v in person.items():
     <span class="dt">print</span> <span class="st">&quot;key:&quot;</span>, k, <span class="st">&quot;val:&quot;</span>, v</code></pre>
 </section>
+<section id="problem" class="level1">
+<h1>Problem:</h1>
+<p>Using just what we’ve learned already, how would you create a list <code>ys</code> that contained the square of every number in the list <code>xs</code>?</p>
+</section>
 <section id="using-for-to-build-results" class="level1">
 <h1>Using <code>for</code> to build results</h1>
 <pre class="sourceCode python"><code class="sourceCode python">ys = []
@@ -374,6 +414,7 @@ f(<span class="dv">12</span>)</code></pre>
 <pre class="sourceCode python"><code class="sourceCode python">ys = [square(x) <span class="kw">for</span> x in xs]
 
 <span class="dt">print</span> ys</code></pre>
+<p>This is more <em>declarative</em>.</p>
 </section>
 <section id="the-functional-way" class="level1">
 <h1>The functional way</h1>
@@ -382,14 +423,14 @@ f(<span class="dv">12</span>)</code></pre>
 <span class="dt">print</span> ys</code></pre>
 <p>Note that we’re passing the function <code>square</code> as an <em>argument</em> to the function <code>map</code>.</p>
 </section>
-<section id="declarative-is-better" class="level1">
-<h1>Declarative is better</h1>
+<section id="declarative-is-generally-better" class="level1">
+<h1>Declarative is generally better</h1>
 <p>List comprehension and functional approaches are more <em>declarative</em>.</p>
 <p>We tell the computer <em>what</em> to compute, not <em>how</em> we want it computed. This is usually a good thing (cleaner code; sometimes better performance).</p>
 </section>
 <section id="higher-level-concerns" class="level1">
 <h1>Higher level concerns</h1>
-<p><em>In which we begin to rise to the level of systems</em></p>
+<p><em>In which we rise to the level of systems</em></p>
 </section>
 <section id="importing-modules" class="level1">
 <h1>Importing modules</h1>
@@ -403,25 +444,45 @@ math.log(<span class="fl">3.14</span>)</code></pre>
 </section>
 <section id="namespaces" class="level1">
 <h1>Namespaces</h1>
-<p>We also talk about modules as being <em>namespaces</em>. A namespace is just a path to some data or function or module. In this case <code>math</code> can also be thought of as a namespace.</p>
+<p>We also talk about modules as being <em>namespaces</em>. A namespace is just a “path” to some data or function or module. In this case <code>math</code> can also be thought of as a namespace.</p>
 <p>Namespaces help us avoid naming conflicts. If we have a function called <code>square</code>, and we import a module like <code>math</code> with a function called <code>square</code>, namespaces let us distingush between them.</p>
 </section>
 <section id="installing-your-own-packages-with-pip" class="level1">
 <h1>Installing your own packages with pip</h1>
 <p>Collections of modules are called <em>packages</em>.</p>
-<p>You can install Python packages using the <code>pip</code> command line tool (the “App Store” for Python packages):</p>
-<pre class="sourceCode python"><code class="sourceCode python">pip install --user biopython</code></pre>
+<p>You can install Python packages using the <code>pip</code> command line tool (the “App Store” for Python packages). From your Unix shell:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">pip</span> install --user biopython</code></pre>
 <p>The <code>--user</code> flag tells pip to install things in your <em>local</em> python lib directory. You would only omit that if you were installing <em>system wide</em> on your own computer.</p>
+<!--Insert lots of questions like these in and around...-->
+<!-- # What kind of data is this?-->
+<!--`("this", 1234)`-->
+<!--Is it hashable?-->
+<!-- # What kind of data would I want to use for these situations?-->
+<!--* A single DNA sequence?-->
+<!--* A DNA sequence, and name information-->
+<!--* A collection of DNA sequences with names-->
+<!--* Metadata about a collection of DNA sequences-->
 </section>
 <section id="beware-python-3" class="level1">
 <h1>Beware Python 3</h1>
 <p>We’re using Python 2. Python 3 has been out for YEARS, but adoption has been slow. Eventually, Python 3 will become the system default and more widely used, but till then…</p>
 <p>Bottom line: Python 3 is rather different in a number of ways, so be aware.</p>
 </section>
+<section id="other-things-in-the-python-ecosystem" class="level1">
+<h1>Other things in the Python ecosystem</h1>
+<ul>
+<li>Numpy &amp; Scipy: Some work in the numerical computing and stats directions</li>
+<li>Pandas: R like data frames in Python</li>
+<li>Jupyter &amp; IPython: Browser-based “notebook” environments for co-locating code, documentation and visualizations
+<ul>
+<li>Miss out on some of the Unix-centric goodness, but has advantages too</li>
+</ul></li>
+</ul>
+</section>
 <section id="resources" class="level1">
 <h1>Resources</h1>
 <ul>
-<li>Code Academy <a href="http://www.codecademy.com/tracks/python">Python course</a> (I highly recommend working through as much of this as you like)</li>
+<li>Codecademy <a href="http://www.codecademy.com/tracks/python">Python course</a> (I highly recommend working through all of this)</li>
 <li>Very clear blog post on <a href="http://nedbatchelder.com/text/names.html">how python variables work</a></li>
 </ul>
 <p><a href="http://fredhutchio.github.io/intro-bioinformatics/">Back to homepage</a></p>

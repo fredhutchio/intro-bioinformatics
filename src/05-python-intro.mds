@@ -4,19 +4,39 @@
 
 # What we'll cover today
 
-* Basic data types: What kinds of data does python know about
-* Syntax: What constitutes a valid expression
-* Variables: How we keep track of and pass around data
+Big picture overview and contextualization of Python:
+
+* Basic data types: What kinds of data are available
+* Syntax: What constitutes a valid python expression
+* Variables: How we keep track of and pass around python data
 * Control flow: How we specify the behaviour of our program
 * Functions: How we package functionality
+
+Conceptually, 90% of python can be explained in terms of these things
+
+
+# Next week
+
+We'll fill in the final 90%, and start building our own data structures using Object Oriented Programming (OOP).
+
+These concepts can be explained largely in terms of those from this session.
+
+
+# Filling in the pieces
+
+Please refer to the Codecademy [Python course](http://www.codecademy.com/tracks/python) for more practice and fluency with these concepts, and how they relate to each other.
 
 
 # Context & motivation
 
+Why do we care about Python?
+
 
 # Why/when shell scripts?
 
-* Plumbing together existing command line programs...
+* Plumbing together existing command line programs (duct tape)...
+
+Not so good for actual logic or anything too complex
 
 
 # Why/when R?
@@ -26,6 +46,8 @@
 * Plotting (ggplot2, shiny)
 * Ready to go statistics functions
 
+However, R has some pain points...
+
 
 # Why/when python?
 
@@ -34,6 +56,13 @@
 * More flexible / cleaner programming models => better for algorithmic development
 * Better organization for building bigger programs
 * Better stream (Unix stdin/stdout) support than R
+
+
+# Together, the three make a great combination
+
+Don't limit yourself necessarily to one tool...
+
+Living in Unix makes it easy to use both R and Python in the context of a single project.
 
 
 # Other languages?
@@ -64,17 +93,28 @@ Now you can enter in little bits of code as we go (type Ctrl-d or `exit` to get 
 
 # Basic data types
 
-_The elements of logic_
+_The elements of logic; our nouns_
 
 
-# Why we want different data types
+# Questioning the Unix plain text philosophy
 
-They allow us to be more expressive and careful about the things we're doing.
+The Unix philosophy embraces plain text data.
 
-They let us more easily manage information, and relate it to the things in the world it represents.
+* In theory means universal interoperability, and composability
+* But at the expense of richness/standardization in the structure of data.
+
+
+# Python has many data types
+
+Data types let us more easily manage information, and relate it to the things in the world it represents.
+
+This comes at the expense of universal interoperability.
 
 
 # Scalar data types
+
+The most basic data types are _scalars_.
+We think of them as _atomic_ values.
 
 * strings: `"this is a string"`
 * ints: `42`
@@ -113,11 +153,13 @@ We won't go into these as deeply, but it's worth being aware of them:
 * sets
     * unique entries
     * no order guarantees
+    * variable length
+    * mutable
 
 
 # Operations
 
-_In which we manipulate and reason about objects_
+_In which we manipulate and reason about objects; our verbs_
 
 
 # Numeric
@@ -175,9 +217,9 @@ age / 4
 
 # Variable name rules
 
-* Must start with a character
-* Can contain characters, numbers, and underscores (`_`); nothing else
-* Standard convention is to use all lower case, with words separated by `_`
+* Must start with an alphabetical character or an underscore (`_`)
+* Can contain alphabetical characters, numbers, and underscores; nothing else
+* Convention is to use all lower case, and separate words with underscores
 
 Example: `bobs_occupation = "haxxor"`
 
@@ -202,7 +244,7 @@ Note: Python has 0-based indexing.
 
 # Dictionaries
 
-These work similarly to lists, but the indices are (almost) whatever we want:
+These work similarly to lists, but we have more flexibility over the indices:
 
 * Get the value: `person["name"]`
 * Set the value: `person["occupation"] = "haxxor"`
@@ -222,8 +264,11 @@ crazy_dict[4]
 crazy_dict[(1,2,3)]
 ```
 
-They can be numbers, tuples or anything _hashable_.
-However, they cannot be lists or other dictionaries.
+They can be numbers, tuples or anything _hashable_:
+
+* Most immutable data is hashable.
+* You can tell whether data pointed to by variable `x` is hashable by running `hash(x)`
+* Lists and dictionaries are not hashable.
 
 
 # Functions
@@ -281,7 +326,8 @@ _In which we gain mastery over the rules of logic_
 # If statements
 
 ```python
-if 3 < 4:
+x = 3
+if x < 4:
     print "You should see this"
 else:
     print "You should NOT see this!"
@@ -338,6 +384,11 @@ for k, v in person.items():
 ```
 
 
+# Problem:
+
+Using just what we've learned already, how would you create a list `ys` that contained the square of every number in the list `xs`?
+
+
 # Using `for` to build results
 
 ```python
@@ -362,6 +413,8 @@ ys = [square(x) for x in xs]
 print ys
 ```
 
+This is more _declarative_.
+
 
 # The functional way
 
@@ -374,7 +427,7 @@ print ys
 Note that we're passing the function `square` as an _argument_ to the function `map`.
 
 
-# Declarative is better
+# Declarative is generally better
 
 List comprehension and functional approaches are more _declarative_.
 
@@ -384,7 +437,7 @@ This is usually a good thing (cleaner code; sometimes better performance).
 
 # Higher level concerns
 
-_In which we begin to rise to the level of systems_
+_In which we rise to the level of systems_
 
 
 # Importing modules
@@ -405,26 +458,40 @@ Modules, just like objects, have _attributes_, and these attributes are typicall
 # Namespaces
 
 We also talk about modules as being _namespaces_.
-A namespace is just a path to some data or function or module.
+A namespace is just a "path" to some data or function or module.
 In this case `math` can also be thought of as a namespace.
 
 Namespaces help us avoid naming conflicts.
-If we have a function called `square`, and we import a module like `math` with a function called `square`, namespaces let
-us distingush between them.
+If we have a function called `square`, and we import a module like `math` with a function called `square`, namespaces let us distinguish between them.
 
 
 # Installing your own packages with pip
 
 Collections of modules are called _packages_.
 
-You can install Python packages using the `pip` command line tool (the "App Store" for Python packages):
+You can install Python packages using the `pip` command line tool (the "App Store" for Python packages).
+From your Unix shell:
 
-```python
+```bash
 pip install --user biopython
 ```
 
 The `--user` flag tells pip to install things in your _local_ python lib directory.
 You would only omit that if you were installing _system wide_ on your own computer.
+
+<!--Insert lots of questions like these in and around...-->
+<!-- # What kind of data is this?-->
+
+<!--`("this", 1234)`-->
+
+<!--Is it hashable?-->
+
+<!-- # What kind of data would I want to use for these situations?-->
+
+<!--* A single DNA sequence?-->
+<!--* A DNA sequence, and name information-->
+<!--* A collection of DNA sequences with names-->
+<!--* Metadata about a collection of DNA sequences-->
 
 
 # Beware Python 3
@@ -436,10 +503,18 @@ Eventually, Python 3 will become the system default and more widely used, but ti
 Bottom line: Python 3 is rather different in a number of ways, so be aware.
 
 
+# Other things in the Python ecosystem
+
+* Numpy & Scipy: Some work in the numerical computing and stats directions
+* Pandas: R like data frames in Python
+* Jupyter & IPython: Browser-based "notebook" environments for co-locating code, documentation and visualizations
+    * Miss out on some of the Unix-centric goodness, but has advantages too
+
+
 # Resources
 
-* Code Academy [Python course](http://www.codecademy.com/tracks/python) (I highly recommend working through as much of this as you like)
-* Very clear blog post on [how python variables work](http://nedbatchelder.com/text/names.html)
+* Codecademy [Python course](http://www.codecademy.com/tracks/python) (I highly recommend working through all of this)
+* Very clear blog post on [how python variables/state work](http://nedbatchelder.com/text/names.html)
 
 [Back to homepage](http://fredhutchio.github.io/intro-bioinformatics/)
 
