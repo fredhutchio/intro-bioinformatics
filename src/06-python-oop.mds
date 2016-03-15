@@ -166,7 +166,7 @@ print p
 
 Suppose we add email (this is pretend code & won't run):
 
-```
+```python
 import email
 
 class Person(object):
@@ -196,7 +196,7 @@ p.notify_via_email("your cat was found")
 
 # Let's contrast this with non-OOP
 
-```
+```python
 import email
 
 def notify_via_email(person, message):
@@ -244,12 +244,11 @@ print s.seq
 You can run this with `python scripts/seqs.py`.
 
 
-
 # Now let's add some functionality
 
 In `scripts/seqs.py` add:
 
-```
+```python
 class SeqRecord(object):
     # ...
 
@@ -433,8 +432,8 @@ Thinking through these architectural trade-offs is important in OOP.
 
 # HW 3 - `reverse_complement` (ctnd)
 
-* Add a `reservse_complement` method in your `SeqRecord` class, which returns a new seqrecord with:
-    * `seq` attribute the `reservse_complement` of the original sequence.
+* Add a `reverse_complement` method in your `SeqRecord` class, which returns a new seqrecord with:
+    * `seq` attribute the `reverse_complement` of the original sequence.
     * a modified `name` attribute (append `"_rc"` to the original name).
 
 

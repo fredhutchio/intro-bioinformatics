@@ -186,21 +186,21 @@ p = Person(<span class="st">&quot;Bob Jones&quot;</span>, <span class="dv">42</s
 <section id="what-about-the-functionality-bit" class="level1">
 <h1>What about the functionality bit</h1>
 <p>Suppose we add email (this is pretend code &amp; won’t run):</p>
-<pre><code>import email
+<pre class="sourceCode python"><code class="sourceCode python"><span class="ch">import</span> email
 
-class Person(object):
-    def __init__(self, name, age, occ, email):
-        self.name = name
-        self.age = age
-        self.occupation = occ
-        self.email = email
+<span class="kw">class</span> Person(<span class="dt">object</span>):
+    <span class="kw">def</span> <span class="ot">__init__</span>(<span class="ot">self</span>, name, age, occ, email):
+        <span class="ot">self</span>.name = name
+        <span class="ot">self</span>.age = age
+        <span class="ot">self</span>.occupation = occ
+        <span class="ot">self</span>.email = email
 
-    def notify_via_email(self, message):
-        email.send(self.email, message)
+    <span class="kw">def</span> notify_via_email(<span class="ot">self</span>, message):
+        email.send(<span class="ot">self</span>.email, message)
 
-p = Person(&quot;Bob Jones&quot;, 42, &quot;haxxor&quot;, &quot;bob@jon.es&quot;)
-# Here, notify_via_email is &quot;bound&quot; to p
-p.notify_via_email(&quot;your cat was found&quot;)</code></pre>
+p = Person(<span class="st">&quot;Bob Jones&quot;</span>, <span class="dv">42</span>, <span class="st">&quot;haxxor&quot;</span>, <span class="st">&quot;bob@jon.es&quot;</span>)
+<span class="co"># Here, notify_via_email is &quot;bound&quot; to p</span>
+p.notify_via_email(<span class="st">&quot;your cat was found&quot;</span>)</code></pre>
 </section>
 <section id="some-things-about-what-just-happened" class="level1">
 <h1>Some things about what just happened</h1>
@@ -214,15 +214,15 @@ p.notify_via_email(&quot;your cat was found&quot;)</code></pre>
 </section>
 <section id="lets-contrast-this-with-non-oop" class="level1">
 <h1>Let’s contrast this with non-OOP</h1>
-<pre><code>import email
+<pre class="sourceCode python"><code class="sourceCode python"><span class="ch">import</span> email
 
-def notify_via_email(person, message):
-    email.send(person[&quot;email&quot;], message)
+<span class="kw">def</span> notify_via_email(person, message):
+    email.send(person[<span class="st">&quot;email&quot;</span>], message)
 
-# This is just another way of creating a dictionary
-p = dict(name=&quot;Bob Jones&quot;, age=42,
-        occupation=&quot;haxxor&quot;, email=&quot;bob@jon.es&quot;)
-notify_via_email(person, &quot;your cat was found&quot;)</code></pre>
+<span class="co"># This is just another way of creating a dictionary</span>
+p = <span class="dt">dict</span>(name=<span class="st">&quot;Bob Jones&quot;</span>, age=<span class="dv">42</span>,
+        occupation=<span class="st">&quot;haxxor&quot;</span>, email=<span class="st">&quot;bob@jon.es&quot;</span>)
+notify_via_email(person, <span class="st">&quot;your cat was found&quot;</span>)</code></pre>
 <!--Would have to come up with a similar example like this if I want to switch to SeqRecord right off the bat-->
 <p>Shorter, but it’s less clear in <code>notify_via_email</code> what valid input is. Classes make this patent/explicit.</p>
 </section>
@@ -249,16 +249,16 @@ s = SeqRecord(<span class="st">&quot;MBG234Gag1&quot;</span>, <span class="st">&
 <section id="now-lets-add-some-functionality" class="level1">
 <h1>Now let’s add some functionality</h1>
 <p>In <code>scripts/seqs.py</code> add:</p>
-<pre><code>class SeqRecord(object):
-    # ...
+<pre class="sourceCode python"><code class="sourceCode python"><span class="kw">class</span> SeqRecord(<span class="dt">object</span>):
+    <span class="co"># ...</span>
 
-    def fasta_string(self):
-        string_rep = &quot;&gt;&quot; + self.name + &quot;\n&quot;
-        string_rep += self.seq + &quot;\n&quot;
-        return string_rep
+    <span class="kw">def</span> fasta_string(<span class="ot">self</span>):
+        string_rep = <span class="st">&quot;&gt;&quot;</span> + <span class="ot">self</span>.name + <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>
+        string_rep += <span class="ot">self</span>.seq + <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>
+        <span class="kw">return</span> string_rep
 
-s = SeqRecord(&quot;MBG234Gag1&quot;, &quot;AGCTGTCGGTAAGTCGAGT&quot;)
-print s.fasta_string()</code></pre>
+s = SeqRecord(<span class="st">&quot;MBG234Gag1&quot;</span>, <span class="st">&quot;AGCTGTCGGTAAGTCGAGT&quot;</span>)
+<span class="dt">print</span> s.fasta_string()</code></pre>
 <p>Run again and see what happens.</p>
 </section>
 <section id="making-the-seq-more-robust" class="level1">
@@ -384,9 +384,9 @@ s.complement().complement()</code></pre>
 <section id="hw-3---reverse_complement-ctnd" class="level1">
 <h1>HW 3 - <code>reverse_complement</code> (ctnd)</h1>
 <ul>
-<li>Add a <code>reservse_complement</code> method in your <code>SeqRecord</code> class, which returns a new seqrecord with:
+<li>Add a <code>reverse_complement</code> method in your <code>SeqRecord</code> class, which returns a new seqrecord with:
 <ul>
-<li><code>seq</code> attribute the <code>reservse_complement</code> of the original sequence.</li>
+<li><code>seq</code> attribute the <code>reverse_complement</code> of the original sequence.</li>
 <li>a modified <code>name</code> attribute (append <code>&quot;_rc&quot;</code> to the original name).</li>
 </ul></li>
 </ul>
