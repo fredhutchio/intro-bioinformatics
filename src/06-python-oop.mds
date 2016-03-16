@@ -114,6 +114,20 @@ dir(s)
 
 So an attribute of an object can be another object.
 
+It's like Inception!
+Objects all the way down!
+
+
+# Seriously though... Separation of Concerns
+
+One of the things OO encourages us to do is separate concerns.
+
+A `SeqRecord` is concerned with the more abstract record of a sequence; name, id, description, etc.
+The `Seq` is concerned with the _actual_ nucleotide sequence data.
+An instance of `SeqRecord` will have a `seq` attribute which points to a `Seq` instance.
+
+This separation of concerns is important to the main point of OOP: organizing functionality and data.
+
 
 # Attributes can be functions
 
@@ -160,6 +174,8 @@ class Person(object):
 p = Person("Bob Jones", 42, "haxxor")
 print p
 ```
+
+(Note 2 underscores (`_`) on either side of `init`)
 
 
 # What about the functionality bit
@@ -228,7 +244,30 @@ Moral of the story: Structure can come at the cost of flexibility.
 # Pretend Biopython didn't exist
 
 Let's create it.
-Start by creating a python script file in `scripts/seqs.py` using nano (`nano scripts/seqs.py`).
+
+
+# Setting up our editing environment
+
+Close whatever else you were working on and/or open a new tmux-window with `Ctrl-a c`, then
+
+```
+cd ~/bioinfclass
+nano scripts/seqs.py
+```
+
+
+# Copying and pasting
+
+When we installed our nanorc, we specified that `nano` should auto-indent whatever we type.
+While this is the best setting for actually coding, it messed up copy/paste.
+
+To fix this, when you want to paste code in nano, press `Esc i` (let go in between).
+This will turn off the auto-indent until you press `Esc i` again (when you're ready to type yourself again).
+
+
+# Redefining SeqRecord
+
+Add the following to our `scripts/seqs.py` file.
 
 ```python
 class SeqRecord(object):
@@ -241,27 +280,42 @@ print s.name
 print s.seq
 ```
 
-You can run this with `python scripts/seqs.py`.
+
+# Testing our code
+
+With python, I like to be able to test my scripts as I write them using bash.
+
+Open a new tmux pane using `Ctrl-a |`.
+Then run the following in the bash shell:
+
+```bash
+# First make sure we're in the right directory
+cd ~/bioinfclass
+
+# Run the script file we just created
+python scripts/seqs.py
+```
+
+What do you see?
 
 
 # Now let's add some functionality
 
-In `scripts/seqs.py` add:
+In `scripts/seqs.py`, add the following to the end of our class definition
 
 ```python
-class SeqRecord(object):
-    # ...
-
     def fasta_string(self):
         string_rep = ">" + self.name + "\n"
         string_rep += self.seq + "\n"
         return string_rep
+```
 
+Add some test code to the end of our file, then rerun:
+
+```
 s = SeqRecord("MBG234Gag1", "AGCTGTCGGTAAGTCGAGT")
 print s.fasta_string()
 ```
-
-Run again and see what happens.
 
 
 # Making the `seq` more robust
@@ -278,27 +332,38 @@ s = Seq("ACGT")
 print s
 ```
 
-Note: Creating a subclass of builtins like `str` is sometimes discouraged, but it's fine for illustrative purposes.
+Note: We're creating Seq as a _subclass_ of str.
+
+
+# Surprise!!!
+
+Python is super object oriented, and `str` is actually a class!
+
+So are `float`, `bool` and `int`.
+
+<br/>
+
+Objects all the way down...
 
 
 # Adding functionality to `Seq`
 
 ```python
 class Seq(str):
-    # A class variable, available to all seqs
+    # A class attribute, available to all seqs
     complements = dict(A="T", T="A", C="G", G="C")
     def complement(self):
         # Create list of complemented characters
         bps = [self.complements[bp] for bp in self]
         # Join characters together, and Seq them
         joined_bps = "".join(bps)
-        retrun Seq(joined_bps)
+        return Seq(joined_bps)
 
 s = Seq("ACGT")
 print s.complement()
 ```
 
-# Note the _class variable_
+# Note the _class_ attribute
 
 ```python
 # The class and instances both get this attribute
@@ -311,10 +376,10 @@ print s.complements
 print Seq.complements
 ```
 
-Note: `complements` here would typically be called a _class variable_, since all members of the class have access to it.
-The codecademy course calls them _member variables_, which is a more general term you don't hear as often.
-The _instance variables_ we've seen before (like `seqrecord.name`) are also considered member variables.
-Usually we want to be specific (I don't hear "member variable" used frequently).
+Note: `complements` would frequently be called a _class attribute_, since this data lives in the class.
+The codecademy course calls them _member variables_, which is a more general term I don't hear as often.
+The _instance attributes_ we've seen before (like `seqrecord.name`) are also considered member variables.
+Usually we want to be specific about `instance` vs `clsss`.
 
 
 # What about RNA vs DNA?
@@ -363,11 +428,11 @@ print type(s.complement())
 s = RNASeq("ACUG")
 print type(s.complement())
 
-# Now we can't take complement of the complement...
+# Now we can't take complement the complement of an RNASeq...
 s.complement().complement()
 ```
 
-Try solving this for homework :-) (Solution at end of slides)
+Try solving this for homework :-) (Solutions at end of slides)
 
 
 # That's all we'll look at for doing OOP
@@ -569,11 +634,14 @@ print "Seqrecord seq type:", type(s.seq)
 SeqRecord("MBG1234", "AGTCUGATA")
 ```
 
+Note that since the definition of `SeqRecord` here depends on `Seq`, you may have to move some code around so `Seq` is defined before `SeqRecord` is.
+
 
 # Bonus 1 (ctnd)
 
 This isn't the best solution:
-Right now, only capital letters are considered. A good way to fix this would be to look into [regular expressions](https://docs.python.org/2/howto/regex.html).
+Right now, only capital letters are considered.
+A good way to fix this would be to look into [regular expressions](https://docs.python.org/2/howto/regex.html).
 
 There is always something to do to make your code better :-)
 
