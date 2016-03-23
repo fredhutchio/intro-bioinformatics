@@ -72,16 +72,22 @@
 <li>Reflect on everything we’ve learned, and think again about the “big picture”</li>
 </ul>
 </section>
+<section id="a-biological-question" class="level1">
+<h1>A biological question</h1>
+<p>In one of our Unix classes we revealed there seems to be a much more human infection in Bormi. We’d like to know why.</p>
+<p>Hypothesis: A more diverse viral population is responsible for the higher incidence of human infection.</p>
+</section>
 <section id="objective" class="level1">
 <h1>Objective</h1>
 <p>Let’s write a script that:</p>
 <ul>
-<li>Takes an aligned Fasta file</li>
-<li>Computes the average distance between sequences</li>
+<li>Takes a newick tree file</li>
+<li>Computes the average distance between sequences/tree-tips</li>
 <li>Prints to stdout</li>
 <li>Takes an optional argument to return data in csv format</li>
 <li>Takes another optional argument to add a location to the csv output</li>
 </ul>
+<p>We’ll hook this into our pipeline to compare the viral diversity between locations.</p>
 </section>
 <section id="starting-things-off" class="level1">
 <h1>Starting things off</h1>
@@ -133,7 +139,7 @@ args = get_args()
 </section>
 <section id="loading-our-data" class="level1">
 <h1>Loading our data</h1>
-<p>Let’s start by loading our tree data in the main function of the code here.</p>
+<p>Let’s start by setting up our main function to load the tree data. Edit the main function to look like this:</p>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="co"># At the top below other imports, add:</span>
 <span class="ch">from</span> Bio <span class="ch">import</span> Phylo
 
@@ -145,6 +151,10 @@ args = get_args()
     <span class="co"># For now, just print</span>
     <span class="dt">print</span> tree</code></pre>
 <p>Save and run <code>./scripts/treedists.py output/Karamjal/tree.nw</code> You’ll see an object representation of the <a href="https://en.wikipedia.org/wiki/Clade">clades</a> on the phylogenetic tree.</p>
+</section>
+<section id="we-want-average-distance-between-the-tips-of-this-tree" class="level1">
+<h1>We want average distance between the tips of this tree</h1>
+<p>How should we do this?</p>
 </section>
 <section id="what-to-do-with-the-tree" class="level1">
 <h1>What to do with the tree</h1>
@@ -173,6 +183,7 @@ t = trees.<span class="dt">next</span>()
 <section id="what-do-the-terminals-look-like" class="level1">
 <h1>What do the terminals look like?</h1>
 <pre class="sourceCode python"><code class="sourceCode python">terminals = t.get_terminals()
+<span class="dt">print</span> terminals
 
 <span class="co"># Let&#39;s see what the first of these looks like</span>
 tip = terminals[<span class="dv">0</span>]
@@ -196,7 +207,7 @@ tip = terminals[<span class="dv">0</span>]
 </section>
 <section id="what-about-all-pairs-of-names" class="level1">
 <h1>What about all pairs of names?</h1>
-<p>(Note that we don’t want duplicate pairs like <code>[&quot;seq1&quot;, &quot;seq2&quot;]</code> and <code>[&quot;seq2&quot;, &quot;seq1&quot;]</code>)</p>
+<p>(Note that we don’t want duplicate pairs like <code>[&quot;seq1&quot;, &quot;seq2&quot;]</code> and <code>[&quot;seq2&quot;, &quot;seq1&quot;]</code>, and also don’t need to count <code>[&quot;seq1&quot;, &quot;seq1&quot;]</code>)</p>
 </section>
 <section id="all-pairs-of-names" class="level1">
 <h1>All pairs of names</h1>
@@ -354,7 +365,7 @@ t.distance(t1, t2)</code></pre>
   <span class="kw">FastTree</span> -seed 1234 -nt <span class="ot">$loc_alignment</span> <span class="kw">&gt;</span> <span class="ot">$loc_tree</span>
 
   <span class="ot">treedists=</span><span class="st">&quot;</span><span class="ot">$loc_outdir</span><span class="st">/treedist.csv&quot;</span>
-  <span class="kw">treedists.py</span> <span class="ot">$loc</span> -l <span class="ot">$location</span> <span class="kw">&gt;</span> <span class="ot">$treedists</span>
+  <span class="kw">treedists.py</span> <span class="ot">$loc</span> --csv -l <span class="ot">$location</span> <span class="kw">&gt;</span> <span class="ot">$treedists</span>
 
   <span class="ot">treedist_files+=($treedists)</span>
 <span class="kw">done</span></code></pre>

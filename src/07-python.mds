@@ -15,15 +15,25 @@ _Wherein with our knowledge we take flight and soar through the clouds of logic_
 * Reflect on everything we've learned, and think again about the "big picture"
 
 
+# A biological question
+
+In one of our Unix classes we revealed there seems to be a much more human infection in Bormi.
+We'd like to know why.
+
+Hypothesis: A more diverse viral population is responsible for the higher incidence of human infection.
+
+
 # Objective
 
 Let's write a script that:
 
-* Takes an aligned Fasta file
-* Computes the average distance between sequences
+* Takes a newick tree file
+* Computes the average distance between sequences/tree-tips
 * Prints to stdout
 * Takes an optional argument to return data in csv format
 * Takes another optional argument to add a location to the csv output
+
+We'll hook this into our pipeline to compare the viral diversity between locations.
 
 
 # Starting things off
@@ -101,7 +111,8 @@ This let's us `import` the file from another program as a module, without execut
 
 # Loading our data
 
-Let's start by loading our tree data in the main function of the code here.
+Let's start by setting up our main function to load the tree data.
+Edit the main function to look like this:
 
 ```python
 # At the top below other imports, add:
@@ -118,6 +129,11 @@ def main():
 
 Save and run `./scripts/treedists.py output/Karamjal/tree.nw`
 You'll see an object representation of the [clades](https://en.wikipedia.org/wiki/Clade) on the phylogenetic tree.
+
+
+# We want average distance between the tips of this tree
+
+How should we do this?
 
 
 # What to do with the tree
@@ -152,6 +168,7 @@ Question: How do we get the tips of the tree?
 
 ```python
 terminals = t.get_terminals()
+print terminals
 
 # Let's see what the first of these looks like
 tip = terminals[0]
@@ -188,8 +205,7 @@ tipnames = [tip.name for tip in terminals]
 
 # What about all pairs of names?
 
-(Note that we don't want duplicate pairs like `["seq1", "seq2"]` and `["seq2", "seq1"]`)
-
+(Note that we don't want duplicate pairs like `["seq1", "seq2"]` and `["seq2", "seq1"]`, and also don't need to count `["seq1", "seq1"]`)
 
 
 # All pairs of names
@@ -405,7 +421,7 @@ do
   FastTree -seed 1234 -nt $loc_alignment > $loc_tree
 
   treedists="$loc_outdir/treedist.csv"
-  treedists.py $loc -l $location > $treedists
+  treedists.py $loc --csv -l $location > $treedists
 
   treedist_files+=($treedists)
 done
