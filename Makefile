@@ -18,7 +18,11 @@ nomachine-directions.html: src/nomachine-directions.md
 	pandoc $(CSS) src/nomachine-directions.md -o nomachine-directions.html
 
 index.html: README.md nomachine-directions.html
-	pandoc $(CSS) README.md -o index.html
+	# Adding the theme Erick wanted for the README.md
+	echo  "<div class='theme-fredhutch'>" > README.alt.md
+	cat README.md >> README.alt.md
+	echo  "</div>" >> README.alt.md
+	pandoc $(CSS) README.alt.md -o index.html
 
 %.html: src/template-revealjs.html src/header.html src/%.mds insert.py Makefile build.sh
 	./build.sh src/$*.mds $@

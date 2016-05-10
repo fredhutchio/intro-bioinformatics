@@ -1,3 +1,4 @@
+<div class='theme-fredhutch'>
 
 <br/>
 
@@ -101,8 +102,7 @@ After processing, the Markdown gets converted to a [reveal.js](http://github.com
 HTML is rendered by the brilliant [pandoc](http://johnmacfarlane.net/pandoc/).
 
 Source files are in the `src/` directory, and have extension `.mds`.
-You can compile the file `src/somefile.mds` by typing `make somefile.html`, and open the file with firefox or chromium.
-You may need to install pandoc and some python related things to run this code.
+You can compile the file `src/somefile.mds` by typing `make somefile.html`.
 See the `Makefile` for some demonstration of `make`, if you're interested in using that as a replacement for building bioinformatics pipelines, or for customizing details of where files go and such in your fork.
 I may rewrite the build in SCons as well, so you have an example of that (and so I can work with this project more sanely).
 
@@ -114,6 +114,8 @@ I may rewrite the build in SCons as well, so you have an example of that (and so
 
 You are free to use and modify this code under the terms of the creative commmons license:
 
-<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Intro Bioinformatics curricula and slide processing</span> by <a href="http://metasoarous.com">Christopher Small</a> & <a xmlns:cc="http://creativecommons.org/ns#" href="http://matsen.fhcrc.org" property="cc:attributionName" rel="cc:attributionURL">Frederick A. Matsen IV</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>.
+ <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Intro Bioinformatics curricula and slide processing</span> by <a href="http://metasoarous.com">Christopher Small</a> & <a xmlns:cc="http://creativecommons.org/ns#" href="http://matsen.fhcrc.org" property="cc:attributionName" rel="cc:attributionURL">Frederick A. Matsen IV</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>.
 
+<br/>
 
+</div>
