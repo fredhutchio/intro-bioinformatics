@@ -421,7 +421,7 @@ do
   FastTree -seed 1234 -nt $loc_alignment > $loc_tree
 
   treedists="$loc_outdir/treedist.csv"
-  treedists.py $loc --csv -l $location > $treedists
+  treedists.py $loc_tree --csv -l $location > $treedists
 
   treedist_files+=($treedists)
 done
