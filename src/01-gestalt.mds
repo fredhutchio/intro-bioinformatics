@@ -11,7 +11,7 @@ Did everyone successfully ssh into `rhino`?
 
 * Name
 * What you're working on
-* Experience
+* Technical Experience
 
 
 # What you'll get from this class
@@ -40,7 +40,7 @@ But hopefully you'll have enough momentum to learn these on your own as needed.
 * The waiting list is very long
 
 
-# Overview of class
+# Class overview
 
 1. Gestalt & remote access
 2. Unix shell - overview/intro
@@ -162,7 +162,7 @@ Unix philosophy | project/data organization
 
 # The Unix Philosophy
 
-* Small, composable tools that do one thing right
+* Small, **composable** tools that do one thing right
 * Plumb tools together into pipelines & scripts
 * Embrace plain-text data
 
@@ -171,7 +171,7 @@ Bioinformatics naturally embraces this.
 
 # Project & data layout
 
-Being consistent aids in automation & clarity
+Being **consistent** aids in automation & clarity
 
 * naming schemes
 * path schemes
@@ -275,8 +275,10 @@ ssh <username>@rhino
 ```
 
 Write down which rhino you connect to, so you can directly connect to that next time.
+(e.g If you get connected to `rhino3`, next time use `ssh <username>@rhino3`.)
 
-(e.g If you get connected to `rhino03`, next time use `ssh <username>@rhino03`.)
+Let us know if you get an error message along the lines of "`can't find home`".
+
 
 
 # You're now in a Unix shell!
@@ -313,7 +315,12 @@ Example: `ls --help` & `man ls`
 
 If you are in the terminal and things seem "stuck" (a program is running that won't stop), try the following:
 
-`Ctrl-c`, `Esc`, `q`, `Ctrl-d`
+`Ctrl-c`, `Esc`, `q`, `Ctrl-d`, `Esc : q Enter`
+
+Note: These are _key commands_;
+
+* `-` means press the keys at the same time.
+* ` ` means let go and press the next key
 
 
 # Time to set up our project directory
@@ -346,7 +353,7 @@ This is an archive type (like `zip`) common on Unix systems.
 To unpack it
 
 ```bash
-tar -vxf data.tar
+tar -v -x -f data.tar
 ```
 
 
