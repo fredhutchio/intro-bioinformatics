@@ -1,9 +1,6 @@
 
-<br/>
 
-# Intro to Bioinformatics
-
-<img alt="Class poster" src="figures/course.png" style="max-width: 300px; text-align: center; margin-left: 30px; float: right;"/>
+<img alt="Intro to Bioinformatics" src="figures/course.png" style="max-width: 300px; text-align: center; margin-left: 30px; float: right;"/>
 
 A short series offered by [fredhutch.io](http://fredhutch.io) to members of [Fred Hutch](http://www.fredhutch.org/en.html).
 
