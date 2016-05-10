@@ -20,7 +20,9 @@ nomachine-directions.html: src/nomachine-directions.md
 index.html: README.md nomachine-directions.html
 	# Adding the theme Erick wanted for the README.md
 	echo  "<div class='theme-fredhutch'> <br/>" > README.alt.md
+	echo  "" >> README.alt.md
 	echo  "# Intro to Bioinformatics" >> README.alt.md
+	echo  "" >> README.alt.md
 	cat README.md >> README.alt.md
 	echo  "</div>" >> README.alt.md
 	pandoc $(CSS) README.alt.md -o index.html
