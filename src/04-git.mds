@@ -396,7 +396,7 @@ We have to do a _merge_.
 
 ```
 # Switch to branch into which you want to merge changes (aka the HEAD branch).
-git co master
+git checkout master
 
 # Next merge backintime into master
 git merge backintime

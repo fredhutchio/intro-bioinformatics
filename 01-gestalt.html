@@ -68,7 +68,7 @@
 <ul>
 <li>Name</li>
 <li>What you’re working on</li>
-<li>Experience</li>
+<li>Technical Experience</li>
 </ul>
 </section>
 <section id="what-youll-get-from-this-class" class="level1">
@@ -98,8 +98,8 @@
 <li>The waiting list is very long</li>
 </ul>
 </section>
-<section id="overview-of-class" class="level1">
-<h1>Overview of class</h1>
+<section id="class-overview" class="level1">
+<h1>Class overview</h1>
 <ol type="1">
 <li>Gestalt &amp; remote access</li>
 <li>Unix shell - overview/intro</li>
@@ -211,7 +211,7 @@
 <section id="the-unix-philosophy" class="level1">
 <h1>The Unix Philosophy</h1>
 <ul>
-<li>Small, composable tools that do one thing right</li>
+<li>Small, <strong>composable</strong> tools that do one thing right</li>
 <li>Plumb tools together into pipelines &amp; scripts</li>
 <li>Embrace plain-text data</li>
 </ul>
@@ -219,7 +219,7 @@
 </section>
 <section id="project-data-layout" class="level1">
 <h1>Project &amp; data layout</h1>
-<p>Being consistent aids in automation &amp; clarity</p>
+<p>Being <strong>consistent</strong> aids in automation &amp; clarity</p>
 <ul>
 <li>naming schemes</li>
 <li>path schemes</li>
@@ -302,8 +302,8 @@
 <h1>SSH for remote connection</h1>
 <p>Do this however you figured out how to do it for your OS.</p>
 <pre><code>ssh &lt;username&gt;@rhino</code></pre>
-<p>Write down which rhino you connect to, so you can directly connect to that next time.</p>
-<p>(e.g If you get connected to <code>rhino03</code>, next time use <code>ssh &lt;username&gt;@rhino03</code>.)</p>
+<p>Write down which rhino you connect to, so you can directly connect to that next time. (e.g If you get connected to <code>rhino3</code>, next time use <code>ssh &lt;username&gt;@rhino3</code>.)</p>
+<p>Let us know if you get an error message along the lines of “<code>can't find home</code>”.</p>
 </section>
 <section id="youre-now-in-a-unix-shell" class="level1">
 <h1>You’re now in a Unix shell!</h1>
@@ -329,7 +329,12 @@
 <section id="stuck-in-a-terminal" class="level1">
 <h1>Stuck in a terminal?</h1>
 <p>If you are in the terminal and things seem “stuck” (a program is running that won’t stop), try the following:</p>
-<p><code>Ctrl-c</code>, <code>Esc</code>, <code>q</code>, <code>Ctrl-d</code></p>
+<p><code>Ctrl-c</code>, <code>Esc</code>, <code>q</code>, <code>Ctrl-d</code>, <code>Esc : q Enter</code></p>
+<p>Note: These are <em>key commands</em>;</p>
+<ul>
+<li><code>-</code> means press the keys at the same time.</li>
+<li>` ` means let go and press the next key</li>
+</ul>
 </section>
 <section id="time-to-set-up-our-project-directory" class="level1">
 <h1>Time to set up our project directory</h1>
@@ -349,7 +354,7 @@
 <pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">wget</span> https://goo.gl/8Nk5tZ -O data.tar
 <span class="kw">ls</span></code></pre>
 <p>Note that we now have a <code>data.tar</code> file in this directory. This is an archive type (like <code>zip</code>) common on Unix systems. To unpack it</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">tar</span> -vxf data.tar</code></pre>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">tar</span> -v -x -f data.tar</code></pre>
 </section>
 <section id="editing-text-files-with-nano" class="level1">
 <h1>Editing text files with <code>nano</code></h1>
