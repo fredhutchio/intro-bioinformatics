@@ -60,7 +60,7 @@ Paths are the addresses for files, and are based on _directories_.
 We have a directory called `bioinfclass` in the directory `~`.
 The path to this directory is `~/bioinfclass`.
 
-`bioinfclass` also has a subdirectory called `data`, so it's path is `~/bioinfclass/data`.
+`bioinfclass` also has a subdirectory called `data`, so its path is `~/bioinfclass/data`.
 
 
 # Path tools
@@ -100,7 +100,7 @@ ls ../..
 cd /
 ```
 
-**Excecise:** Where are we now? How can we get back to our home directory?
+**Exercise:** Where are we now? How can we get back to our home directory?
 
 
 # We can change the path of a file using `mv`
@@ -115,7 +115,7 @@ ls foobar
 ls bioinfclass
 ```
 
-**Excercise:** How do we get `data` back?
+**Exercise:** How do we get `data` back?
 
 
 # `mv` is for renaming as well
@@ -268,7 +268,7 @@ don't forget to `module load intro-bio`!]
 
 `column -t -s , data/sfv.csv | less -S`
 
-* `column` writes it's output to `stdout`
+* `column` writes its output to `stdout`
     * `-t` specifies tabs for output
     * `-s ,` specifies command for separator
 * `less` reads from `/dev/stdin` if no file is specified
@@ -385,7 +385,7 @@ cut -d , -f 3 data/sfv.csv | sort | uniq -c
 ```
 
 * `cut -d , -f 3` extracts the third "," separated entry out of each line
-* `sort | uniq -c` makes a count of occurances for each unique entry
+* `sort | uniq -c` makes a count of occurrences for each unique entry
 
 
 # How to visualize this
