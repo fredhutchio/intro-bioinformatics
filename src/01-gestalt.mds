@@ -17,7 +17,7 @@ Did everyone successfully ssh into `rhino`?
 # What you'll get from this class
 
 * High level overview of how to _approach_ bioinformatics
-* Basic bioinformatics technical skills
+* Basic bioinformatics technical and problem solving skills
 * Enough momentum to initiate self-learning process
 
 
@@ -38,17 +38,6 @@ But hopefully you'll have enough momentum to learn these on your own as needed.
 * Time is the only way to learn these things
 * Help keep this class moving smoothly
 * The waiting list is very long
-
-
-# Class overview
-
-1. Gestalt & remote access
-2. Unix shell - overview/intro
-3. Unix shell - scripting & advanced tools
-4. Version control with git
-5. Python - syntax & types
-6. Python - data structures
-7. Python - writing a program
 
 
 # What is bioinformatics?
@@ -94,9 +83,9 @@ New insights and conclusions lead to new data and questions, etc.
 
 # This should be nothing new
 
-This is what you're likely _already_ doing at the lab bench, but with computers instead of test tubes.
+This is not that different a process from how we typically do science!
 
-The difference is in knowing how to approach scientific problems with the computational toolset.
+The main difference is that here we're using computers to carry these steps out that we would normally do at the bench or with a piece of paper.
 
 
 # So this is _what_ we do
@@ -221,6 +210,56 @@ your-project
 # Questions?
 
 
+# A bit on problem solving
+
+Programmers spend more time sitting around and thinking than they actually do typing code.
+What follows are some tips along these lines.
+
+
+# Poly's How to Solve It
+
+<https://en.wikipedia.org/wiki/How_to_Solve_It>
+
+1. Understand the problem
+2. Make a plan
+3. Carry out the plan
+4. Look back and reflect
+
+When this fails, try to solve an easier or related problem first.
+
+
+# Understanding
+
+This is sometimes the trickiest part, especially when working on a subproblem, because things can be ill defined.
+I find that spending time clarifying and truly understanding a difficult problem can often gets me 70% of the way to a solution.
+
+Look for the things that feel fuzzy and unclear and try to state precisely what it is you don't get about them.
+
+
+# Devising a plan
+
+This is most of the rest of the work; The better your plan, the easier it will be to execute.
+Sometimes perfecting a plan will elighten your understanding as well.
+
+This should be about 20%.
+
+
+# Execution and reflection
+
+Ideally, just the last 10%, if understanding and planning are perfect (reality can vary).
+
+
+# Strategies at all stages:
+
+* Draw a picture; visualize
+* Look for a pattern
+* Use a model or simpler problem
+* Work backwards
+* Eliminate possibilities
+* List knowns
+* Run examples
+
+
 # More on Unix
 
 Unix is a proprietary operating system from the 60s.
@@ -229,6 +268,9 @@ True Unix isn't frequently encountered these days, but its philosophy and approa
 So much so that when we say "Unix", we usually mean it in the abstract sense.
 
 We'll be using Ubuntu Linux, a Unix-like operating system.
+
+
+# Practicum!
 
 
 # The Unix shell
@@ -256,7 +298,7 @@ Unix was built for remote access, since computers were big and expensive.
 # Questions?
 
 
-# Practicum!
+# Excercise
 
 * Connect to a remote server
 * Unix survival guide
@@ -560,7 +602,19 @@ Try doing this and then reattaching.
 # Questions?
 
 
-# Homework
+# Source code!
+
+The source code for these slides is available on GitHub.
+
+https://github.com/fredhutchio/intro-bioinformatics
+
+For the code that generated these slides, look at the `.mds` files in the [`src`](https://github.com/fredhutchio/intro-bioinformatics/tree/gh-pages/src) directory.
+(This code is an extension of Markdown, which we'll look at more next week)
+
+To submit issues or questions about the class, go to the [Issues](https://github.com/fredhutchio/intro-bioinformatics/issues) page.
+
+
+# Excercises
 
 Please, _please_, _**please!**_
 
@@ -582,7 +636,8 @@ Reading for next class:
 
 # Resources
 
-* These slides (homepage): <http://fredhutchio.github.io/intro-bioinformatics>
+* Class home page: <http://fredhutchio.github.io/intro-bioinformatics>
+* Polya; How to solve it <https://en.wikipedia.org/wiki/How_to_Solve_It>
 * Unix command reference: <https://ubuntudanmark.dk/filer/fwunixref.pdf>
 * Tmux tutorial: <http://www.fredhutch.io/articles/2014/04/27/terminal-multiplex>
 * Stack overflow: <https://stackoverflow.com>
