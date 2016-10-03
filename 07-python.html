@@ -365,7 +365,7 @@ t.distance(t1, t2)</code></pre>
   <span class="kw">FastTree</span> -seed 1234 -nt <span class="ot">$loc_alignment</span> <span class="kw">&gt;</span> <span class="ot">$loc_tree</span>
 
   <span class="ot">treedists=</span><span class="st">&quot;</span><span class="ot">$loc_outdir</span><span class="st">/treedist.csv&quot;</span>
-  <span class="kw">treedists.py</span> <span class="ot">$loc</span> --csv -l <span class="ot">$location</span> <span class="kw">&gt;</span> <span class="ot">$treedists</span>
+  <span class="kw">treedists.py</span> <span class="ot">$loc_tree</span> --csv -l <span class="ot">$location</span> <span class="kw">&gt;</span> <span class="ot">$treedists</span>
 
   <span class="ot">treedist_files+=($treedists)</span>
 <span class="kw">done</span></code></pre>
