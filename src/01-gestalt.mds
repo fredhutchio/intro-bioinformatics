@@ -298,7 +298,7 @@ Unix was built for remote access, since computers were big and expensive.
 # Questions?
 
 
-# Excercise
+# Exercise
 
 * Connect to a remote server
 * Unix survival guide
@@ -474,7 +474,7 @@ module load intro-bio
 ```
 
 You might get a message that says `Using already loaded python`, but don't worry about it.
-If you get an error message though, let us know. 
+If you get an error message though, let us know.
 You can't proceed without this module loaded.
 
 
@@ -541,7 +541,7 @@ Panes:
 
 * `Ctrl-a |` - Split window into panes vertically
 * `Ctrl-a -` - Split window into panes horizontally
-* `Ctrl-a <arrow>` - Move between 
+* `Ctrl-a <arrow>` - Move between
 * `Ctrl-d` - Close a pane or window
 
 
@@ -594,7 +594,7 @@ mkdir data output scripts
 
 # Manual detach
 
-While in tmux, we can explicitly detach by typing `tmux detatch`.
+While in tmux, we can explicitly detach by typing `tmux detach`.
 
 Try doing this and then reattaching.
 
@@ -614,7 +614,7 @@ For the code that generated these slides, look at the `.mds` files in the [`src`
 To submit issues or questions about the class, go to the [Issues](https://github.com/fredhutchio/intro-bioinformatics/issues) page.
 
 
-# Excercises
+# Exercises
 
 Please, _please_, _**please!**_
 
