@@ -165,47 +165,6 @@ Being **consistent** aids in automation & clarity
 * naming schemes
 * path schemes
 
-_Note: I use a somewhat different organizational scheme than the book's author.
-Find what works for you..._
-
-
-# Project layout
-
-Here's how I typically organize things:
-
-
-```text
-your-project
-├── README.md
-├── build.sh
-├── data
-│   ├── sequences.fasta
-│   └── metadata.csv
-├── scripts
-│   ├── clean.py
-│   └── plot.R
-└── output
-    ├── alignment.fasta
-    ├── cleaned_metadata.csv
-    ├── tree.newick
-    └── tree_plot.png
-```
-
-
-# And if you have nested data...
-
-```text
-...
-├── data
-│   ├── trial-a
-│   │   ├── sequences.fasta
-│   │   └── metadata.csv
-│   ├── trial-b
-│   │   ├── sequences.fasta
-│   │   └── metadata.csv
-...
-```
-
 
 # Questions?
 
@@ -216,7 +175,7 @@ Programmers spend more time sitting around and thinking than they actually do ty
 What follows are some tips along these lines.
 
 
-# Poly's How to Solve It
+# Polya's How to Solve It
 
 <https://en.wikipedia.org/wiki/How_to_Solve_It>
 
@@ -270,9 +229,6 @@ So much so that when we say "Unix", we usually mean it in the abstract sense.
 We'll be using Ubuntu Linux, a Unix-like operating system.
 
 
-# Practicum!
-
-
 # The Unix shell
 
 One of the core aspects of the Unix environment is the _Unix shell_.
@@ -298,14 +254,14 @@ Unix was built for remote access, since computers were big and expensive.
 # Questions?
 
 
-# Exercise
+# Practicum!
 
 * Connect to a remote server
 * Unix survival guide
 * Set up a project directory and load it with data
+* Investigate our data
 * Learn how to edit files on a server
 * Tmux for session management
-* Play with some data
 
 
 # SSH for remote connection
@@ -322,11 +278,19 @@ Write down which rhino you connect to, so you can directly connect to that next 
 Let us know if you get an error message along the lines of "`can't find home`".
 
 
+# From outside the Hutch
+
+Side note:
+
+If you want to work on the servers from outside the Hutch, you can ssh into `<username>@snail.fhcrc.org`, and then from there execute `ssh <username>@rhino<N>` to get into your rino.
+
 
 # You're now in a Unix shell!
 
 We'll cover things more thoroughly next class.
 For now, just some basic information for orientation.
+
+What follows is your Zombie Apocalypse Unix guide.
 
 
 # Brief overview of a Unix command
@@ -365,16 +329,54 @@ Note: These are _key commands_;
 * ` ` means let go and press the next key
 
 
-# Time to set up our project directory
+# Autocomplete
 
-This class will build around analysis of a single data set, so let's set up a project directory for it.
+Bash can "auto-complete" command and filenames.
+Just start typing and hit `Tab`.
+
+Try `ls ~/bioi<Tab>`.
+
+
+# Questions?
+
+
+# Setting up our project
+
+This class will build around analysis of a [real world dataset](http://dx.doi.org/10.1038/emi.2013.60) of [Simian Foamy Virus](https://en.wikipedia.org/wiki/Simian_foamy_virus) (SFV).
+SFV is a retrovirus that typically infects non-human primates (NHP), but can infect humans bitten by NHP (though we're a "dead-end" host).
+This data set looks at viruses sampled from humans and monkeys in Bangladesh.
+
+
+# Project layout
+
+Here's how I typically organize things:
+
+```text
+your-project
+├── README.md
+├── build.sh
+├── data
+│   ├── sequences.fasta
+│   └── metadata.csv
+├── scripts
+│   ├── clean.py
+│   └── plot.R
+└── output
+    ├── alignment.fasta
+    ├── cleaned_metadata.csv
+    ├── tree.newick
+    └── tree_plot.png
+```
+
+Note: this is a little different than the organization from the book; Use what works for you, but be consistent.
+
+
+# Setting up our project directory
 
 ```bash
 mkdir ~/bioinfclass
 
 cd ~/bioinfclass
-pwd
-
 mkdir data output scripts
 
 ls
@@ -420,6 +422,7 @@ To exit type `Ctrl-x` (if there are unsaved changes, next type `y` then `Enter` 
 `tree` prints out a directory tree as ASCII art.
 
 ```bash
+
 tree
 ```
 
@@ -565,6 +568,15 @@ And also do our first sequence alignment!
 
 # What is a sequence alignment?
 
+As genetic sequences evolve, base pairs can be added or dropped.
+Alignment tries to figure out where these insertion/deletion events happened so that individual sites in an alignment can be compared between sequences:
+
+```
+AAGGCCTT    AAGGCCTT
+ACGGCCTT => ACGGCCTT
+AAGCCTA     AAG-CCTA
+ACGGCCTA    ACGGCCTA
+```
 
 # Making a sequence alignment
 
@@ -637,8 +649,9 @@ Reading for next class:
 # Resources
 
 * Class home page: <http://fredhutchio.github.io/intro-bioinformatics>
-* Polya; How to solve it <https://en.wikipedia.org/wiki/How_to_Solve_It>
+* Polya: How to solve it <https://en.wikipedia.org/wiki/How_to_Solve_It>
 * Unix command reference: <https://ubuntudanmark.dk/filer/fwunixref.pdf>
 * Tmux tutorial: <http://www.fredhutch.io/articles/2014/04/27/terminal-multiplex>
 * Stack overflow: <https://stackoverflow.com>
+* More on our data: http://dx.doi.org/10.1038/emi.2013.60
 

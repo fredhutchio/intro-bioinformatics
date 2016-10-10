@@ -57,8 +57,10 @@ Paths are the addresses for files, and are based on _directories_.
 
 # How paths work
 
+`/` lets us compose paths.
+
 We have a directory called `bioinfclass` in the directory `~`.
-The path to this directory is `~/bioinfclass`.
+So `~/bioinfclass` is a complete path to this directory.
 
 `bioinfclass` also has a subdirectory called `data`, so its path is `~/bioinfclass/data`.
 
@@ -79,7 +81,6 @@ pwd
 
 # list the contents of this directory
 ls bioinfclass/data
-
 cd bioinfclass
 
 pwd
@@ -106,11 +107,11 @@ cd /
 # We can change the path of a file using `mv`
 
 ```bash
-mv bioinfclass/data foobar
+mv bioinfclass/data .
 
 ls
 
-ls foobar
+ls data
 
 ls bioinfclass
 ```
@@ -120,15 +121,13 @@ ls bioinfclass
 
 # `mv` is for renaming as well
 
-If the directory of the file is the same, we just _rename_ the file, but the command stays the same.
-
 ```bash
 mv bioinfclass foobar
 
 ls
-
-mv foobar bioinfclass
 ```
+
+**Exercise:** How do we get `bioinfclass` back?
 
 
 # We can make new directories or files with `mkdir` and `touch`
@@ -138,7 +137,7 @@ mv foobar bioinfclass
 
 &nbsp;
 
-**Exercise:** create a file in a subdirectory from your home directory
+**Exercise:** create a file called `bar` in a new subdirectory called `foo` of your home directory
 
 
 # Commands
@@ -274,6 +273,21 @@ don't forget to `module load intro-bio`!]
 * `less` reads from `/dev/stdin` if no file is specified
     * `-S` specifies don't wrap
 
+# You should see something like this
+
+    sequence         specimen   species   gene   location     ...
+    BGH150WBGag2     BGH150     human     gag    Charmaguria  ...
+    BGH31WBGag2      BGH31      human     gag    Bormi        ...
+    BGH150WBGag4     BGH150     human     gag    Charmaguria  ...
+    BGH150WBGag8     BGH150     human     gag    Charmaguria  ...
+    MBG103WBGag101   MBG103     monkey    gag    Narayanganj  ...
+    BGH31WBGag3      BGH31      human     gag    Bormi        ...
+    MBG103WBGag102   MBG103     monkey    gag    Narayanganj  ...
+    BGH31WBGag1      BGH31      human     gag    Bormi        ...
+    MBG103WBGag104   MBG103     monkey    gag    Narayanganj  ...
+    MBG104WBGag101   MBG104     monkey    gag    Narayanganj  ...
+    ...
+
 
 #
 Programs have to _know_ to use stdin / stdout for this to work.
@@ -284,7 +298,7 @@ Some conventions:
 * If no arguments specified, input from `stdin`, output to `stdout`
 * Sometimes there is no "output" argument; assume `stdout`
 * Sometimes programs treat `-` as a shortcut for `stdin`
-* When all else fails, you can read from & write to `/dev/stdout`, `/dev/stdin` directly
+* When all else fails, you can read from & write to paths `/dev/stdout`, `/dev/stdin` directly
 
 
 # Practicum!
@@ -339,9 +353,9 @@ nw_display output/tree.nw | less -S
 ```
 
 
-# So we can look at data in Unix
+# So we can look at data in Unix...
 
-But how can we actually analyze data and answer questions?
+Now lets use it for more in depth analysis.
 
 
 # How many human sequences are there?
@@ -350,11 +364,10 @@ There is a species column in our data set with `human` and `monkey` entries.
 
 <br/>
 
-How would we figure out how many human and monkey sequences there are in the data?
+Question: How would we figure out how many human and monkey sequences there are in the data?
 
 
 # How many human sequences are there?
-
 
 ```bash
 grep human data/sfv.csv | wc -l
@@ -384,7 +397,7 @@ How many sequences are there for each species?
 cut -d , -f 3 data/sfv.csv | sort | uniq -c
 ```
 
-* `cut -d , -f 3` extracts the third "," separated entry out of each line
+* `cut -d , -f 3` extracts the third `,` separated entry out of each line
 * `sort | uniq -c` makes a count of occurrences for each unique entry
 
 
@@ -406,6 +419,7 @@ The first few columns in the data
     |  MBG103WBGag104 | MBG103   | monkey  | gag  | Narayanganj |
     |  MBG104WBGag101 | MBG104   | monkey  | gag  | Narayanganj |
     |  ...
+
 
 # The results of cutting out the third column
 
@@ -460,7 +474,7 @@ The first few columns in the data
 # How would we count how many specimens there are per species?
 
 
-# How about how many specimens there are per species?
+# Counting speciments per species
 
 We can do this with a two step version of the `cut | uniq | sort` pattern we used above:
 
@@ -506,7 +520,7 @@ cut -d , -f 2,3 data/sfv.csv | sort | uniq | cut -d , -f 2 | sort | uniq -c
     | MBG104   | monkey  |
     | ...
 
-Now we now have exactly 1 row per specimen (species just comes along for the ride).
+Now we now have exactly 1 row per specimen (species just "comes along for the ride").
 
 
 # Now we cut out the species, and count
@@ -526,7 +540,7 @@ Thus, the number of times we see a species in that table is the number of specim
 What would we do?
 
 
-# What about specimens by location?
+# Specimens by location
 
 ```bash
 cut -d , -f 2,3,5 data/sfv.csv | sort | uniq | cut -d , -f 2,3 | sort | uniq -c

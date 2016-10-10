@@ -117,8 +117,9 @@
 </section>
 <section id="how-paths-work" class="level1">
 <h1>How paths work</h1>
-<p>We have a directory called <code>bioinfclass</code> in the directory <code>~</code>. The path to this directory is <code>~/bioinfclass</code>.</p>
-<p><code>bioinfclass</code> also has a subdirectory called <code>data</code>, so it’s path is <code>~/bioinfclass/data</code>.</p>
+<p><code>/</code> lets us compose paths.</p>
+<p>We have a directory called <code>bioinfclass</code> in the directory <code>~</code>. So <code>~/bioinfclass</code> is a complete path to this directory.</p>
+<p><code>bioinfclass</code> also has a subdirectory called <code>data</code>, so its path is <code>~/bioinfclass/data</code>.</p>
 </section>
 <section id="path-tools" class="level1">
 <h1>Path tools</h1>
@@ -130,48 +131,45 @@
 </section>
 <section id="example-using-path-tools" class="level1">
 <h1>Example: Using path tools</h1>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">cd</span> ~
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">cd</span> ~
 
 <span class="kw">pwd</span>
 
 <span class="co"># list the contents of this directory</span>
 <span class="kw">ls</span> bioinfclass/data
-
 <span class="kw">cd</span> bioinfclass
 
 <span class="kw">pwd</span>
 
-<span class="kw">ls</span> data</code></pre>
+<span class="kw">ls</span> data</code></pre></div>
 </section>
 <section id="exercise-going-up-the-directory-chain" class="level1">
 <h1>Exercise: going up the directory chain</h1>
 <p>Try</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">ls</span> ..
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">ls</span> ..
 
 <span class="kw">ls</span> ../..
 
-<span class="kw">cd</span> /</code></pre>
-<p><strong>Excecise:</strong> Where are we now? How can we get back to our home directory?</p>
+<span class="kw">cd</span> /</code></pre></div>
+<p><strong>Exercise:</strong> Where are we now? How can we get back to our home directory?</p>
 </section>
 <section id="we-can-change-the-path-of-a-file-using-mv" class="level1">
 <h1>We can change the path of a file using <code>mv</code></h1>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">mv</span> bioinfclass/data foobar
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">mv</span> bioinfclass/data .
 
 <span class="kw">ls</span>
 
-<span class="kw">ls</span> foobar
+<span class="kw">ls</span> data
 
-<span class="kw">ls</span> bioinfclass</code></pre>
-<p><strong>Excercise:</strong> How do we get <code>data</code> back?</p>
+<span class="kw">ls</span> bioinfclass</code></pre></div>
+<p><strong>Exercise:</strong> How do we get <code>data</code> back?</p>
 </section>
 <section id="mv-is-for-renaming-as-well" class="level1">
 <h1><code>mv</code> is for renaming as well</h1>
-<p>If the directory of the file is the same, we just <em>rename</em> the file, but the command stays the same.</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">mv</span> bioinfclass foobar
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">mv</span> bioinfclass foobar
 
-<span class="kw">ls</span>
-
-<span class="kw">mv</span> foobar bioinfclass</code></pre>
+<span class="kw">ls</span></code></pre></div>
+<p><strong>Exercise:</strong> How do we get <code>bioinfclass</code> back?</p>
 </section>
 <section id="we-can-make-new-directories-or-files-with-mkdir-and-touch" class="level1">
 <h1>We can make new directories or files with <code>mkdir</code> and <code>touch</code></h1>
@@ -180,7 +178,7 @@
 <li><code>touch name</code> will create an empty file <code>name</code></li>
 </ul>
 <p> </p>
-<p><strong>Exercise:</strong> create a file in a subdirectory from your home directory</p>
+<p><strong>Exercise:</strong> create a file called <code>bar</code> in a new subdirectory called <code>foo</code> of your home directory</p>
 </section>
 <section id="commands" class="level1">
 <h1>Commands</h1>
@@ -216,7 +214,7 @@
 </section>
 <section id="help-with-flags" class="level1">
 <h1>Help with flags</h1>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">ls</span> --help</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">ls</span> --help</code></pre></div>
 </section>
 <section id="getting-help-with-man-and-apropos" class="level1">
 <h1>Getting help with <code>man</code> and <code>apropos</code></h1>
@@ -228,7 +226,7 @@
 </section>
 <section id="programs-are-just-files" class="level1">
 <h1>Programs are just files!</h1>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">which</span> tree
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">which</span> tree
 
 <span class="co"># -l: &quot;long&quot; list output; lots of info that we will ignore except for `x` presence/absence</span>
 <span class="kw">ls</span> -l /usr/bin/tree
@@ -239,7 +237,7 @@
 <span class="kw">touch</span> testfile
 
 <span class="co"># Notice no x; not executable...</span>
-<span class="kw">ls</span> -l testfile</code></pre>
+<span class="kw">ls</span> -l testfile</code></pre></div>
 </section>
 <section id="what-else-is-in-usrbin" class="level1">
 <h1>What else is in <code>/usr/bin</code>?</h1>
@@ -275,7 +273,8 @@
 <p>vs</p>
 <p><code>FastTree -nt output/alignment.fasta &gt; output/tree.nw</code></p>
 <p> </p>
-<p>[if your shell can’t see FastTree,<br />don’t forget to <code>module load intro-bio</code>!]</p>
+<p>[if your shell can’t see FastTree,<br />
+don’t forget to <code>module load intro-bio</code>!]</p>
 </section>
 <section id="we-can-also-stdout-of-one-command-to-stdin-of-another" class="level1">
 <h1>We can also <code>|</code> <code>stdout</code> of one command to <code>stdin</code> of another</h1>
@@ -286,7 +285,7 @@
 <h1>Example</h1>
 <p><code>column -t -s , data/sfv.csv | less -S</code></p>
 <ul>
-<li><code>column</code> writes it’s output to <code>stdout</code>
+<li><code>column</code> writes its output to <code>stdout</code>
 <ul>
 <li><code>-t</code> specifies tabs for output</li>
 <li><code>-s ,</code> specifies command for separator</li>
@@ -297,6 +296,21 @@
 </ul></li>
 </ul>
 </section>
+<section id="you-should-see-something-like-this" class="level1">
+<h1>You should see something like this</h1>
+<pre><code>sequence         specimen   species   gene   location     ...
+BGH150WBGag2     BGH150     human     gag    Charmaguria  ...
+BGH31WBGag2      BGH31      human     gag    Bormi        ...
+BGH150WBGag4     BGH150     human     gag    Charmaguria  ...
+BGH150WBGag8     BGH150     human     gag    Charmaguria  ...
+MBG103WBGag101   MBG103     monkey    gag    Narayanganj  ...
+BGH31WBGag3      BGH31      human     gag    Bormi        ...
+MBG103WBGag102   MBG103     monkey    gag    Narayanganj  ...
+BGH31WBGag1      BGH31      human     gag    Bormi        ...
+MBG103WBGag104   MBG103     monkey    gag    Narayanganj  ...
+MBG104WBGag101   MBG104     monkey    gag    Narayanganj  ...
+...</code></pre>
+</section>
 <section id="section" class="level1">
 <h1></h1>
 <p>Programs have to <em>know</em> to use stdin / stdout for this to work. Some conventions:</p>
@@ -306,7 +320,7 @@
 <li>If no arguments specified, input from <code>stdin</code>, output to <code>stdout</code></li>
 <li>Sometimes there is no “output” argument; assume <code>stdout</code></li>
 <li>Sometimes programs treat <code>-</code> as a shortcut for <code>stdin</code></li>
-<li>When all else fails, you can read from &amp; write to <code>/dev/stdout</code>, <code>/dev/stdin</code> directly</li>
+<li>When all else fails, you can read from &amp; write to paths <code>/dev/stdout</code>, <code>/dev/stdin</code> directly</li>
 </ul>
 </section>
 <section id="practicum" class="level1">
@@ -331,39 +345,39 @@
 <section id="head-first" class="level1">
 <h1>Head first…</h1>
 <p>Head writes to <code>stdout</code> the first several lines of <code>stdin</code>.</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">head</span> data/sfv.csv
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">head</span> data/sfv.csv
 
-<span class="kw">column</span> -t -s , data/sfv.csv <span class="kw">|</span> <span class="kw">head</span></code></pre>
+<span class="kw">column</span> -t -s , data/sfv.csv <span class="kw">|</span> <span class="kw">head</span></code></pre></div>
 <p>This is useful for working with big files.</p>
 </section>
 <section id="lets-take-a-look-at-our-alignment-from-last-week" class="level1">
 <h1>Let’s take a look at our alignment from last week</h1>
 <section id="always-do-this-with-alignments" class="level2">
 <h2>Always do this with alignments!</h2>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># We&#39;ll use the `alnvu` program</span>
-<span class="kw">av</span> -L 99999 -w 99999 -c output/alignment.fasta <span class="kw">|</span> <span class="kw">less</span> -S</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># We&#39;ll use the `alnvu` program</span>
+<span class="kw">av</span> -L 99999 -w 99999 -c output/alignment.fasta <span class="kw">|</span> <span class="kw">less</span> -S</code></pre></div>
 </section>
 </section>
 <section id="we-can-also-look-at-our-tree" class="level1">
 <h1>We can also look at our tree</h1>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">nw_display</span> output/tree.nw <span class="kw">|</span> <span class="kw">less</span> -S</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">nw_display</span> output/tree.nw <span class="kw">|</span> <span class="kw">less</span> -S</code></pre></div>
 </section>
 <section id="so-we-can-look-at-data-in-unix" class="level1">
-<h1>So we can look at data in Unix</h1>
-<p>But how can we actually analyze data and answer questions?</p>
+<h1>So we can look at data in Unix…</h1>
+<p>Now lets use it for more in depth analysis.</p>
 </section>
 <section id="how-many-human-sequences-are-there" class="level1">
 <h1>How many human sequences are there?</h1>
 <p>There is a species column in our data set with <code>human</code> and <code>monkey</code> entries.</p>
 <p><br/></p>
-<p>How would we figure out how many human and monkey sequences there are in the data?</p>
+<p>Question: How would we figure out how many human and monkey sequences there are in the data?</p>
 </section>
 <section id="how-many-human-sequences-are-there-1" class="level1">
 <h1>How many human sequences are there?</h1>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">grep</span> human data/sfv.csv <span class="kw">|</span> <span class="kw">wc</span> -l
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">grep</span> human data/sfv.csv <span class="kw">|</span> <span class="kw">wc</span> -l
 
 <span class="co"># what about monkey sequences?</span>
-<span class="kw">grep</span> monkey data/sfv.csv <span class="kw">|</span> <span class="kw">wc</span> -l</code></pre>
+<span class="kw">grep</span> monkey data/sfv.csv <span class="kw">|</span> <span class="kw">wc</span> -l</code></pre></div>
 <ul>
 <li><code>grep</code> searches through files for a pattern</li>
 <li><code>wc -l</code> counts the number of lines</li>
@@ -381,10 +395,10 @@
 <section id="a-better-way" class="level1">
 <h1>A better way</h1>
 <p>How many sequences are there for each species?</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">cut</span> -d , -f 3 data/sfv.csv <span class="kw">|</span> <span class="kw">sort</span> <span class="kw">|</span> <span class="kw">uniq</span> -c</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">cut</span> -d , -f 3 data/sfv.csv <span class="kw">|</span> <span class="kw">sort</span> <span class="kw">|</span> <span class="kw">uniq</span> -c</code></pre></div>
 <ul>
-<li><code>cut -d , -f 3</code> extracts the third “,” separated entry out of each line</li>
-<li><code>sort | uniq -c</code> makes a count of occurances for each unique entry</li>
+<li><code>cut -d , -f 3</code> extracts the third <code>,</code> separated entry out of each line</li>
+<li><code>sort | uniq -c</code> makes a count of occurrences for each unique entry</li>
 </ul>
 </section>
 <section id="how-to-visualize-this" class="level1">
@@ -452,14 +466,14 @@
 <section id="how-would-we-count-how-many-specimens-there-are-per-species" class="level1">
 <h1>How would we count how many specimens there are per species?</h1>
 </section>
-<section id="how-about-how-many-specimens-there-are-per-species" class="level1">
-<h1>How about how many specimens there are per species?</h1>
+<section id="counting-speciments-per-species" class="level1">
+<h1>Counting speciments per species</h1>
 <p>We can do this with a two step version of the <code>cut | uniq | sort</code> pattern we used above:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># First, uniq specimens, with species info</span>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># First, uniq specimens, with species info</span>
 <span class="kw">cut</span> -d , -f 2,3 data/sfv.csv <span class="kw">|</span> <span class="kw">sort</span> <span class="kw">|</span> <span class="kw">uniq</span> <span class="kw">|</span> <span class="kw">head</span>
 
 <span class="co"># Next count that by species</span>
-<span class="kw">cut</span> -d , -f 2,3 data/sfv.csv <span class="kw">|</span> <span class="kw">sort</span> <span class="kw">|</span> <span class="kw">uniq</span> <span class="kw">|</span> <span class="kw">cut</span> -d , -f 2 <span class="kw">|</span> <span class="kw">sort</span> <span class="kw">|</span> <span class="kw">uniq</span> -c</code></pre>
+<span class="kw">cut</span> -d , -f 2,3 data/sfv.csv <span class="kw">|</span> <span class="kw">sort</span> <span class="kw">|</span> <span class="kw">uniq</span> <span class="kw">|</span> <span class="kw">cut</span> -d , -f 2 <span class="kw">|</span> <span class="kw">sort</span> <span class="kw">|</span> <span class="kw">uniq</span> -c</code></pre></div>
 </section>
 <section id="columns-2-and-3-cut-out-of-data" class="level1">
 <h1>Columns 2 and 3 cut out of data</h1>
@@ -490,7 +504,7 @@
 | MBG103   | monkey  |
 | MBG104   | monkey  |
 | ...</code></pre>
-<p>Now we now have exactly 1 row per specimen (species just comes along for the ride).</p>
+<p>Now we now have exactly 1 row per specimen (species just “comes along for the ride”).</p>
 </section>
 <section id="now-we-cut-out-the-species-and-count" class="level1">
 <h1>Now we cut out the species, and count</h1>
@@ -504,9 +518,9 @@
 <h1>What if we wanted to include location in this data?</h1>
 <p>What would we do?</p>
 </section>
-<section id="what-about-specimens-by-location" class="level1">
-<h1>What about specimens by location?</h1>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">cut</span> -d , -f 2,3,5 data/sfv.csv <span class="kw">|</span> <span class="kw">sort</span> <span class="kw">|</span> <span class="kw">uniq</span> <span class="kw">|</span> <span class="kw">cut</span> -d , -f 2,3 <span class="kw">|</span> <span class="kw">sort</span> <span class="kw">|</span> <span class="kw">uniq</span> -c</code></pre>
+<section id="specimens-by-location" class="level1">
+<h1>Specimens by location</h1>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">cut</span> -d , -f 2,3,5 data/sfv.csv <span class="kw">|</span> <span class="kw">sort</span> <span class="kw">|</span> <span class="kw">uniq</span> <span class="kw">|</span> <span class="kw">cut</span> -d , -f 2,3 <span class="kw">|</span> <span class="kw">sort</span> <span class="kw">|</span> <span class="kw">uniq</span> -c</code></pre></div>
 </section>
 <section id="moral-of-the-story" class="level1">
 <h1>Moral of the story</h1>
@@ -530,11 +544,11 @@
 </section>
 <section id="looking-at-just-the-human-sequences" class="level1">
 <h1>Looking at just the human sequences</h1>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">csvgrep</span> -c species -m human data/sfv.csv <span class="kw">|</span> <span class="kw">csvlook</span> <span class="kw">|</span> <span class="kw">less</span> -S</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">csvgrep</span> -c species -m human data/sfv.csv <span class="kw">|</span> <span class="kw">csvlook</span> <span class="kw">|</span> <span class="kw">less</span> -S</code></pre></div>
 </section>
 <section id="the-one-missing-piece-csvuniq" class="level1">
 <h1>The one missing piece: csvuniq</h1>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># ~/bin is one of the places we can put programs</span>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># ~/bin is one of the places we can put programs</span>
 <span class="kw">mkdir</span> ~/bin
 
 <span class="kw">wget</span> https://goo.gl/ZdNoUL -O ~/bin/csvuniq
@@ -548,11 +562,11 @@
 <span class="kw">install.packages</span>(c(<span class="st">&#39;optparse&#39;</span>, <span class="st">&#39;plyr&#39;</span>))
 <span class="co"># Enter y at all prompts, and select the WA CRAN mirror when asked.</span>
 <span class="co"># When done, exit with</span>
-<span class="fu">quit()</span></code></pre>
+<span class="fu">quit()</span></code></pre></div>
 </section>
 <section id="now-lets-see-what-our-example-looks-like" class="level1">
 <h1>Now let’s see what our example looks like:</h1>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">csvuniq</span> -c specimen,species,location data/sfv.csv <span class="kw">|</span> <span class="kw">csvuniq</span> -zc species,location <span class="kw">|</span> <span class="kw">csvlook</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">csvuniq</span> -c specimen,species,location data/sfv.csv <span class="kw">|</span> <span class="kw">csvuniq</span> -zc species,location <span class="kw">|</span> <span class="kw">csvlook</span></code></pre></div>
 <p>Notice that <code>csvuniq</code> does all of the sorting and cutting for us…</p>
 </section>
 <section id="homework" class="level1">
