@@ -301,6 +301,29 @@ Some conventions:
 * When all else fails, you can read from & write to paths `/dev/stdout`, `/dev/stdin` directly
 
 
+# More about stdin
+
+Q: What does stdin default to?
+
+A: Your keyboard!
+
+
+# Reading from stdin
+
+Recall that cat writes to stdout whatever files you pass it as args.
+If no files are specified though, it reads from stdin.
+
+```bash
+cat
+```
+
+* Enter some text using your keyboard
+* Use the key command `Ctrl-d` to close the stdin file
+* `cat` will print out whatever you typed in
+
+Note: This is how your bash shell works, and why `Ctrl-d` quits the shell!
+
+
 # Practicum!
 
 In which we apply our knowledge of these flying, speaking beasts.
@@ -535,12 +558,12 @@ There is exactly one row in the last result set for each unique specimen.
 Thus, the number of times we see a species in that table is the number of specimens corresponding to that species.
 
 
-# What if we wanted to include location in this data?
+# What if we wanted to count number of specimens per species for each _location_?
 
 What would we do?
 
 
-# Specimens by location
+# Specimens by location and species
 
 ```bash
 cut -d , -f 2,3,5 data/sfv.csv | sort | uniq | cut -d , -f 2,3 | sort | uniq -c
@@ -602,7 +625,7 @@ quit()
 ```
 
 
-# Now let's see what our example looks like:
+# Now let's see what our last example looks like:
 
 ```bash
 csvuniq -c specimen,species,location data/sfv.csv | csvuniq -zc species,location | csvlook
@@ -627,7 +650,7 @@ Reading for next class (if you want to read ahead):
 # Resources
 
 * Unix command reference: <https://ubuntudanmark.dk/filer/fwunixref.pdf>
-* [Codecademy Command line course]https://www.codecademy.com/learn/learn-the-command-line
+* [Codecademy Command line course](https://www.codecademy.com/learn/learn-the-command-line)
 
 [Back to homepage](http://fredhutchio.github.io/intro-bioinformatics)
 

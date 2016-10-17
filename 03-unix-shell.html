@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 
-<title>Introduction to Bioinformatics</title>
+<title>Lesson 3 - Unix Scripting &amp; Automation</title>
 
-<meta name="description" content="Introduction to Bioinformatics">
+<meta name="description" content="Lesson 3 - Unix Scripting &amp; Automation">
 
 <!-- Disabled for now - embeds HTML in author string -->
-<!--  <meta name="author" content="Lesson 3 - Unix Scripting &amp; Automation" /> -->
+<!--  <meta name="author" content="Introduction to Bioinformatics" /> -->
 
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -51,20 +51,20 @@
 <div class="slides">
 
 <section>
-<h1>Introduction to Bioinformatics</h1>
-<h3>Lesson 3 - Unix Scripting &amp; Automation</h3>
+<h1>Lesson 3 - Unix Scripting &amp; Automation</h1>
+<h3>Introduction to Bioinformatics</h3>
 <p>
 <h4></h4>
 </p>
 </section>
 
 
-<section id="first-some-housekeeping" class="level1">
-<h1>First some housekeeping:</h1>
+<section id="first-things-first" class="level1">
+<h1>First things first</h1>
 <ul>
-<li>Questions from last week?</li>
-<li>Try alnvu again: <code>av -L 99999 -w 99999 -c output/alignment.fasta | less -S</code></li>
-<li>Tmux bindings?: Replace <code>#{pane_current_path}</code> with <code>$PWD</code> in <code>nano ~/.tmux.conf</code></li>
+<li>Were you able to get <code>csvuniq</code> installed/working?</li>
+<li>Note: <code>Ctrl-k</code> is useful for killing entire lines in nano</li>
+<li>You can turn off auto-indentation mode when pasting using <code>Esc i</code></li>
 </ul>
 </section>
 <section id="shell-scripting" class="level1">
@@ -74,7 +74,7 @@
 <section id="the-unix-shell-is-more-than-just-a-shell" class="level1">
 <h1>The Unix shell is more than just a shell</h1>
 <p>It’s also a mini-programming language!</p>
-<p>Building new commands out of old commands is part of Unix composability</p>
+<p>Next to piping, this is our second route towards the promise of Unix composability</p>
 </section>
 <section id="for-bioinformatics-this-means" class="level1">
 <h1>For bioinformatics this means</h1>
@@ -248,11 +248,11 @@ csvuniq -zc species,location $seqs_per_specimen &gt; $specs_per_species_location
 </section>
 <section id="verify-that-it-runs" class="level1">
 <h1>Verify that it runs</h1>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">./build.sh</span>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">./build.sh</span>
 
 <span class="kw">ls</span> output
 
-<span class="kw">csvlook</span> output/seqs_per_specimen.csv</code></pre>
+<span class="kw">csvlook</span> output/seqs_per_specimen.csv</code></pre></div>
 </section>
 <section id="writing-your-own-commands" class="level1">
 <h1>Writing your own commands</h1>
@@ -273,7 +273,7 @@ csvuniq -zc species,location $seqs_per_specimen &gt; $specs_per_species_location
 <pre><code>#!/bin/bash
 
 csvlook $@ | less -S</code></pre>
-<p>Here <code>$@</code> is a “magic” variable that points to all of the arguments passed to the command.</p>
+<p>Here <code>$@</code> is a “magic” variable that points to all of the arguments passed to the command. If you didn’t want positional arguments, you can use <code>$1</code> or <code>$2</code> for the 1st or 2nd (etc.) positional arguments passed to the script.</p>
 </section>
 <section id="testing-our-csvless-script" class="level1">
 <h1>Testing our <code>csvless</code> script</h1>
@@ -381,7 +381,7 @@ fi</code></pre>
 <section id="excercise-2" class="level1">
 <h1>Excercise 2</h1>
 <p>Add the following to the end of our <code>build.sh</code> script, and complete the TODO items in comments:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># For each location...</span>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># For each location...</span>
 <span class="ot">locations=($(</span><span class="kw">csvuniq</span> -c location <span class="ot">$metadata</span> <span class="kw">|</span> <span class="kw">tail</span> -n +2<span class="ot">))</span>
 <span class="kw">for</span> <span class="kw">location</span> in <span class="ot">${locations[*]}</span>
 <span class="kw">do</span>
@@ -400,7 +400,9 @@ fi</code></pre>
   <span class="co"># TODO:</span>
   <span class="co"># * Subset Ex. 1 alignment to sequences from $location using `seqmagick convert`</span>
   <span class="co"># * Build a phylogenetic tree from this alignment subset using FastTree</span>
-<span class="kw">done</span></code></pre>
+<span class="kw">done</span>
+
+<span class="co"># Do something with results...</span></code></pre></div>
 </section>
 <section id="other-exercises" class="level1">
 <h1>Other exercises</h1>
@@ -422,9 +424,8 @@ fi</code></pre>
 <section id="resources" class="level1">
 <h1>Resources</h1>
 <ul>
-<li>SCons (sane <code>make</code> alternative) for bioinformatics post - <a href="http://www.metasoarous.com/scons-for-data-science-and-compbio/" class="uri">http://www.metasoarous.com/scons-for-data-science-and-compbio/</a></li>
-<li>seqmagick - <a href="http://fhcrc.github.io/seqmagick/" class="uri">http://fhcrc.github.io/seqmagick/</a> for munging sequence data</li>
-<li><code>nano</code> for simple file editing on the rhinos</li>
+<li>SCons for bioinformatics post - <a href="http://www.metasoarous.com/scons-for-data-science-and-compbio/" class="uri">http://www.metasoarous.com/scons-for-data-science-and-compbio/</a></li>
+<li>Seqmagick - <a href="http://fhcrc.github.io/seqmagick/" class="uri">http://fhcrc.github.io/seqmagick/</a> for munging sequence data</li>
 <li>Vim for more powerful text editing - (type <code>vimtutor</code> at the terminal…)</li>
 <li>Erick’s favorite <a href="https://www.youtube.com/watch?v=olH-9b3VJfs">video</a> about shell scripting, and <a href="http://shellhaters.org/">website</a></li>
 </ul>
@@ -459,7 +460,7 @@ FastTree -nt $alignment &gt; $tree</code></pre>
 
   # Build a location tree
   loc_tree=&quot;$loc_outdir/tree.nw&quot;
-  FastTree -nt $loc_alignment</code></pre>
+  FastTree -nt $loc_alignment &gt; $loc_tree</code></pre>
 </section>
 <section id="this-slide-intentionally-left-almost-blank" class="level1">
 <h1>This slide intentionally left almost blank…</h1>

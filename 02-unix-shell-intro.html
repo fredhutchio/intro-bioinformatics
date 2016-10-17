@@ -323,6 +323,22 @@ MBG104WBGag101   MBG104     monkey    gag    Narayanganj  ...
 <li>When all else fails, you can read from &amp; write to paths <code>/dev/stdout</code>, <code>/dev/stdin</code> directly</li>
 </ul>
 </section>
+<section id="more-about-stdin" class="level1">
+<h1>More about stdin</h1>
+<p>Q: What does stdin default to?</p>
+<p>A: Your keyboard!</p>
+</section>
+<section id="reading-from-stdin" class="level1">
+<h1>Reading from stdin</h1>
+<p>Recall that cat writes to stdout whatever files you pass it as args. If no files are specified though, it reads from stdin.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">cat</span></code></pre></div>
+<ul>
+<li>Enter some text using your keyboard</li>
+<li>Use the key command <code>Ctrl-d</code> to close the stdin file</li>
+<li><code>cat</code> will print out whatever you typed in</li>
+</ul>
+<p>Note: This is how your bash shell works, and why <code>Ctrl-d</code> quits the shell!</p>
+</section>
 <section id="practicum" class="level1">
 <h1>Practicum!</h1>
 <p>In which we apply our knowledge of these flying, speaking beasts.</p>
@@ -514,12 +530,12 @@ MBG104WBGag101   MBG104     monkey    gag    Narayanganj  ...
   1 species</code></pre>
 <p>There is exactly one row in the last result set for each unique specimen. Thus, the number of times we see a species in that table is the number of specimens corresponding to that species.</p>
 </section>
-<section id="what-if-we-wanted-to-include-location-in-this-data" class="level1">
-<h1>What if we wanted to include location in this data?</h1>
+<section id="what-if-we-wanted-to-count-number-of-specimens-per-species-for-each-location" class="level1">
+<h1>What if we wanted to count number of specimens per species for each <em>location</em>?</h1>
 <p>What would we do?</p>
 </section>
-<section id="specimens-by-location" class="level1">
-<h1>Specimens by location</h1>
+<section id="specimens-by-location-and-species" class="level1">
+<h1>Specimens by location and species</h1>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">cut</span> -d , -f 2,3,5 data/sfv.csv <span class="kw">|</span> <span class="kw">sort</span> <span class="kw">|</span> <span class="kw">uniq</span> <span class="kw">|</span> <span class="kw">cut</span> -d , -f 2,3 <span class="kw">|</span> <span class="kw">sort</span> <span class="kw">|</span> <span class="kw">uniq</span> -c</code></pre></div>
 </section>
 <section id="moral-of-the-story" class="level1">
@@ -564,8 +580,8 @@ MBG104WBGag101   MBG104     monkey    gag    Narayanganj  ...
 <span class="co"># When done, exit with</span>
 <span class="fu">quit()</span></code></pre></div>
 </section>
-<section id="now-lets-see-what-our-example-looks-like" class="level1">
-<h1>Now let’s see what our example looks like:</h1>
+<section id="now-lets-see-what-our-last-example-looks-like" class="level1">
+<h1>Now let’s see what our last example looks like:</h1>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">csvuniq</span> -c specimen,species,location data/sfv.csv <span class="kw">|</span> <span class="kw">csvuniq</span> -zc species,location <span class="kw">|</span> <span class="kw">csvlook</span></code></pre></div>
 <p>Notice that <code>csvuniq</code> does all of the sorting and cutting for us…</p>
 </section>
@@ -585,7 +601,7 @@ MBG104WBGag101   MBG104     monkey    gag    Narayanganj  ...
 <h1>Resources</h1>
 <ul>
 <li>Unix command reference: <a href="https://ubuntudanmark.dk/filer/fwunixref.pdf" class="uri">https://ubuntudanmark.dk/filer/fwunixref.pdf</a></li>
-<li>[Codecademy Command line course]https://www.codecademy.com/learn/learn-the-command-line</li>
+<li><a href="https://www.codecademy.com/learn/learn-the-command-line">Codecademy Command line course</a></li>
 </ul>
 <p><a href="http://fredhutchio.github.io/intro-bioinformatics">Back to homepage</a></p>
 </section>

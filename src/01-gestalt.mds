@@ -337,6 +337,15 @@ Just start typing and hit `Tab`.
 Try `ls ~/bioi<Tab>`.
 
 
+# History
+
+Bash maintains a history of the last several commands you executed.
+You can access these by typing `history`.
+
+If you want to run a command very close to one you just executed (but perhaps with some parameters tweaked), you can use the up and down arrow keys to move through the history, edit the line, and re-execute.
+
+
+
 # Questions?
 
 
@@ -572,11 +581,13 @@ As genetic sequences evolve, base pairs can be added or dropped.
 Alignment tries to figure out where these insertion/deletion events happened so that individual sites in an alignment can be compared between sequences:
 
 ```
-AAGGCCTT    AAGGCCTT
-ACGGCCTT => ACGGCCTT
-AAGCCTA     AAG-CCTA
-ACGGCCTA    ACGGCCTA
+AAGGCCTT            AAGGCCTT
+ACGGCCTT    ==>>    ACGGCCTT
+AAGCCTA             AAG-CCTA
+ACGGCCTA            ACGGCCTA
 ```
+
+Note: the `-` character in the alignment represents a putative deletion.
 
 # Making a sequence alignment
 

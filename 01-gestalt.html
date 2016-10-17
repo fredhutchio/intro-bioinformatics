@@ -345,6 +345,11 @@
 <p>Bash can “auto-complete” command and filenames. Just start typing and hit <code>Tab</code>.</p>
 <p>Try <code>ls ~/bioi&lt;Tab&gt;</code>.</p>
 </section>
+<section id="history" class="level1">
+<h1>History</h1>
+<p>Bash maintains a history of the last several commands you executed. You can access these by typing <code>history</code>.</p>
+<p>If you want to run a command very close to one you just executed (but perhaps with some parameters tweaked), you can use the up and down arrow keys to move through the history, edit the line, and re-execute.</p>
+</section>
 <section id="questions-2" class="level1">
 <h1>Questions?</h1>
 </section>
@@ -501,10 +506,11 @@
 <section id="what-is-a-sequence-alignment" class="level1">
 <h1>What is a sequence alignment?</h1>
 <p>As genetic sequences evolve, base pairs can be added or dropped. Alignment tries to figure out where these insertion/deletion events happened so that individual sites in an alignment can be compared between sequences:</p>
-<pre><code>AAGGCCTT    AAGGCCTT
-ACGGCCTT =&gt; ACGGCCTT
-AAGCCTA     AAG-CCTA
-ACGGCCTA    ACGGCCTA</code></pre>
+<pre><code>AAGGCCTT            AAGGCCTT
+ACGGCCTT    ==&gt;&gt;    ACGGCCTT
+AAGCCTA             AAG-CCTA
+ACGGCCTA            ACGGCCTA</code></pre>
+<p>Note: the <code>-</code> character in the alignment represents a putative deletion.</p>
 </section>
 <section id="making-a-sequence-alignment" class="level1">
 <h1>Making a sequence alignment</h1>

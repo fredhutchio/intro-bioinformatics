@@ -1,12 +1,12 @@
-% Introduction to Bioinformatics
 % Lesson 3 - Unix Scripting & Automation
+% Introduction to Bioinformatics
 
 
-# First some housekeeping:
+# First things first
 
-* Questions from last week?
-* Try alnvu again: `av -L 99999 -w 99999 -c output/alignment.fasta | less -S`
-* Tmux bindings?: Replace `#{pane_current_path}` with `$PWD` in `nano ~/.tmux.conf`
+* Were you able to get `csvuniq` installed/working?
+* Note: `Ctrl-k` is useful for killing entire lines in nano
+* You can turn off auto-indentation mode when pasting using `Esc i`
 
 
 # Shell scripting
@@ -18,7 +18,7 @@ _In which our flying, speaking beasts assemble and become legion_
 
 It's also a mini-programming language!
 
-Building new commands out of old commands is part of Unix composability
+Next to piping, this is our second route towards the promise of Unix composability
 
 
 # For bioinformatics this means
@@ -287,6 +287,7 @@ csvlook $@ | less -S
 ```
 
 Here `$@` is a "magic" variable that points to all of the arguments passed to the command.
+If you didn't want positional arguments, you can use `$1` or `$2` for the 1st or 2nd (etc.) positional arguments passed to the script.
 
 
 # Testing our `csvless` script
@@ -442,6 +443,8 @@ do
   # * Subset Ex. 1 alignment to sequences from $location using `seqmagick convert`
   # * Build a phylogenetic tree from this alignment subset using FastTree
 done
+
+# Do something with results...
 ```
 
 
@@ -463,9 +466,8 @@ Reading for next class (if you want to read ahead):
 
 # Resources
 
-* SCons (sane `make` alternative) for bioinformatics post - <http://www.metasoarous.com/scons-for-data-science-and-compbio/>
-* seqmagick - <http://fhcrc.github.io/seqmagick/> for munging sequence data
-* `nano` for simple file editing on the rhinos
+* SCons for bioinformatics post - <http://www.metasoarous.com/scons-for-data-science-and-compbio/>
+* Seqmagick - <http://fhcrc.github.io/seqmagick/> for munging sequence data
 * Vim for more powerful text editing - (type `vimtutor` at the terminal...)
 * Erick's favorite [video](https://www.youtube.com/watch?v=olH-9b3VJfs) about shell scripting, and [website](http://shellhaters.org/)
 
@@ -504,7 +506,7 @@ FastTree -nt $alignment > $tree
 
   # Build a location tree
   loc_tree="$loc_outdir/tree.nw"
-  FastTree -nt $loc_alignment
+  FastTree -nt $loc_alignment > $loc_tree
 ```
 
 
