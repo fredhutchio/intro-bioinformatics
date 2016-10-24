@@ -98,7 +98,7 @@ We now have a saved state on which to build without fear of "messing things up".
 
 Write some things in `README.md`:
 
-```md
+```markdown
 # Bioinfclass Notes
 
 Where you type out notes and stuff...
@@ -133,7 +133,7 @@ Git diff uses + and - (and optionally, colors) to show what's changed.
 git add README.md
 
 # Commit staged changes, with commit message
-git commit -m "Adding notes to README.md"
+git commit -m "Add notes to README"
 
 # Checking our status
 git status
@@ -141,15 +141,13 @@ git log
 ```
 
 
-# That's all folks!
+# That's it for the basics!
 
-Seriously; that's like 90% of what you need to know.
+Start using this immediately, and learn the rest as needed.
 
-Start doing this immediately on all projects, and learn the rest as needed.
-
-The rest of this class is a survey of the more advanced features of git.
-Some are generally useful, but a lot are most valuable for collaboration.
-As such, it's more important at this point to know _what's_ possible than _how_ to do it all.
+The remainder of this class is a survey of the more advanced features of git.
+Most is generally useful, but a lot is most valuable for collaboration.
+As such, it's more important at this point to know _what's_ possible than remember _how_ to do it all.
 
 
 # GitHub!
@@ -196,7 +194,7 @@ git status
 git log
 ```
 
-So much commit history
+Wow! Such commit history...
 
 
 # A slightly better way...
@@ -216,29 +214,58 @@ git glog -n 5
 
 Notice the history branching, the _sha hashes_ (`a4b8893`, etc), commit messages, author, and human friendly time string.
 
-```text
-* a4b8893 - Added previous tree and alignment analysis to build.sh (9 months ago)<Christopher Small>
-* 2683a24 - Added csvhead script (9 months ago)<Christopher Small>
-* 9596b65 - Added csvless script (9 months ago)<Christopher Small>
-| * 5553b9e - (HEAD -> other-idea, origin/other-idea) Ran results of sequences by location (9 months ago)<Christopher T Small>
-| * de48429 - Looking at sequences by location (9 months ago)<Christopher T Small>
+```
+* 4467411 - (HEAD -> master, origin/master, origin/HEAD) Finishe
+  ...
+* a4b8893 - Added previous tree and alignment analysis to build.
+* 2683a24 - Added csvhead script (9 months ago)<Christopher Smal
+* 9596b65 - Added csvless script (9 months ago)<Christopher Smal
+| * 5553b9e - (origin/other-idea) Ran results of sequences by lo
+| * de48429 - Looking at sequences by location (9 months ago)<Ch
 |/
-* 3b0fac2 - Rewrote build.sh with env variables (9 months ago)<Christopher Small>
-* 2c17799 - Added other metadata counting steps (9 months ago)<Christopher Small>
-* d07378b - Computing number of sequences per species in build.sh (9 months ago)<Christopher Small>
+* 3b0fac2 - Rewrote build.sh with env variables (9 months ago)<C
+* 2c17799 - Added other metadata counting steps (9 months ago)<C
+* d07378b - Computing number of sequences per species in build.s
 ```
 
+# Grab a remote branch
 
-# Grab all the branches
+When we clone, we only pull down the `master` branch, but we can still see remote branches like `origin/other-idea`.
 
-When we clone, we only pull down the `master` branch, but we can get all branches with `fetch`.
+To check out one of these branches, we can do
 
 ```bash
-git fetch
+git checkout other-idea
 git glog
 ```
 
-Note we can now see the histories of other branches as a tree.
+Note that we now see
+
+```
+| * 5553b9e - (HEAD -> other-idea, origin/other-idea) Ran results of sequences by location (1 year, 4 months ago)<Christopher T Small>
+```
+
+# Creating a new branch
+
+You can do this any time you work on something you're not sure you want to keep, or that follows a separate track of development.
+
+```bash
+git checkout -b my-new-branch
+```
+
+This will create a new branch from whatever commit you currently have checked out (`HEAD`).
+
+We'll look at how you can reconcile (merge) histories a little later.
+
+
+# Getting back to the master branch
+
+Make sure to do this before continuing...
+
+```
+git checkout master
+git glog
+```
 
 
 # Tracing history
@@ -301,7 +328,7 @@ Thinking about some other studies now.
 
 # Adding a new commit, as before
 
-```
+```bash
 git add README.md
 
 git commit -m "README notes about location analyses"
@@ -310,9 +337,10 @@ git commit -m "README notes about location analyses"
 
 # Pushing changes to our GitHub fork
 
-```
+```bash
 # Pushing changes on branch `master` to remote `origin`
 git push origin master
+# Can also do `git push`, which pushes current branch to origin
 
 # When prompted enter your GH username and password
 ```
@@ -435,6 +463,7 @@ Delete these once you're done resolving, then save, exit, add the resolution cha
 * Commit often
 * Try to make commits "atomic" (commit unrelated code/data changes separately) 
 * Make messages short but good
+    * Think of it as a mini command for the state of your repo; what will happen to your repo if you apply the commit
 
 
 # Challenges for bigger data
@@ -462,10 +491,12 @@ _When the office git expert has to come fix everything_
 # But 90% of the time, you'll be using
 
 ```bash
+git init
 git add ...
 git commit -m "..."
 git status
 git log  # (or git glog, as you wish)
+git diff
 ```
 
 Learn those, start using them, and Google the rest as you need it.

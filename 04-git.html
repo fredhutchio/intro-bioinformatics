@@ -121,25 +121,25 @@ git status</code></pre>
 </section>
 <section id="making-our-first-commit" class="level1">
 <h1>Making our first commit</h1>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># Tell git what files to track (staging)</span>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># Tell git what files to track (staging)</span>
 <span class="kw">git</span> add *
 
 <span class="co"># Make initial commit</span>
-<span class="kw">git</span> commit -m <span class="st">&quot;Initial commit&quot;</span></code></pre>
+<span class="kw">git</span> commit -m <span class="st">&quot;Initial commit&quot;</span></code></pre></div>
 <p>We now have a saved state on which to build without fear of “messing things up”.</p>
 </section>
 <section id="lets-make-some-edits-and-commit-them" class="level1">
 <h1>Let’s make some edits, and commit them</h1>
 <p>Write some things in <code>README.md</code>:</p>
-<pre class="md"><code># Bioinfclass Notes
+<div class="sourceCode"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span class="fu"># Bioinfclass Notes</span>
 
 Where you type out notes and stuff...
 
 
-## Jun 24, 2015
+<span class="fu">## Jun 24, 2015</span>
 
 Learned how to use git!
-It was pretty fun.</code></pre>
+It was pretty fun.</code></pre></div>
 <p>Note: This is formatted in <a href="http://assemble.io/docs/Cheatsheet-Markdown.html">Markdown</a>.</p>
 </section>
 <section id="first-seeing-whats-changed" class="level1">
@@ -153,21 +153,20 @@ git diff</code></pre>
 </section>
 <section id="committing-our-changes" class="level1">
 <h1>Committing our changes</h1>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># Stage the changed file</span>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># Stage the changed file</span>
 <span class="kw">git</span> add README.md
 
 <span class="co"># Commit staged changes, with commit message</span>
-<span class="kw">git</span> commit -m <span class="st">&quot;Adding notes to README.md&quot;</span>
+<span class="kw">git</span> commit -m <span class="st">&quot;Add notes to README&quot;</span>
 
 <span class="co"># Checking our status</span>
 <span class="kw">git</span> status
-<span class="kw">git</span> log</code></pre>
+<span class="kw">git</span> log</code></pre></div>
 </section>
-<section id="thats-all-folks" class="level1">
-<h1>That’s all folks!</h1>
-<p>Seriously; that’s like 90% of what you need to know.</p>
-<p>Start doing this immediately on all projects, and learn the rest as needed.</p>
-<p>The rest of this class is a survey of the more advanced features of git. Some are generally useful, but a lot are most valuable for collaboration. As such, it’s more important at this point to know <em>what’s</em> possible than <em>how</em> to do it all.</p>
+<section id="thats-it-for-the-basics" class="level1">
+<h1>That’s it for the basics!</h1>
+<p>Start using this immediately, and learn the rest as needed.</p>
+<p>The remainder of this class is a survey of the more advanced features of git. Most is generally useful, but a lot is most valuable for collaboration. As such, it’s more important at this point to know <em>what’s</em> possible than remember <em>how</em> to do it all.</p>
 </section>
 <section id="github" class="level1">
 <h1>GitHub!</h1>
@@ -207,7 +206,7 @@ git status</code></pre>
 <h1>Looking at history</h1>
 <pre><code># See the list of commits
 git log</code></pre>
-<p>So much commit history</p>
+<p>Wow! Such commit history…</p>
 </section>
 <section id="a-slightly-better-way" class="level1">
 <h1>A slightly better way…</h1>
@@ -222,22 +221,39 @@ git glog -n 5</code></pre>
 <section id="breaing-this-down" class="level1">
 <h1>Breaing this down</h1>
 <p>Notice the history branching, the <em>sha hashes</em> (<code>a4b8893</code>, etc), commit messages, author, and human friendly time string.</p>
-<pre class="text"><code>* a4b8893 - Added previous tree and alignment analysis to build.sh (9 months ago)&lt;Christopher Small&gt;
-* 2683a24 - Added csvhead script (9 months ago)&lt;Christopher Small&gt;
-* 9596b65 - Added csvless script (9 months ago)&lt;Christopher Small&gt;
-| * 5553b9e - (HEAD -&gt; other-idea, origin/other-idea) Ran results of sequences by location (9 months ago)&lt;Christopher T Small&gt;
-| * de48429 - Looking at sequences by location (9 months ago)&lt;Christopher T Small&gt;
+<pre><code>* 4467411 - (HEAD -&gt; master, origin/master, origin/HEAD) Finishe
+  ...
+* a4b8893 - Added previous tree and alignment analysis to build.
+* 2683a24 - Added csvhead script (9 months ago)&lt;Christopher Smal
+* 9596b65 - Added csvless script (9 months ago)&lt;Christopher Smal
+| * 5553b9e - (origin/other-idea) Ran results of sequences by lo
+| * de48429 - Looking at sequences by location (9 months ago)&lt;Ch
 |/
-* 3b0fac2 - Rewrote build.sh with env variables (9 months ago)&lt;Christopher Small&gt;
-* 2c17799 - Added other metadata counting steps (9 months ago)&lt;Christopher Small&gt;
-* d07378b - Computing number of sequences per species in build.sh (9 months ago)&lt;Christopher Small&gt;</code></pre>
+* 3b0fac2 - Rewrote build.sh with env variables (9 months ago)&lt;C
+* 2c17799 - Added other metadata counting steps (9 months ago)&lt;C
+* d07378b - Computing number of sequences per species in build.s</code></pre>
 </section>
-<section id="grab-all-the-branches" class="level1">
-<h1>Grab all the branches</h1>
-<p>When we clone, we only pull down the <code>master</code> branch, but we can get all branches with <code>fetch</code>.</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> fetch
-<span class="kw">git</span> glog</code></pre>
-<p>Note we can now see the histories of other branches as a tree.</p>
+<section id="grab-a-remote-branch" class="level1">
+<h1>Grab a remote branch</h1>
+<p>When we clone, we only pull down the <code>master</code> branch, but we can still see remote branches like <code>origin/other-idea</code>.</p>
+<p>To check out one of these branches, we can do</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> checkout other-idea
+<span class="kw">git</span> glog</code></pre></div>
+<p>Note that we now see</p>
+<pre><code>| * 5553b9e - (HEAD -&gt; other-idea, origin/other-idea) Ran results of sequences by location (1 year, 4 months ago)&lt;Christopher T Small&gt;</code></pre>
+</section>
+<section id="creating-a-new-branch" class="level1">
+<h1>Creating a new branch</h1>
+<p>You can do this any time you work on something you’re not sure you want to keep, or that follows a separate track of development.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> checkout -b my-new-branch</code></pre></div>
+<p>This will create a new branch from whatever commit you currently have checked out (<code>HEAD</code>).</p>
+<p>We’ll look at how you can reconcile (merge) histories a little later.</p>
+</section>
+<section id="getting-back-to-the-master-branch" class="level1">
+<h1>Getting back to the master branch</h1>
+<p>Make sure to do this before continuing…</p>
+<pre><code>git checkout master
+git glog</code></pre>
 </section>
 <section id="tracing-history" class="level1">
 <h1>Tracing history</h1>
@@ -255,14 +271,14 @@ git show d07378b</code></pre>
 </section>
 <section id="git-show-or-diff-select-files" class="level1">
 <h1><code>git show</code> or <code>diff</code> select files</h1>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># Very long...</span>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># Very long...</span>
 <span class="kw">git</span> show 2c17799
 
 <span class="co"># If we really just care about build.sh changes...</span>
 <span class="kw">git</span> show 2c17799 build.sh
 
 <span class="co"># Or with diff</span>
-<span class="kw">git</span> diff 1aa457d d07378b build.sh</code></pre>
+<span class="kw">git</span> diff 1aa457d d07378b build.sh</code></pre></div>
 <p>This is pretty valuable as your project gets big and lots of things change.</p>
 </section>
 <section id="pushing-the-data-back-up" class="level1">
@@ -281,16 +297,17 @@ Thinking about some other studies now.</code></pre>
 </section>
 <section id="adding-a-new-commit-as-before" class="level1">
 <h1>Adding a new commit, as before</h1>
-<pre><code>git add README.md
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> add README.md
 
-git commit -m &quot;README notes about location analyses&quot;</code></pre>
+<span class="kw">git</span> commit -m <span class="st">&quot;README notes about location analyses&quot;</span></code></pre></div>
 </section>
 <section id="pushing-changes-to-our-github-fork" class="level1">
 <h1>Pushing changes to our GitHub fork</h1>
-<pre><code># Pushing changes on branch `master` to remote `origin`
-git push origin master
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># Pushing changes on branch `master` to remote `origin`</span>
+<span class="kw">git</span> push origin master
+<span class="co"># Can also do `git push`, which pushes current branch to origin</span>
 
-# When prompted enter your GH username and password</code></pre>
+<span class="co"># When prompted enter your GH username and password</span></code></pre></div>
 <p>Pull up github, reload and see the new commit there.</p>
 </section>
 <section id="sharing-your-changes-with-a-pull-request" class="level1">
@@ -344,11 +361,11 @@ find $outdir -name seqcount | xargs cat &gt; $loc_spec_counts</code></pre>
 </section>
 <section id="now-commit-and-look-at-our-tree" class="level1">
 <h1>Now commit and look at our tree</h1>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> add build.sh
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> add build.sh
 <span class="kw">git</span> commit -m <span class="st">&quot;Added direct sequence per location count&quot;</span>
 
 <span class="co"># Now look at our history; we&#39;ve branched!</span>
-<span class="kw">git</span> glog</code></pre>
+<span class="kw">git</span> glog</code></pre></div>
 </section>
 <section id="merging-back-into-master" class="level1">
 <h1>Merging back into master</h1>
@@ -386,7 +403,10 @@ nano build.sh</code></pre>
 <ul>
 <li>Commit often</li>
 <li>Try to make commits “atomic” (commit unrelated code/data changes separately)</li>
-<li>Make messages short but good</li>
+<li>Make messages short but good
+<ul>
+<li>Think of it as a mini command for the state of your repo; what will happen to your repo if you apply the commit</li>
+</ul></li>
 </ul>
 </section>
 <section id="challenges-for-bigger-data" class="level1">
@@ -407,10 +427,12 @@ nano build.sh</code></pre>
 </section>
 <section id="but-90-of-the-time-youll-be-using" class="level1">
 <h1>But 90% of the time, you’ll be using</h1>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> add ...
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> init
+<span class="kw">git</span> add ...
 <span class="kw">git</span> commit -m <span class="st">&quot;...&quot;</span>
 <span class="kw">git</span> status
-<span class="kw">git</span> log  <span class="co"># (or git glog, as you wish)</span></code></pre>
+<span class="kw">git</span> log  <span class="co"># (or git glog, as you wish)</span>
+<span class="kw">git</span> diff</code></pre></div>
 <p>Learn those, start using them, and Google the rest as you need it.</p>
 </section>
 <section id="exercises" class="level1">
