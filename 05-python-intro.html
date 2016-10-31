@@ -132,8 +132,8 @@
 <section id="firing-up-a-python-repl" class="level1">
 <h1>Firing up a python “REPL”</h1>
 <p>REPL is short for Read Evaluate Print Loop.</p>
-<pre class="sourceCode python"><code class="sourceCode python">python
-&gt; <span class="dt">print</span> <span class="st">&quot;Hello world&quot;</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">python
+<span class="op">&gt;</span> <span class="bu">print</span> <span class="st">&quot;Hello world&quot;</span></code></pre></div>
 <p>Now you can enter in little bits of code as we go (type Ctrl-d or <code>exit</code> to get out)</p>
 </section>
 <section id="basic-data-types" class="level1">
@@ -175,23 +175,43 @@
 <li>fixed length</li>
 <li>immutable (can’t “change in place”)</li>
 </ul></li>
-<li>lists: <code>[&quot;Bob Jones&quot;, &quot;Jane Doe&quot;, &quot;Ralph Nader&quot;]</code>
-<ul>
-<li>variable length</li>
-<li>mutable</li>
-</ul></li>
 <li>dictionaries: <code>{&quot;name&quot;: &quot;Bob Jones&quot;, &quot;age&quot;: 42}</code>
 <ul>
 <li>variable length</li>
 <li>mutable</li>
-<li>arbitrary “key-value pairs”</li>
-<li>no order guarantees</li>
+<li>unordered “key/value pairs”</li>
+</ul></li>
+<li>lists: <code>[&quot;Bob Jones&quot;, &quot;Jane Doe&quot;, &quot;Ralph Nader&quot;]</code>
+<ul>
+<li>variable length</li>
+<li>mutable</li>
+<li>ordered &amp; positionally indexed</li>
 </ul></li>
 </ul>
 </section>
-<section id="more-collection-types" class="level1">
-<h1>More collection types…</h1>
-<p>We won’t go into these as deeply, but it’s worth being aware of them:</p>
+<section id="when-we-use-these" class="level1">
+<h1>When we use these</h1>
+<p>Tuples and dictionaries for organizing data about some single thing:</p>
+<ul>
+<li><code>(&quot;Bob Jones&quot;, 42)</code></li>
+<li><code>{&quot;name&quot;: &quot;Bob Jones&quot;, &quot;age&quot;: 42}</code></li>
+</ul>
+<p>Lists for arbitrary collections of individual data points:</p>
+<ul>
+<li><code>[&quot;Bob Jones&quot;, &quot;Jane Doe&quot;, &quot;Ralph Nader&quot;]</code></li>
+<li><code>[(&quot;Bob Jones&quot;, 42), (&quot;Jane Doe&quot;, 31), (&quot;Ralph N.&quot;, 85)]</code></li>
+</ul>
+</section>
+<section id="sometimes-dictionaries-blur-the-lines-here" class="level1">
+<h1>Sometimes dictionaries blur the lines here;</h1>
+<p>Here we use them more or less like a list, but where we have fast access using the name:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">{<span class="st">&quot;Bob Jones&quot;</span>: {<span class="st">&quot;age&quot;</span>: <span class="dv">42</span>, <span class="st">&quot;occupation&quot;</span>: <span class="st">&quot;haxxor&quot;</span>},
+ <span class="co">&quot;Jane Doe&quot;</span>: {<span class="st">&quot;age&quot;</span>: <span class="dv">31</span>, <span class="st">&quot;occupation&quot;</span>: <span class="st">&quot;mathematician&quot;</span>},
+ <span class="co">&quot;Ralph Nader&quot;</span>: {<span class="st">&quot;age&quot;</span>: <span class="dv">85</span>, <span class="st">&quot;occupation&quot;</span>: <span class="st">&quot;politician&quot;</span>}}</code></pre></div>
+</section>
+<section id="other-collection-types" class="level1">
+<h1>Other collection types</h1>
+<p>We won’t go into these as deeply today, but in short, we tend to use them like lists:</p>
 <ul>
 <li>generators:
 <ul>
@@ -226,8 +246,8 @@
 </section>
 <section id="string" class="level1">
 <h1>String</h1>
-<p><code>+</code> works for strings too:</p>
-<p><code>&quot;this&quot; + &quot;that&quot;</code></p>
+<p><code>+</code> works for strings as well:</p>
+<p><code>&quot;this&quot; + &quot;that&quot;</code> =&gt; <code>&quot;thisthat&quot;</code></p>
 </section>
 <section id="boolean" class="level1">
 <h1>Boolean</h1>
@@ -253,12 +273,12 @@
 <!--seq = "AGCTAGCT"-->
 <!--seqrecord = {"seqname": seqname, "seq": seq}-->
 <!--```-->
-<pre class="sourceCode python"><code class="sourceCode python">age = <span class="dv">42</span>
-name = <span class="st">&quot;Bob Jones&quot;</span>
-person = {<span class="st">&quot;name&quot;</span>: name, <span class="st">&quot;age&quot;</span>: age}
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">age <span class="op">=</span> <span class="dv">42</span>
+name <span class="op">=</span> <span class="st">&quot;Bob Jones&quot;</span>
+person <span class="op">=</span> {<span class="st">&quot;name&quot;</span>: name, <span class="st">&quot;age&quot;</span>: age}
 
 <span class="co"># We can use variables just as though they were their values</span>
-age / <span class="dv">4</span></code></pre>
+age <span class="op">/</span> <span class="dv">4</span></code></pre></div>
 </section>
 <section id="variable-name-rules" class="level1">
 <h1>Variable name rules</h1>
@@ -277,7 +297,10 @@ age / <span class="dv">4</span></code></pre>
 <h1>Lists</h1>
 <p>Writing <code>xs = [1, 2, 3, 4, 5, 6, 7]</code> defines a list <code>xs</code>.</p>
 <ul>
-<li>Concatenation: <code>+</code></li>
+<li>Concatenation: <code>+</code>
+<ul>
+<li>(<code>[1, 2] + [3, 4]</code> =&gt; <code>[1, 2, 3, 4]</code>)</li>
+</ul></li>
 <li>Accessing: <code>xs[4]</code>
 <ul>
 <li>Get the 5th thing in the list</li>
@@ -301,10 +324,10 @@ age / <span class="dv">4</span></code></pre>
 <section id="dictionaries---arbitrary-keys" class="level1">
 <h1>Dictionaries - arbitrary keys</h1>
 <p>Keys are often strings, but don’t have to be:</p>
-<pre class="sourceCode python"><code class="sourceCode python">crazy_dict = {<span class="dv">4</span>: <span class="st">&quot;some string&quot;</span>, (<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>): <span class="dv">999</span>}
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">crazy_dict <span class="op">=</span> {<span class="dv">4</span>: <span class="st">&quot;some string&quot;</span>, (<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>): <span class="dv">999</span>}
 
 crazy_dict[<span class="dv">4</span>]
-crazy_dict[(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)]</code></pre>
+crazy_dict[(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)]</code></pre></div>
 <p>They can be numbers, tuples or anything <em>hashable</em>:</p>
 <ul>
 <li>Most immutable data is hashable.</li>
@@ -312,17 +335,92 @@ crazy_dict[(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv"
 <li>Lists and dictionaries are not hashable.</li>
 </ul>
 </section>
+<section id="data-representation-exercises" class="level1">
+<h1>Data representation exercises</h1>
+</section>
+<section id="what-kind-of-data-is-this" class="level1">
+<h1>What kind of data is this?</h1>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">(<span class="st">&quot;this&quot;</span>, <span class="dv">1234</span>)</code></pre></div>
+<p>Is it hashable?</p>
+</section>
+<section id="how-about-this" class="level1">
+<h1>How about this?</h1>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">(<span class="dv">4545</span>, [<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>])</code></pre></div>
+<p>Is it hashable?</p>
+</section>
+<section id="how-would-you-represent" class="level1">
+<h1>How would you represent</h1>
+<p>A single DNA sequence?</p>
+<p><br/></p>
+<section id="section" class="level2">
+<h2></h2>
+<p>(press down for answer)</p>
+</section>
+<section id="answer" class="level2">
+<h2>Answer</h2>
+<p>String</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">seq <span class="op">=</span> <span class="st">&quot;AGCTAGCTACGT&quot;</span></code></pre></div>
+</section>
+</section>
+<section id="how-would-you-represent-1" class="level1">
+<h1>How would you represent</h1>
+<p>A DNA sequence, together with sequence name and other metadata?</p>
+<p><br/></p>
+<section id="section-1" class="level2">
+<h2></h2>
+<p>(press down for answer)</p>
+</section>
+<section id="answer-1" class="level2">
+<h2>Answer</h2>
+<p>Dictionary</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">seqrecord <span class="op">=</span> {<span class="st">&quot;seq&quot;</span>: <span class="st">&quot;AGCTAGCTACGT&quot;</span>, <span class="st">&quot;name&quot;</span>: <span class="st">&quot;MBG234&quot;</span>}</code></pre></div>
+</section>
+</section>
+<section id="how-would-you-represent-2" class="level1">
+<h1>How would you represent</h1>
+<p>A collection of DNA sequences and names?</p>
+<p><br/></p>
+<section id="section-2" class="level2">
+<h2></h2>
+<p>(press down for answer)</p>
+</section>
+<section id="answer-2" class="level2">
+<h2>Answer</h2>
+<p>Dictionary</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">seqrecords <span class="op">=</span> [{<span class="st">&quot;seq&quot;</span>: <span class="st">&quot;AGCTAGCTACGT&quot;</span>, <span class="st">&quot;name&quot;</span>: <span class="st">&quot;MBG234&quot;</span>},
+              {<span class="st">&quot;seq&quot;</span>: <span class="st">&quot;AGCTTCCCACGT&quot;</span>, <span class="st">&quot;name&quot;</span>: <span class="st">&quot;MBG235&quot;</span>},
+              {<span class="st">&quot;seq&quot;</span>: <span class="st">&quot;AGATTCCTCCGT&quot;</span>, <span class="st">&quot;name&quot;</span>: <span class="st">&quot;MBG236&quot;</span>}]</code></pre></div>
+</section>
+</section>
+<section id="how-would-you-represent-3" class="level1">
+<h1>How would you represent</h1>
+<p>A collection of DNA sequences and names?</p>
+<p><br/></p>
+<section id="section-3" class="level2">
+<h2></h2>
+<p>(press down for answer)</p>
+</section>
+<section id="answer-3" class="level2">
+<h2>Answer</h2>
+<p>Dictionary</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">{<span class="st">&quot;seqrecords&quot;</span>: [{<span class="st">&quot;seq&quot;</span>: <span class="st">&quot;AGCTAGCTACGT&quot;</span>, <span class="st">&quot;name&quot;</span>: <span class="st">&quot;MBG234&quot;</span>},
+                {<span class="st">&quot;seq&quot;</span>: <span class="st">&quot;AGCTTCCCACGT&quot;</span>, <span class="st">&quot;name&quot;</span>: <span class="st">&quot;MBG235&quot;</span>},
+                {<span class="st">&quot;seq&quot;</span>: <span class="st">&quot;AGATTCCTCCGT&quot;</span>, <span class="st">&quot;name&quot;</span>: <span class="st">&quot;MBG236&quot;</span>}],
+ <span class="co">&quot;sampling_location&quot;</span>: <span class="st">&quot;Bangladesh&quot;</span>,
+ <span class="co">&quot;technician&quot;</span>: <span class="st">&quot;Bob Jones&quot;</span>}</code></pre></div>
+</section>
+</section>
 <section id="functions" class="level1">
 <h1>Functions</h1>
 <p><em>In which from our rules of logic we compose spells</em></p>
 </section>
 <section id="writing-a-simple-function" class="level1">
 <h1>Writing a simple function</h1>
-<pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> square(n):
-    ans = n * n
-    <span class="kw">return</span> ans
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> square(n):
+    ans <span class="op">=</span> n <span class="op">*</span> n
+    <span class="cf">return</span> ans
 
-square(<span class="dv">4</span>)</code></pre>
+square(<span class="dv">4</span>)</code></pre></div>
 <ul>
 <li>When we call the function with the argument <code>4</code>, that value gets passed in for the variable <code>n</code> in the <em>body</em> of the function.</li>
 <li>To get a value out of the function we must use <code>return</code></li>
@@ -335,9 +433,9 @@ square(<span class="dv">4</span>)</code></pre>
 <section id="other-things-about-functions" class="level1">
 <h1>Other things about functions</h1>
 <p>Functions are “first class”, in that they can be passed around as data just like numbers, strings, etc.</p>
-<pre class="sourceCode python"><code class="sourceCode python"><span class="co"># Using our square function as a value</span>
-<span class="dt">print</span> square
-[square, <span class="st">&quot;data&quot;</span>]</code></pre>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co"># Using our square function as a value</span>
+<span class="bu">print</span> square
+[square, <span class="st">&quot;data&quot;</span>]</code></pre></div>
 <p>We’ll see how this is useful later.</p>
 </section>
 <section id="methods" class="level1">
@@ -354,11 +452,11 @@ square(<span class="dv">4</span>)</code></pre>
 </section>
 <section id="if-statements" class="level1">
 <h1>If statements</h1>
-<pre class="sourceCode python"><code class="sourceCode python">x = <span class="dv">3</span>
-<span class="kw">if</span> x &lt; <span class="dv">4</span>:
-    <span class="dt">print</span> <span class="st">&quot;You should see this&quot;</span>
-<span class="kw">else</span>:
-    <span class="dt">print</span> <span class="st">&quot;You should NOT see this!&quot;</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">x <span class="op">=</span> <span class="dv">3</span>
+<span class="cf">if</span> x <span class="op">&lt;</span> <span class="dv">4</span>:
+    <span class="bu">print</span> <span class="st">&quot;You should see this&quot;</span>
+<span class="cf">else</span>:
+    <span class="bu">print</span> <span class="st">&quot;You should NOT see this!&quot;</span></code></pre></div>
 <p>Things to note:</p>
 <ul>
 <li>We used indentation here as well to determine the structure of the statements</li>
@@ -368,31 +466,31 @@ square(<span class="dv">4</span>)</code></pre>
 <section id="you-can-have-elif-sections-too" class="level1">
 <h1>You can have elif sections too</h1>
 <p><code>elif</code> is a combination of an <code>else</code> and an <code>if</code>.</p>
-<pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> f(n):
-    <span class="kw">if</span> n &lt; <span class="dv">5</span>:
-        <span class="dt">print</span> <span class="st">&quot;Cond 1&quot;</span>
-    <span class="kw">elif</span> n &gt; <span class="dv">10</span>:
-        <span class="dt">print</span> <span class="st">&quot;Cond 2&quot;</span>
-    <span class="kw">else</span>:
-        <span class="dt">print</span> <span class="st">&quot;Cond 3&quot;</span>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> f(n):
+    <span class="cf">if</span> n <span class="op">&lt;</span> <span class="dv">5</span>:
+        <span class="bu">print</span> <span class="st">&quot;Cond 1&quot;</span>
+    <span class="cf">elif</span> n <span class="op">&gt;</span> <span class="dv">10</span>:
+        <span class="bu">print</span> <span class="st">&quot;Cond 2&quot;</span>
+    <span class="cf">else</span>:
+        <span class="bu">print</span> <span class="st">&quot;Cond 3&quot;</span>
 
 f(<span class="dv">3</span>)
 f(<span class="dv">7</span>)
-f(<span class="dv">12</span>)</code></pre>
+f(<span class="dv">12</span>)</code></pre></div>
 </section>
 <section id="for-statements" class="level1">
 <h1>For statements</h1>
 <p>Do something for every thing in a collection:</p>
-<pre class="sourceCode python"><code class="sourceCode python"><span class="kw">for</span> n in xs:
-    <span class="dt">print</span> <span class="st">&quot;On int:&quot;</span>, n</code></pre>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="cf">for</span> n <span class="op">in</span> xs:
+    <span class="bu">print</span> <span class="st">&quot;On int:&quot;</span>, n</code></pre></div>
 </section>
 <section id="iterating-over-key-value-pairs-in-a-dictionary" class="level1">
 <h1>Iterating over key-value pairs in a dictionary</h1>
 <p>Dictionaries have an <code>items</code> method that gives all of the <br/> key, value pairs. Try</p>
-<pre class="sourceCode python"><code class="sourceCode python">person.items()</code></pre>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">person.items()</code></pre></div>
 <p>Now loop over them:</p>
-<pre class="sourceCode python"><code class="sourceCode python"><span class="kw">for</span> k, v in person.items():
-    <span class="dt">print</span> <span class="st">&quot;key:&quot;</span>, k, <span class="st">&quot;val:&quot;</span>, v</code></pre>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="cf">for</span> k, v <span class="op">in</span> person.items():
+    <span class="bu">print</span> <span class="st">&quot;key:&quot;</span>, k, <span class="st">&quot;val:&quot;</span>, v</code></pre></div>
 </section>
 <section id="problem" class="level1">
 <h1>Problem:</h1>
@@ -400,27 +498,27 @@ f(<span class="dv">12</span>)</code></pre>
 </section>
 <section id="using-for-to-build-results" class="level1">
 <h1>Using <code>for</code> to build results</h1>
-<pre class="sourceCode python"><code class="sourceCode python">ys = []
-<span class="kw">for</span> x in xs:
-    y = square(x)
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">ys <span class="op">=</span> []
+<span class="cf">for</span> x <span class="op">in</span> xs:
+    y <span class="op">=</span> square(x)
     ys.append(y)
 
-<span class="dt">print</span> ys</code></pre>
+<span class="bu">print</span> ys</code></pre></div>
 <p>This is <em>imperative</em>; we’re telling the computer <em>how</em> to build <code>ys</code></p>
 </section>
 <section id="a-better-way" class="level1">
 <h1>A better way</h1>
 <p>List comprehensions:</p>
-<pre class="sourceCode python"><code class="sourceCode python">ys = [square(x) <span class="kw">for</span> x in xs]
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">ys <span class="op">=</span> [square(x) <span class="cf">for</span> x <span class="op">in</span> xs]
 
-<span class="dt">print</span> ys</code></pre>
+<span class="bu">print</span> ys</code></pre></div>
 <p>This is more <em>declarative</em>.</p>
 </section>
 <section id="the-functional-way" class="level1">
 <h1>The functional way</h1>
-<pre class="sourceCode python"><code class="sourceCode python">ys = <span class="dt">map</span>(square, xs)
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">ys <span class="op">=</span> <span class="bu">map</span>(square, xs)
 
-<span class="dt">print</span> ys</code></pre>
+<span class="bu">print</span> ys</code></pre></div>
 <p>Note that we’re passing the function <code>square</code> as an <em>argument</em> to the function <code>map</code>.</p>
 </section>
 <section id="declarative-is-generally-better" class="level1">
@@ -434,12 +532,12 @@ f(<span class="dv">12</span>)</code></pre>
 </section>
 <section id="importing-modules" class="level1">
 <h1>Importing modules</h1>
-<pre class="sourceCode python"><code class="sourceCode python"><span class="ch">import</span> math
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> math
 
-<span class="dt">dir</span>(math)
-<span class="dt">help</span>(math.log)
+<span class="bu">dir</span>(math)
+<span class="bu">help</span>(math.log)
 
-math.log(<span class="fl">3.14</span>)</code></pre>
+math.log(<span class="fl">3.14</span>)</code></pre></div>
 <p><code>math</code> is a <em>module</em>. Modules, just like objects, have <em>attributes</em>, and these attributes are typically functions that we can use in our programs (though sometimes they’re just useful data, like <code>math.e</code>).</p>
 </section>
 <section id="namespaces" class="level1">
@@ -451,17 +549,8 @@ math.log(<span class="fl">3.14</span>)</code></pre>
 <h1>Installing your own packages with pip</h1>
 <p>Collections of modules are called <em>packages</em>.</p>
 <p>You can install Python packages using the <code>pip</code> command line tool (the “App Store” for Python packages). From your Unix shell:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">pip</span> install --user biopython</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">pip</span> install --user biopython</code></pre></div>
 <p>The <code>--user</code> flag tells pip to install things in your <em>local</em> python lib directory. You would only omit that if you were installing <em>system wide</em> on your own computer.</p>
-<!--Insert lots of questions like these in and around...-->
-<!-- # What kind of data is this?-->
-<!--`("this", 1234)`-->
-<!--Is it hashable?-->
-<!-- # What kind of data would I want to use for these situations?-->
-<!--* A single DNA sequence?-->
-<!--* A DNA sequence, and name information-->
-<!--* A collection of DNA sequences with names-->
-<!--* Metadata about a collection of DNA sequences-->
 </section>
 <section id="beware-python-3" class="level1">
 <h1>Beware Python 3</h1>

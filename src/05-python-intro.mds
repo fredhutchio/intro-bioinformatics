@@ -132,19 +132,43 @@ These are "containers" for other types of data (scalars, other collections, more
 * tuples: `("Bob Jones", 42)`
     * fixed length
     * immutable (can't "change in place")
-* lists: `["Bob Jones", "Jane Doe", "Ralph Nader"]`
-    * variable length
-    * mutable
 * dictionaries: `{"name": "Bob Jones", "age": 42}`
     * variable length
     * mutable
-    * arbitrary "key-value pairs"
-    * no order guarantees
+    * unordered "key/value pairs"
+* lists: `["Bob Jones", "Jane Doe", "Ralph Nader"]`
+    * variable length
+    * mutable
+    * ordered & positionally indexed
 
 
-# More collection types...
+# When we use these
 
-We won't go into these as deeply, but it's worth being aware of them:
+Tuples and dictionaries for organizing data about some single thing:
+
+* `("Bob Jones", 42)`
+* `{"name": "Bob Jones", "age": 42}`
+
+Lists for arbitrary collections of individual data points:
+
+* `["Bob Jones", "Jane Doe", "Ralph Nader"]`
+* `[("Bob Jones", 42), ("Jane Doe", 31), ("Ralph N.", 85)]`
+
+
+# Sometimes dictionaries blur the lines here;
+
+Here we use them more or less like a list, but where we have fast access using the name:
+
+```python
+{"Bob Jones": {"age": 42, "occupation": "haxxor"},
+ "Jane Doe": {"age": 31, "occupation": "mathematician"},
+ "Ralph Nader": {"age": 85, "occupation": "politician"}}
+```
+
+
+# Other collection types
+
+We won't go into these as deeply today, but in short, we tend to use them like lists:
 
 * generators:
     * "recipes" for a collection
@@ -176,9 +200,10 @@ You can create more complex expressions using parentheses for grouping: `(4 + 5)
 
 # String
 
-`+` works for strings too:
+`+` works for strings as well:
 
-`"this" + "that"`
+`"this" + "that"` => `"thisthat"`
+
 
 
 # Boolean
@@ -234,6 +259,7 @@ We'll mostly focus on lists and dictionaries
 Writing `xs = [1, 2, 3, 4, 5, 6, 7]` defines a list `xs`.
 
 * Concatenation: `+`
+    * (`[1, 2] + [3, 4]` => `[1, 2, 3, 4]`)
 * Accessing: `xs[4]`
     * Get the 5th thing in the list
 * Changing: `xs[3] = 999`
@@ -269,6 +295,107 @@ They can be numbers, tuples or anything _hashable_:
 * Most immutable data is hashable.
 * You can tell whether data pointed to by variable `x` is hashable by running `hash(x)`
 * Lists and dictionaries are not hashable.
+
+
+# Data representation exercises
+
+
+# What kind of data is this?
+
+```python
+("this", 1234)
+```
+
+Is it hashable?
+
+
+# How about this?
+
+```python
+(4545, ["a", "b"])
+```
+
+Is it hashable?
+
+
+# How would you represent
+
+A single DNA sequence?
+
+<br/>
+
+##
+
+(press down for answer)
+
+## Answer
+
+String
+
+```python
+seq = "AGCTAGCTACGT"
+```
+
+# How would you represent
+
+A DNA sequence, together with sequence name and other metadata?
+
+<br/>
+
+##
+
+(press down for answer)
+
+## Answer
+
+Dictionary
+
+```python
+seqrecord = {"seq": "AGCTAGCTACGT", "name": "MBG234"}
+```
+
+
+# How would you represent
+
+A collection of DNA sequences and names?
+
+<br/>
+
+##
+
+(press down for answer)
+
+## Answer
+
+Dictionary
+
+```python
+seqrecords = [{"seq": "AGCTAGCTACGT", "name": "MBG234"},
+              {"seq": "AGCTTCCCACGT", "name": "MBG235"},
+              {"seq": "AGATTCCTCCGT", "name": "MBG236"}]
+```
+
+# How would you represent
+
+A collection of DNA sequences and names?
+
+<br/>
+
+##
+
+(press down for answer)
+
+## Answer
+
+Dictionary
+
+```python
+{"seqrecords": [{"seq": "AGCTAGCTACGT", "name": "MBG234"},
+                {"seq": "AGCTTCCCACGT", "name": "MBG235"},
+                {"seq": "AGATTCCTCCGT", "name": "MBG236"}],
+ "sampling_location": "Bangladesh",
+ "technician": "Bob Jones"}
+```
 
 
 # Functions
@@ -478,21 +605,6 @@ pip install --user biopython
 
 The `--user` flag tells pip to install things in your _local_ python lib directory.
 You would only omit that if you were installing _system wide_ on your own computer.
-
-<!--Insert lots of questions like these in and around...-->
-<!-- # What kind of data is this?-->
-
-<!--`("this", 1234)`-->
-
-<!--Is it hashable?-->
-
-<!-- # What kind of data would I want to use for these situations?-->
-
-<!--* A single DNA sequence?-->
-<!--* A DNA sequence, and name information-->
-<!--* A collection of DNA sequences with names-->
-<!--* Metadata about a collection of DNA sequences-->
-
 
 # Beware Python 3
 
