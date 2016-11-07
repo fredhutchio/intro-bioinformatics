@@ -497,7 +497,7 @@ The first few columns in the data
 # How would we count how many specimens there are per species?
 
 
-# Counting speciments per species
+# Counting specimens per species
 
 We can do this with a two step version of the `cut | uniq | sort` pattern we used above:
 

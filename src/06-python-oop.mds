@@ -20,24 +20,23 @@ _Wherein from simple elements we construct towering monuments_
 
 # What is OOP?
 
-OOP is a way of writing programs which emphasizes bundling data and functionality.
+OOP is a way of writing programs by bundling data and functionality.
 
 
 # Why do we have OOP?
 
-Before OOP, large programs were often difficult to analyze.
-It was hard to keep track of all the different data and functionality.
+Large programs can be difficult to analyze;
+Tracking lots of data, state and behavior is challenging.
 
-OOP is a way of organizing data and functionality such that it's easier to conceptualize how they relate to each other.
-The goal is to make it easier to conceptualize the whole system.
+OOP is a way of organizing these things with the goal of making it easier to conceptualize the whole system.
 
 
 # The Objects in OOP
 
-Objects are entities which bundle data and behavior related to that data.
+Objects are entities which bundle data, state and related behavior.
 The data is organized into _attributes_ and the behavior into _methods_.
 
-Objects are usually mutable: Methods can modify (in place) the attributes of a given object.
+Objects are typically mutable: Methods can modify (the _state_ of) the attributes of the objects on which they're called.
 
 
 # Classes
@@ -84,7 +83,7 @@ seqrecords.next()
 
 # Let's look at one of these `seqrecords` in more detail
 
-```
+```python
 # More investigating
 seqrecord = seqrecords.next()
 seqrecord
@@ -96,7 +95,7 @@ type(seqrecord)
 Objects have _attributes_.
 You can see what attributes an object has with `dir(object)`, and access them with `object.attribute_name`.
 
-```
+```python
 dir(seqrecord)
 seqrecord.name
 ```
@@ -104,7 +103,7 @@ seqrecord.name
 
 # Let's look at the seqrecord's `seq`
 
-```
+```python
 # Here's where the actual "sequence" is
 seqrecord.seq
 s = seqrecord.seq
@@ -122,36 +121,83 @@ Objects all the way down!
 
 One of the things OO encourages us to do is separate concerns.
 
-A `SeqRecord` is concerned with the more abstract record of a sequence; name, id, description, etc.
-The `Seq` is concerned with the _actual_ nucleotide sequence data.
-An instance of `SeqRecord` will have a `seq` attribute which points to a `Seq` instance.
+A `SeqRecord` is concerned with the abstract record of a sequence; name, id, description, etc.
+The `Seq` is concerned with the _actual_ nucleotide sequence.
+An instance of `SeqRecord` will have a `seq` attribute pointing to a `Seq` instance.
 
-This separation of concerns is important to the main point of OOP: organizing functionality and data.
+
+# Attributes are open
+
+We can add our own attributes to an object.
+
+```python
+s.foo = "bar"
+print s.foo
+```
+
+This is an open system.
 
 
 # Attributes can be functions
 
 ```python
 s.transcribe
+# <bound method Seq.transcribe of Seq(...)>
 
 # You can call these functions just like normal functions (appending `(...)`)
 s.transcribe()
 
-# This returns the transcription of sequence s
+# Compare with
+from Bio.Seq import Seq
+Seq.transcribe
+# <unbound method Seq.transcribe>
+Seq.transcribe(s)
 ```
 
 We call functions bound to objects _methods_.
 Methods describe the "behavior" of objects.
 
 
+# Let this sink in...
+
+```python
+# as a method
+s.transcribe()
+# as a function
+Seq.transcribe(s)
+
+xs = [1, 2, 3]
+# as a method
+xs.append(4)
+# as a function
+list.append(xs, 4)
+```
+
+Methods are just functions _bound_ to objects.
+
+The object is bound as the _first argument_ to the function/method.
+
+
+# Using constructors
+
+We got this object from SeqIO, but we can also construct objects using _constructors_.
+
+By default, classes act as constructors for their objects when called as a function.
+
+```python
+Seq("AGCT")
+```
+
+
 # That's it for _using_ OOP
 
-* Construct objects
+* Construct objects using constructors
 * Access object attributes
     * `object.attributename`
 * Call methods on objects
     * methods are just functions bound to objects as attributes of those objects
     * `object.method(arguments)`
+* Classes act as containers for the methods associated with objects
 
 Any Questions?
 
@@ -159,14 +205,13 @@ Any Questions?
 # How do _I_ OOP?
 
 A simple class, modeling data we saw last week:
-<!--Switch over to SeqRecord right off the bat-->
 
 ```python
-# First we specify the name of the class
+# Specify the name of the class, and inherit from object
 class Person(object):
-    # This function gets called on new objects
+    # This defines the constructor function
     def __init__(self, name, age, occupation):
-        # setting up attributes
+        # assign attributes passed through constructor
         self.name = name
         self.age = age
         self.occupation = occupation
@@ -175,7 +220,7 @@ p = Person("Bob Jones", 42, "haxxor")
 print p
 ```
 
-(Note 2 underscores (`_`) on either side of `init`)
+(Note: 2 underscores (`_`) on either side of `init`)
 
 
 # What about the functionality bit
@@ -186,17 +231,17 @@ Suppose we add email (this is pretend code & won't run):
 import email
 
 class Person(object):
+    # add email to constructor
     def __init__(self, name, age, occ, email):
         self.name = name
         self.age = age
         self.occupation = occ
         self.email = email
-
+    # adding a method looks like defining a function
     def notify_via_email(self, message):
         email.send(self.email, message)
 
 p = Person("Bob Jones", 42, "haxxor", "bob@jon.es")
-# Here, notify_via_email is "bound" to p
 p.notify_via_email("your cat was found")
 ```
 
@@ -265,6 +310,21 @@ To fix this, when you want to paste code in nano, press `Esc i` (let go in betwe
 This will turn off the auto-indent until you press `Esc i` again (when you're ready to type yourself again).
 
 
+# Empty lines in REPL vs scripts
+
+The following breaks in a REPL, but is ok in a script.
+
+```python
+if something:
+    do_stuff()
+
+else:
+    do_something_else()
+```
+
+Keep this in mind when copying pasting code.
+
+
 # Redefining SeqRecord
 
 Add the following to our `scripts/seqs.py` file.
@@ -320,30 +380,20 @@ print s.fasta_string()
 
 # Making the `seq` more robust
 
-Suppose we want to add more functionality to the `seq` attribute.
+Suppose we want to add more functionality to the `seq` attribute?
+Add the following _before_ our `SeqRecord` class:
 
 ```python
-# Here we create a "subclass" of str
+# Create Seq as a "subclass" of str
 class Seq(str):
-    # Here we default to str's init, etc
+    # If not adding any methods, must explicitly "pass"
     pass
 
 s = Seq("ACGT")
 print s
 ```
 
-Note: We're creating Seq as a _subclass_ of str.
-
-
-# Surprise!!!
-
-Python is super object oriented, and `str` is actually a class!
-
-So are `float`, `bool` and `int`.
-
-<br/>
-
-Objects all the way down...
+As a _subclass_ of `str`, `Seq` will behave exactly like a string, except where we override or add behavior.
 
 
 # Adding functionality to `Seq`
@@ -363,28 +413,21 @@ s = Seq("ACGT")
 print s.complement()
 ```
 
-# Note the _class_ attribute
+# Note the _class attribute_
 
 ```python
 # The class and instances both get this attribute
 print Seq.complements
 print s.complements
-
-# You can change it in the objects, but the class won't change
-s.complements = "something else"
-print s.complements
-print Seq.complements
 ```
 
 Note: `complements` would frequently be called a _class attribute_, since this data lives in the class.
-The codecademy course calls them _member variables_, which is a more general term I don't hear as often.
-The _instance attributes_ we've seen before (like `seqrecord.name`) are also considered member variables.
-Usually we want to be specific about `instance` vs `clsss`.
+The codecademy course calls them _member variables_, which is a more general term you don't hear in Python as often.
 
 
 # What about RNA vs DNA?
 
-We can solve this using _subclasses_.
+We can solve this by further _subclassing_ `Seq`.
 
 ```python
 class Seq(str):
@@ -442,15 +485,15 @@ Any Questions?
 
 # How hard should I OOP?
 
-Your call.
-Choose wisely.
+Design guidance vs flexibility
 
 
-# One choice: Everything OOP, all the time
+# The pros and cons of OOP
 
 **Extreme Example:** Java.
 Even printing "hello world" then exiting requires creating a class.
 All data and functionality _must_ be bound to classes/objects.
+This can be very constraining.
 
 **The good with OOP:**
 Easier to conceptualize, because we can think about programs being made of things, like we do in the real world.

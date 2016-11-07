@@ -205,7 +205,6 @@ You can create more complex expressions using parentheses for grouping: `(4 + 5)
 `"this" + "that"` => `"thisthat"`
 
 
-
 # Boolean
 
 * Logical and: `True & False` or `True and True`
@@ -627,6 +626,8 @@ Bottom line: Python 3 is rather different in a number of ways, so be aware.
 
 * Codecademy [Python course](http://www.codecademy.com/tracks/python) (I highly recommend working through all of this)
 * Very clear blog post on [how python variables/state work](http://nedbatchelder.com/text/names.html)
+* [Pythontutor](http://pythontutor.com/) - Visualize the execution of a python program
+
 
 [Back to homepage](http://fredhutchio.github.io/intro-bioinformatics/)
 

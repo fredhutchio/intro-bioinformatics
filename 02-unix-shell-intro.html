@@ -482,8 +482,8 @@ MBG104WBGag101   MBG104     monkey    gag    Narayanganj  ...
 <section id="how-would-we-count-how-many-specimens-there-are-per-species" class="level1">
 <h1>How would we count how many specimens there are per species?</h1>
 </section>
-<section id="counting-speciments-per-species" class="level1">
-<h1>Counting speciments per species</h1>
+<section id="counting-specimens-per-species" class="level1">
+<h1>Counting specimens per species</h1>
 <p>We can do this with a two step version of the <code>cut | uniq | sort</code> pattern we used above:</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># First, uniq specimens, with species info</span>
 <span class="kw">cut</span> -d , -f 2,3 data/sfv.csv <span class="kw">|</span> <span class="kw">sort</span> <span class="kw">|</span> <span class="kw">uniq</span> <span class="kw">|</span> <span class="kw">head</span>
@@ -618,6 +618,7 @@ MBG104WBGag101   MBG104     monkey    gag    Narayanganj  ...
     progress: true,
     history: true,
     center: false,
+    slideNumber: true,
 
 
     rollingLinks: false,
