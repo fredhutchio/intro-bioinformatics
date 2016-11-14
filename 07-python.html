@@ -99,7 +99,7 @@ nano scripts/treedists.py</code></pre>
 <section id="python-shebang" class="level1">
 <h1>Python shebang</h1>
 <p>When nano starts, type in the following shebang:</p>
-<pre class="sourceCode python"><code class="sourceCode python"><span class="co">#!/usr/bin/env python</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co">#!/usr/bin/env python</span></code></pre></div>
 <p>This tells the shell to use whatever python environment is currently active. This means our <code>intro-bio</code> modules will be available to us.</p>
 </section>
 <section id="setting-up-as-executable-tmux-panes" class="level1">
@@ -111,45 +111,45 @@ nano scripts/treedists.py</code></pre>
 <section id="command-line-arguments" class="level1">
 <h1>Command line arguments</h1>
 <p>In nano, add the following after our shebang:</p>
-<pre class="sourceCode python"><code class="sourceCode python"><span class="ch">import</span> argparse
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> argparse
 
 <span class="kw">def</span> get_args():
-    parser = argparse.ArgumentParser()
+    parser <span class="op">=</span> argparse.ArgumentParser()
     <span class="co"># add parsing rules</span>
     parser.add_argument(<span class="st">&quot;treefile&quot;</span>)
-    <span class="kw">return</span> parser.parse_args()
+    <span class="cf">return</span> parser.parse_args()
 
-args = get_args()
-<span class="dt">print</span> <span class="st">&quot;args is:&quot;</span>, args
-<span class="dt">print</span> <span class="st">&quot;treefile is:&quot;</span>, args.treefile</code></pre>
+args <span class="op">=</span> get_args()
+<span class="bu">print</span> <span class="st">&quot;args is:&quot;</span>, args
+<span class="bu">print</span> <span class="st">&quot;treefile is:&quot;</span>, args.treefile</code></pre></div>
 <p>Try running with <code>./scripts/treedists.py sometreefile</code>.</p>
 </section>
 <section id="setting-up-a-main-function" class="level1">
 <h1>Setting up a <code>main</code> function</h1>
 <p>This is a common pattern in many languages. A main function is a place for putting all of your “top-level” program logic.</p>
-<pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> main():
-    args = get_args()
-    <span class="dt">print</span> <span class="st">&quot;args is:&quot;</span>, args
-    <span class="dt">print</span> <span class="st">&quot;treefile is:&quot;</span>, args.treefile
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> main():
+    args <span class="op">=</span> get_args()
+    <span class="bu">print</span> <span class="st">&quot;args is:&quot;</span>, args
+    <span class="bu">print</span> <span class="st">&quot;treefile is:&quot;</span>, args.treefile
 
 <span class="co"># This only gets run if the file is being run as a script</span>
-<span class="kw">if</span> <span class="ot">__name__</span> == <span class="st">&#39;__main__&#39;</span>:
-    main()</code></pre>
+<span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">&#39;__main__&#39;</span>:
+    main()</code></pre></div>
 <p>This let’s us <code>import</code> the file from another program as a module, without executing the <code>main</code> function.</p>
 </section>
 <section id="loading-our-data" class="level1">
 <h1>Loading our data</h1>
 <p>Let’s start by setting up our main function to load the tree data. Edit the main function to look like this:</p>
-<pre class="sourceCode python"><code class="sourceCode python"><span class="co"># At the top below other imports, add:</span>
-<span class="ch">from</span> Bio <span class="ch">import</span> Phylo
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co"># At the top below other imports, add:</span>
+<span class="im">from</span> Bio <span class="im">import</span> Phylo
 
 <span class="kw">def</span> main():
-    args = get_args()
+    args <span class="op">=</span> get_args()
     <span class="co"># parse the tree file and return a generator</span>
-    trees = Phylo.parse(args.treefile, <span class="st">&#39;newick&#39;</span>)
-    tree = trees.<span class="dt">next</span>()
+    trees <span class="op">=</span> Phylo.parse(args.treefile, <span class="st">&#39;newick&#39;</span>)
+    tree <span class="op">=</span> trees.<span class="bu">next</span>()
     <span class="co"># For now, just print</span>
-    <span class="dt">print</span> tree</code></pre>
+    <span class="bu">print</span> tree</code></pre></div>
 <p>Save and run <code>./scripts/treedists.py output/Karamjal/tree.nw</code> You’ll see an object representation of the <a href="https://en.wikipedia.org/wiki/Clade">clades</a> on the phylogenetic tree.</p>
 </section>
 <section id="we-want-average-distance-between-the-tips-of-this-tree" class="level1">
@@ -171,23 +171,23 @@ args = get_args()
 <section id="repl-driven-development" class="level1">
 <h1>REPL driven development</h1>
 <p>Switch to the bash pane (<code>Ctrl-a →</code>), then open a new <em>vertical</em> pane with <code>Ctrl-a -</code>. Next, start a python REPL (<code>python</code>):</p>
-<pre class="sourceCode python"><code class="sourceCode python"><span class="ch">from</span> Bio <span class="ch">import</span> Phylo
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">from</span> Bio <span class="im">import</span> Phylo
 <span class="co"># This returns an generator of trees, so we&#39;ll use next to get the first (and only)</span>
-trees = Phylo.parse(<span class="st">&#39;output/tree.nw&#39;</span>, <span class="st">&#39;newick&#39;</span>)
-t = trees.<span class="dt">next</span>()
+trees <span class="op">=</span> Phylo.parse(<span class="st">&#39;output/tree.nw&#39;</span>, <span class="st">&#39;newick&#39;</span>)
+t <span class="op">=</span> trees.<span class="bu">next</span>()
 
 <span class="co"># Inspect attributes</span>
-<span class="dt">dir</span>(t)</code></pre>
+<span class="bu">dir</span>(t)</code></pre></div>
 <p>Question: How do we get the tips of the tree?</p>
 </section>
 <section id="what-do-the-terminals-look-like" class="level1">
 <h1>What do the terminals look like?</h1>
-<pre class="sourceCode python"><code class="sourceCode python">terminals = t.get_terminals()
-<span class="dt">print</span> terminals
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">terminals <span class="op">=</span> t.get_terminals()
+<span class="bu">print</span> terminals
 
 <span class="co"># Let&#39;s see what the first of these looks like</span>
-tip = terminals[<span class="dv">0</span>]
-<span class="dt">dir</span>(tip)</code></pre>
+tip <span class="op">=</span> terminals[<span class="dv">0</span>]
+<span class="bu">dir</span>(tip)</code></pre></div>
 <p>How do we get the name?</p>
 </section>
 <section id="getting-the-name" class="level1">
@@ -203,7 +203,7 @@ tip = terminals[<span class="dv">0</span>]
 <section id="list-of-all-names" class="level1">
 <h1>List of all names</h1>
 <p>Let’s use list comprehension:</p>
-<pre class="sourceCode python"><code class="sourceCode python">tipnames = [tip.name <span class="kw">for</span> tip in terminals]</code></pre>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">tipnames <span class="op">=</span> [tip.name <span class="cf">for</span> tip <span class="op">in</span> terminals]</code></pre></div>
 </section>
 <section id="what-about-all-pairs-of-names" class="level1">
 <h1>What about all pairs of names?</h1>
@@ -211,113 +211,113 @@ tip = terminals[<span class="dv">0</span>]
 </section>
 <section id="all-pairs-of-names" class="level1">
 <h1>All pairs of names</h1>
-<pre class="sourceCode python"><code class="sourceCode python">name_pairs = <span class="dt">set</span>()
-<span class="kw">for</span> tip1 in tipnames:
-    <span class="kw">for</span> tip2 in tipnames:
-        <span class="kw">if</span> tip1 != tip2:
-            pair = [tip1, tip2]
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">name_pairs <span class="op">=</span> <span class="bu">set</span>()
+<span class="cf">for</span> tip1 <span class="op">in</span> tipnames:
+    <span class="cf">for</span> tip2 <span class="op">in</span> tipnames:
+        <span class="cf">if</span> tip1 <span class="op">!=</span> tip2:
+            pair <span class="op">=</span> [tip1, tip2]
             <span class="co"># So we don&#39;t have duplicates</span>
-            sorted_pair = <span class="dt">sorted</span>(pair)
-            tuple_pair = <span class="dt">tuple</span>(sorted_pair)
+            sorted_pair <span class="op">=</span> <span class="bu">sorted</span>(pair)
+            tuple_pair <span class="op">=</span> <span class="bu">tuple</span>(sorted_pair)
             name_pairs.add(tuple_pair)
 
-<span class="dt">list</span>(name_pairs)[<span class="dv">0</span>:<span class="dv">10</span>]
-<span class="dt">len</span>(name_pairs)</code></pre>
+<span class="bu">list</span>(name_pairs)[<span class="dv">0</span>:<span class="dv">10</span>]
+<span class="bu">len</span>(name_pairs)</code></pre></div>
 </section>
 <section id="lets-make-a-function-of-this" class="level1">
 <h1>Let’s make a function of this!</h1>
 <p>This is a good idea when you have a bunch of modular logic.</p>
 <p>Back in our file (<code>Ctrl-a →</code>):</p>
-<pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> unique_pairs(xs):
-    pairs = <span class="dt">set</span>()
-    <span class="kw">for</span> x1 in xs:
-        <span class="kw">for</span> x2 in xs:
-            <span class="kw">if</span> x1 != x2:
-                pair = [x1, x2]
-                pairs.add(<span class="dt">tuple</span>(<span class="dt">sorted</span>(pair)))
-    <span class="kw">return</span> <span class="dt">list</span>(pairs)</code></pre>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> unique_pairs(xs):
+    pairs <span class="op">=</span> <span class="bu">set</span>()
+    <span class="cf">for</span> x1 <span class="op">in</span> xs:
+        <span class="cf">for</span> x2 <span class="op">in</span> xs:
+            <span class="cf">if</span> x1 <span class="op">!=</span> x2:
+                pair <span class="op">=</span> [x1, x2]
+                pairs.add(<span class="bu">tuple</span>(<span class="bu">sorted</span>(pair)))
+    <span class="cf">return</span> <span class="bu">list</span>(pairs)</code></pre></div>
 </section>
 <section id="how-about-finding-distance" class="level1">
 <h1>How about finding distance?</h1>
 <p>Back to the REPL (<code>Ctrl-a →</code> for over, and <code>Ctrl-a ↑</code> for up/down):</p>
-<pre class="sourceCode python"><code class="sourceCode python"><span class="co"># What function should we try here?</span>
-<span class="dt">dir</span>(t)</code></pre>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co"># What function should we try here?</span>
+<span class="bu">dir</span>(t)</code></pre></div>
 </section>
 <section id="finding-distance" class="level1">
 <h1>Finding distance</h1>
-<pre class="sourceCode python"><code class="sourceCode python">name_pair = <span class="dt">list</span>(name_pairs)[<span class="dv">0</span>]
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">name_pair <span class="op">=</span> <span class="bu">list</span>(name_pairs)[<span class="dv">0</span>]
 <span class="co"># We can assign multiple variables at once :-)</span>
 <span class="co"># This is called &quot;destructuring&quot;</span>
-t1, t2 = name_pair
-t.distance(t1, t2)</code></pre>
+t1, t2 <span class="op">=</span> name_pair
+t.distance(t1, t2)</code></pre></div>
 </section>
 <section id="putting-it-all-together" class="level1">
 <h1>Putting it all together</h1>
 <p>Back in our <code>treedist.py</code> file:</p>
-<pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> average_distance(tree):
-    tipnames = [tip.name <span class="kw">for</span> tip in tree.get_terminals()]
-    tipname_pairs = unique_pairs(tipnames)
-    tip_dists = [tree.distance(t1, t2) <span class="kw">for</span> t1, t2 in tipname_pairs]
-    <span class="kw">return</span> <span class="dt">sum</span>(tip_dists) / <span class="dt">len</span>(tip_dists)</code></pre>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> average_distance(tree):
+    tipnames <span class="op">=</span> [tip.name <span class="cf">for</span> tip <span class="op">in</span> tree.get_terminals()]
+    tipname_pairs <span class="op">=</span> unique_pairs(tipnames)
+    tip_dists <span class="op">=</span> [tree.distance(t1, t2) <span class="cf">for</span> t1, t2 <span class="op">in</span> tipname_pairs]
+    <span class="cf">return</span> <span class="bu">sum</span>(tip_dists) <span class="op">/</span> <span class="bu">len</span>(tip_dists)</code></pre></div>
 </section>
 <section id="hooking-this-up-in-main" class="level1">
 <h1>Hooking this up in <code>main</code></h1>
-<pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> main():
-    args = get_args()
-    trees = Phylo.parse(args.treefile, <span class="st">&#39;newick&#39;</span>)
-    tree = trees.<span class="dt">next</span>()
-    <span class="dt">print</span> <span class="st">&quot;Average distance:&quot;</span>, average_distance(tree)</code></pre>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> main():
+    args <span class="op">=</span> get_args()
+    trees <span class="op">=</span> Phylo.parse(args.treefile, <span class="st">&#39;newick&#39;</span>)
+    tree <span class="op">=</span> trees.<span class="bu">next</span>()
+    <span class="bu">print</span> <span class="st">&quot;Average distance:&quot;</span>, average_distance(tree)</code></pre></div>
 </section>
 <section id="lets-test" class="level1">
 <h1>Let’s test</h1>
 <p>Save, then go back to the bash pane and try running again:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">./scripts/treedists.py</span> output/Karamjal/tree.nw</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">./scripts/treedists.py</span> output/Karamjal/tree.nw</code></pre></div>
 </section>
 <section id="adding-a---csv-output-option" class="level1">
 <h1>Adding a <code>--csv</code> output option</h1>
 <p>This will let us do a <code>csvstack</code> to get a single data set.</p>
 <p>First the arguments (back in <code>treedists.py</code> file):</p>
-<pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> get_args():
-    parser = argparse.ArgumentParser()
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> get_args():
+    parser <span class="op">=</span> argparse.ArgumentParser()
     parser.add_argument(<span class="st">&quot;treefile&quot;</span>)
     <span class="co"># Add optional args; store_true makes this a toggle</span>
-    parser.add_argument(<span class="st">&quot;--csv&quot;</span>, action=<span class="st">&quot;store_true&quot;</span>)
-    <span class="kw">return</span> parser.parse_args()</code></pre>
+    parser.add_argument(<span class="st">&quot;--csv&quot;</span>, action<span class="op">=</span><span class="st">&quot;store_true&quot;</span>)
+    <span class="cf">return</span> parser.parse_args()</code></pre></div>
 </section>
 <section id="and-in-main" class="level1">
 <h1>And in <code>main</code>:</h1>
-<pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> main():
-    args = get_args()
-    trees = Phylo.parse(args.treefile, <span class="st">&#39;newick&#39;</span>)
-    tree = trees.<span class="dt">next</span>()
-    result = average_distance(tree)
-    <span class="kw">if</span> args.csv:
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> main():
+    args <span class="op">=</span> get_args()
+    trees <span class="op">=</span> Phylo.parse(args.treefile, <span class="st">&#39;newick&#39;</span>)
+    tree <span class="op">=</span> trees.<span class="bu">next</span>()
+    result <span class="op">=</span> average_distance(tree)
+    <span class="cf">if</span> args.csv:
         <span class="co"># We&#39;ll define this later</span>
         write_csv(result)
-    <span class="kw">else</span>:
-        <span class="dt">print</span> <span class="st">&quot;Average distance:&quot;</span>, result</code></pre>
+    <span class="cf">else</span>:
+        <span class="bu">print</span> <span class="st">&quot;Average distance:&quot;</span>, result</code></pre></div>
 </section>
 <section id="filling-out-write_csv" class="level1">
 <h1>Filling out <code>write_csv</code>:</h1>
-<pre class="sourceCode python"><code class="sourceCode python"><span class="ch">import</span> csv
-<span class="ch">import</span> sys
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> csv
+<span class="im">import</span> sys
 
 <span class="kw">def</span> write_csv(result):
-    writer = csv.writer(sys.stdout)
+    writer <span class="op">=</span> csv.writer(sys.stdout)
     writer.writerow([<span class="st">&quot;average_distance&quot;</span>])
-    writer.writerow([result])</code></pre>
+    writer.writerow([result])</code></pre></div>
 </section>
 <section id="testing-again" class="level1">
 <h1>Testing again</h1>
 <p>From bash:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">./scripts/treedists.py</span> --csv output/Karamjal/tree.nw
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">./scripts/treedists.py</span> --csv output/Karamjal/tree.nw
 <span class="co"># Old behaviour still works</span>
-<span class="kw">./scripts/treedists.py</span> output/Karamjal/tree.nw</code></pre>
+<span class="kw">./scripts/treedists.py</span> output/Karamjal/tree.nw</code></pre></div>
 </section>
 <section id="adding-location" class="level1">
 <h1>Adding location</h1>
 <p>Save, then back in <code>treedists.py</code>:</p>
-<pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> get_args():
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> get_args():
     <span class="co"># ...</span>
     <span class="co"># Add the argument</span>
     parser.add_argument(<span class="st">&quot;-l&quot;</span>, <span class="st">&quot;--location&quot;</span>)
@@ -326,35 +326,35 @@ t.distance(t1, t2)</code></pre>
 <span class="kw">def</span> main():
     <span class="co"># ...</span>
     <span class="co"># Next pass the location to write_csv</span>
-    <span class="kw">if</span> args.csv:
+    <span class="cf">if</span> args.csv:
         write_csv(result, args.location)
-    <span class="co"># ...</span></code></pre>
+    <span class="co"># ...</span></code></pre></div>
 </section>
 <section id="adding-location-to-write_csv" class="level1">
 <h1>Adding location (to <code>write_csv</code>)</h1>
-<pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> write_csv(result, location):
-    writer = csv.writer(sys.stdout)
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> write_csv(result, location):
+    writer <span class="op">=</span> csv.writer(sys.stdout)
     <span class="co"># Note the inline if/else assignment</span>
-    header = [<span class="st">&quot;location&quot;</span>, <span class="st">&quot;average_distance&quot;</span>] <span class="kw">if</span> location <span class="kw">else</span> [<span class="st">&quot;average_distance&quot;</span>]
-    main_row = [location, result] <span class="kw">if</span> location <span class="kw">else</span> [result]
-    writer.writerows([header, main_row])</code></pre>
+    header <span class="op">=</span> [<span class="st">&quot;location&quot;</span>, <span class="st">&quot;average_distance&quot;</span>] <span class="cf">if</span> location <span class="cf">else</span> [<span class="st">&quot;average_distance&quot;</span>]
+    main_row <span class="op">=</span> [location, result] <span class="cf">if</span> location <span class="cf">else</span> [result]
+    writer.writerows([header, main_row])</code></pre></div>
 </section>
 <section id="testing-out" class="level1">
 <h1>Testing out</h1>
 <p>Save, then back in bash:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">./scripts/treedists.py</span> --csv output/Karamjal/tree.nw -l karamjal
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">./scripts/treedists.py</span> --csv output/Karamjal/tree.nw -l karamjal
 <span class="co"># Old behaviour still works</span>
-<span class="kw">./scripts/treedists.py</span> --csv output/Karamjal/tree.nw</code></pre>
+<span class="kw">./scripts/treedists.py</span> --csv output/Karamjal/tree.nw</code></pre></div>
 </section>
 <section id="hooking-this-up-in-build.sh" class="level1">
 <h1>Hooking this up in <code>build.sh</code></h1>
 <p>Switch to the <code>nano</code> pane, and close <code>treedists.py</code>. Then <code>nano build.sh</code> and enter:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># At the top make sure scripts is in our PATH</span>
-<span class="ot">PATH=</span>./scripts/:<span class="ot">$PATH</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># At the top make sure scripts is in our PATH</span>
+<span class="ot">PATH=</span>./scripts/:<span class="ot">$PATH</span></code></pre></div>
 </section>
 <section id="hooking-this-up-ctnd" class="level1">
 <h1>Hooking this up (ctnd)</h1>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="ot">treedist_files=()</span>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ot">treedist_files=()</span>
 
 <span class="kw">for</span> <span class="kw">location</span> in <span class="ot">${locations[*]}</span>
 <span class="kw">do</span>
@@ -368,7 +368,7 @@ t.distance(t1, t2)</code></pre>
   <span class="kw">treedists.py</span> <span class="ot">$loc_tree</span> --csv -l <span class="ot">$location</span> <span class="kw">&gt;</span> <span class="ot">$treedists</span>
 
   <span class="ot">treedist_files+=($treedists)</span>
-<span class="kw">done</span></code></pre>
+<span class="kw">done</span></code></pre></div>
 </section>
 <section id="hooking-this-up-final" class="level1">
 <h1>Hooking this up (final)</h1>
@@ -388,10 +388,10 @@ csvstack ${treedist_files[*]} | csvsort -c average_distance &gt; $all_treedists<
 <h1>Importing our code from another namespace</h1>
 <p>To import code from this namespace, we have to create an empty <code>__init__.py</code> file in the directory in which it resides. You can do this in bash with <code>touch scripts/__init__.py</code>.</p>
 <p>Now back in the python REPL:</p>
-<pre class="sourceCode python"><code class="sourceCode python"><span class="co"># note this does&#39;t run the main function</span>
-<span class="ch">from</span> scripts <span class="ch">import</span> treedists
-<span class="dt">dir</span>(treedists)
-treedists.unique_pairs([<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>])</code></pre>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co"># note this does&#39;t run the main function</span>
+<span class="im">from</span> scripts <span class="im">import</span> treedists
+<span class="bu">dir</span>(treedists)
+treedists.unique_pairs([<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>])</code></pre></div>
 </section>
 <section id="a-bit-about-debugging" class="level1">
 <h1>A bit about debugging</h1>
@@ -433,12 +433,12 @@ treedists.unique_pairs([<span class="dv">1</span>,<span class="dv">2</span>,<spa
 <section id="questions" class="level1">
 <h1>Questions?</h1>
 </section>
-<section id="homework-1" class="level1">
-<h1>Homework 1</h1>
+<section id="excercise-1" class="level1">
+<h1>Excercise 1</h1>
 <p>Add an argument to <code>treedists.py</code> that let’s you specify the output file.</p>
 </section>
-<section id="homework-2" class="level1">
-<h1>Homework 2</h1>
+<section id="excercise-2" class="level1">
+<h1>Excercise 2</h1>
 <p>Pick a problem and write a little python program for yourself!</p>
 </section>
 <section id="resources" class="level1">
@@ -476,6 +476,7 @@ treedists.unique_pairs([<span class="dv">1</span>,<span class="dv">2</span>,<spa
     progress: true,
     history: true,
     center: false,
+    slideNumber: true,
 
 
     rollingLinks: false,
