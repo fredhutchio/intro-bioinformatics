@@ -6,6 +6,8 @@
 
 Did everyone successfully ssh into `rhino`?
 
+Did everyone get the book?
+
 
 # Introductions
 
@@ -37,7 +39,6 @@ But hopefully you'll have enough momentum to learn these on your own as needed.
 
 * Time is the only way to learn these things
 * Help keep this class moving smoothly
-* The waiting list is very long
 
 
 # What is bioinformatics?
@@ -141,7 +142,7 @@ Write _scripts_ (little computer programs) for everything:
 * Statistics
 * Build scripts (tying it all together)
 
-Aids: reproducibility, robustness, accuracy, iterability
+Aids: reproducibility, iterability
 
 
 # Guiding principles & practices towards this end
@@ -189,37 +190,46 @@ When this fails, try to solve an easier or related problem first.
 
 # Understanding
 
-This is sometimes the trickiest part, especially when working on a subproblem, because things can be ill defined.
-I find that spending time clarifying and truly understanding a difficult problem can often gets me 70% of the way to a solution.
+The most important, but hardest part.
+It's easy to think you understand a problem better than you do...
 
-Look for the things that feel fuzzy and unclear and try to state precisely what it is you don't get about them.
+* Write out what the problem is
+* Try to isolate what makes the problem hard
+* Draw/sketch, talk (even out loud to yourself), go for a walk
+* If you understood the problem, you'd probably already have a solution, so figure out what you need to understand for the solution to be obvious
 
 
 # Devising a plan
 
-This is most of the rest of the work; The better your plan, the easier it will be to execute.
-Sometimes perfecting a plan will elighten your understanding as well.
+Devise a game plan.
 
-This should be about 20%.
+* Start abstract, and add detail
+* If you find yourself getting stuck, go back and try to understand the problem better
 
 
 # Execution and reflection
 
-Ideally, just the last 10%, if understanding and planning are perfect (reality can vary).
+If you do a good job understanding and planning, this part should be easy.
+If not, look back and figure out how you can improve your understanding and planning.
+
+This progression hopefully feels obvious, but it's easy to jump the gun.
 
 
 # Strategies at all stages:
 
 * Draw a picture; visualize
-* Look for a pattern
+* Look for patterns
 * Use a model or simpler problem
+* List knowns
 * Work backwards
 * Eliminate possibilities
-* List knowns
 * Run examples
 
 
-# More on Unix
+# Back to Unix...
+
+
+# What is "Unix"?
 
 Unix is a proprietary operating system from the 60s.
 
@@ -227,6 +237,7 @@ True Unix isn't frequently encountered these days, but its philosophy and approa
 So much so that when we say "Unix", we usually mean it in the abstract sense.
 
 We'll be using Ubuntu Linux, a Unix-like operating system.
+Mac OsX is also a Unix-like operating system.
 
 
 # The Unix shell
@@ -240,15 +251,16 @@ This is analogous to the desktop environment on your personal computer, which ha
 
 # Remote servers
 
-Unix was built for remote access, since computers were big and expensive.
+Unix was built for remote access.
+Computers were big and expensive, so people shared resources.
 
 
 # Why we care about remote servers
 
 * The Hutch servers are really powerful
-* We can leave long running computations running without worrying about our computer shutting down by necessity or accident
-* We can access running programs and data from any computer capable of connecting to the remote server
-* We can distribute tasks across compute clusters, such as the one the Hutch has (See [gizmo class](http://www.fredhutch.io/events/2015/05/20/spring-2015-unix-hpc/))
+* Leave long running computations without worrying about our computer shutting down
+* Access running programs and data from any computer
+* Distribute tasks across compute clusters, such as the Hutch's [gizmo clusters](http://www.fredhutch.io/events/2015/05/20/spring-2015-unix-hpc/)
 
 
 # Questions?
@@ -282,7 +294,7 @@ Let us know if you get an error message along the lines of "`can't find home`".
 
 Side note:
 
-If you want to work on the servers from outside the Hutch, you can ssh into `<username>@snail.fhcrc.org`, and then from there execute `ssh <username>@rhino<N>` to get into your rino.
+If you want to work on the servers from outside the Hutch, you can ssh into `<username>@snail.fhcrc.org`, and then from there execute `ssh <username>@rhino<N>` to get into your rhino.
 
 
 # You're now in a Unix shell!
@@ -326,7 +338,7 @@ If you are in the terminal and things seem "stuck" (a program is running that wo
 Note: These are _key commands_;
 
 * `-` means press the keys at the same time.
-* ` ` means let go and press the next key
+* ` ` (space between) means let go and press the next key
 
 
 # Autocomplete
@@ -342,7 +354,7 @@ Try `ls ~/bioi<Tab>`.
 Bash maintains a history of the last several commands you executed.
 You can access these by typing `history`.
 
-If you want to run a command very close to one you just executed (but perhaps with some parameters tweaked), you can use the up and down arrow keys to move through the history, edit the line, and re-execute.
+If you want to run a command similar to one you just executed, you can use the up/down arrow keys to move through the history, edit the line, and re-execute.
 
 
 
@@ -497,11 +509,11 @@ You can't proceed without this module loaded.
 
 # Tmux - Terminal multiplexer
 
-This is a tool that let's us have multiple Unix shells running at once.
+Tmux let's combine multiple Unix shells into one.
 
-We could just open multiple terminal windows, each with an ssh connection into the remote server.
-But with tmux, if we close or lose our connection to the server, our terminal session doesn't get killed; running programs keep running.
-This lets us:
+We could open multiple terminal windows to multitask, but each would need its own ssh connection.
+Also, without tmux, if our connection dies, so do our programs.
+With tmux we can:
 
 * Put down and pick up work from multiple machines
 * Keep working on other things while a long running computation runs
@@ -530,7 +542,9 @@ ls -a ~
 
 # Starting a new tmux session
 
-    tmux
+```bash
+tmux
+```
 
 You should now see a fresh shell session inside of tmux.
 

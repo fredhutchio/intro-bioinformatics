@@ -97,7 +97,7 @@ We also ask that you read the first two chapters of [the book](http://shop.oreil
 
 ## Technical Notes
 
-The slides are written in a little extension of [Markdown](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet).
+The slides (source code [here](https://github.com/fredhutchio/intro-bioinformatics)) are written in a little extension of [Markdown](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet).
 After processing, the Markdown gets converted to a [reveal.js](http://github.com/hakimel/reveal.js) presentation.
 HTML is rendered by the brilliant [pandoc](http://johnmacfarlane.net/pandoc/).
 

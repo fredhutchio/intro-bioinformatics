@@ -62,6 +62,7 @@
 <section id="first-things-first" class="level1">
 <h1>First things first</h1>
 <p>Did everyone successfully ssh into <code>rhino</code>?</p>
+<p>Did everyone get the book?</p>
 </section>
 <section id="introductions" class="level1">
 <h1>Introductions</h1>
@@ -95,7 +96,6 @@
 <ul>
 <li>Time is the only way to learn these things</li>
 <li>Help keep this class moving smoothly</li>
-<li>The waiting list is very long</li>
 </ul>
 </section>
 <section id="what-is-bioinformatics" class="level1">
@@ -190,7 +190,7 @@
 <li>Statistics</li>
 <li>Build scripts (tying it all together)</li>
 </ul>
-<p>Aids: reproducibility, robustness, accuracy, iterability</p>
+<p>Aids: reproducibility, iterability</p>
 </section>
 <section id="guiding-principles-practices-towards-this-end" class="level1">
 <h1>Guiding principles &amp; practices towards this end</h1>
@@ -233,35 +233,47 @@
 </section>
 <section id="understanding" class="level1">
 <h1>Understanding</h1>
-<p>This is sometimes the trickiest part, especially when working on a subproblem, because things can be ill defined. I find that spending time clarifying and truly understanding a difficult problem can often gets me 70% of the way to a solution.</p>
-<p>Look for the things that feel fuzzy and unclear and try to state precisely what it is you don’t get about them.</p>
+<p>The most important, but hardest part. It’s easy to think you understand a problem better than you do…</p>
+<ul>
+<li>Write out what the problem is</li>
+<li>Try to isolate what makes the problem hard</li>
+<li>Draw/sketch, talk (even out loud to yourself), go for a walk</li>
+<li>If you understood the problem, you’d probably already have a solution, so figure out what you need to understand for the solution to be obvious</li>
+</ul>
 </section>
 <section id="devising-a-plan" class="level1">
 <h1>Devising a plan</h1>
-<p>This is most of the rest of the work; The better your plan, the easier it will be to execute. Sometimes perfecting a plan will elighten your understanding as well.</p>
-<p>This should be about 20%.</p>
+<p>Devise a game plan.</p>
+<ul>
+<li>Start abstract, and add detail</li>
+<li>If you find yourself getting stuck, go back and try to understand the problem better</li>
+</ul>
 </section>
 <section id="execution-and-reflection" class="level1">
 <h1>Execution and reflection</h1>
-<p>Ideally, just the last 10%, if understanding and planning are perfect (reality can vary).</p>
+<p>If you do a good job understanding and planning, this part should be easy. If not, look back and figure out how you can improve your understanding and planning.</p>
+<p>This progression hopefully feels obvious, but it’s easy to jump the gun.</p>
 </section>
 <section id="strategies-at-all-stages" class="level1">
 <h1>Strategies at all stages:</h1>
 <ul>
 <li>Draw a picture; visualize</li>
-<li>Look for a pattern</li>
+<li>Look for patterns</li>
 <li>Use a model or simpler problem</li>
+<li>List knowns</li>
 <li>Work backwards</li>
 <li>Eliminate possibilities</li>
-<li>List knowns</li>
 <li>Run examples</li>
 </ul>
 </section>
-<section id="more-on-unix" class="level1">
-<h1>More on Unix</h1>
+<section id="back-to-unix" class="level1">
+<h1>Back to Unix…</h1>
+</section>
+<section id="what-is-unix" class="level1">
+<h1>What is “Unix”?</h1>
 <p>Unix is a proprietary operating system from the 60s.</p>
 <p>True Unix isn’t frequently encountered these days, but its philosophy and approach to computing have thrived in “Unix-like” systems. So much so that when we say “Unix”, we usually mean it in the abstract sense.</p>
-<p>We’ll be using Ubuntu Linux, a Unix-like operating system.</p>
+<p>We’ll be using Ubuntu Linux, a Unix-like operating system. Mac OsX is also a Unix-like operating system.</p>
 </section>
 <section id="the-unix-shell" class="level1">
 <h1>The Unix shell</h1>
@@ -271,15 +283,15 @@
 </section>
 <section id="remote-servers" class="level1">
 <h1>Remote servers</h1>
-<p>Unix was built for remote access, since computers were big and expensive.</p>
+<p>Unix was built for remote access. Computers were big and expensive, so people shared resources.</p>
 </section>
 <section id="why-we-care-about-remote-servers" class="level1">
 <h1>Why we care about remote servers</h1>
 <ul>
 <li>The Hutch servers are really powerful</li>
-<li>We can leave long running computations running without worrying about our computer shutting down by necessity or accident</li>
-<li>We can access running programs and data from any computer capable of connecting to the remote server</li>
-<li>We can distribute tasks across compute clusters, such as the one the Hutch has (See <a href="http://www.fredhutch.io/events/2015/05/20/spring-2015-unix-hpc/">gizmo class</a>)</li>
+<li>Leave long running computations without worrying about our computer shutting down</li>
+<li>Access running programs and data from any computer</li>
+<li>Distribute tasks across compute clusters, such as the Hutch’s <a href="http://www.fredhutch.io/events/2015/05/20/spring-2015-unix-hpc/">gizmo clusters</a></li>
 </ul>
 </section>
 <section id="questions-1" class="level1">
@@ -306,7 +318,7 @@
 <section id="from-outside-the-hutch" class="level1">
 <h1>From outside the Hutch</h1>
 <p>Side note:</p>
-<p>If you want to work on the servers from outside the Hutch, you can ssh into <code>&lt;username&gt;@snail.fhcrc.org</code>, and then from there execute <code>ssh &lt;username&gt;@rhino&lt;N&gt;</code> to get into your rino.</p>
+<p>If you want to work on the servers from outside the Hutch, you can ssh into <code>&lt;username&gt;@snail.fhcrc.org</code>, and then from there execute <code>ssh &lt;username&gt;@rhino&lt;N&gt;</code> to get into your rhino.</p>
 </section>
 <section id="youre-now-in-a-unix-shell" class="level1">
 <h1>You’re now in a Unix shell!</h1>
@@ -337,7 +349,7 @@
 <p>Note: These are <em>key commands</em>;</p>
 <ul>
 <li><code>-</code> means press the keys at the same time.</li>
-<li>` ` means let go and press the next key</li>
+<li>` ` (space between) means let go and press the next key</li>
 </ul>
 </section>
 <section id="autocomplete" class="level1">
@@ -348,7 +360,7 @@
 <section id="history" class="level1">
 <h1>History</h1>
 <p>Bash maintains a history of the last several commands you executed. You can access these by typing <code>history</code>.</p>
-<p>If you want to run a command very close to one you just executed (but perhaps with some parameters tweaked), you can use the up and down arrow keys to move through the history, edit the line, and re-execute.</p>
+<p>If you want to run a command similar to one you just executed, you can use the up/down arrow keys to move through the history, edit the line, and re-execute.</p>
 </section>
 <section id="questions-2" class="level1">
 <h1>Questions?</h1>
@@ -441,8 +453,8 @@
 </section>
 <section id="tmux---terminal-multiplexer" class="level1">
 <h1>Tmux - Terminal multiplexer</h1>
-<p>This is a tool that let’s us have multiple Unix shells running at once.</p>
-<p>We could just open multiple terminal windows, each with an ssh connection into the remote server. But with tmux, if we close or lose our connection to the server, our terminal session doesn’t get killed; running programs keep running. This lets us:</p>
+<p>Tmux let’s combine multiple Unix shells into one.</p>
+<p>We could open multiple terminal windows to multitask, but each would need its own ssh connection. Also, without tmux, if our connection dies, so do our programs. With tmux we can:</p>
 <ul>
 <li>Put down and pick up work from multiple machines</li>
 <li>Keep working on other things while a long running computation runs</li>
@@ -466,7 +478,7 @@
 </section>
 <section id="starting-a-new-tmux-session" class="level1">
 <h1>Starting a new tmux session</h1>
-<pre><code>tmux</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">tmux</span></code></pre></div>
 <p>You should now see a fresh shell session inside of tmux.</p>
 </section>
 <section id="quick-tmux-cheatsheet" class="level1">
@@ -591,6 +603,7 @@ ACGGCCTA            ACGGCCTA</code></pre>
     progress: true,
     history: true,
     center: false,
+    slideNumber: true,
 
 
     rollingLinks: false,
