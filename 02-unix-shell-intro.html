@@ -85,7 +85,7 @@
 </section>
 <section id="directories-files-and-paths-oh-my" class="level1">
 <h1>Directories, files and paths, oh my!</h1>
-<p>In which we see the static world of things.</p>
+<p><em>In which we see the static world of things</em></p>
 </section>
 <section id="in-unix-almost-everything-is-a-file" class="level1">
 <h1>In Unix, (almost) everything is a file</h1>
@@ -115,47 +115,56 @@
 <li><code>~</code> - Home directory</li>
 </ul>
 </section>
-<section id="how-paths-work" class="level1">
-<h1>How paths work</h1>
-<p><code>/</code> lets us compose paths.</p>
-<p>We have a directory called <code>bioinfclass</code> in the directory <code>~</code>. So <code>~/bioinfclass</code> is a complete path to this directory.</p>
-<p><code>bioinfclass</code> also has a subdirectory called <code>data</code>, so its path is <code>~/bioinfclass/data</code>.</p>
-</section>
-<section id="path-tools" class="level1">
-<h1>Path tools</h1>
-<ul>
-<li>change directories with <code>cd</code></li>
-<li>list directory contents with <code>ls</code></li>
-<li>see where we are with <code>pwd</code></li>
-</ul>
-</section>
-<section id="example-using-path-tools" class="level1">
-<h1>Example: Using path tools</h1>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">cd</span> ~
+<section id="composing-paths" class="level1">
+<h1>Composing paths</h1>
+<p>We can also use <code>/</code> to represent how paths relate to each other:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">cd</span> ~ <span class="co"># set our &quot;working directory&quot; to be home</span>
 
+<span class="co"># First try listing bioinfclass contents</span>
+<span class="kw">ls</span> bioinfclass
+
+<span class="co"># Now try listing data directory contents</span>
+<span class="kw">ls</span> data
+
+<span class="co"># ^ fails (no data in ~); Relative to current working directory tho?</span>
+<span class="kw">ls</span> bioinfclass/data
+
+<span class="co"># We could also say</span>
+<span class="kw">ls</span> ./bioinfclass/data
+<span class="kw">ls</span> ~/bioinfclass/data
+<span class="kw">ls</span> /home/<span class="kw">&lt;</span>yourusername<span class="kw">&gt;</span>/bioinfclass/data  <span class="co"># ALL can be traced to /</span></code></pre></div>
+</section>
+<section id="more-on-current-working-directory" class="level1">
+<h1>More on current working directory</h1>
+<p>Every process in Unix (including your shell sessions) will have a <em>working directory</em> associated with it, and you can see this with <code>pwd</code>. Files can be accessed relative to this directory.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">cd</span> ~
 <span class="kw">pwd</span>
 
 <span class="co"># list the contents of this directory</span>
 <span class="kw">ls</span> bioinfclass/data
-<span class="kw">cd</span> bioinfclass
 
+<span class="kw">cd</span> bioinfclass
 <span class="kw">pwd</span>
 
+<span class="co"># now data is fine relative to our current working directory</span>
 <span class="kw">ls</span> data</code></pre></div>
 </section>
 <section id="exercise-going-up-the-directory-chain" class="level1">
 <h1>Exercise: going up the directory chain</h1>
-<p>Try</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">ls</span> ..
-
-<span class="kw">ls</span> ../..
-
-<span class="kw">cd</span> /</code></pre></div>
-<p><strong>Exercise:</strong> Where are we now? How can we get back to our home directory?</p>
+<p>Now that we are in the <code>~/bioinformatics</code> directory, how could we refer to another file in <code>~</code>, like your <code>.tmux.conf</code>?</p>
+</section>
+<section id="going-up-the-directory-chain" class="level1">
+<h1>Going up the directory chain</h1>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">ls</span> ~/.tmux.conf
+<span class="kw">ls</span> /home/<span class="kw">&lt;</span>yourusername<span class="kw">&gt;</span>/.tmux.conf
+<span class="co"># Using relative paths</span>
+<span class="kw">ls</span> ../.tmux.conf</code></pre></div>
 </section>
 <section id="we-can-change-the-path-of-a-file-using-mv" class="level1">
 <h1>We can change the path of a file using <code>mv</code></h1>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">mv</span> bioinfclass/data .
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># move the data directory to ~, our current directory</span>
+<span class="kw">cd</span> ~
+<span class="kw">mv</span> bioinfclass/data .
 
 <span class="kw">ls</span>
 
@@ -166,9 +175,11 @@
 </section>
 <section id="mv-is-for-renaming-as-well" class="level1">
 <h1><code>mv</code> is for renaming as well</h1>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">mv</span> bioinfclass foobar
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># we must hide our dark arts...</span>
+<span class="kw">mv</span> bioinfclass catgifs
 
 <span class="kw">ls</span></code></pre></div>
+<p>Think of <code>mv</code> as updating the “path” stamp on a file</p>
 <p><strong>Exercise:</strong> How do we get <code>bioinfclass</code> back?</p>
 </section>
 <section id="we-can-make-new-directories-or-files-with-mkdir-and-touch" class="level1">
@@ -178,11 +189,11 @@
 <li><code>touch name</code> will create an empty file <code>name</code></li>
 </ul>
 <p> </p>
-<p><strong>Exercise:</strong> create a file called <code>bar</code> in a new subdirectory called <code>foo</code> of your home directory</p>
+<p><strong>Exercise:</strong> create a file called <code>birds</code> in a new subdirectory called <code>dinosaurs</code> of your home directory</p>
 </section>
 <section id="commands" class="level1">
 <h1>Commands</h1>
-<p>In which the things take flight and evolve!</p>
+<p><em>In which things take flight and evolve!</em></p>
 </section>
 <section id="anatomy-of-a-unix-command" class="level1">
 <h1>Anatomy of a Unix command</h1>
@@ -210,19 +221,9 @@
 <li>sometimes single dash and word (like <code>-help</code>; esp Java programs)</li>
 <li>sometimes there are short and long options (like <code>-h</code> or <code>--help</code>)</li>
 <li>sometimes short flags can be munged together (<code>-v -x -f the-file</code> == <code>-vxf the-file</code>)</li>
+<li>occasional insanity like <code>dd if=somefile of=somenewfile</code></li>
 </ul>
-</section>
-<section id="help-with-flags" class="level1">
-<h1>Help with flags</h1>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">ls</span> --help</code></pre></div>
-</section>
-<section id="getting-help-with-man-and-apropos" class="level1">
-<h1>Getting help with <code>man</code> and <code>apropos</code></h1>
-<p>There is built in help on the command line:</p>
-<ul>
-<li>Try <code>man ls</code> (arrows to scroll, q to quit)</li>
-<li>Try <code>apropos calculator</code></li>
-</ul>
+<p>Ultimately, programs can interpret their arguments however they choose! These are just conventions.</p>
 </section>
 <section id="programs-are-just-files" class="level1">
 <h1>Programs are just files!</h1>
@@ -234,10 +235,10 @@
 <span class="co"># super secret shortcut</span>
 <span class="kw">ls</span> -l <span class="ot">$(</span><span class="kw">which</span> tree<span class="ot">)</span>
 
-<span class="kw">touch</span> testfile
+<span class="kw">touch</span> holy-crap-birds-are-dinosaurs
 
 <span class="co"># Notice no x; not executable...</span>
-<span class="kw">ls</span> -l testfile</code></pre></div>
+<span class="kw">ls</span> -l holy-crap-birds-are-dinosaurs</code></pre></div>
 </section>
 <section id="what-else-is-in-usrbin" class="level1">
 <h1>What else is in <code>/usr/bin</code>?</h1>
@@ -246,12 +247,12 @@
 </section>
 <section id="how-does-the-shell-know-where-to-look-for-programs" class="level1">
 <h1>How does the shell know where to look for programs?</h1>
-<p><code>echo $PATH</code> =&gt; <code>:</code> separated list of places your shell looks for programs.</p>
+<p><code>echo $PATH</code> =&gt; Your <code>PATH</code> <em>environment variable</em>; a <code>:</code> separated list of places your shell looks for programs.</p>
 <p>This can be edited if you want to let your shell know to look other places as well (see <code>.bashrc</code>)</p>
 </section>
 <section id="pipes-and-streams" class="level1">
 <h1>Pipes and streams</h1>
-<p>In which our constructions in flight don tongues and communicate!</p>
+<p><em>In which our constructions in flight don tongues and communicate!</em></p>
 </section>
 <section id="a-bit-about-std-files" class="level1">
 <h1>A bit about <code>std</code> files</h1>
@@ -285,7 +286,7 @@ don’t forget to <code>module load intro-bio</code>!]</p>
 <h1>Example</h1>
 <p><code>column -t -s , data/sfv.csv | less -S</code></p>
 <ul>
-<li><code>column</code> writes its output to <code>stdout</code>
+<li><code>column</code> (a program for working with tabular data) writes its output to <code>stdout</code>
 <ul>
 <li><code>-t</code> specifies tabs for output</li>
 <li><code>-s ,</code> specifies command for separator</li>
@@ -337,26 +338,29 @@ MBG104WBGag101   MBG104     monkey    gag    Narayanganj  ...
 <li>Use the key command <code>Ctrl-d</code> to close the stdin file</li>
 <li><code>cat</code> will print out whatever you typed in</li>
 </ul>
-<p>Note: This is how your bash shell works, and why <code>Ctrl-d</code> quits the shell!</p>
+</section>
+<section id="the-shell-reads-from-stdin" class="level1">
+<h1>The shell reads from stdin!</h1>
+<p>Your bash shell works very much like cat:</p>
+<ul>
+<li><strong>R</strong>ead line of <code>stdin</code> file</li>
+<li><strong>E</strong>valuate that line</li>
+<li><strong>P</strong>rint <code>stdout</code> to screen</li>
+<li><strong>L</strong>oop back and start over</li>
+</ul>
+<p>Note: this is why Ctrl-d works to quit the shell! You’re literally closing the stdin file that the shell <strong>REPL</strong> is reading from.</p>
+</section>
+<section id="thats-it-for-pipes-and-streams" class="level1">
+<h1>That’s it for pipes and streams</h1>
+<p>Questions?</p>
 </section>
 <section id="practicum" class="level1">
 <h1>Practicum!</h1>
-<p>In which we apply our knowledge of these flying, speaking beasts.</p>
+<p><em>In which we apply our knowledge of these flying, speaking beasts</em></p>
 </section>
-<section id="first-lets-look-at-our-csv-data-a-bit-more" class="level1">
-<h1>First, let’s look at our CSV data a bit more</h1>
-<p>We’ll be using several programs with <code>stdin</code>, <code>stdout</code> and redirection to answer questions about our data.</p>
-</section>
-<section id="side-note-strategy" class="level1">
-<h1>Side note: strategy</h1>
-<p>The way to work through and understand these examples:</p>
-<ul>
-<li>run the first part of the command and think about what it’s doing</li>
-<li>add the next part of the pipe to see what that does</li>
-<li>repeat, till we’ve done the whole command</li>
-<li>reflect and think about the strategy used to put each of these pieces together towards the end goal</li>
-</ul>
-<p>This is useful in part because this is typically how we write.</p>
+<section id="navigating-data" class="level1">
+<h1>Navigating data</h1>
+<p>We’ll start with some more basic examples using piping to more effectively look through our data.</p>
 </section>
 <section id="head-first" class="level1">
 <h1>Head first…</h1>
@@ -364,44 +368,59 @@ MBG104WBGag101   MBG104     monkey    gag    Narayanganj  ...
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">head</span> data/sfv.csv
 
 <span class="kw">column</span> -t -s , data/sfv.csv <span class="kw">|</span> <span class="kw">head</span></code></pre></div>
-<p>This is useful for working with big files.</p>
+<p>This is useful for looking at the very top – or <em>head</em> – of big files (particularly CSV; -&gt; header + a few rows).</p>
 </section>
-<section id="lets-take-a-look-at-our-alignment-from-last-week" class="level1">
-<h1>Let’s take a look at our alignment from last week</h1>
-<section id="always-do-this-with-alignments" class="level2">
-<h2>Always do this with alignments!</h2>
+<section id="looking-at-alignments" class="level1">
+<h1>Looking at alignments</h1>
+<p>It’s important to always check your alignments to make sure they look “reasonable” (more or less, look like a plausable history, not completely “random”).</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># We&#39;ll use the `alnvu` program</span>
 <span class="kw">av</span> -L 99999 -w 99999 -c output/alignment.fasta <span class="kw">|</span> <span class="kw">less</span> -S</code></pre></div>
-</section>
+<p><code>av</code> is an <em>alignment viewer</em> which – with these settings – prints the differences from <em>consensus</em> for each sequence, making it easy to scan.</p>
 </section>
 <section id="we-can-also-look-at-our-tree" class="level1">
 <h1>We can also look at our tree</h1>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">nw_display</span> output/tree.nw <span class="kw">|</span> <span class="kw">less</span> -S</code></pre></div>
 </section>
-<section id="so-we-can-look-at-data-in-unix" class="level1">
-<h1>So we can look at data in Unix…</h1>
-<p>Now lets use it for more in depth analysis.</p>
+<section id="analyzing-data" class="level1">
+<h1>Analyzing data</h1>
+<p>In these examples we’ll be combinging several shell commands using piping in order to perform multistep computations, effectively making the shell into a programming language.</p>
 </section>
-<section id="how-many-human-sequences-are-there" class="level1">
-<h1>How many human sequences are there?</h1>
+<section id="side-note-strategy" class="level1">
+<h1>Side note: strategy</h1>
+<p>The way to work through and understand these examples:</p>
+<ul>
+<li>run the first part of the command and think about what it’s doing</li>
+<li>add the next part of the pipe to see what that does</li>
+<li>repeat, till through the whole command</li>
+<li>reflect and think about the strategy used to put each of these pieces together towards the end product</li>
+</ul>
+<p>This is analogous to how we typically write these computations, breaking a computation down into steps corresponding to known shell commands, one at a time.</p>
+</section>
+<section id="sequences-per-species" class="level1">
+<h1>Sequences per species</h1>
 <p>There is a species column in our data set with <code>human</code> and <code>monkey</code> entries.</p>
 <p><br/></p>
 <p>Question: How would we figure out how many human and monkey sequences there are in the data?</p>
 </section>
-<section id="how-many-human-sequences-are-there-1" class="level1">
-<h1>How many human sequences are there?</h1>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">grep</span> human data/sfv.csv <span class="kw">|</span> <span class="kw">wc</span> -l
+<section id="sequences-per-species-1" class="level1">
+<h1>Sequences per species</h1>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># How many human sequences are there?</span>
+<span class="kw">grep</span> human data/sfv.csv <span class="kw">|</span> <span class="kw">wc</span> -l
 
-<span class="co"># what about monkey sequences?</span>
+<span class="co"># What about monkey sequences?</span>
 <span class="kw">grep</span> monkey data/sfv.csv <span class="kw">|</span> <span class="kw">wc</span> -l</code></pre></div>
 <ul>
 <li><code>grep</code> searches through files for a pattern</li>
 <li><code>wc -l</code> counts the number of lines</li>
 <li>Thus, <code>grep ... | wc -l</code> counts the number of lines in a file matching some pattern</li>
 </ul>
+<p>There’s one line per sequence, so this gives us what we’re after.</p>
+</section>
+<section id="what-are-some-problems-with-this" class="level1">
+<h1>What are some problems with this?</h1>
 </section>
 <section id="some-problems-with-this" class="level1">
-<h1>Some problems with this:</h1>
+<h1>Some problems with this</h1>
 <p>We’re not accounting for the tabular structure:</p>
 <ul>
 <li>We can’t restrict matches to just a particular column in the data</li>
@@ -413,9 +432,10 @@ MBG104WBGag101   MBG104     monkey    gag    Narayanganj  ...
 <p>How many sequences are there for each species?</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">cut</span> -d , -f 3 data/sfv.csv <span class="kw">|</span> <span class="kw">sort</span> <span class="kw">|</span> <span class="kw">uniq</span> -c</code></pre></div>
 <ul>
-<li><code>cut -d , -f 3</code> extracts the third <code>,</code> separated entry out of each line</li>
-<li><code>sort | uniq -c</code> makes a count of occurrences for each unique entry</li>
+<li><code>cut -d , -f 3</code> extracts the third <code>,</code> separated entry for each line</li>
+<li><code>sort | uniq -c</code> counts occurrences for each unique entry</li>
 </ul>
+<p>The number of times <code>&quot;monkey&quot;</code> shows up in the count then will be the number of sequences taking that value in the species column.</p>
 </section>
 <section id="how-to-visualize-this" class="level1">
 <h1>How to visualize this</h1>
@@ -528,7 +548,7 @@ MBG104WBGag101   MBG104     monkey    gag    Narayanganj  ...
 <pre><code>  8 human
 169 monkey
   1 species</code></pre>
-<p>There is exactly one row in the last result set for each unique specimen. Thus, the number of times we see a species in that table is the number of specimens corresponding to that species.</p>
+<p>Since there’s 1 row per specimen in the previous result, counting these rows by species gives us the number of specimens per species.</p>
 </section>
 <section id="what-if-we-wanted-to-count-number-of-specimens-per-species-for-each-location" class="level1">
 <h1>What if we wanted to count number of specimens per species for each <em>location</em>?</h1>
@@ -538,9 +558,14 @@ MBG104WBGag101   MBG104     monkey    gag    Narayanganj  ...
 <h1>Specimens by location and species</h1>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">cut</span> -d , -f 2,3,5 data/sfv.csv <span class="kw">|</span> <span class="kw">sort</span> <span class="kw">|</span> <span class="kw">uniq</span> <span class="kw">|</span> <span class="kw">cut</span> -d , -f 2,3 <span class="kw">|</span> <span class="kw">sort</span> <span class="kw">|</span> <span class="kw">uniq</span> -c</code></pre></div>
 </section>
+<section id="look-at-these-numbers" class="level1">
+<h1>Look at these numbers</h1>
+<p>What do you notice about where we tend to see humans getting infected?</p>
+</section>
 <section id="moral-of-the-story" class="level1">
 <h1>Moral of the story</h1>
 <p>Small composable tools offer a lot of power and flexibility.</p>
+<p>From very simple pieces we were able to compute answers to very nontrivial queries. This is the promise of Unix composability, and why we love Unix for bioinformatics.</p>
 </section>
 <section id="is-anyone-else-getting-tired-of-all-this--d--f-235-business" class="level1">
 <h1>Is anyone else getting tired of all this <code>-d , -f 2,3,5</code> business?</h1>

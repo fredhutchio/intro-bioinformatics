@@ -320,13 +320,13 @@ ls -a ~
 Note: Spaces are important here (but not how many).
 
 
-# Getting help for a Unix command
+# Getting help within Unix
 
-Most Unix programs will take either a `-h`, `--help`, or `-help` flag and return useful information about how to construct a valid command.
+* Most Unix programs will take either a `-h`, `--help`, or `-help` flag and return useful information about how to construct a valid command.
+* Some commands also have _man pages_, which you can access using `man <command-name>`.
+* You can also search for programs using `apropos`
 
-Some commands also have _man pages_, which you can access using `man <command-name>`.
-
-Example: `ls --help` & `man ls`
+Example: `ls --help` & `man ls` & `apropos calculator`
 
 
 # Stuck in a terminal?

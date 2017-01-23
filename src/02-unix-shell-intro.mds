@@ -26,7 +26,7 @@ This gives us a lot of power.
 
 # Directories, files and paths, oh my!
 
-In which we see the static world of things.
+_In which we see the static world of things_
 
 
 # In Unix, (almost) everything is a file
@@ -55,58 +55,68 @@ Paths are the addresses for files, and are based on _directories_.
 * `~` - Home directory
 
 
-# How paths work
+# Composing paths
 
-`/` lets us compose paths.
+We can also use `/` to represent how paths relate to each other:
 
-We have a directory called `bioinfclass` in the directory `~`.
-So `~/bioinfclass` is a complete path to this directory.
+```bash
+cd ~ # set our "working directory" to be home
 
-`bioinfclass` also has a subdirectory called `data`, so its path is `~/bioinfclass/data`.
+# First try listing bioinfclass contents
+ls bioinfclass
 
+# Now try listing data directory contents
+ls data
 
-# Path tools
+# ^ fails (no data in ~); Relative to current working directory tho?
+ls bioinfclass/data
 
-* change directories with `cd`
-* list directory contents with `ls`
-* see where we are with `pwd`
+# We could also say
+ls ./bioinfclass/data
+ls ~/bioinfclass/data
+ls /home/<yourusername>/bioinfclass/data  # ALL can be traced to /
+```
 
+# More on current working directory
 
-# Example: Using path tools
+Every process in Unix (including your shell sessions) will have a _working directory_ associated with it, and you can see this with `pwd`.
+Files can be accessed relative to this directory.
 
 ```bash
 cd ~
-
 pwd
 
 # list the contents of this directory
 ls bioinfclass/data
-cd bioinfclass
 
+cd bioinfclass
 pwd
 
+# now data is fine relative to our current working directory
 ls data
 ```
 
 
 # Exercise: going up the directory chain
 
-Try
+Now that we are in the `~/bioinformatics` directory, how could we refer to another file in `~`, like your `.tmux.conf`?
+
+
+# Going up the directory chain
 
 ```bash
-ls ..
-
-ls ../..
-
-cd /
+ls ~/.tmux.conf
+ls /home/<yourusername>/.tmux.conf
+# Using relative paths
+ls ../.tmux.conf
 ```
-
-**Exercise:** Where are we now? How can we get back to our home directory?
 
 
 # We can change the path of a file using `mv`
 
 ```bash
+# move the data directory to ~, our current directory
+cd ~
 mv bioinfclass/data .
 
 ls
@@ -122,10 +132,13 @@ ls bioinfclass
 # `mv` is for renaming as well
 
 ```bash
-mv bioinfclass foobar
+# we must hide our dark arts...
+mv bioinfclass catgifs
 
 ls
 ```
+
+Think of `mv` as updating the "path" stamp on a file
 
 **Exercise:** How do we get `bioinfclass` back?
 
@@ -137,12 +150,12 @@ ls
 
 &nbsp;
 
-**Exercise:** create a file called `bar` in a new subdirectory called `foo` of your home directory
+**Exercise:** create a file called `birds` in a new subdirectory called `dinosaurs` of your home directory
 
 
 # Commands
 
-In which the things take flight and evolve!
+_In which things take flight and evolve!_
 
 
 # Anatomy of a Unix command
@@ -166,22 +179,10 @@ In which the things take flight and evolve!
 * sometimes single dash and word (like `-help`; esp Java programs)
 * sometimes there are short and long options (like `-h` or `--help`)
 * sometimes short flags can be munged together (`-v -x -f the-file` == `-vxf the-file`)
+* occasional insanity like `dd if=somefile of=somenewfile`
 
-
-# Help with flags
-
-```bash
-ls --help
-
-```
-
-
-# Getting help with `man` and `apropos`
-
-There is built in help on the command line:
-
-* Try `man ls` (arrows to scroll, q to quit)
-* Try `apropos calculator`
+Ultimately, programs can interpret their arguments however they choose!
+These are just conventions.
 
 
 # Programs are just files!
@@ -195,10 +196,10 @@ ls -l /usr/bin/tree
 # super secret shortcut
 ls -l $(which tree)
 
-touch testfile
+touch holy-crap-birds-are-dinosaurs
 
 # Notice no x; not executable...
-ls -l testfile
+ls -l holy-crap-birds-are-dinosaurs
 ```
 
 
@@ -211,14 +212,14 @@ This is one of the many places your shell looks for programs
 
 # How does the shell know where to look for programs?
 
-`echo $PATH` => `:` separated list of places your shell looks for programs.
+`echo $PATH` => Your `PATH` _environment variable_; a `:` separated list of places your shell looks for programs.
 
 This can be edited if you want to let your shell know to look other places as well (see `.bashrc`)
 
 
 # Pipes and streams
 
-In which our constructions in flight don tongues and communicate!
+_In which our constructions in flight don tongues and communicate!_
 
 
 # A bit about `std` files
@@ -267,7 +268,7 @@ don't forget to `module load intro-bio`!]
 
 `column -t -s , data/sfv.csv | less -S`
 
-* `column` writes its output to `stdout`
+* `column` (a program for working with tabular data) writes its output to `stdout`
     * `-t` specifies tabs for output
     * `-s ,` specifies command for separator
 * `less` reads from `/dev/stdin` if no file is specified
@@ -321,29 +322,33 @@ cat
 * Use the key command `Ctrl-d` to close the stdin file
 * `cat` will print out whatever you typed in
 
-Note: This is how your bash shell works, and why `Ctrl-d` quits the shell!
+
+# The shell reads from stdin!
+
+Your bash shell works very much like cat:
+
+* **R**ead line of `stdin` file
+* **E**valuate that line
+* **P**rint `stdout` to screen
+* **L**oop back and start over
+
+Note: this is why Ctrl-d works to quit the shell!
+You're literally closing the stdin file that the shell **REPL** is reading from.
+
+
+# That's it for pipes and streams
+
+Questions?
 
 
 # Practicum!
 
-In which we apply our knowledge of these flying, speaking beasts.
+_In which we apply our knowledge of these flying, speaking beasts_
 
 
-# First, let's look at our CSV data a bit more
+# Navigating data
 
-We'll be using several programs with `stdin`, `stdout` and redirection to answer questions about our data.
-
-
-# Side note: strategy
-
-The way to work through and understand these examples:
-
-* run the first part of the command and think about what it's doing
-* add the next part of the pipe to see what that does
-* repeat, till we've done the whole command
-* reflect and think about the strategy used to put each of these pieces together towards the end goal
-
-This is useful in part because this is typically how we write.
+We'll start with some more basic examples using piping to more effectively look through our data.
 
 
 # Head first...
@@ -356,17 +361,20 @@ head data/sfv.csv
 column -t -s , data/sfv.csv | head
 ```
 
-This is useful for working with big files.
+This is useful for looking at the very top -- or _head_ -- of big files
+(particularly CSV; -> header + a few rows).
 
 
-# Let's take a look at our alignment from last week
+# Looking at alignments
 
-## Always do this with alignments!
+It's important to always check your alignments to make sure they look "reasonable" (more or less, look like a plausable history, not completely "random").
 
 ```bash
 # We'll use the `alnvu` program
 av -L 99999 -w 99999 -c output/alignment.fasta | less -S
 ```
+
+`av` is an _alignment viewer_ which -- with these settings -- prints the differences from _consensus_ for each sequence, making it easy to scan.
 
 
 # We can also look at our tree
@@ -376,12 +384,24 @@ nw_display output/tree.nw | less -S
 ```
 
 
-# So we can look at data in Unix...
+# Analyzing data
 
-Now lets use it for more in depth analysis.
+In these examples we'll be combinging several shell commands using piping in order to perform multistep computations, effectively making the shell into a programming language.
 
 
-# How many human sequences are there?
+# Side note: strategy
+
+The way to work through and understand these examples:
+
+* run the first part of the command and think about what it's doing
+* add the next part of the pipe to see what that does
+* repeat, till through the whole command
+* reflect and think about the strategy used to put each of these pieces together towards the end product
+
+This is analogous to how we typically write these computations, breaking a computation down into steps corresponding to known shell commands, one at a time.
+
+
+# Sequences per species
 
 There is a species column in our data set with `human` and `monkey` entries.
 
@@ -390,12 +410,13 @@ There is a species column in our data set with `human` and `monkey` entries.
 Question: How would we figure out how many human and monkey sequences there are in the data?
 
 
-# How many human sequences are there?
+# Sequences per species
 
 ```bash
+# How many human sequences are there?
 grep human data/sfv.csv | wc -l
 
-# what about monkey sequences?
+# What about monkey sequences?
 grep monkey data/sfv.csv | wc -l
 ```
 
@@ -403,8 +424,13 @@ grep monkey data/sfv.csv | wc -l
 * `wc -l` counts the number of lines
 * Thus, `grep ... | wc -l` counts the number of lines in a file matching some pattern
 
+There's one line per sequence, so this gives us what we're after.
 
-# Some problems with this:
+
+# What are some problems with this?
+
+
+# Some problems with this
 
 We're not accounting for the tabular structure:
 
@@ -420,8 +446,10 @@ How many sequences are there for each species?
 cut -d , -f 3 data/sfv.csv | sort | uniq -c
 ```
 
-* `cut -d , -f 3` extracts the third `,` separated entry out of each line
-* `sort | uniq -c` makes a count of occurrences for each unique entry
+* `cut -d , -f 3` extracts the third `,` separated entry for each line
+* `sort | uniq -c` counts occurrences for each unique entry
+
+The number of times `"monkey"` shows up in the count then will be the number of sequences taking that value in the species column.
 
 
 # How to visualize this
@@ -554,8 +582,7 @@ Now we now have exactly 1 row per specimen (species just "comes along for the ri
     169 monkey
       1 species
 
-There is exactly one row in the last result set for each unique specimen.
-Thus, the number of times we see a species in that table is the number of specimens corresponding to that species.
+Since there's 1 row per specimen in the previous result, counting these rows by species gives us the number of specimens per species.
 
 
 # What if we wanted to count number of specimens per species for each _location_?
@@ -569,10 +596,17 @@ What would we do?
 cut -d , -f 2,3,5 data/sfv.csv | sort | uniq | cut -d , -f 2,3 | sort | uniq -c
 ```
 
+# Look at these numbers
+
+What do you notice about where we tend to see humans getting infected?
+
 
 # Moral of the story
 
 Small composable tools offer a lot of power and flexibility.
+
+From very simple pieces we were able to compute answers to very nontrivial queries.
+This is the promise of Unix composability, and why we love Unix for bioinformatics.
 
 
 # Is anyone else getting tired of all this `-d , -f 2,3,5` business?
