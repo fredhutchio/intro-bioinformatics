@@ -114,6 +114,8 @@ ls ../.tmux.conf
 
 # We can change the path of a file using `mv`
 
+##
+
 ```bash
 # move the data directory to ~, our current directory
 cd ~
@@ -128,11 +130,19 @@ ls bioinfclass
 
 **Exercise:** How do we get `data` back?
 
+## Getting data back
+
+```bash
+mv data bioinfclass
+```
+
 
 # `mv` is for renaming as well
 
+##
+
 ```bash
-# we must hide our dark arts...
+# nothing to see here...
 mv bioinfclass catgifs
 
 ls
@@ -141,6 +151,13 @@ ls
 Think of `mv` as updating the "path" stamp on a file
 
 **Exercise:** How do we get `bioinfclass` back?
+
+## Getting bioinfclass back
+
+```bash
+mv catgifs bioinfclass
+```
+
 
 
 # Creating and removing files

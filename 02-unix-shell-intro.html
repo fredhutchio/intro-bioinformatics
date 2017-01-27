@@ -162,6 +162,8 @@
 </section>
 <section id="we-can-change-the-path-of-a-file-using-mv" class="level1">
 <h1>We can change the path of a file using <code>mv</code></h1>
+<section id="section" class="level2">
+<h2></h2>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># move the data directory to ~, our current directory</span>
 <span class="kw">cd</span> ~
 <span class="kw">mv</span> bioinfclass/data .
@@ -173,14 +175,26 @@
 <span class="kw">ls</span> bioinfclass</code></pre></div>
 <p><strong>Exercise:</strong> How do we get <code>data</code> back?</p>
 </section>
+<section id="getting-data-back" class="level2">
+<h2>Getting data back</h2>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">mv</span> data bioinfclass</code></pre></div>
+</section>
+</section>
 <section id="mv-is-for-renaming-as-well" class="level1">
 <h1><code>mv</code> is for renaming as well</h1>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># we must hide our dark arts...</span>
+<section id="section-1" class="level2">
+<h2></h2>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># nothing to see here...</span>
 <span class="kw">mv</span> bioinfclass catgifs
 
 <span class="kw">ls</span></code></pre></div>
 <p>Think of <code>mv</code> as updating the “path” stamp on a file</p>
 <p><strong>Exercise:</strong> How do we get <code>bioinfclass</code> back?</p>
+</section>
+<section id="getting-bioinfclass-back" class="level2">
+<h2>Getting bioinfclass back</h2>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">mv</span> catgifs bioinfclass</code></pre></div>
+</section>
 </section>
 <section id="creating-and-removing-files" class="level1">
 <h1>Creating and removing files</h1>
@@ -314,7 +328,7 @@ MBG103WBGag104   MBG103     monkey    gag    Narayanganj  ...
 MBG104WBGag101   MBG104     monkey    gag    Narayanganj  ...
 ...</code></pre>
 </section>
-<section id="section" class="level1">
+<section id="section-2" class="level1">
 <h1></h1>
 <p>Programs have to <em>know</em> to use stdin / stdout for this to work. Some conventions:</p>
 <ul>
