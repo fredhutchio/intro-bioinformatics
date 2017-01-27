@@ -4,7 +4,7 @@
 
 # First things first
 
-* Were you able to get `csvuniq` installed/working?
+* Were you able to get `csvuniq` installed/working (check `~/bin/csvuniq -h`)?
 * Note: `Ctrl-k` is useful for killing entire lines in nano
 * You can turn off auto-indentation mode when pasting using `Esc i`
 
@@ -197,33 +197,40 @@ In the shell:
 csvlook output/seqs_per_specimen.csv | less -S
 ```
 
+# Questions?
 
-# How shell variables work
 
-To clarify and simplify, we introduce _variables_!
+# Shell variables
+
+Shell variables are an example of _indirection_.
+
+They act as shorthand references to paths, files, or data.
+What the variable name points to can change, without having to change (much) of the code.
+This makes it easier to grow your scripts.
+
+
+# Shell variables
 
 In the shell:
 
-```
-# Assign the value "output" to the variable outdir
-# Note no spaces around the "="
-outdir="output"
+```bash
+# Set the shell variable `birds`
+# (Note: no spaces around the "=")
+birds="are really dinosaurs"
 
 # We can use that variable in further commands by prepending $
-echo $outdir
-ls $outdir
+echo $birds
 ```
 
 
-# Cleaning things up with variables
+# Cleaning up our build script
 
-In our `build.sh` file:
+Edit our `build.sh` file:
 
 ```
 # Specify output directory, and name input data
 outdir="output"
 metadata="data/sfv.csv"
-
 
 # Compute number of sequences per species
 seqs_per_species="$outdir/seqs_per_species.csv"
@@ -235,12 +242,12 @@ csvuniq -zc specimen,species,location $metadata > $seqs_per_specimen
 ```
 
 
-# Continuing variable clean up
+# Cleaning up our build script
 
-## Using output variables as input:
+Add the following to the end of our build script.
 
 ```
-# Use those results to compute number of specimens per species
+# Use seqs_per_specimen to compute specimens per species
 specs_per_species="$outdir/specs_per_species.csv"
 csvuniq -zc species $seqs_per_specimen > $specs_per_species
 
@@ -249,7 +256,7 @@ specs_per_species_location="$outdir/specs_per_species_location.csv"
 csvuniq -zc species,location $seqs_per_specimen > $specs_per_species_location
 ```
 
-<!-- 18 minutes so far -->
+Note how much nicer it is referring to past results using shell variables?
 
 
 # Verify that it runs
@@ -261,6 +268,9 @@ ls output
 
 csvlook output/seqs_per_specimen.csv
 ```
+
+
+# Questions
 
 
 # Writing your own commands
@@ -316,7 +326,7 @@ csvlook $@ | head -n 20
 Again, `chmod +x`, then test it!
 
 
-# Other things to know for shell scripting:
+# Other things to know for shell scripting & power usage:
 
 * Iteration and arrays: Let us nest or loop over things like different species or locations and process separately
 * Conditionals: Let you run tests to determine what code to run
@@ -397,7 +407,7 @@ Question: Why do we use `> /dev/null` here?
 
 There is lots of explanation in the book, so you can learn more there. But to get a brief sense:
 
-* `find`: Let's you compute very specific lists of files, returned to `stdout` separated by lines
+* `find`: Lets you compute very specific lists of files, returned to `stdout` separated by lines
 * `xargs`: Can take line separated items, and apply them as arguments to some command
     * Good for large collections
     * Can run in parallel
@@ -415,12 +425,56 @@ There is lots of explanation in the book, so you can learn more there. But to ge
 
 # Excercise 1
 
-Add the alignment and tree building we did in the last two sessions to our `build.sh` script.
+##
+
+How would we add the alignment and tree building we did in the last two sessions to our `build.sh` script?
+
+##
+
+Make the top of our script look like:
+
+
+```
+#!/bin/bash
+# ...
+
+inseqs="data/sfv.fasta"
+
+# Alignment
+alignment="$outdir/alignment.fasta"
+muscle -maxiters 2 -in $inseqs -out $alignment
+
+# Tree
+tree="$outdir/tree.nw"
+FastTree -nt $alignment > $tree
+```
 
 
 # Excercise 2
 
-Add the following to the end of our `build.sh` script, and complete the TODO items in comments:
+## Say we want to do some analyses for each location.
+
+Let's start by creating a separate directory for each.
+How would we add location specific metadata using our csvkit tools?
+
+
+```bash
+# For each location...
+locations=($(csvuniq -c location $metadata | tail -n +2))
+for location in ${locations[*]}
+do
+  # Create a location outdir, if it doesn't already exist
+  loc_outdir="$outdir/$location"
+  mkdir -p $loc_outdir
+
+  # Create a subset of the metadata for just that location
+  loc_metadata="$loc_outdir/metadata.csv"
+  # XXX TODO! Add code here to create $loc_metadata
+
+done
+```
+
+##
 
 ```bash
 # For each location...
@@ -435,16 +489,55 @@ do
   loc_metadata="$loc_outdir/metadata.csv"
   csvgrep -c location -m $location $metadata > $loc_metadata
 
+done
+```
+
+
+# Excercise 3
+
+## How would we create a phylogenetic tree for each location in our data set?
+
+```bash
+# For each location...
+locations=($(csvuniq -c location $metadata | tail -n +2))
+for location in ${locations[*]}
+do
+  # ... create location metadata, etc.
+
   # Create a list of sequences sampled from that location
   loc_sequences="$loc_outdir/sequences"
   csvcut -c sequence $loc_metadata > $loc_sequences
 
   # TODO:
-  # * Subset Ex. 1 alignment to sequences from $location using `seqmagick convert`
-  # * Build a phylogenetic tree from this alignment subset using FastTree
+  # * Subset Ex.1 alignment using `seqmagick convert`
+  # * Build a tree from this alignment subset using FastTree
 done
+```
 
-# Do something with results...
+##
+
+Add the following to the end of our for loop
+
+```bash
+# For each location...
+locations=($(csvuniq -c location $metadata | tail -n +2))
+for location in ${locations[*]}
+do
+  # ... create location metadata, etc.
+
+  # Create a list of sequences sampled from that location
+  loc_sequences="$loc_outdir/sequences"
+  csvcut -c sequence $loc_metadata > $loc_sequences
+
+  # Subset our alignment to just that location
+  loc_alignment="$loc_outdir/alignment.fasta"
+  seqmagick convert --include-from-file $loc_sequences $alignment $loc_alignment
+
+  # Build a location tree
+  loc_tree="$loc_outdir/tree.nw"
+  FastTree -nt $loc_alignment > $loc_tree
+
+done
 ```
 
 
@@ -472,45 +565,8 @@ Reading for next class (if you want to read ahead):
 * Erick's favorite [video](https://www.youtube.com/watch?v=olH-9b3VJfs) about shell scripting, and [website](http://shellhaters.org/)
 
 
-# SPOILER ALERT!!!
-
-## The following slides contain solutions to the exercises.
-
-Go no further if you're keen to solve the problems yourself.
-
-
-# Ex. 1: Automating alignment and tree building
-
-```
-#!/bin/bash
-# ...
-
-inseqs="data/sfv.fasta"
-
-# Alignment
-alignment="$outdir/alignment.fasta"
-muscle -maxiters 2 -in $inseqs -out $alignment
-
-# Tree
-tree="$outdir/tree.nw"
-FastTree -nt $alignment > $tree
-```
-
-
-# Ex. 2: Finish location for loop
-
-```
-  # Subset our alignment to just that location
-  loc_alignment="$loc_outdir/alignment.fasta"
-  seqmagick convert --include-from-file $loc_sequences $alignment $loc_alignment
-
-  # Build a location tree
-  loc_tree="$loc_outdir/tree.nw"
-  FastTree -nt $loc_alignment > $loc_tree
-```
-
-
 # This slide intentionally left almost blank...
 
 [Back to homepage](http://fredhutchio.github.io/intro-bioinformatics)
+
 

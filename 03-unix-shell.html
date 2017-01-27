@@ -62,7 +62,7 @@
 <section id="first-things-first" class="level1">
 <h1>First things first</h1>
 <ul>
-<li>Were you able to get <code>csvuniq</code> installed/working?</li>
+<li>Were you able to get <code>csvuniq</code> installed/working (check <code>~/bin/csvuniq -h</code>)?</li>
 <li>Note: <code>Ctrl-k</code> is useful for killing entire lines in nano</li>
 <li>You can turn off auto-indentation mode when pasting using <code>Esc i</code></li>
 </ul>
@@ -204,25 +204,30 @@ csvuniq -zc species,location output/seqs_per_specimen.csv &gt; output/specs_per_
 
 csvlook output/seqs_per_specimen.csv | less -S</code></pre>
 </section>
-<section id="how-shell-variables-work" class="level1">
-<h1>How shell variables work</h1>
-<p>To clarify and simplify, we introduce <em>variables</em>!</p>
-<p>In the shell:</p>
-<pre><code># Assign the value &quot;output&quot; to the variable outdir
-# Note no spaces around the &quot;=&quot;
-outdir=&quot;output&quot;
-
-# We can use that variable in further commands by prepending $
-echo $outdir
-ls $outdir</code></pre>
+<section id="questions" class="level1">
+<h1>Questions?</h1>
 </section>
-<section id="cleaning-things-up-with-variables" class="level1">
-<h1>Cleaning things up with variables</h1>
-<p>In our <code>build.sh</code> file:</p>
+<section id="shell-variables" class="level1">
+<h1>Shell variables</h1>
+<p>Shell variables are an example of <em>indirection</em>.</p>
+<p>They act as shorthand references to paths, files, or data. What the variable name points to can change, without having to change (much) of the code. This makes it easier to grow your scripts.</p>
+</section>
+<section id="shell-variables-1" class="level1">
+<h1>Shell variables</h1>
+<p>In the shell:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># Set the shell variable `birds`</span>
+<span class="co"># (Note: no spaces around the &quot;=&quot;)</span>
+<span class="ot">birds=</span><span class="st">&quot;are really dinosaurs&quot;</span>
+
+<span class="co"># We can use that variable in further commands by prepending $</span>
+<span class="kw">echo</span> <span class="ot">$birds</span></code></pre></div>
+</section>
+<section id="cleaning-up-our-build-script" class="level1">
+<h1>Cleaning up our build script</h1>
+<p>Edit our <code>build.sh</code> file:</p>
 <pre><code># Specify output directory, and name input data
 outdir=&quot;output&quot;
 metadata=&quot;data/sfv.csv&quot;
-
 
 # Compute number of sequences per species
 seqs_per_species=&quot;$outdir/seqs_per_species.csv&quot;
@@ -232,19 +237,17 @@ csvuniq -zc species $metadata &gt; $seqs_per_species
 seqs_per_specimen=&quot;$outdir/seqs_per_specimen.csv&quot;
 csvuniq -zc specimen,species,location $metadata &gt; $seqs_per_specimen</code></pre>
 </section>
-<section id="continuing-variable-clean-up" class="level1">
-<h1>Continuing variable clean up</h1>
-<section id="using-output-variables-as-input" class="level2">
-<h2>Using output variables as input:</h2>
-<pre><code># Use those results to compute number of specimens per species
+<section id="cleaning-up-our-build-script-1" class="level1">
+<h1>Cleaning up our build script</h1>
+<p>Add the following to the end of our build script.</p>
+<pre><code># Use seqs_per_specimen to compute specimens per species
 specs_per_species=&quot;$outdir/specs_per_species.csv&quot;
 csvuniq -zc species $seqs_per_specimen &gt; $specs_per_species
 
 # Also use them to compute number of specimens per species and location
 specs_per_species_location=&quot;$outdir/specs_per_species_location.csv&quot;
 csvuniq -zc species,location $seqs_per_specimen &gt; $specs_per_species_location</code></pre>
-<!-- 18 minutes so far -->
-</section>
+<p>Note how much nicer it is referring to past results using shell variables?</p>
 </section>
 <section id="verify-that-it-runs" class="level1">
 <h1>Verify that it runs</h1>
@@ -253,6 +256,9 @@ csvuniq -zc species,location $seqs_per_specimen &gt; $specs_per_species_location
 <span class="kw">ls</span> output
 
 <span class="kw">csvlook</span> output/seqs_per_specimen.csv</code></pre></div>
+</section>
+<section id="questions-1" class="level1">
+<h1>Questions</h1>
 </section>
 <section id="writing-your-own-commands" class="level1">
 <h1>Writing your own commands</h1>
@@ -292,8 +298,8 @@ csvcut -c sequence,specimen,species data/sfv.csv | csvless</code></pre>
 csvlook $@ | head -n 20</code></pre>
 <p>Again, <code>chmod +x</code>, then test it!</p>
 </section>
-<section id="other-things-to-know-for-shell-scripting" class="level1">
-<h1>Other things to know for shell scripting:</h1>
+<section id="other-things-to-know-for-shell-scripting-power-usage" class="level1">
+<h1>Other things to know for shell scripting &amp; power usage:</h1>
 <ul>
 <li>Iteration and arrays: Let us nest or loop over things like different species or locations and process separately</li>
 <li>Conditionals: Let you run tests to determine what code to run</li>
@@ -353,7 +359,7 @@ fi</code></pre>
 <h1>find/xargs/parallel</h1>
 <p>There is lots of explanation in the book, so you can learn more there. But to get a brief sense:</p>
 <ul>
-<li><code>find</code>: Let’s you compute very specific lists of files, returned to <code>stdout</code> separated by lines</li>
+<li><code>find</code>: Lets you compute very specific lists of files, returned to <code>stdout</code> separated by lines</li>
 <li><code>xargs</code>: Can take line separated items, and apply them as arguments to some command
 <ul>
 <li>Good for large collections</li>
@@ -376,11 +382,48 @@ fi</code></pre>
 </section>
 <section id="excercise-1" class="level1">
 <h1>Excercise 1</h1>
-<p>Add the alignment and tree building we did in the last two sessions to our <code>build.sh</code> script.</p>
+<section id="section" class="level2">
+<h2></h2>
+<p>How would we add the alignment and tree building we did in the last two sessions to our <code>build.sh</code> script?</p>
+</section>
+<section id="section-1" class="level2">
+<h2></h2>
+<p>Make the top of our script look like:</p>
+<pre><code>#!/bin/bash
+# ...
+
+inseqs=&quot;data/sfv.fasta&quot;
+
+# Alignment
+alignment=&quot;$outdir/alignment.fasta&quot;
+muscle -maxiters 2 -in $inseqs -out $alignment
+
+# Tree
+tree=&quot;$outdir/tree.nw&quot;
+FastTree -nt $alignment &gt; $tree</code></pre>
+</section>
 </section>
 <section id="excercise-2" class="level1">
 <h1>Excercise 2</h1>
-<p>Add the following to the end of our <code>build.sh</code> script, and complete the TODO items in comments:</p>
+<section id="say-we-want-to-do-some-analyses-for-each-location." class="level2">
+<h2>Say we want to do some analyses for each location.</h2>
+<p>Let’s start by creating a separate directory for each. How would we add location specific metadata using our csvkit tools?</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># For each location...</span>
+<span class="ot">locations=($(</span><span class="kw">csvuniq</span> -c location <span class="ot">$metadata</span> <span class="kw">|</span> <span class="kw">tail</span> -n +2<span class="ot">))</span>
+<span class="kw">for</span> <span class="kw">location</span> in <span class="ot">${locations[*]}</span>
+<span class="kw">do</span>
+  <span class="co"># Create a location outdir, if it doesn&#39;t already exist</span>
+  <span class="ot">loc_outdir=</span><span class="st">&quot;</span><span class="ot">$outdir</span><span class="st">/</span><span class="ot">$location</span><span class="st">&quot;</span>
+  <span class="kw">mkdir</span> -p <span class="ot">$loc_outdir</span>
+
+  <span class="co"># Create a subset of the metadata for just that location</span>
+  <span class="ot">loc_metadata=</span><span class="st">&quot;</span><span class="ot">$loc_outdir</span><span class="st">/metadata.csv&quot;</span>
+  <span class="co"># XXX TODO! Add code here to create $loc_metadata</span>
+
+<span class="kw">done</span></code></pre></div>
+</section>
+<section id="section-2" class="level2">
+<h2></h2>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># For each location...</span>
 <span class="ot">locations=($(</span><span class="kw">csvuniq</span> -c location <span class="ot">$metadata</span> <span class="kw">|</span> <span class="kw">tail</span> -n +2<span class="ot">))</span>
 <span class="kw">for</span> <span class="kw">location</span> in <span class="ot">${locations[*]}</span>
@@ -393,16 +436,51 @@ fi</code></pre>
   <span class="ot">loc_metadata=</span><span class="st">&quot;</span><span class="ot">$loc_outdir</span><span class="st">/metadata.csv&quot;</span>
   <span class="kw">csvgrep</span> -c location -m <span class="ot">$location</span> <span class="ot">$metadata</span> <span class="kw">&gt;</span> <span class="ot">$loc_metadata</span>
 
+<span class="kw">done</span></code></pre></div>
+</section>
+</section>
+<section id="excercise-3" class="level1">
+<h1>Excercise 3</h1>
+<section id="how-would-we-create-a-phylogenetic-tree-for-each-location-in-our-data-set" class="level2">
+<h2>How would we create a phylogenetic tree for each location in our data set?</h2>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># For each location...</span>
+<span class="ot">locations=($(</span><span class="kw">csvuniq</span> -c location <span class="ot">$metadata</span> <span class="kw">|</span> <span class="kw">tail</span> -n +2<span class="ot">))</span>
+<span class="kw">for</span> <span class="kw">location</span> in <span class="ot">${locations[*]}</span>
+<span class="kw">do</span>
+  <span class="co"># ... create location metadata, etc.</span>
+
   <span class="co"># Create a list of sequences sampled from that location</span>
   <span class="ot">loc_sequences=</span><span class="st">&quot;</span><span class="ot">$loc_outdir</span><span class="st">/sequences&quot;</span>
   <span class="kw">csvcut</span> -c sequence <span class="ot">$loc_metadata</span> <span class="kw">&gt;</span> <span class="ot">$loc_sequences</span>
 
   <span class="co"># TODO:</span>
-  <span class="co"># * Subset Ex. 1 alignment to sequences from $location using `seqmagick convert`</span>
-  <span class="co"># * Build a phylogenetic tree from this alignment subset using FastTree</span>
-<span class="kw">done</span>
+  <span class="co"># * Subset Ex.1 alignment using `seqmagick convert`</span>
+  <span class="co"># * Build a tree from this alignment subset using FastTree</span>
+<span class="kw">done</span></code></pre></div>
+</section>
+<section id="section-3" class="level2">
+<h2></h2>
+<p>Add the following to the end of our for loop</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># For each location...</span>
+<span class="ot">locations=($(</span><span class="kw">csvuniq</span> -c location <span class="ot">$metadata</span> <span class="kw">|</span> <span class="kw">tail</span> -n +2<span class="ot">))</span>
+<span class="kw">for</span> <span class="kw">location</span> in <span class="ot">${locations[*]}</span>
+<span class="kw">do</span>
+  <span class="co"># ... create location metadata, etc.</span>
 
-<span class="co"># Do something with results...</span></code></pre></div>
+  <span class="co"># Create a list of sequences sampled from that location</span>
+  <span class="ot">loc_sequences=</span><span class="st">&quot;</span><span class="ot">$loc_outdir</span><span class="st">/sequences&quot;</span>
+  <span class="kw">csvcut</span> -c sequence <span class="ot">$loc_metadata</span> <span class="kw">&gt;</span> <span class="ot">$loc_sequences</span>
+
+  <span class="co"># Subset our alignment to just that location</span>
+  <span class="ot">loc_alignment=</span><span class="st">&quot;</span><span class="ot">$loc_outdir</span><span class="st">/alignment.fasta&quot;</span>
+  <span class="kw">seqmagick</span> convert --include-from-file <span class="ot">$loc_sequences</span> <span class="ot">$alignment</span> <span class="ot">$loc_alignment</span>
+
+  <span class="co"># Build a location tree</span>
+  <span class="ot">loc_tree=</span><span class="st">&quot;</span><span class="ot">$loc_outdir</span><span class="st">/tree.nw&quot;</span>
+  <span class="kw">FastTree</span> -nt <span class="ot">$loc_alignment</span> <span class="kw">&gt;</span> <span class="ot">$loc_tree</span>
+
+<span class="kw">done</span></code></pre></div>
+</section>
 </section>
 <section id="other-exercises" class="level1">
 <h1>Other exercises</h1>
@@ -430,38 +508,6 @@ fi</code></pre>
 <li>Erick’s favorite <a href="https://www.youtube.com/watch?v=olH-9b3VJfs">video</a> about shell scripting, and <a href="http://shellhaters.org/">website</a></li>
 </ul>
 </section>
-<section id="spoiler-alert" class="level1">
-<h1>SPOILER ALERT!!!</h1>
-<section id="the-following-slides-contain-solutions-to-the-exercises." class="level2">
-<h2>The following slides contain solutions to the exercises.</h2>
-<p>Go no further if you’re keen to solve the problems yourself.</p>
-</section>
-</section>
-<section id="ex.-1-automating-alignment-and-tree-building" class="level1">
-<h1>Ex. 1: Automating alignment and tree building</h1>
-<pre><code>#!/bin/bash
-# ...
-
-inseqs=&quot;data/sfv.fasta&quot;
-
-# Alignment
-alignment=&quot;$outdir/alignment.fasta&quot;
-muscle -maxiters 2 -in $inseqs -out $alignment
-
-# Tree
-tree=&quot;$outdir/tree.nw&quot;
-FastTree -nt $alignment &gt; $tree</code></pre>
-</section>
-<section id="ex.-2-finish-location-for-loop" class="level1">
-<h1>Ex. 2: Finish location for loop</h1>
-<pre><code>  # Subset our alignment to just that location
-  loc_alignment=&quot;$loc_outdir/alignment.fasta&quot;
-  seqmagick convert --include-from-file $loc_sequences $alignment $loc_alignment
-
-  # Build a location tree
-  loc_tree=&quot;$loc_outdir/tree.nw&quot;
-  FastTree -nt $loc_alignment &gt; $loc_tree</code></pre>
-</section>
 <section id="this-slide-intentionally-left-almost-blank" class="level1">
 <h1>This slide intentionally left almost blank…</h1>
 <p><a href="http://fredhutchio.github.io/intro-bioinformatics">Back to homepage</a></p>
@@ -479,6 +525,7 @@ FastTree -nt $alignment &gt; $tree</code></pre>
     progress: true,
     history: true,
     center: false,
+    slideNumber: true,
 
 
     rollingLinks: false,
