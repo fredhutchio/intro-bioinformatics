@@ -143,12 +143,15 @@ Think of `mv` as updating the "path" stamp on a file
 **Exercise:** How do we get `bioinfclass` back?
 
 
-# We can make new directories or files with `mkdir` and `touch`
+# Creating and removing files
+
+We can make new directories or files with `mkdir` and `touch`, and remove with `rm` and `rmdir`
 
 * `mkdir name` will create a directory `name`
 * `touch name` will create an empty file `name`
-
-&nbsp;
+* `rm name` will remove a file called `name`
+* `rmdir name` will remove an empty directory called `name`
+* `rm -r name` will remove `name` and all it's contents (CAREFUL!)
 
 **Exercise:** create a file called `birds` in a new subdirectory called `dinosaurs` of your home directory
 
@@ -252,7 +255,7 @@ vs
 &nbsp;
 
 
-[if your shell can't see FastTree, \
+[make sure you're in `~/bioinfclass`, and if your shell can't see FastTree,
 don't forget to `module load intro-bio`!]
 
 

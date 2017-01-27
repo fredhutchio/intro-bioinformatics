@@ -182,13 +182,16 @@
 <p>Think of <code>mv</code> as updating the “path” stamp on a file</p>
 <p><strong>Exercise:</strong> How do we get <code>bioinfclass</code> back?</p>
 </section>
-<section id="we-can-make-new-directories-or-files-with-mkdir-and-touch" class="level1">
-<h1>We can make new directories or files with <code>mkdir</code> and <code>touch</code></h1>
+<section id="creating-and-removing-files" class="level1">
+<h1>Creating and removing files</h1>
+<p>We can make new directories or files with <code>mkdir</code> and <code>touch</code>, and remove with <code>rm</code> and <code>rmdir</code></p>
 <ul>
 <li><code>mkdir name</code> will create a directory <code>name</code></li>
 <li><code>touch name</code> will create an empty file <code>name</code></li>
+<li><code>rm name</code> will remove a file called <code>name</code></li>
+<li><code>rmdir name</code> will remove an empty directory called <code>name</code></li>
+<li><code>rm -r name</code> will remove <code>name</code> and all it’s contents (CAREFUL!)</li>
 </ul>
-<p> </p>
 <p><strong>Exercise:</strong> create a file called <code>birds</code> in a new subdirectory called <code>dinosaurs</code> of your home directory</p>
 </section>
 <section id="commands" class="level1">
@@ -274,8 +277,7 @@
 <p>vs</p>
 <p><code>FastTree -nt output/alignment.fasta &gt; output/tree.nw</code></p>
 <p> </p>
-<p>[if your shell can’t see FastTree,<br />
-don’t forget to <code>module load intro-bio</code>!]</p>
+<p>[make sure you’re in <code>~/bioinfclass</code>, and if your shell can’t see FastTree, don’t forget to <code>module load intro-bio</code>!]</p>
 </section>
 <section id="we-can-also-stdout-of-one-command-to-stdin-of-another" class="level1">
 <h1>We can also <code>|</code> <code>stdout</code> of one command to <code>stdin</code> of another</h1>
