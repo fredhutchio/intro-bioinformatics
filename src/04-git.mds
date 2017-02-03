@@ -1,6 +1,10 @@
 % Introduction to Bioinformatics
 % Lesson 4 - Version control with `git`
 
+<!--Things for next time:-->
+<!--* maybe deete prior class merges to keep histry the same-->
+<!--* need to cover git pull-->
+
 
 # Git for Version control!
 
@@ -228,6 +232,13 @@ Notice the history branching, the _sha hashes_ (`a4b8893`, etc), commit messages
 * d07378b - Computing number of sequences per species in build.s
 ```
 
+# Branches
+
+Branches give us a way of referrin to alternate histories.
+
+* `master` is generally the "main" or "production" branch
+* other branches can let us keep work out of `master` until it's ready (see `other-idea` branch)
+
 # Grab a remote branch
 
 When we clone, we only pull down the `master` branch, but we can still see remote branches like `origin/other-idea`.
@@ -331,7 +342,7 @@ Thinking about some other studies now.
 ```bash
 git add README.md
 
-git commit -m "README notes about location analyses"
+git commit -m "Add location analyses notes"
 ```
 
 
@@ -354,7 +365,7 @@ _Pull requests_ are a way of _suggesting_ changes to other people's repositories
 
 Like "forking", it's a GitHub specific thing.
 
-* Click on the green "New pull request" button just above the list of files on your fork's page
+* Click on the "New pull request" button just above the list of files on your fork's page
 * Note "base" and "head" forks: base is where the changes will go, head is where they're from
     * (Sometimes you might change the branches; not today though)
 * Click "Create pull request"
@@ -406,7 +417,7 @@ find $outdir -name seqcount | xargs cat > $loc_spec_counts
 
 ```bash
 git add build.sh
-git commit -m "Added direct sequence per location count"
+git commit -m "Add direct sequence per location count"
 
 # Now look at our history; we've branched!
 git glog
@@ -436,26 +447,23 @@ git merge backintime
 If all of your changes are in different parts of the code that any changes on the other branch since the histories split, you're done!
 The branches can be automatically merged, and there will be peace in the kingdom.
 
-In our case however, the changes overlap.
+In our case however, the changes overlap (try running `git status`).
 This means we need to resolve the conflicts.
 
 
-# Resolving conflicts
-
-```
-# Note that status tells us what files need resolution
-git status
-
-# Open the file to resolve commits
-nano build.sh
-```
-
 # Exercise
 
-Edit the build.sh file so that you keep all the changes from both branches.
+`nano build.sh` file and go down to the bottom where we made our changes.
 
-Note: git edits files with conflict and puts the changes in between `<<<<<<<<< HEAD`, `========` and `>>>>>>>>>` demarcations.
-Delete these once you're done resolving, then save, exit, add the resolution changes, and commit them.
+* Changes to the branch you merge _to_ are placed between `<<<<<<<<< HEAD` and  `========`
+* Changes to the branch you merge _from_ are placed betwee `========` and `>>>>>>>>>`.
+
+In our case, we want to keep both changes, so simply delete the demarkation lines, then save, exit and then
+
+```bash
+git add build.sh
+git commit -m "Resolve build conflicts"
+```
 
 
 # Some guidelines for using Git

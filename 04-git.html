@@ -59,6 +59,9 @@
 </section>
 
 
+<!--Things for next time:-->
+<!--* maybe deete prior class merges to keep histry the same-->
+<!--* need to cover git pull-->
 <section id="git-for-version-control" class="level1">
 <h1>Git for Version control!</h1>
 <p><em>In which with our fleets of flying, speaking beasts we gain mastery over time</em></p>
@@ -233,6 +236,14 @@ git glog -n 5</code></pre>
 * 2c17799 - Added other metadata counting steps (9 months ago)&lt;C
 * d07378b - Computing number of sequences per species in build.s</code></pre>
 </section>
+<section id="branches" class="level1">
+<h1>Branches</h1>
+<p>Branches give us a way of referrin to alternate histories.</p>
+<ul>
+<li><code>master</code> is generally the “main” or “production” branch</li>
+<li>other branches can let us keep work out of <code>master</code> until it’s ready (see <code>other-idea</code> branch)</li>
+</ul>
+</section>
 <section id="grab-a-remote-branch" class="level1">
 <h1>Grab a remote branch</h1>
 <p>When we clone, we only pull down the <code>master</code> branch, but we can still see remote branches like <code>origin/other-idea</code>.</p>
@@ -299,7 +310,7 @@ Thinking about some other studies now.</code></pre>
 <h1>Adding a new commit, as before</h1>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> add README.md
 
-<span class="kw">git</span> commit -m <span class="st">&quot;README notes about location analyses&quot;</span></code></pre></div>
+<span class="kw">git</span> commit -m <span class="st">&quot;Add location analyses notes&quot;</span></code></pre></div>
 </section>
 <section id="pushing-changes-to-our-github-fork" class="level1">
 <h1>Pushing changes to our GitHub fork</h1>
@@ -315,7 +326,7 @@ Thinking about some other studies now.</code></pre>
 <p><em>Pull requests</em> are a way of <em>suggesting</em> changes to other people’s repositories.</p>
 <p>Like “forking”, it’s a GitHub specific thing.</p>
 <ul>
-<li>Click on the green “New pull request” button just above the list of files on your fork’s page</li>
+<li>Click on the “New pull request” button just above the list of files on your fork’s page</li>
 <li>Note “base” and “head” forks: base is where the changes will go, head is where they’re from
 <ul>
 <li>(Sometimes you might change the branches; not today though)</li>
@@ -362,7 +373,7 @@ find $outdir -name seqcount | xargs cat &gt; $loc_spec_counts</code></pre>
 <section id="now-commit-and-look-at-our-tree" class="level1">
 <h1>Now commit and look at our tree</h1>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> add build.sh
-<span class="kw">git</span> commit -m <span class="st">&quot;Added direct sequence per location count&quot;</span>
+<span class="kw">git</span> commit -m <span class="st">&quot;Add direct sequence per location count&quot;</span>
 
 <span class="co"># Now look at our history; we&#39;ve branched!</span>
 <span class="kw">git</span> glog</code></pre></div>
@@ -383,20 +394,18 @@ git merge backintime</code></pre>
 <section id="clean-merges-and-conflicting-merges" class="level1">
 <h1>Clean merges and conflicting merges</h1>
 <p>If all of your changes are in different parts of the code that any changes on the other branch since the histories split, you’re done! The branches can be automatically merged, and there will be peace in the kingdom.</p>
-<p>In our case however, the changes overlap. This means we need to resolve the conflicts.</p>
-</section>
-<section id="resolving-conflicts" class="level1">
-<h1>Resolving conflicts</h1>
-<pre><code># Note that status tells us what files need resolution
-git status
-
-# Open the file to resolve commits
-nano build.sh</code></pre>
+<p>In our case however, the changes overlap (try running <code>git status</code>). This means we need to resolve the conflicts.</p>
 </section>
 <section id="exercise" class="level1">
 <h1>Exercise</h1>
-<p>Edit the build.sh file so that you keep all the changes from both branches.</p>
-<p>Note: git edits files with conflict and puts the changes in between <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</code>, <code>========</code> and <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code> demarcations. Delete these once you’re done resolving, then save, exit, add the resolution changes, and commit them.</p>
+<p><code>nano build.sh</code> file and go down to the bottom where we made our changes.</p>
+<ul>
+<li>Changes to the branch you merge <em>to</em> are placed between <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</code> and <code>========</code></li>
+<li>Changes to the branch you merge <em>from</em> are placed betwee <code>========</code> and <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>.</li>
+</ul>
+<p>In our case, we want to keep both changes, so simply delete the demarkation lines, then save, exit and then</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> add build.sh
+<span class="kw">git</span> commit -m <span class="st">&quot;Resolve build conflicts&quot;</span></code></pre></div>
 </section>
 <section id="some-guidelines-for-using-git" class="level1">
 <h1>Some guidelines for using Git</h1>
@@ -479,6 +488,7 @@ nano build.sh</code></pre>
     progress: true,
     history: true,
     center: false,
+    slideNumber: true,
 
 
     rollingLinks: false,
