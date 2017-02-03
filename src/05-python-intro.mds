@@ -60,7 +60,7 @@ However, R has some pain points...
 
 # Together, the three make a great combination
 
-Don't limit yourself necessarily to one tool...
+Don't limit yourself unnecessarily to one tool...
 
 Living in Unix makes it easy to use both R and Python in the context of a single project.
 
@@ -130,16 +130,16 @@ These are "containers" for other types of data (scalars, other collections, more
 # Collection types
 
 * tuples: `("Bob Jones", 42)`
-    * fixed length
-    * immutable (can't "change in place")
+    * immutable & fixed length
+    * efficient and _hashable_
 * dictionaries: `{"name": "Bob Jones", "age": 42}`
-    * variable length
-    * mutable
+    * mutable & variable length
     * unordered "key/value pairs"
+    * often for representing data about some _thing_
 * lists: `["Bob Jones", "Jane Doe", "Ralph Nader"]`
-    * variable length
-    * mutable
+    * mutable & variable length
     * ordered & positionally indexed
+    * for collecting _things_
 
 
 # When we use these
@@ -157,7 +157,7 @@ Lists for arbitrary collections of individual data points:
 
 # Sometimes dictionaries blur the lines here;
 
-Here we use them more or less like a list, but where we have fast access using the name:
+Here we use them more or less like a list, but where we index entries by _name_ instead of position:
 
 ```python
 {"Bob Jones": {"age": 42, "occupation": "haxxor"},
@@ -177,8 +177,7 @@ We won't go into these as deeply today, but in short, we tend to use them like l
 * sets
     * unique entries
     * no order guarantees
-    * variable length
-    * mutable
+    * mutable & variable length
 
 
 # Operations
@@ -208,12 +207,16 @@ You can create more complex expressions using parentheses for grouping: `(4 + 5)
 # Boolean
 
 * Logical and: `True & False` or `True and True`
+    * return `True` only if both operands are `True`
 * Logical or: `False | True` or `False or False` (not exclusive...)
+    * return `True` if _at least_ one of operands is `True`
+
+Predict what these evaluate to: `True and False`, `True and True`, `False and False`, `True or False`, `True or True`, `False or False`
 
 
 # Blurring the lines with booleans
 
-* You can also treat `True` and `False` like ints `1` and `0`, respectively, and vice versa
+* You can also treat `True` and `False` like ints `1` and `0`, respectively, and vice versa (try `True + True`)
 * Scalars other than `0`, `""`, `False` or `None` will be treated as `True` in logical expression ("truthy")
 * Empty collections will be treated as "falsey" in logical expressions, all other collections truthy
 
@@ -376,7 +379,7 @@ seqrecords = [{"seq": "AGCTAGCTACGT", "name": "MBG234"},
 
 # How would you represent
 
-A collection of DNA sequences and names?
+A collection of DNA sequences and names, together with metadata about the collection (sampling date and such)?
 
 <br/>
 
@@ -462,7 +465,7 @@ else:
 Things to note:
 
 * We used indentation here as well to determine the structure of the statements
-* We used the `<` (less than) operand, which behaves just as you'd expect, return True/False depending on the operand values
+* We used the `<` (less than) operand, which behaves just as you'd expect, returning `True`/`False` depending on the operand values
 
 
 # You can have elif sections too
@@ -481,6 +484,23 @@ def f(n):
 f(3)
 f(7)
 f(12)
+```
+
+
+# About collections again
+
+What do you think will happen below?
+
+```
+data = []
+
+if data:
+    print "catgifs"
+
+data.append("puppies?")
+
+if data:
+    print "yay internetz!"
 ```
 
 

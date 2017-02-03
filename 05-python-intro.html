@@ -113,7 +113,7 @@
 </section>
 <section id="together-the-three-make-a-great-combination" class="level1">
 <h1>Together, the three make a great combination</h1>
-<p>Don’t limit yourself necessarily to one tool…</p>
+<p>Don’t limit yourself unnecessarily to one tool…</p>
 <p>Living in Unix makes it easy to use both R and Python in the context of a single project.</p>
 </section>
 <section id="other-languages" class="level1">
@@ -172,20 +172,20 @@
 <ul>
 <li>tuples: <code>(&quot;Bob Jones&quot;, 42)</code>
 <ul>
-<li>fixed length</li>
-<li>immutable (can’t “change in place”)</li>
+<li>immutable &amp; fixed length</li>
+<li>efficient and <em>hashable</em></li>
 </ul></li>
 <li>dictionaries: <code>{&quot;name&quot;: &quot;Bob Jones&quot;, &quot;age&quot;: 42}</code>
 <ul>
-<li>variable length</li>
-<li>mutable</li>
+<li>mutable &amp; variable length</li>
 <li>unordered “key/value pairs”</li>
+<li>often for representing data about some <em>thing</em></li>
 </ul></li>
 <li>lists: <code>[&quot;Bob Jones&quot;, &quot;Jane Doe&quot;, &quot;Ralph Nader&quot;]</code>
 <ul>
-<li>variable length</li>
-<li>mutable</li>
+<li>mutable &amp; variable length</li>
 <li>ordered &amp; positionally indexed</li>
+<li>for collecting <em>things</em></li>
 </ul></li>
 </ul>
 </section>
@@ -204,7 +204,7 @@
 </section>
 <section id="sometimes-dictionaries-blur-the-lines-here" class="level1">
 <h1>Sometimes dictionaries blur the lines here;</h1>
-<p>Here we use them more or less like a list, but where we have fast access using the name:</p>
+<p>Here we use them more or less like a list, but where we index entries by <em>name</em> instead of position:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">{<span class="st">&quot;Bob Jones&quot;</span>: {<span class="st">&quot;age&quot;</span>: <span class="dv">42</span>, <span class="st">&quot;occupation&quot;</span>: <span class="st">&quot;haxxor&quot;</span>},
  <span class="co">&quot;Jane Doe&quot;</span>: {<span class="st">&quot;age&quot;</span>: <span class="dv">31</span>, <span class="st">&quot;occupation&quot;</span>: <span class="st">&quot;mathematician&quot;</span>},
  <span class="co">&quot;Ralph Nader&quot;</span>: {<span class="st">&quot;age&quot;</span>: <span class="dv">85</span>, <span class="st">&quot;occupation&quot;</span>: <span class="st">&quot;politician&quot;</span>}}</code></pre></div>
@@ -223,8 +223,7 @@
 <ul>
 <li>unique entries</li>
 <li>no order guarantees</li>
-<li>variable length</li>
-<li>mutable</li>
+<li>mutable &amp; variable length</li>
 </ul></li>
 </ul>
 </section>
@@ -252,14 +251,21 @@
 <section id="boolean" class="level1">
 <h1>Boolean</h1>
 <ul>
-<li>Logical and: <code>True &amp; False</code> or <code>True and True</code></li>
-<li>Logical or: <code>False | True</code> or <code>False or False</code> (not exclusive…)</li>
+<li>Logical and: <code>True &amp; False</code> or <code>True and True</code>
+<ul>
+<li>return <code>True</code> only if both operands are <code>True</code></li>
+</ul></li>
+<li>Logical or: <code>False | True</code> or <code>False or False</code> (not exclusive…)
+<ul>
+<li>return <code>True</code> if <em>at least</em> one of operands is <code>True</code></li>
+</ul></li>
 </ul>
+<p>Predict what these evaluate to: <code>True and False</code>, <code>True and True</code>, <code>False and False</code>, <code>True or False</code>, <code>True or True</code>, <code>False or False</code></p>
 </section>
 <section id="blurring-the-lines-with-booleans" class="level1">
 <h1>Blurring the lines with booleans</h1>
 <ul>
-<li>You can also treat <code>True</code> and <code>False</code> like ints <code>1</code> and <code>0</code>, respectively, and vice versa</li>
+<li>You can also treat <code>True</code> and <code>False</code> like ints <code>1</code> and <code>0</code>, respectively, and vice versa (try <code>True + True</code>)</li>
 <li>Scalars other than <code>0</code>, <code>&quot;&quot;</code>, <code>False</code> or <code>None</code> will be treated as <code>True</code> in logical expression (“truthy”)</li>
 <li>Empty collections will be treated as “falsey” in logical expressions, all other collections truthy</li>
 </ul>
@@ -394,7 +400,7 @@ crazy_dict[(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv"
 </section>
 <section id="how-would-you-represent-3" class="level1">
 <h1>How would you represent</h1>
-<p>A collection of DNA sequences and names?</p>
+<p>A collection of DNA sequences and names, together with metadata about the collection (sampling date and such)?</p>
 <p><br/></p>
 <section id="section-3" class="level2">
 <h2></h2>
@@ -460,7 +466,7 @@ square(<span class="dv">4</span>)</code></pre></div>
 <p>Things to note:</p>
 <ul>
 <li>We used indentation here as well to determine the structure of the statements</li>
-<li>We used the <code>&lt;</code> (less than) operand, which behaves just as you’d expect, return True/False depending on the operand values</li>
+<li>We used the <code>&lt;</code> (less than) operand, which behaves just as you’d expect, returning <code>True</code>/<code>False</code> depending on the operand values</li>
 </ul>
 </section>
 <section id="you-can-have-elif-sections-too" class="level1">
@@ -477,6 +483,19 @@ square(<span class="dv">4</span>)</code></pre></div>
 f(<span class="dv">3</span>)
 f(<span class="dv">7</span>)
 f(<span class="dv">12</span>)</code></pre></div>
+</section>
+<section id="about-collections-again" class="level1">
+<h1>About collections again</h1>
+<p>What do you think will happen below?</p>
+<pre><code>data = []
+
+if data:
+    print &quot;catgifs&quot;
+
+data.append(&quot;puppies?&quot;)
+
+if data:
+    print &quot;yay internetz!&quot;</code></pre>
 </section>
 <section id="for-statements" class="level1">
 <h1>For statements</h1>
@@ -590,6 +609,7 @@ math.log(<span class="fl">3.14</span>)</code></pre></div>
     progress: true,
     history: true,
     center: false,
+    slideNumber: true,
 
 
     rollingLinks: false,
