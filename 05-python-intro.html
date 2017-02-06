@@ -444,13 +444,15 @@ square(<span class="dv">4</span>)</code></pre></div>
 [square, <span class="st">&quot;data&quot;</span>]</code></pre></div>
 <p>We’ll see how this is useful later.</p>
 </section>
-<section id="methods" class="level1">
-<h1>Methods</h1>
-<p>In python, methods are just functions that are bound to particular objects as <em>attributes</em> of that object.</p>
-<p>Example: <code>&quot;this&quot;.upper()</code></p>
-<p>Example2: <code>xs = [1, 2, 3]; xs.append(9); print xs</code></p>
-<p>You can see what methods are bound to an object <code>o</code> with <code>dir(o)</code> (example: <code>dir([])</code> shows all list methods)</p>
-<p>(We’ll learn more about how methods actually work next week)</p>
+<section id="type-functions" class="level1">
+<h1>“Type functions”</h1>
+<p>Some types have functions associated with them, such as <code>str.upper</code> and <code>list.append</code>:</p>
+<pre><code>str.upper(&quot;this&quot;)
+
+xs = [1, 2, 3]
+list.append(xs, 9)
+print xs</code></pre>
+<p>You can see what functions are associated with a type <code>t</code> using <code>dir(t)</code> (example: <code>dir(list)</code> shows all the list functions)</p>
 </section>
 <section id="control-flow" class="level1">
 <h1>Control flow</h1>
@@ -492,7 +494,7 @@ f(<span class="dv">12</span>)</code></pre></div>
 if data:
     print &quot;catgifs&quot;
 
-data.append(&quot;puppies?&quot;)
+list.append(data, &quot;puppies?&quot;)
 
 if data:
     print &quot;yay internetz!&quot;</code></pre>
@@ -505,10 +507,10 @@ if data:
 </section>
 <section id="iterating-over-key-value-pairs-in-a-dictionary" class="level1">
 <h1>Iterating over key-value pairs in a dictionary</h1>
-<p>Dictionaries have an <code>items</code> method that gives all of the <br/> key, value pairs. Try</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">person.items()</code></pre></div>
+<p><code>dict</code> has an <code>items</code> function that gives all of the key, value pairs. Try</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="bu">dict</span>.items(person)</code></pre></div>
 <p>Now loop over them:</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="cf">for</span> k, v <span class="op">in</span> person.items():
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="cf">for</span> k, v <span class="op">in</span> <span class="bu">dict</span>.items(person):
     <span class="bu">print</span> <span class="st">&quot;key:&quot;</span>, k, <span class="st">&quot;val:&quot;</span>, v</code></pre></div>
 </section>
 <section id="problem" class="level1">
@@ -520,7 +522,7 @@ if data:
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">ys <span class="op">=</span> []
 <span class="cf">for</span> x <span class="op">in</span> xs:
     y <span class="op">=</span> square(x)
-    ys.append(y)
+    <span class="bu">list</span>.append(ys, y)
 
 <span class="bu">print</span> ys</code></pre></div>
 <p>This is <em>imperative</em>; we’re telling the computer <em>how</em> to build <code>ys</code></p>

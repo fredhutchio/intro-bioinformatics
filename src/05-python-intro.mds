@@ -434,17 +434,19 @@ print square
 We'll see how this is useful later.
 
 
-# Methods
+# "Type functions"
 
-In python, methods are just functions that are bound to particular objects as _attributes_ of that object.
+Some types have functions associated with them, such as `str.upper` and `list.append`:
 
-Example: `"this".upper()`
+```
+str.upper("this")
 
-Example2: `xs = [1, 2, 3]; xs.append(9); print xs`
+xs = [1, 2, 3]
+list.append(xs, 9)
+print xs
+```
 
-You can see what methods are bound to an object `o` with `dir(o)` (example: `dir([])` shows all list methods)
-
-(We'll learn more about how methods actually work next week)
+You can see what functions are associated with a type `t` using `dir(t)` (example: `dir(list)` shows all the list functions)
 
 
 # Control flow
@@ -497,7 +499,7 @@ data = []
 if data:
     print "catgifs"
 
-data.append("puppies?")
+list.append(data, "puppies?")
 
 if data:
     print "yay internetz!"
@@ -517,14 +519,15 @@ for n in xs:
 
 # Iterating over key-value pairs in a dictionary
 
-Dictionaries have an `items` method that gives all of the <br/> key, value pairs. Try
+`dict` has an `items` function that gives all of the key, value pairs. Try
+
 ```python
-person.items()
+dict.items(person)
 ```
 
 Now loop over them:
 ```python
-for k, v in person.items():
+for k, v in dict.items(person):
     print "key:", k, "val:", v
 
 ```
@@ -541,7 +544,7 @@ Using just what we've learned already, how would you create a list `ys` that con
 ys = []
 for x in xs:
     y = square(x)
-    ys.append(y)
+    list.append(ys, y)
 
 print ys
 ```

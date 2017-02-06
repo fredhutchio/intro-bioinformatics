@@ -12,29 +12,29 @@ _Wherein from simple elements we construct towering monuments_
 # What we'll cover today
 
 * What _is_ OOP?
-* Why do we _care_ about OOP?
-* How do I _use_ OOP?
-* How do I _do_ OOP?
-* How hard _should_ I OOP?
+* Why do we _care_ about it?
+* How do you _use_ it?
+* How do you _do_ it?
+* How much _should_ you do it?
 
 
-# What is OOP?
+# What _is_ OOP?
 
-OOP is a way of writing programs by bundling data and functionality.
+OOP is a way of writing programs by bundling data and functionality into _objects_.
 
 
-# Why do we have OOP?
+# Why do we _have_ OOP?
 
 Large programs can be difficult to analyze;
-Tracking lots of data, state and behavior is challenging.
+Keeping track of how data and computations relate to the _state_ of the program is challenging.
 
-OOP is a way of organizing these things with the goal of making it easier to conceptualize the whole system.
+OOP is a way of organizing data and computation with the goal of making it easier to conceptualize and deconstruct the system as a whole.
 
 
 # The Objects in OOP
 
-Objects are entities which bundle data, state and related behavior.
-The data is organized into _attributes_ and the behavior into _methods_.
+Objects are entities which bundle data together with computations we think of as the objects "behaviors".
+The data is organized into _attributes_ and the computations into _methods_.
 
 Objects are typically mutable: Methods can modify (the _state_ of) the attributes of the objects on which they're called.
 
@@ -44,10 +44,9 @@ Objects are typically mutable: Methods can modify (the _state_ of) the attribute
 _Classes_ are a way of defining the shape and behavior of objects.
 In class based OOP, we say that objects are _instances_ of a class.
 
-Example: the string `"cat"` is an instance of the class `str`.
+Example: the string `"cat"` is an instance of the class `str` (surprise!).
 
-Class based OOP is the most common form in modern languages.
-In particular, python's OOP is class based.
+Class based OOP is the most common form in modern languages, and indeed, python's OOP is class based.
 
 
 # That's it in a nutshell
@@ -55,11 +54,11 @@ In particular, python's OOP is class based.
 Any questions?
 
 
-# How do I use other's OOP
+# How do I _use_ other's OOP
 
 This is the easy part.
 
-Even if you don't create your own objects/classes, you can still consume other folk's OOP.
+You can _consume_ OOP data and functionality without having to structure your _own_ code using these techniques.
 
 
 # A pertinent example
@@ -112,16 +111,15 @@ dir(s)
 ```
 
 So an attribute of an object can be another object.
-
-It's like Inception!
-Objects all the way down!
+It's objects all the way down!
 
 
-# Seriously though... Separation of Concerns
+# Separation of Concerns
 
-One of the things OO encourages us to do is separate concerns.
+One of the things OO encourages us to do is _separate concerns_;
+Classes and objects naturally do this..
 
-A `SeqRecord` is concerned with the abstract record of a sequence; name, id, description, etc.
+A `SeqRecord` is concerned with the abstract _record_ of a sequence; name, id, description, etc.
 The `Seq` is concerned with the _actual_ nucleotide sequence.
 An instance of `SeqRecord` will have a `seq` attribute pointing to a `Seq` instance.
 
@@ -131,8 +129,8 @@ An instance of `SeqRecord` will have a `seq` attribute pointing to a `Seq` insta
 We can add our own attributes to an object.
 
 ```python
-s.foo = "bar"
-print s.foo
+s.canhaz_catgifs = True
+print s.canhaz_catgifs
 ```
 
 This is an open system.
@@ -161,21 +159,20 @@ Methods describe the "behavior" of objects.
 # Let this sink in...
 
 ```python
-# as a method
-s.transcribe()
 # as a function
 Seq.transcribe(s)
+# as a method
+s.transcribe()
 
 xs = [1, 2, 3]
-# as a method
-xs.append(4)
 # as a function
 list.append(xs, 4)
+# as a method
+xs.append(4)
 ```
 
-Methods are just functions _bound_ to objects.
-
-The object is bound as the _first argument_ to the function/method.
+In a class, methods are attributes pointing to simple functions.
+Objects have attributes pointing to copies of these functions where the first argument is bound to the object in question.
 
 
 # Using constructors
@@ -197,12 +194,12 @@ Seq("AGCT")
 * Call methods on objects
     * methods are just functions bound to objects as attributes of those objects
     * `object.method(arguments)`
-* Classes act as containers for the methods associated with objects
+* Classes act as containers for the unbound methods associated with objects
 
 Any Questions?
 
 
-# How do _I_ OOP?
+# How do I _do_ OOP?
 
 A simple class, modeling data we saw last week:
 
@@ -251,8 +248,8 @@ p.notify_via_email("your cat was found")
 
 * When we define class `Person`, we get a _constructor_ function named `Person` that returns an _instance_ of class `Person`.
 * When this function is called, a blank object gets created, and the `__init__` function is called with `self` bound to the new object.
-* This function _initializes_ the object.
-* Other methods follow the same pattern; when we call `p.notify_via_email`, the `notify_via_email` function gets called with object `p` as the first argument.
+  This function _initializes_ the object.
+* Other methods follow the same pattern; We get a `Person.notify_via_email` function, and every instance `p` of `Person` gets a `notify_via_email` attribute set to a copy of this function with the first argument bound to `p`.
 
 
 # Let's contrast this with non-OOP
@@ -284,6 +281,14 @@ OOP: Have to write a separate method in the `Company` class. (There are other wa
 Non-OOP: As long as the `company` dictionary has an `"email"` key/value pair, the function will still work.
 
 Moral of the story: Structure can come at the cost of flexibility.
+
+
+# But python is cool!
+
+Methods are just attributes pointing to functions.
+
+The attrs in an object mirror `o.__dict__`, so you can treat objects like they're dictionaries!
+
 
 
 # Pretend Biopython didn't exist
@@ -361,24 +366,28 @@ What do you see?
 
 # Now let's add some functionality
 
-In `scripts/seqs.py`, add the following to the end of our class definition
+In `scripts/seqs.py`, add `fasta_string` method so things look like:
 
 ```python
+class SeqRecord(object):
+    def __init__(self, name, seq):
+        self.name = name
+        self.seq = seq
+
     def fasta_string(self):
         string_rep = ">" + self.name + "\n"
         string_rep += self.seq + "\n"
         return string_rep
-```
 
-Add some test code to the end of our file, then rerun:
-
-```
 s = SeqRecord("MBG234Gag1", "AGCTGTCGGTAAGTCGAGT")
+# test out our new method
 print s.fasta_string()
 ```
 
 
 # Making the `seq` more robust
+
+##
 
 Suppose we want to add more functionality to the `seq` attribute?
 Add the following _before_ our `SeqRecord` class:
@@ -395,8 +404,35 @@ print s
 
 As a _subclass_ of `str`, `Seq` will behave exactly like a string, except where we override or add behavior.
 
+## The whole file
+
+```python
+# Create Seq as a "subclass" of str
+class Seq(str):
+    # If not adding any methods, must explicitly "pass"
+    pass
+
+s = Seq("ACGT")
+print s
+
+class SeqRecord(object):
+    def __init__(self, name, seq):
+        self.name = name
+        self.seq = seq
+
+    def fasta_string(self):
+        string_rep = ">" + self.name + "\n"
+        string_rep += self.seq + "\n"
+        return string_rep
+
+s = SeqRecord("MBG234Gag1", "AGCTGTCGGTAAGTCGAGT")
+# test out our new method
+print s.fasta_string()
+```
 
 # Adding functionality to `Seq`
+
+##
 
 ```python
 class Seq(str):
@@ -413,6 +449,37 @@ s = Seq("ACGT")
 print s.complement()
 ```
 
+## The whole file
+
+```python
+class Seq(str):
+    # A class attribute, available to all seqs
+    complements = dict(A="T", T="A", C="G", G="C")
+    def complement(self):
+        # Create list of complemented characters
+        bps = [self.complements[bp] for bp in self]
+        # Join characters together, and Seq them
+        joined_bps = "".join(bps)
+        return Seq(joined_bps)
+
+s = Seq("ACGT")
+print s.complement()
+
+class SeqRecord(object):
+    def __init__(self, name, seq):
+        self.name = name
+        self.seq = seq
+
+    def fasta_string(self):
+        string_rep = ">" + self.name + "\n"
+        string_rep += self.seq + "\n"
+        return string_rep
+
+s = SeqRecord("MBG234Gag1", "AGCTGTCGGTAAGTCGAGT")
+# test out our new method
+print s.fasta_string()
+```
+
 # Note the _class attribute_
 
 ```python
@@ -426,6 +493,8 @@ The codecademy course calls them _member variables_, which is a more general ter
 
 
 # What about RNA vs DNA?
+
+##
 
 We can solve this by further _subclassing_ `Seq`.
 
@@ -445,8 +514,53 @@ class RNASeq(Seq):
     complements = dict(A="U", U="A", C="G", G="C")
 ```
 
+## The whole file
+
+```python
+class Seq(str):
+    # A class attribute, available to all seqs
+    complements = dict(A="T", T="A", C="G", G="C")
+
+    def complement(self):
+        # Create list of complemented characters
+        bps = [self.complements[bp] for bp in self]
+        # Join characters together, and Seq them
+        joined_bps = "".join(bps)
+        return Seq(joined_bps)
+
+    def complement(self):
+        bps = [self.complements[x] for x in self]
+        joined_bps = "".join(bps)
+        return Seq(joined_bps)
+
+class DNASeq(Seq):
+    complements = dict(A="T", T="A", C="G", G="C")
+
+class RNASeq(Seq):
+    complements = dict(A="U", U="A", C="G", G="C")
+
+s = Seq("ACGT")
+print s.complement()
+
+class SeqRecord(object):
+    def __init__(self, name, seq):
+        self.name = name
+        self.seq = seq
+
+    def fasta_string(self):
+        string_rep = ">" + self.name + "\n"
+        string_rep += self.seq + "\n"
+        return string_rep
+
+s = SeqRecord("MBG234Gag1", "AGCTGTCGGTAAGTCGAGT")
+# test out our new method
+print s.fasta_string()
+```
+
 
 # Testing our subclasses
+
+##
 
 ```python
 # Testing out our new classes
@@ -460,6 +574,56 @@ s = Seq("ACTG")
 print s.complement()
 ```
 
+## The whole file
+
+```python
+class Seq(str):
+    # A class attribute, available to all seqs
+    complements = dict(A="T", T="A", C="G", G="C")
+
+    def complement(self):
+        # Create list of complemented characters
+        bps = [self.complements[bp] for bp in self]
+        # Join characters together, and Seq them
+        joined_bps = "".join(bps)
+        return Seq(joined_bps)
+
+    def complement(self):
+        bps = [self.complements[x] for x in self]
+        joined_bps = "".join(bps)
+        return Seq(joined_bps)
+
+class DNASeq(Seq):
+    complements = dict(A="T", T="A", C="G", G="C")
+
+class RNASeq(Seq):
+    complements = dict(A="U", U="A", C="G", G="C")
+
+# Testing out our new classes
+s = DNASeq("ACTG")
+print s.complement()
+s = RNASeq("ACUG")
+print s.complement()
+
+# Does our old class work by itself any more?
+s = Seq("ACTG")
+print s.complement()
+
+class SeqRecord(object):
+    def __init__(self, name, seq):
+        self.name = name
+        self.seq = seq
+
+    def fasta_string(self):
+        string_rep = ">" + self.name + "\n"
+        string_rep += self.seq + "\n"
+        return string_rep
+
+s = SeqRecord("MBG234Gag1", "AGCTGTCGGTAAGTCGAGT")
+# test out our new method
+print s.fasta_string()
+```
+
 
 # Woops! A bug!
 
@@ -471,11 +635,11 @@ print type(s.complement())
 s = RNASeq("ACUG")
 print type(s.complement())
 
-# Now we can't take complement the complement of an RNASeq...
+# Now we can't take complement of the complement of an RNASeq...
 s.complement().complement()
 ```
 
-Try solving this for homework :-) (Solutions at end of slides)
+Try solving this later :-) (Solutions at end of slides)
 
 
 # That's all we'll look at for doing OOP
@@ -514,12 +678,12 @@ Try starting with plain functions.
 If you find yourself having trouble figuring out what functions should be getting which data, consider bundling things into classes.
 
 
-# Homework challenges
+# Excercises
 
 (Answers at end of slides)
 
 
-# HW 1 - `transcribe`
+# Ex 1 - `transcribe`
 
 **Problem**: Add a `transcribe` method to the `DNASeq` class and a `reverse_transcribe` method to the `RNASeq` class.
 
@@ -533,26 +697,26 @@ In contrast, with our approach `reverse_transcribe` is _only defined_ if the `Se
 Thinking through these architectural trade-offs is important in OOP.
 
  
-# HW 2 - `reverse_complement`
+# Ex 2 - `reverse_complement`
 
 * Add a `reserve_complement` method to your `Seq` class, such that:
     * The method works with both `DNASeq` and `RNASeq` objects.
 
-# HW 3 - `reverse_complement` (ctnd)
+# Ex 3 - `reverse_complement` (ctnd)
 
 * Add a `reverse_complement` method in your `SeqRecord` class, which returns a new seqrecord with:
     * `seq` attribute the `reverse_complement` of the original sequence.
     * a modified `name` attribute (append `"_rc"` to the original name).
 
 
-# Bonus HW problem
+# Bonus Excercise
 
 * Make it so that when you create an instance of `SeqRecord`, you can just pass in a string for seq, and it will figure out whether it's a `DNASeq` or a `RNASeq` based on whether it contains U or and T:
     * Should error out if it can't tell.
     * Should still be possible to pass in an `RNASeq` or `DNASeq` directly, without it checking.
 
 
-# Bonus HW problem 2
+# Bonus Excercise 2
 
 Fix up the `Seq`, `RNASeq` and `DNASeq` class definitions so that `DNASeq.complement` returns a `DNASeq` object (similarly for `RNASeq`).
 Ideally:
@@ -566,17 +730,17 @@ Hint: To solve this "ideally", look into python's `super` function.
 # Resources
 
 * See the codecademy section on classes (beware the bit on "member variables")
-* Documentation on `transcbribe`: http://biopython.org/DIST/docs/api/Bio.Seq.Seq-class.html#transcribe (click the "source code" link to see the source code)
+* Documentation on `transcbribe`: <http://biopython.org/DIST/docs/api/Bio.Seq.Seq-class.html#transcribe> (click the "source code" link to see the source code)
 
 [Back to homepage](http://fredhutchio.github.io/intro-bioinformatics)
 
 
-# Homework solutions:
+# Excercise solutions:
 
 Spoiler alert!
 
 
-# HW 1
+# Ex 1
 
 First the simple solution:
 
@@ -606,13 +770,13 @@ print "Reverse trans of", s, "is:", s.reverse_transcribe()
 ```
 
 
-# HW 1 (ctnd)
+# Ex 1 (ctnd)
 
 This works, but note that it's a lot of duplicate code.
 We'll see a more elegant way to solve this using `super` (see Bonus problem 2).
 
 
-# HW 2
+# Ex 2
 
 First let's solve this without worrying too much about the return type (just ensuring it's a Seq).
 
@@ -634,7 +798,7 @@ print "Reverse comp of", s, "is:", s.reverse_complement()
 ```
 
 
-# HW 2 (ctnd)
+# Ex 2 (ctnd)
 
 Note that if we felt like being more terse, we could omit all the intermediate variable assignments and just do everything in one line.
 You can decide for yourself what makes code most readable.
@@ -691,7 +855,7 @@ There is always something to do to make your code better :-)
 
 # Bonus 2
 
-The simple solution to this is to just write two methods, like we did in the solution to HW 1.
+The simple solution to this is to just write two methods, like we did in the solution to Ex 1.
 However, there is a better way.
 
 ```python
@@ -721,9 +885,9 @@ After looking for a good explanation of super as a reference, I found [this stac
 I think this is a lot easier to understand, and it accomplishes the same thing.
 
 
-# Revisiting HW 2
+# Revisiting Ex 2
 
-We can use this `super`-like trick to fix our solution to HW 2 as well:
+We can use this `super`-like trick to fix our solution to Ex 2 as well:
 
 ```python
 class DNASeq(Seq):
@@ -743,7 +907,7 @@ print "Type of reverse comp of", s, "is:", type(s.reverse_complement()
 ```
 
 
-# Revisiting HW 1
+# Revisiting Ex 1
 
 Similarly, we can refactor `transcribe` and `reverse_transcribe`.
 
