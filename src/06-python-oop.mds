@@ -519,15 +519,6 @@ class RNASeq(Seq):
 ```python
 class Seq(str):
     # A class attribute, available to all seqs
-    complements = dict(A="T", T="A", C="G", G="C")
-
-    def complement(self):
-        # Create list of complemented characters
-        bps = [self.complements[bp] for bp in self]
-        # Join characters together, and Seq them
-        joined_bps = "".join(bps)
-        return Seq(joined_bps)
-
     def complement(self):
         bps = [self.complements[x] for x in self]
         joined_bps = "".join(bps)
@@ -579,15 +570,6 @@ print s.complement()
 ```python
 class Seq(str):
     # A class attribute, available to all seqs
-    complements = dict(A="T", T="A", C="G", G="C")
-
-    def complement(self):
-        # Create list of complemented characters
-        bps = [self.complements[bp] for bp in self]
-        # Join characters together, and Seq them
-        joined_bps = "".join(bps)
-        return Seq(joined_bps)
-
     def complement(self):
         bps = [self.complements[x] for x in self]
         joined_bps = "".join(bps)

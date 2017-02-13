@@ -92,6 +92,7 @@ Try running with `./scripts/treedists.py sometreefile`.
 
 # Setting up a `main` function
 
+##
 This is a common pattern in many languages.
 A main function is a place for putting all of your "top-level" program logic.
 
@@ -108,9 +109,30 @@ if __name__ == '__main__':
 
 This let's us `import` the file from another program as a module, without executing the `main` function.
 
+## Whole file
+
+```python
+import argparse
+
+def get_args():
+    parser = argparse.ArgumentParser()
+    # add parsing rules
+    parser.add_argument("treefile")
+    return parser.parse_args()
+
+def main():
+    args = get_args()
+    print "args is:", args
+    print "treefile is:", args.treefile
+
+# This only gets run if the file is being run as a script
+if __name__ == '__main__':
+    main()
+```
 
 # Loading our data
 
+##
 Let's start by setting up our main function to load the tree data.
 Edit the main function to look like this:
 
@@ -131,6 +153,39 @@ Save and run `./scripts/treedists.py output/Karamjal/tree.nw`
 You'll see an object representation of the [clades](https://en.wikipedia.org/wiki/Clade) on the phylogenetic tree.
 
 
+## Whole file
+
+```python
+import argparse
+from Bio import Phylo
+
+def get_args():
+    parser = argparse.ArgumentParser()
+    # add parsing rules
+    parser.add_argument("treefile")
+    return parser.parse_args()
+
+def main():
+    args = get_args()
+    # parse the tree file and return a generator
+    trees = Phylo.parse(args.treefile, 'newick')
+    tree = trees.next()
+    # For now, just print
+    print tree
+
+# This only gets run if the file is being run as a script
+if __name__ == '__main__':
+    main()
+```
+
+# Quick note on clades
+
+A clade on a phylogenetic tree is some node in the tree together with all of it's decendants.
+
+Each tip forms a clade, and where two tips join, we have a clade, and where that joins we have a clade, etc, all the way to the root.
+Thus, we can think of the entire tree structure in terms of clades (and `Bio.Phylo` does this).
+
+
 # We want average distance between the tips of this tree
 
 How should we do this?
@@ -148,7 +203,7 @@ Strategy:
 
 # REPL driven development
 
-Switch to the bash pane (`Ctrl-a →`), then open a new _vertical_ pane with `Ctrl-a -`.
+Switch to the bash pane (`Ctrl-a →`), then open a new _vertical_ pane with `Ctrl-a -`, and `cd ~/bioinfclass`.
 Next, start a python REPL (`python`):
 
 ```python
@@ -210,6 +265,7 @@ tipnames = [tip.name for tip in terminals]
 
 # All pairs of names
 
+
 ```python
 name_pairs = set()
 for tip1 in tipnames:
@@ -228,6 +284,7 @@ len(name_pairs)
 
 # Let's make a function of this!
 
+##
 This is a good idea when you have a bunch of modular logic.
 
 Back in our file (`Ctrl-a →`):
@@ -241,6 +298,40 @@ def unique_pairs(xs):
                 pair = [x1, x2]
                 pairs.add(tuple(sorted(pair)))
     return list(pairs)
+```
+
+## Whole file
+
+```python
+import argparse
+from Bio import Phylo
+
+def get_args():
+    parser = argparse.ArgumentParser()
+    # add parsing rules
+    parser.add_argument("treefile")
+    return parser.parse_args()
+
+def unique_pairs(xs):
+    pairs = set()
+    for x1 in xs:
+        for x2 in xs:
+            if x1 != x2:
+                pair = [x1, x2]
+                pairs.add(tuple(sorted(pair)))
+    return list(pairs)
+
+def main():
+    args = get_args()
+    # parse the tree file and return a generator
+    trees = Phylo.parse(args.treefile, 'newick')
+    tree = trees.next()
+    # For now, just print
+    print tree
+
+# This only gets run if the file is being run as a script
+if __name__ == '__main__':
+    main()
 ```
 
 
@@ -267,6 +358,8 @@ t.distance(t1, t2)
 
 # Putting it all together
 
+##
+
 Back in our `treedist.py` file:
 
 ```python
@@ -278,7 +371,49 @@ def average_distance(tree):
 ```
 
 
+## Whole file
+
+```python
+import argparse
+from Bio import Phylo
+
+def get_args():
+    parser = argparse.ArgumentParser()
+    # add parsing rules
+    parser.add_argument("treefile")
+    return parser.parse_args()
+
+def unique_pairs(xs):
+    pairs = set()
+    for x1 in xs:
+        for x2 in xs:
+            if x1 != x2:
+                pair = [x1, x2]
+                pairs.add(tuple(sorted(pair)))
+    return list(pairs)
+
+def average_distance(tree):
+    tipnames = [tip.name for tip in tree.get_terminals()]
+    tipname_pairs = unique_pairs(tipnames)
+    tip_dists = [tree.distance(t1, t2) for t1, t2 in tipname_pairs]
+    return sum(tip_dists) / len(tip_dists)
+
+def main():
+    args = get_args()
+    # parse the tree file and return a generator
+    trees = Phylo.parse(args.treefile, 'newick')
+    tree = trees.next()
+    # For now, just print
+    print tree
+
+# This only gets run if the file is being run as a script
+if __name__ == '__main__':
+    main()
+```
+
 # Hooking this up in `main`
+
+##
 
 ```python
 def main():
@@ -288,6 +423,45 @@ def main():
     print "Average distance:", average_distance(tree)
 ```
 
+## Whole file
+
+```python
+import argparse
+from Bio import Phylo
+
+def get_args():
+    parser = argparse.ArgumentParser()
+    # add parsing rules
+    parser.add_argument("treefile")
+    return parser.parse_args()
+
+def unique_pairs(xs):
+    pairs = set()
+    for x1 in xs:
+        for x2 in xs:
+            if x1 != x2:
+                pair = [x1, x2]
+                pairs.add(tuple(sorted(pair)))
+    return list(pairs)
+
+def average_distance(tree):
+    tipnames = [tip.name for tip in tree.get_terminals()]
+    tipname_pairs = unique_pairs(tipnames)
+    tip_dists = [tree.distance(t1, t2) for t1, t2 in tipname_pairs]
+    return sum(tip_dists) / len(tip_dists)
+
+def main():
+    args = get_args()
+    # parse the tree file and return a generator
+    trees = Phylo.parse(args.treefile, 'newick')
+    tree = trees.next()
+    # For now, just print
+    print "Average distance:", average_distance(tree)
+
+# This only gets run if the file is being run as a script
+if __name__ == '__main__':
+    main()
+```
 
 # Let's test
 
@@ -299,6 +473,8 @@ Save, then go back to the bash pane and try running again:
 
 
 # Adding a `--csv` output option
+
+##
 
 This will let us do a `csvstack` to get a single data set.
 
@@ -313,8 +489,51 @@ def get_args():
     return parser.parse_args()
 ```
 
+## Whole file
+
+```python
+import argparse
+from Bio import Phylo
+
+def get_args():
+    parser = argparse.ArgumentParser()
+    # add parsing rules
+    parser.add_argument("treefile")
+    parser.add_argument("--csv", action="store_true")
+    return parser.parse_args()
+
+def unique_pairs(xs):
+    pairs = set()
+    for x1 in xs:
+        for x2 in xs:
+            if x1 != x2:
+                pair = [x1, x2]
+                pairs.add(tuple(sorted(pair)))
+    return list(pairs)
+
+def average_distance(tree):
+    tipnames = [tip.name for tip in tree.get_terminals()]
+    tipname_pairs = unique_pairs(tipnames)
+    tip_dists = [tree.distance(t1, t2) for t1, t2 in tipname_pairs]
+    return sum(tip_dists) / len(tip_dists)
+
+def main():
+    args = get_args()
+    # parse the tree file and return a generator
+    trees = Phylo.parse(args.treefile, 'newick')
+    tree = trees.next()
+    # For now, just print
+    print "Average distance:", average_distance(tree)
+
+# This only gets run if the file is being run as a script
+if __name__ == '__main__':
+    main()
+```
+
 
 # And in `main`:
+
+##
 
 ```python
 def main():
@@ -329,8 +548,53 @@ def main():
         print "Average distance:", result
 ```
 
+## Whole file
+
+```python
+import argparse
+from Bio import Phylo
+
+def get_args():
+    parser = argparse.ArgumentParser()
+    # add parsing rules
+    parser.add_argument("treefile")
+    parser.add_argument("--csv", action="store_true")
+    return parser.parse_args()
+
+def unique_pairs(xs):
+    pairs = set()
+    for x1 in xs:
+        for x2 in xs:
+            if x1 != x2:
+                pair = [x1, x2]
+                pairs.add(tuple(sorted(pair)))
+    return list(pairs)
+
+def average_distance(tree):
+    tipnames = [tip.name for tip in tree.get_terminals()]
+    tipname_pairs = unique_pairs(tipnames)
+    tip_dists = [tree.distance(t1, t2) for t1, t2 in tipname_pairs]
+    return sum(tip_dists) / len(tip_dists)
+
+def main():
+    args = get_args()
+    # parse the tree file and return a generator
+    trees = Phylo.parse(args.treefile, 'newick')
+    tree = trees.next()
+    result = average_distance(tree)
+    if args.csv:
+        write_csv(result)
+    else:
+        print "Average distance:", result
+
+# This only gets run if the file is being run as a script
+if __name__ == '__main__':
+    main()
+```
 
 # Filling out `write_csv`:
+
+##
 
 ```python
 import csv
@@ -342,12 +606,65 @@ def write_csv(result):
     writer.writerow([result])
 ```
 
+## Whole file
+
+```python
+import csv
+import sys
+import argparse
+from Bio import Phylo
+
+def get_args():
+    parser = argparse.ArgumentParser()
+    # add parsing rules
+    parser.add_argument("treefile")
+    parser.add_argument("--csv", action="store_true")
+    return parser.parse_args()
+
+def unique_pairs(xs):
+    pairs = set()
+    for x1 in xs:
+        for x2 in xs:
+            if x1 != x2:
+                pair = [x1, x2]
+                pairs.add(tuple(sorted(pair)))
+    return list(pairs)
+
+def average_distance(tree):
+    tipnames = [tip.name for tip in tree.get_terminals()]
+    tipname_pairs = unique_pairs(tipnames)
+    tip_dists = [tree.distance(t1, t2) for t1, t2 in tipname_pairs]
+    return sum(tip_dists) / len(tip_dists)
+
+def write_csv(result):
+    writer = csv.writer(sys.stdout)
+    writer.writerow(["average_distance"])
+    writer.writerow([result])
+
+def main():
+    args = get_args()
+    # parse the tree file and return a generator
+    trees = Phylo.parse(args.treefile, 'newick')
+    tree = trees.next()
+    result = average_distance(tree)
+    if args.csv:
+        write_csv(result)
+    else:
+        print "Average distance:", result
+
+# This only gets run if the file is being run as a script
+if __name__ == '__main__':
+    main()
+```
 
 # Testing again
 
 From bash:
 
 ```bash
+# Argparse is awesome!
+./scripts/treedists.py --help
+# Now let's try running
 ./scripts/treedists.py --csv output/Karamjal/tree.nw
 # Old behaviour still works
 ./scripts/treedists.py output/Karamjal/tree.nw
@@ -355,6 +672,8 @@ From bash:
 
 
 # Adding location
+
+##
 
 Save, then back in `treedists.py`:
 
@@ -373,8 +692,62 @@ def main():
     # ...
 ```
 
+## Whole file
+
+```python
+import csv
+import sys
+import argparse
+from Bio import Phylo
+
+def get_args():
+    parser = argparse.ArgumentParser()
+    # add parsing rules
+    parser.add_argument("treefile")
+    parser.add_argument("--csv", action="store_true")
+    parser.add_argument("-l", "--location")
+    return parser.parse_args()
+
+def unique_pairs(xs):
+    pairs = set()
+    for x1 in xs:
+        for x2 in xs:
+            if x1 != x2:
+                pair = [x1, x2]
+                pairs.add(tuple(sorted(pair)))
+    return list(pairs)
+
+def average_distance(tree):
+    tipnames = [tip.name for tip in tree.get_terminals()]
+    tipname_pairs = unique_pairs(tipnames)
+    tip_dists = [tree.distance(t1, t2) for t1, t2 in tipname_pairs]
+    return sum(tip_dists) / len(tip_dists)
+
+def write_csv(result):
+    writer = csv.writer(sys.stdout)
+    writer.writerow(["average_distance"])
+    writer.writerow([result])
+
+def main():
+    args = get_args()
+    # parse the tree file and return a generator
+    trees = Phylo.parse(args.treefile, 'newick')
+    tree = trees.next()
+    result = average_distance(tree)
+    if args.csv:
+        write_csv(result, args.location)
+    else:
+        print "Average distance:", result
+
+# This only gets run if the file is being run as a script
+if __name__ == '__main__':
+    main()
+```
+
 
 # Adding location (to `write_csv`)
+
+##
 
 ```python
 def write_csv(result, location):
@@ -385,12 +758,68 @@ def write_csv(result, location):
     writer.writerows([header, main_row])
 ```
 
+## Whole file
+
+```python
+import csv
+import sys
+import argparse
+from Bio import Phylo
+
+def get_args():
+    parser = argparse.ArgumentParser()
+    # add parsing rules
+    parser.add_argument("treefile")
+    parser.add_argument("--csv", action="store_true")
+    parser.add_argument("-l", "--location")
+    return parser.parse_args()
+
+def unique_pairs(xs):
+    pairs = set()
+    for x1 in xs:
+        for x2 in xs:
+            if x1 != x2:
+                pair = [x1, x2]
+                pairs.add(tuple(sorted(pair)))
+    return list(pairs)
+
+def average_distance(tree):
+    tipnames = [tip.name for tip in tree.get_terminals()]
+    tipname_pairs = unique_pairs(tipnames)
+    tip_dists = [tree.distance(t1, t2) for t1, t2 in tipname_pairs]
+    return sum(tip_dists) / len(tip_dists)
+
+def write_csv(result, location):
+    writer = csv.writer(sys.stdout)
+    # Note the inline if/else assignment
+    header = ["location", "average_distance"] if location else ["average_distance"]
+    main_row = [location, result] if location else [result]
+    writer.writerows([header, main_row])
+
+def main():
+    args = get_args()
+    # parse the tree file and return a generator
+    trees = Phylo.parse(args.treefile, 'newick')
+    tree = trees.next()
+    result = average_distance(tree)
+    if args.csv:
+        write_csv(result, args.location)
+    else:
+        print "Average distance:", result
+
+# This only gets run if the file is being run as a script
+if __name__ == '__main__':
+    main()
+```
 
 # Testing out
 
 Save, then back in bash:
 
 ```bash
+# Look at new help
+./scripts/treedists.py --help
+# Try out new option
 ./scripts/treedists.py --csv output/Karamjal/tree.nw -l karamjal
 # Old behaviour still works
 ./scripts/treedists.py --csv output/Karamjal/tree.nw
