@@ -16,29 +16,36 @@ Did everyone get the book?
 * Technical Experience
 
 
-# What you'll get from this class
+# Our goals for this course
 
 * High level overview of how to _approach_ bioinformatics
 * Basic bioinformatics technical and problem solving skills
 * Enough momentum to initiate self-learning process
 
 
-# What you won't get from this class
+# What you won't get from this course
 
-...but that might be useful:
+...that might be useful.
 
 * Higher level programming
 * Statistics
 * Other mathematics
 * Knowledge of every bioinformatics program/method ever created
 
-But hopefully you'll have enough momentum to learn these on your own as needed.
+Our goal is to give you enough momentum to learn what you need as you go.
 
 
-# Please spend _some_ time outside class
+# Please spend time outside class
 
-* Time is the only way to learn these things
-* Help keep this class moving smoothly
+This stuff doesn't stick unless you keep doing it.
+
+* Set aside time every week, no matter how long
+* Longer is great, but consistency is best
+* Frequency is great, but set reachable goals
+* Plan to continue long after the course
+* Start a project
+* Feel free to email Brian - he gets paid for this
+* Have fun!
 
 
 # What is bioinformatics?
@@ -84,9 +91,11 @@ New insights and conclusions lead to new data and questions, etc.
 
 # This should be nothing new
 
-This is not that different a process from how we typically do science!
+This is the scientific process.
 
-The main difference is that here we're using computers to carry these steps out that we would normally do at the bench or with a piece of paper.
+With data and computation at center of process.
+
+Data science.
 
 
 # So this is _what_ we do
@@ -98,8 +107,6 @@ The main difference is that here we're using computers to carry these steps out 
 
 # Specific goals for research
 
-General goals for good science:
-
 * Reproducibility
 * Robustness
 * Accuracy
@@ -109,20 +116,19 @@ General goals for good science:
 
 # Things we can do towards these goals
 
-Immutable data | Documentation | Automation
+Immutable data | Documentation | Automation | Consistency
 
 
 # Immutability
 
 **Never** change data in place; data in, data out.
 
-Aids: reproducibility, clarity & iterability
+Aids: reproducibility, iterability, clarity
 
 
 # Document **everything**
 
-Hopefully you're already doing this with your biology work (lab notebook).
-
+Hopefully you're already doing this with your biology work.
 Bioinformatics should be no different.
 
 * Software versions
@@ -145,26 +151,14 @@ Write _scripts_ (little computer programs) for everything:
 Aids: reproducibility, iterability
 
 
-# Guiding principles & practices towards this end
-
-Unix philosophy | project/data organization
-
-
-# The Unix Philosophy
-
-* Small, **composable** tools that do one thing right
-* Plumb tools together into pipelines & scripts
-* Embrace plain-text data
-
-Bioinformatics naturally embraces this.
-
-
-# Project & data layout
+# Consistent project & data layout
 
 Being **consistent** aids in automation & clarity
 
 * naming schemes
-* path schemes
+* directory (folder) organization
+
+Aids: automation, clarity
 
 
 # Questions?
@@ -180,12 +174,12 @@ What follows are some tips along these lines.
 
 <https://en.wikipedia.org/wiki/How_to_Solve_It>
 
-1. Understand the problem
-2. Make a plan
-3. Carry out the plan
-4. Look back and reflect
+1. Understand
+2. Plan
+3. Exectue
+4. Reflect
 
-When this fails, try to solve an easier or related problem first.
+When this fails, try to break down into simpler pieces and iterate (solve an easier or related problem first).
 
 
 # Understanding
@@ -193,10 +187,11 @@ When this fails, try to solve an easier or related problem first.
 The most important, but hardest part.
 It's easy to think you understand a problem better than you do...
 
-* Write out what the problem is
-* Try to isolate what makes the problem hard
-* Draw/sketch, talk (even out loud to yourself), go for a walk
-* If you understood the problem, you'd probably already have a solution, so figure out what you need to understand for the solution to be obvious
+* Write out the problem
+* Isolate what makes the problem hard
+* Draw/sketch, talk (even out loud to yourself), go for a walk, look for patterns
+* List knows, work backwards, eliminate possibilities, run examples
+* When you truly understood a problem, the solution should appear obvious, so don't stop trying to understand until it is
 
 
 # Devising a plan
@@ -209,44 +204,42 @@ Devise a game plan.
 
 # Execution and reflection
 
-If you do a good job understanding and planning, this part should be easy.
-If not, look back and figure out how you can improve your understanding and planning.
+If you get stuck, spend more time Understanding and Planning.
 
-This progression hopefully feels obvious, but it's easy to jump the gun.
-
-
-# Strategies at all stages:
-
-* Draw a picture; visualize
-* Look for patterns
-* Use a model or simpler problem
-* List knowns
-* Work backwards
-* Eliminate possibilities
-* Run examples
+At the end reflect on the process.
+This is meta-learning.
 
 
-# Back to Unix...
+# Questions?
+
+
+# Unix
 
 
 # What is "Unix"?
 
 Unix is a proprietary operating system from the 60s.
 
-True Unix isn't frequently encountered these days, but its philosophy and approach to computing have thrived in "Unix-like" systems.
-So much so that when we say "Unix", we usually mean it in the abstract sense.
+True Unix is rare these days, but its philosophy and design live on in "Unix-like" systems (including OsX).
+When we say "Unix", we usually mean it in this general sense.
 
 We'll be using Ubuntu Linux, a Unix-like operating system.
-Mac OsX is also a Unix-like operating system.
+
+
+# The Unix Philosophy
+
+* Small, **composable** tools that do one thing right
+* Plumb tools together into pipelines & scripts
+* Embrace plain-text data
+
+Bioinformatics naturally embraces this.
 
 
 # The Unix shell
 
-One of the core aspects of the Unix environment is the _Unix shell_.
+The _shell_ is a wrapper around the operating system, through which text commands and output are used to interact with the computer.
 
-The shell is just a wrapper around the operating system, through which we can use text commands and output to interact with our computer.
-
-This is analogous to the desktop environment on your personal computer, which has a graphical rather than a textual user interface.
+This is analogous to the desktop environment on your personal computer.
 
 
 # Remote servers
@@ -254,11 +247,10 @@ This is analogous to the desktop environment on your personal computer, which ha
 Unix was built for remote access.
 Computers were big and expensive, so people shared resources.
 
-
-# Why we care about remote servers
+Today, this remains useful:
 
 * The Hutch servers are really powerful
-* Leave long running computations without worrying about our computer shutting down
+* You can leave long running computations without worrying about unexpected shutdowns
 * Access running programs and data from any computer
 * Distribute tasks across compute clusters, such as the Hutch's [gizmo clusters](http://www.fredhutch.io/events/2015/05/20/spring-2015-unix-hpc/)
 
@@ -269,10 +261,10 @@ Computers were big and expensive, so people shared resources.
 # Practicum!
 
 * Connect to a remote server
-* Unix survival guide
+* Survival guide
 * Set up a project directory and load it with data
 * Investigate our data
-* Learn how to edit files on a server
+* Learn how to edit files using an in-shell text editor (vi)
 * Tmux for session management
 
 
@@ -291,8 +283,6 @@ Let us know if you get an error message along the lines of "`can't find home`".
 
 
 # From outside the Hutch
-
-Side note:
 
 If you want to work on the servers from outside the Hutch, you can ssh into `<username>@snail.fhcrc.org`, and then from there execute `ssh <username>@rhino<N>` to get into your rhino.
 
@@ -363,8 +353,10 @@ If you want to run a command similar to one you just executed, you can use the u
 
 # Setting up our project
 
-This class will build around analysis of a [real world dataset](http://dx.doi.org/10.1038/emi.2013.60) of [Simian Foamy Virus](https://en.wikipedia.org/wiki/Simian_foamy_virus) (SFV).
-SFV is a retrovirus that typically infects non-human primates (NHP), but can infect humans bitten by NHP (though we're a "dead-end" host).
+This class builds around analysis of a [real world dataset](http://dx.doi.org/10.1038/emi.2013.60) of [Simian Foamy Virus](https://en.wikipedia.org/wiki/Simian_foamy_virus) (SFV).
+SFV is a retrovirus that infects non-human primates, but can infect humans bitten by NHP.
+Howver, we appear to be a "dead-end" host.
+
 This data set looks at viruses sampled from humans and monkeys in Bangladesh.
 
 
@@ -422,20 +414,93 @@ tar -v -x -f data.tar
 ```
 
 
-# Editing text files with `nano`
+# Introducing vi and vim
 
-Type `nano README.md` to open a new text file called `README.md`
+Vi is a wonderful, powerful, but completely arcane editor.
+However, it's worth being able to use because:
 
-```bash
-nano README.md
-```
+* even the sparsest linux install will have some variant of vi.
+* when working with remote machines, it's nice to be able to edit text in a powerful editor directly on the machine.
+* finally, sometimes another program (e.g. git) will plop you into vim without you realizing it, so it's nice to know what to do in this situation.
 
-You are now in the `nano` text editing program.
-Type your thoughts about the class so far...
+# Vim is a _modal_ text editor
 
-To save, type `Ctrl-o` and hit enter.
-To exit type `Ctrl-x` (if there are unsaved changes, next type `y` then `Enter` to save them).
+Vim has two primary modes:
 
+* insert mode: typing will now insert text into the file
+* command mode: key strokes become poweful _commands_, and can carry out high-level editing tasks
+
+Fully understanding comamnd mode takes time, but basic usage is quite simple.
+
+# Vim tutorial
+
+##
+
+Create a `README.md` file with vim.
+
+* Invoke with `vim README.md`
+* Type `i` to enter *insert mode*
+* Type to enter text, move around with arrow keys, edit as needed
+* Hit `Esc` to exit insert mode and enter *command mode*
+* Type `: w <Enter>` to save
+* When you are done editing, type `: q <Enter>`
+
+That wasn't so bad, was it?
+
+(click down for more advanced usage)
+
+## Using the command mode
+
+So far the only real action has been in insert mode.
+The other mode in vi is the *command mode*.
+In this mode you can quickly navigate and modify your file using key commands.
+
+## Moving around quickly
+
+There are lots of ways to move your cursor around in command mode:
+
+* The arrow keys (and the "_home row_" `hjkl` keys)
+* `0` moves to the beginning of the *line*, and `$` moves to the end
+* `b` moves back one *word*, and `w` moves forward one
+* `{` moves back one *paragraph*, and `}` moves forward one
+* `(` moves back one *sentence*, and `)` moves forward one
+
+You can prefix these commands with numbers to move faster, e.g. `3 w` moves you forward three words.
+
+## Cutting and pasting
+
+There is a simple way to cut and paste exactly analogous to a word processor: highlight a block of text, then copy or cut, then paste.
+
+* In command mode, move cursor to where you want to start your highlight
+* Press `v`; this places you in _visual_ mode
+* Move cursor to the end of your highlighted region
+* Press `d` to cut, `y` (for _yank_) to copy
+* Move cursor to where you want to paste
+* Press `p` to paste
+
+## Combining motions and actions
+
+Motions and actions can be combined. E.g.:
+
+* `d w` cuts one word, and `d 2 w` cuts two words
+* `y w` copies one word, and `y 2 w` copies two words
+
+You can also cut/copy entire lines with the shortcuts `d d` and `y y`.
+
+## Undo/redo
+
+If you ever mess anything up (which is easy to do in command mode), `u` is undo and `Ctrl-r` is redo (from command mode).
+
+## Vim resources
+
+* [An online vim tutorial](http://www.openvim.com/)
+* The `vimtutor` command, available wherever you find `vim`
+* [Ben Crowder's vim tips](http://bencrowder.net/files/vim-fu/)
+* [Cheatsheet/poster](https://rumorscity.com/wp-content/uploads/2014/08/10-Best-VIM-Cheat-Sheet-02.jpg)
+* [Wallpaper](https://github.com/LevelbossMike/vim_shortcut_wallpaper)
+
+Note that these guides insist that you can't use the arrow keys.
+You certainly can, though it's not considered hip (because vim is all about efficiency, and moving your hands from home position to the arrow keys is not efficient.)
 
 
 # Let's look at what we've done
@@ -553,7 +618,6 @@ You should now see a fresh shell session inside of tmux.
 
 * `Ctrl-a` - your "Command key"
 * `Ctrl-a ?` - Help
-* `Ctrl-a d` - Detach session
 
 Windows:
 
@@ -580,8 +644,6 @@ man tmux
 ```
 
 All of the key combos above are just bindings to these commands, so this is a good place to go if you're trying to figure something out.
-
-You can also type `tmux ` and hit `<Tab>` to see a list of commands (this will autocomplete if you type the first part of the command; try `tmux kill-` then `<Tab>`).
 
 
 # Lets put Tmux to the test
@@ -629,13 +691,6 @@ mkdir data output scripts
 **Remember:** `tmux attach` will fail if you don't have a session open already; if that happens just enter `tmux` to start a new session.
 
 
-# Manual detach
-
-While in tmux, we can explicitly detach by typing `tmux detach`.
-
-Try doing this and then reattaching.
-
-
 # Questions?
 
 
@@ -651,12 +706,13 @@ For the code that generated these slides, look at the `.mds` files in the [`src`
 To submit issues or questions about the class, go to the [Issues](https://github.com/fredhutchio/intro-bioinformatics/issues) page.
 
 
-# Exercises
+# Homework
 
 Please, _please_, _**please!**_
 
-Go over `tmux` and `nano` and memorize the basics of how to use them.
-We'll use these tools over and over and this will help keep things moving.
+* Go over `tmux` and `vim` and memorize the basics of how to use them.
+* Set up a routine for practice and tinkering
+* Pick a personal project
 
 
 # Homework
