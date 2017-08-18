@@ -22,7 +22,7 @@ Class outline:
 7. [Python III - writing a program](07-python.html)
 
 The class will be loosely following [Bioinformatics Data Skills](http://shop.oreilly.com/product/0636920030157.do) for the overview, unix, and version control sections.
-For the python sections, we'll be following our own curriculum, and referring to the [Codecademy course](https://www.codecademy.com/tracks/python) as a reference and for additional practice with the concepts.
+For the python sections, we'll be following our own curriculum, and referring to the [Codecademy course](https://www.codecademy.com/tracks/python) for practice with the concepts.
 
 
 ## Prerequisites (connecting to the remote server)
@@ -72,9 +72,10 @@ If you are unable to connect via wifi on your laptop, please ping the Fred Hutch
 Windows does not ship with an SSH capable terminal.
 As such, you will need to do one of the following:
 
-* [**Recommended**] Install [PuTTY](http://www.putty.org/), which will let you SSH into the `rhino` servers.
-* Use [NoMachine](https://www.nomachine.com/) on the laptop you plan to bring to class to log into a remote Ubuntu/Linux desktop to use its Terminal (see directions [here](nomachine-directions.html)).
-* You can also install [Virtual Box](https://www.virtualbox.org/wiki/Downloads), and an Ubuntu virtual machine if you want to tinker with a Linux environment.
+* [**Recommended**] If you are on Windows 10, it is recommended you install "Bash on Windows" (aka the "Windows Subsystem for Linux", or WSL). You can follow the "How to Install ..." instructions section [here](https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/).
+* If you aren't running Windows 10, we recommend you install [PuTTY](http://www.putty.org/), which will let you SSH into the `rhino` servers.
+* You can also use [NoMachine](https://www.nomachine.com/) on the laptop you plan to bring to class to log into a remote Ubuntu/Linux desktop to use its Terminal (see directions [here](nomachine-directions.html)).
+* Finally, you can also install [Virtual Box](https://www.virtualbox.org/wiki/Downloads), and an Ubuntu virtual machine if you want to tinker with your own Linux environment and use the terminal from there.
 
 
 ## Other prereqs
