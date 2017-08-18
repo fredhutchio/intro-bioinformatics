@@ -118,36 +118,36 @@
 <section id="composing-paths" class="level1">
 <h1>Composing paths</h1>
 <p>We can also use <code>/</code> to represent how paths relate to each other:</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">cd</span> ~ <span class="co"># set our &quot;working directory&quot; to be home</span>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="bu">cd</span> ~ <span class="co"># set our &quot;working directory&quot; to be home</span>
 
 <span class="co"># First try listing bioinfclass contents</span>
-<span class="kw">ls</span> bioinfclass
+<span class="fu">ls</span> bioinfclass
 
 <span class="co"># Now try listing data directory contents</span>
-<span class="kw">ls</span> data
+<span class="fu">ls</span> data
 
 <span class="co"># ^ fails (no data in ~); Relative to current working directory tho?</span>
-<span class="kw">ls</span> bioinfclass/data
+<span class="fu">ls</span> bioinfclass/data
 
 <span class="co"># We could also say</span>
-<span class="kw">ls</span> ./bioinfclass/data
-<span class="kw">ls</span> ~/bioinfclass/data
-<span class="kw">ls</span> /home/<span class="kw">&lt;</span>yourusername<span class="kw">&gt;</span>/bioinfclass/data  <span class="co"># ALL can be traced to /</span></code></pre></div>
+<span class="fu">ls</span> ./bioinfclass/data
+<span class="fu">ls</span> ~/bioinfclass/data
+<span class="fu">ls</span> /home/<span class="op">&lt;</span>yourusername<span class="op">&gt;</span>/bioinfclass/data  <span class="co"># ALL can be traced to /</span></code></pre></div>
 </section>
 <section id="more-on-current-working-directory" class="level1">
 <h1>More on current working directory</h1>
 <p>Every process in Unix (including your shell sessions) will have a <em>working directory</em> associated with it, and you can see this with <code>pwd</code>. Files can be accessed relative to this directory.</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">cd</span> ~
-<span class="kw">pwd</span>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="bu">cd</span> ~
+<span class="bu">pwd</span>
 
 <span class="co"># list the contents of this directory</span>
-<span class="kw">ls</span> bioinfclass/data
+<span class="fu">ls</span> bioinfclass/data
 
-<span class="kw">cd</span> bioinfclass
-<span class="kw">pwd</span>
+<span class="bu">cd</span> bioinfclass
+<span class="bu">pwd</span>
 
 <span class="co"># now data is fine relative to our current working directory</span>
-<span class="kw">ls</span> data</code></pre></div>
+<span class="fu">ls</span> data</code></pre></div>
 </section>
 <section id="exercise-going-up-the-directory-chain" class="level1">
 <h1>Exercise: going up the directory chain</h1>
@@ -155,29 +155,29 @@
 </section>
 <section id="going-up-the-directory-chain" class="level1">
 <h1>Going up the directory chain</h1>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">ls</span> ~/.tmux.conf
-<span class="kw">ls</span> /home/<span class="kw">&lt;</span>yourusername<span class="kw">&gt;</span>/.tmux.conf
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">ls</span> ~/.tmux.conf
+<span class="fu">ls</span> /home/<span class="op">&lt;</span>yourusername<span class="op">&gt;</span>/.tmux.conf
 <span class="co"># Using relative paths</span>
-<span class="kw">ls</span> ../.tmux.conf</code></pre></div>
+<span class="fu">ls</span> ../.tmux.conf</code></pre></div>
 </section>
 <section id="we-can-change-the-path-of-a-file-using-mv" class="level1">
 <h1>We can change the path of a file using <code>mv</code></h1>
 <section id="section" class="level2">
 <h2></h2>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># move the data directory to ~, our current directory</span>
-<span class="kw">cd</span> ~
-<span class="kw">mv</span> bioinfclass/data .
+<span class="bu">cd</span> ~
+<span class="fu">mv</span> bioinfclass/data .
 
-<span class="kw">ls</span>
+<span class="fu">ls</span>
 
-<span class="kw">ls</span> data
+<span class="fu">ls</span> data
 
-<span class="kw">ls</span> bioinfclass</code></pre></div>
+<span class="fu">ls</span> bioinfclass</code></pre></div>
 <p><strong>Exercise:</strong> How do we get <code>data</code> back?</p>
 </section>
 <section id="getting-data-back" class="level2">
 <h2>Getting data back</h2>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">mv</span> data bioinfclass</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">mv</span> data bioinfclass</code></pre></div>
 </section>
 </section>
 <section id="mv-is-for-renaming-as-well" class="level1">
@@ -185,15 +185,15 @@
 <section id="section-1" class="level2">
 <h2></h2>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># nothing to see here...</span>
-<span class="kw">mv</span> bioinfclass catgifs
+<span class="fu">mv</span> bioinfclass catgifs
 
-<span class="kw">ls</span></code></pre></div>
+<span class="fu">ls</span></code></pre></div>
 <p>Think of <code>mv</code> as updating the “path” stamp on a file</p>
 <p><strong>Exercise:</strong> How do we get <code>bioinfclass</code> back?</p>
 </section>
 <section id="getting-bioinfclass-back" class="level2">
 <h2>Getting bioinfclass back</h2>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">mv</span> catgifs bioinfclass</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">mv</span> catgifs bioinfclass</code></pre></div>
 </section>
 </section>
 <section id="creating-and-removing-files" class="level1">
@@ -244,18 +244,18 @@
 </section>
 <section id="programs-are-just-files" class="level1">
 <h1>Programs are just files!</h1>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">which</span> tree
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">which</span> tree
 
 <span class="co"># -l: &quot;long&quot; list output; lots of info that we will ignore except for `x` presence/absence</span>
-<span class="kw">ls</span> -l /usr/bin/tree
+<span class="fu">ls</span> -l /usr/bin/tree
 
 <span class="co"># super secret shortcut</span>
-<span class="kw">ls</span> -l <span class="ot">$(</span><span class="kw">which</span> tree<span class="ot">)</span>
+<span class="fu">ls</span> -l <span class="va">$(</span><span class="fu">which</span> tree<span class="va">)</span>
 
-<span class="kw">touch</span> holy-crap-birds-are-dinosaurs
+<span class="fu">touch</span> holy-crap-birds-are-dinosaurs
 
 <span class="co"># Notice no x; not executable...</span>
-<span class="kw">ls</span> -l holy-crap-birds-are-dinosaurs</code></pre></div>
+<span class="fu">ls</span> -l holy-crap-birds-are-dinosaurs</code></pre></div>
 </section>
 <section id="what-else-is-in-usrbin" class="level1">
 <h1>What else is in <code>/usr/bin</code>?</h1>
@@ -348,7 +348,7 @@ MBG104WBGag101   MBG104     monkey    gag    Narayanganj  ...
 <section id="reading-from-stdin" class="level1">
 <h1>Reading from stdin</h1>
 <p>Recall that cat writes to stdout whatever files you pass it as args. If no files are specified though, it reads from stdin.</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">cat</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">cat</span></code></pre></div>
 <ul>
 <li>Enter some text using your keyboard</li>
 <li>Use the key command <code>Ctrl-d</code> to close the stdin file</li>
@@ -381,21 +381,21 @@ MBG104WBGag101   MBG104     monkey    gag    Narayanganj  ...
 <section id="head-first" class="level1">
 <h1>Head first…</h1>
 <p>Head writes to <code>stdout</code> the first several lines of <code>stdin</code>.</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">head</span> data/sfv.csv
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">head</span> data/sfv.csv
 
-<span class="kw">column</span> -t -s , data/sfv.csv <span class="kw">|</span> <span class="kw">head</span></code></pre></div>
+<span class="ex">column</span> -t -s , data/sfv.csv <span class="kw">|</span> <span class="fu">head</span></code></pre></div>
 <p>This is useful for looking at the very top – or <em>head</em> – of big files (particularly CSV; -&gt; header + a few rows).</p>
 </section>
 <section id="looking-at-alignments" class="level1">
 <h1>Looking at alignments</h1>
 <p>It’s important to always check your alignments to make sure they look “reasonable” (more or less, look like a plausable history, not completely “random”).</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># We&#39;ll use the `alnvu` program</span>
-<span class="kw">av</span> -L 99999 -w 99999 -c output/alignment.fasta <span class="kw">|</span> <span class="kw">less</span> -S</code></pre></div>
+<span class="ex">av</span> -L 99999 -w 99999 -c output/alignment.fasta <span class="kw">|</span> <span class="fu">less</span> -S</code></pre></div>
 <p><code>av</code> is an <em>alignment viewer</em> which – with these settings – prints the differences from <em>consensus</em> for each sequence, making it easy to scan.</p>
 </section>
 <section id="we-can-also-look-at-our-tree" class="level1">
 <h1>We can also look at our tree</h1>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">nw_display</span> output/tree.nw <span class="kw">|</span> <span class="kw">less</span> -S</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">nw_display</span> output/tree.nw <span class="kw">|</span> <span class="fu">less</span> -S</code></pre></div>
 </section>
 <section id="analyzing-data" class="level1">
 <h1>Analyzing data</h1>
@@ -421,10 +421,10 @@ MBG104WBGag101   MBG104     monkey    gag    Narayanganj  ...
 <section id="sequences-per-species-1" class="level1">
 <h1>Sequences per species</h1>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># How many human sequences are there?</span>
-<span class="kw">grep</span> human data/sfv.csv <span class="kw">|</span> <span class="kw">wc</span> -l
+<span class="fu">grep</span> human data/sfv.csv <span class="kw">|</span> <span class="fu">wc</span> -l
 
 <span class="co"># What about monkey sequences?</span>
-<span class="kw">grep</span> monkey data/sfv.csv <span class="kw">|</span> <span class="kw">wc</span> -l</code></pre></div>
+<span class="fu">grep</span> monkey data/sfv.csv <span class="kw">|</span> <span class="fu">wc</span> -l</code></pre></div>
 <ul>
 <li><code>grep</code> searches through files for a pattern</li>
 <li><code>wc -l</code> counts the number of lines</li>
@@ -446,7 +446,7 @@ MBG104WBGag101   MBG104     monkey    gag    Narayanganj  ...
 <section id="a-better-way" class="level1">
 <h1>A better way</h1>
 <p>How many sequences are there for each species?</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">cut</span> -d , -f 3 data/sfv.csv <span class="kw">|</span> <span class="kw">sort</span> <span class="kw">|</span> <span class="kw">uniq</span> -c</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">cut</span> -d , -f 3 data/sfv.csv <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span> -c</code></pre></div>
 <ul>
 <li><code>cut -d , -f 3</code> extracts the third <code>,</code> separated entry for each line</li>
 <li><code>sort | uniq -c</code> counts occurrences for each unique entry</li>
@@ -522,10 +522,10 @@ MBG104WBGag101   MBG104     monkey    gag    Narayanganj  ...
 <h1>Counting specimens per species</h1>
 <p>We can do this with a two step version of the <code>cut | uniq | sort</code> pattern we used above:</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># First, uniq specimens, with species info</span>
-<span class="kw">cut</span> -d , -f 2,3 data/sfv.csv <span class="kw">|</span> <span class="kw">sort</span> <span class="kw">|</span> <span class="kw">uniq</span> <span class="kw">|</span> <span class="kw">head</span>
+<span class="fu">cut</span> -d , -f 2,3 data/sfv.csv <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span> <span class="kw">|</span> <span class="fu">head</span>
 
 <span class="co"># Next count that by species</span>
-<span class="kw">cut</span> -d , -f 2,3 data/sfv.csv <span class="kw">|</span> <span class="kw">sort</span> <span class="kw">|</span> <span class="kw">uniq</span> <span class="kw">|</span> <span class="kw">cut</span> -d , -f 2 <span class="kw">|</span> <span class="kw">sort</span> <span class="kw">|</span> <span class="kw">uniq</span> -c</code></pre></div>
+<span class="fu">cut</span> -d , -f 2,3 data/sfv.csv <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span> <span class="kw">|</span> <span class="fu">cut</span> -d , -f 2 <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span> -c</code></pre></div>
 </section>
 <section id="columns-2-and-3-cut-out-of-data" class="level1">
 <h1>Columns 2 and 3 cut out of data</h1>
@@ -572,7 +572,7 @@ MBG104WBGag101   MBG104     monkey    gag    Narayanganj  ...
 </section>
 <section id="specimens-by-location-and-species" class="level1">
 <h1>Specimens by location and species</h1>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">cut</span> -d , -f 2,3,5 data/sfv.csv <span class="kw">|</span> <span class="kw">sort</span> <span class="kw">|</span> <span class="kw">uniq</span> <span class="kw">|</span> <span class="kw">cut</span> -d , -f 2,3 <span class="kw">|</span> <span class="kw">sort</span> <span class="kw">|</span> <span class="kw">uniq</span> -c</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">cut</span> -d , -f 2,3,5 data/sfv.csv <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span> <span class="kw">|</span> <span class="fu">cut</span> -d , -f 2,3 <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span> -c</code></pre></div>
 </section>
 <section id="look-at-these-numbers" class="level1">
 <h1>Look at these numbers</h1>
@@ -601,29 +601,29 @@ MBG104WBGag101   MBG104     monkey    gag    Narayanganj  ...
 </section>
 <section id="looking-at-just-the-human-sequences" class="level1">
 <h1>Looking at just the human sequences</h1>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">csvgrep</span> -c species -m human data/sfv.csv <span class="kw">|</span> <span class="kw">csvlook</span> <span class="kw">|</span> <span class="kw">less</span> -S</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">csvgrep</span> -c species -m human data/sfv.csv <span class="kw">|</span> <span class="ex">csvlook</span> <span class="kw">|</span> <span class="fu">less</span> -S</code></pre></div>
 </section>
 <section id="the-one-missing-piece-csvuniq" class="level1">
 <h1>The one missing piece: csvuniq</h1>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># ~/bin is one of the places we can put programs</span>
-<span class="kw">mkdir</span> ~/bin
+<span class="fu">mkdir</span> ~/bin
 
-<span class="kw">wget</span> https://goo.gl/ZdNoUL -O ~/bin/csvuniq
+<span class="fu">wget</span> https://goo.gl/ZdNoUL -O ~/bin/csvuniq
 
 <span class="co"># Mark as executable, and add ~/bin to PATH</span>
-<span class="kw">chmod</span> +x ~/bin/csvuniq
-<span class="kw">export</span> <span class="ot">PATH=</span>~/bin:<span class="ot">$PATH</span>
+<span class="fu">chmod</span> +x ~/bin/csvuniq
+<span class="bu">export</span> <span class="va">PATH=</span>~/bin:<span class="va">$PATH</span>
 
 <span class="co"># Have to install some dependencies</span>
-<span class="kw">R</span>
-<span class="kw">install.packages</span>(c(<span class="st">&#39;optparse&#39;</span>, <span class="st">&#39;plyr&#39;</span>))
+<span class="ex">R</span>
+<span class="ex">install.packages</span>(c(<span class="st">&#39;optparse&#39;</span>, <span class="st">&#39;plyr&#39;</span>))
 <span class="co"># Enter y at all prompts, and select the WA CRAN mirror when asked.</span>
 <span class="co"># When done, exit with</span>
 <span class="fu">quit()</span></code></pre></div>
 </section>
 <section id="now-lets-see-what-our-last-example-looks-like" class="level1">
 <h1>Now let’s see what our last example looks like:</h1>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">csvuniq</span> -c specimen,species,location data/sfv.csv <span class="kw">|</span> <span class="kw">csvuniq</span> -zc species,location <span class="kw">|</span> <span class="kw">csvlook</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">csvuniq</span> -c specimen,species,location data/sfv.csv <span class="kw">|</span> <span class="ex">csvuniq</span> -zc species,location <span class="kw">|</span> <span class="ex">csvlook</span></code></pre></div>
 <p>Notice that <code>csvuniq</code> does all of the sorting and cutting for us…</p>
 </section>
 <section id="homework" class="level1">

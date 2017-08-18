@@ -125,10 +125,10 @@ git status</code></pre>
 <section id="making-our-first-commit" class="level1">
 <h1>Making our first commit</h1>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># Tell git what files to track (staging)</span>
-<span class="kw">git</span> add *
+<span class="fu">git</span> add *
 
 <span class="co"># Make initial commit</span>
-<span class="kw">git</span> commit -m <span class="st">&quot;Initial commit&quot;</span></code></pre></div>
+<span class="fu">git</span> commit -m <span class="st">&quot;Initial commit&quot;</span></code></pre></div>
 <p>We now have a saved state on which to build without fear of “messing things up”.</p>
 </section>
 <section id="lets-make-some-edits-and-commit-them" class="level1">
@@ -157,14 +157,14 @@ git diff</code></pre>
 <section id="committing-our-changes" class="level1">
 <h1>Committing our changes</h1>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># Stage the changed file</span>
-<span class="kw">git</span> add README.md
+<span class="fu">git</span> add README.md
 
 <span class="co"># Commit staged changes, with commit message</span>
-<span class="kw">git</span> commit -m <span class="st">&quot;Add notes to README&quot;</span>
+<span class="fu">git</span> commit -m <span class="st">&quot;Add notes to README&quot;</span>
 
 <span class="co"># Checking our status</span>
-<span class="kw">git</span> status
-<span class="kw">git</span> log</code></pre></div>
+<span class="fu">git</span> status
+<span class="fu">git</span> log</code></pre></div>
 </section>
 <section id="thats-it-for-the-basics" class="level1">
 <h1>That’s it for the basics!</h1>
@@ -248,15 +248,15 @@ git glog -n 5</code></pre>
 <h1>Grab a remote branch</h1>
 <p>When we clone, we only pull down the <code>master</code> branch, but we can still see remote branches like <code>origin/other-idea</code>.</p>
 <p>To check out one of these branches, we can do</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> checkout other-idea
-<span class="kw">git</span> glog</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">git</span> checkout other-idea
+<span class="fu">git</span> glog</code></pre></div>
 <p>Note that we now see</p>
 <pre><code>| * 5553b9e - (HEAD -&gt; other-idea, origin/other-idea) Ran results of sequences by location (1 year, 4 months ago)&lt;Christopher T Small&gt;</code></pre>
 </section>
 <section id="creating-a-new-branch" class="level1">
 <h1>Creating a new branch</h1>
 <p>You can do this any time you work on something you’re not sure you want to keep, or that follows a separate track of development.</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> checkout -b my-new-branch</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">git</span> checkout -b my-new-branch</code></pre></div>
 <p>This will create a new branch from whatever commit you currently have checked out (<code>HEAD</code>).</p>
 <p>We’ll look at how you can reconcile (merge) histories a little later.</p>
 </section>
@@ -283,13 +283,13 @@ git show d07378b</code></pre>
 <section id="git-show-or-diff-select-files" class="level1">
 <h1><code>git show</code> or <code>diff</code> select files</h1>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># Very long...</span>
-<span class="kw">git</span> show 2c17799
+<span class="fu">git</span> show 2c17799
 
 <span class="co"># If we really just care about build.sh changes...</span>
-<span class="kw">git</span> show 2c17799 build.sh
+<span class="fu">git</span> show 2c17799 build.sh
 
 <span class="co"># Or with diff</span>
-<span class="kw">git</span> diff 1aa457d d07378b build.sh</code></pre></div>
+<span class="fu">git</span> diff 1aa457d d07378b build.sh</code></pre></div>
 <p>This is pretty valuable as your project gets big and lots of things change.</p>
 </section>
 <section id="pushing-the-data-back-up" class="level1">
@@ -308,14 +308,14 @@ Thinking about some other studies now.</code></pre>
 </section>
 <section id="adding-a-new-commit-as-before" class="level1">
 <h1>Adding a new commit, as before</h1>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> add README.md
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">git</span> add README.md
 
-<span class="kw">git</span> commit -m <span class="st">&quot;Add location analyses notes&quot;</span></code></pre></div>
+<span class="fu">git</span> commit -m <span class="st">&quot;Add location analyses notes&quot;</span></code></pre></div>
 </section>
 <section id="pushing-changes-to-our-github-fork" class="level1">
 <h1>Pushing changes to our GitHub fork</h1>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># Pushing changes on branch `master` to remote `origin`</span>
-<span class="kw">git</span> push origin master
+<span class="fu">git</span> push origin master
 <span class="co"># Can also do `git push`, which pushes current branch to origin</span>
 
 <span class="co"># When prompted enter your GH username and password</span></code></pre></div>
@@ -372,11 +372,11 @@ find $outdir -name seqcount | xargs cat &gt; $loc_spec_counts</code></pre>
 </section>
 <section id="now-commit-and-look-at-our-tree" class="level1">
 <h1>Now commit and look at our tree</h1>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> add build.sh
-<span class="kw">git</span> commit -m <span class="st">&quot;Add direct sequence per location count&quot;</span>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">git</span> add build.sh
+<span class="fu">git</span> commit -m <span class="st">&quot;Add direct sequence per location count&quot;</span>
 
 <span class="co"># Now look at our history; we&#39;ve branched!</span>
-<span class="kw">git</span> glog</code></pre></div>
+<span class="fu">git</span> glog</code></pre></div>
 </section>
 <section id="merging-back-into-master" class="level1">
 <h1>Merging back into master</h1>
@@ -404,8 +404,8 @@ git merge backintime</code></pre>
 <li>Changes to the branch you merge <em>from</em> are placed betwee <code>========</code> and <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>.</li>
 </ul>
 <p>In our case, we want to keep both changes, so simply delete the demarkation lines, then save, exit and then</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> add build.sh
-<span class="kw">git</span> commit -m <span class="st">&quot;Resolve build conflicts&quot;</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">git</span> add build.sh
+<span class="fu">git</span> commit -m <span class="st">&quot;Resolve build conflicts&quot;</span></code></pre></div>
 </section>
 <section id="some-guidelines-for-using-git" class="level1">
 <h1>Some guidelines for using Git</h1>
@@ -436,12 +436,12 @@ git merge backintime</code></pre>
 </section>
 <section id="but-90-of-the-time-youll-be-using" class="level1">
 <h1>But 90% of the time, you’ll be using</h1>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> init
-<span class="kw">git</span> add ...
-<span class="kw">git</span> commit -m <span class="st">&quot;...&quot;</span>
-<span class="kw">git</span> status
-<span class="kw">git</span> log  <span class="co"># (or git glog, as you wish)</span>
-<span class="kw">git</span> diff</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">git</span> init
+<span class="fu">git</span> add ...
+<span class="fu">git</span> commit -m <span class="st">&quot;...&quot;</span>
+<span class="fu">git</span> status
+<span class="fu">git</span> log  <span class="co"># (or git glog, as you wish)</span>
+<span class="fu">git</span> diff</code></pre></div>
 <p>Learn those, start using them, and Google the rest as you need it.</p>
 </section>
 <section id="exercises" class="level1">

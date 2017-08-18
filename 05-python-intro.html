@@ -502,7 +502,7 @@ if data:
 <section id="for-statements" class="level1">
 <h1>For statements</h1>
 <p>Do something for every thing in a collection:</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="cf">for</span> n <span class="op">in</span> xs:
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="cf">for</span> n <span class="kw">in</span> xs:
     <span class="bu">print</span> <span class="st">&quot;On int:&quot;</span>, n</code></pre></div>
 </section>
 <section id="iterating-over-key-value-pairs-in-a-dictionary" class="level1">
@@ -510,7 +510,7 @@ if data:
 <p><code>dict</code> has an <code>items</code> function that gives all of the key, value pairs. Try</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="bu">dict</span>.items(person)</code></pre></div>
 <p>Now loop over them:</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="cf">for</span> k, v <span class="op">in</span> <span class="bu">dict</span>.items(person):
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="cf">for</span> k, v <span class="kw">in</span> <span class="bu">dict</span>.items(person):
     <span class="bu">print</span> <span class="st">&quot;key:&quot;</span>, k, <span class="st">&quot;val:&quot;</span>, v</code></pre></div>
 </section>
 <section id="problem" class="level1">
@@ -520,7 +520,7 @@ if data:
 <section id="using-for-to-build-results" class="level1">
 <h1>Using <code>for</code> to build results</h1>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">ys <span class="op">=</span> []
-<span class="cf">for</span> x <span class="op">in</span> xs:
+<span class="cf">for</span> x <span class="kw">in</span> xs:
     y <span class="op">=</span> square(x)
     <span class="bu">list</span>.append(ys, y)
 
@@ -530,7 +530,7 @@ if data:
 <section id="a-better-way" class="level1">
 <h1>A better way</h1>
 <p>List comprehensions:</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">ys <span class="op">=</span> [square(x) <span class="cf">for</span> x <span class="op">in</span> xs]
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">ys <span class="op">=</span> [square(x) <span class="cf">for</span> x <span class="kw">in</span> xs]
 
 <span class="bu">print</span> ys</code></pre></div>
 <p>This is more <em>declarative</em>.</p>
@@ -570,7 +570,7 @@ math.log(<span class="fl">3.14</span>)</code></pre></div>
 <h1>Installing your own packages with pip</h1>
 <p>Collections of modules are called <em>packages</em>.</p>
 <p>You can install Python packages using the <code>pip</code> command line tool (the “App Store” for Python packages). From your Unix shell:</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">pip</span> install --user biopython</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">pip</span> install --user biopython</code></pre></div>
 <p>The <code>--user</code> flag tells pip to install things in your <em>local</em> python lib directory. You would only omit that if you were installing <em>system wide</em> on your own computer.</p>
 </section>
 <section id="beware-python-3" class="level1">

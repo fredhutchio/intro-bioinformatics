@@ -256,7 +256,7 @@ tip <span class="op">=</span> terminals[<span class="dv">0</span>]
 <section id="list-of-all-names" class="level1">
 <h1>List of all names</h1>
 <p>Let’s use list comprehension:</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">tipnames <span class="op">=</span> [tip.name <span class="cf">for</span> tip <span class="op">in</span> terminals]</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">tipnames <span class="op">=</span> [tip.name <span class="cf">for</span> tip <span class="kw">in</span> terminals]</code></pre></div>
 </section>
 <section id="what-about-all-pairs-of-names" class="level1">
 <h1>What about all pairs of names?</h1>
@@ -265,8 +265,8 @@ tip <span class="op">=</span> terminals[<span class="dv">0</span>]
 <section id="all-pairs-of-names" class="level1">
 <h1>All pairs of names</h1>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">name_pairs <span class="op">=</span> <span class="bu">set</span>()
-<span class="cf">for</span> tip1 <span class="op">in</span> tipnames:
-    <span class="cf">for</span> tip2 <span class="op">in</span> tipnames:
+<span class="cf">for</span> tip1 <span class="kw">in</span> tipnames:
+    <span class="cf">for</span> tip2 <span class="kw">in</span> tipnames:
         <span class="cf">if</span> tip1 <span class="op">!=</span> tip2:
             pair <span class="op">=</span> [tip1, tip2]
             <span class="co"># So we don&#39;t have duplicates</span>
@@ -285,8 +285,8 @@ tip <span class="op">=</span> terminals[<span class="dv">0</span>]
 <p>Back in our file (<code>Ctrl-a →</code>):</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> unique_pairs(xs):
     pairs <span class="op">=</span> <span class="bu">set</span>()
-    <span class="cf">for</span> x1 <span class="op">in</span> xs:
-        <span class="cf">for</span> x2 <span class="op">in</span> xs:
+    <span class="cf">for</span> x1 <span class="kw">in</span> xs:
+        <span class="cf">for</span> x2 <span class="kw">in</span> xs:
             <span class="cf">if</span> x1 <span class="op">!=</span> x2:
                 pair <span class="op">=</span> [x1, x2]
                 pairs.add(<span class="bu">tuple</span>(<span class="bu">sorted</span>(pair)))
@@ -305,8 +305,8 @@ tip <span class="op">=</span> terminals[<span class="dv">0</span>]
 
 <span class="kw">def</span> unique_pairs(xs):
     pairs <span class="op">=</span> <span class="bu">set</span>()
-    <span class="cf">for</span> x1 <span class="op">in</span> xs:
-        <span class="cf">for</span> x2 <span class="op">in</span> xs:
+    <span class="cf">for</span> x1 <span class="kw">in</span> xs:
+        <span class="cf">for</span> x2 <span class="kw">in</span> xs:
             <span class="cf">if</span> x1 <span class="op">!=</span> x2:
                 pair <span class="op">=</span> [x1, x2]
                 pairs.add(<span class="bu">tuple</span>(<span class="bu">sorted</span>(pair)))
@@ -345,9 +345,9 @@ t.distance(t1, t2)</code></pre></div>
 <h2></h2>
 <p>Back in our <code>treedist.py</code> file:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> average_distance(tree):
-    tipnames <span class="op">=</span> [tip.name <span class="cf">for</span> tip <span class="op">in</span> tree.get_terminals()]
+    tipnames <span class="op">=</span> [tip.name <span class="cf">for</span> tip <span class="kw">in</span> tree.get_terminals()]
     tipname_pairs <span class="op">=</span> unique_pairs(tipnames)
-    tip_dists <span class="op">=</span> [tree.distance(t1, t2) <span class="cf">for</span> t1, t2 <span class="op">in</span> tipname_pairs]
+    tip_dists <span class="op">=</span> [tree.distance(t1, t2) <span class="cf">for</span> t1, t2 <span class="kw">in</span> tipname_pairs]
     <span class="cf">return</span> <span class="bu">sum</span>(tip_dists) <span class="op">/</span> <span class="bu">len</span>(tip_dists)</code></pre></div>
 </section>
 <section id="whole-file-3" class="level2">
@@ -363,17 +363,17 @@ t.distance(t1, t2)</code></pre></div>
 
 <span class="kw">def</span> unique_pairs(xs):
     pairs <span class="op">=</span> <span class="bu">set</span>()
-    <span class="cf">for</span> x1 <span class="op">in</span> xs:
-        <span class="cf">for</span> x2 <span class="op">in</span> xs:
+    <span class="cf">for</span> x1 <span class="kw">in</span> xs:
+        <span class="cf">for</span> x2 <span class="kw">in</span> xs:
             <span class="cf">if</span> x1 <span class="op">!=</span> x2:
                 pair <span class="op">=</span> [x1, x2]
                 pairs.add(<span class="bu">tuple</span>(<span class="bu">sorted</span>(pair)))
     <span class="cf">return</span> <span class="bu">list</span>(pairs)
 
 <span class="kw">def</span> average_distance(tree):
-    tipnames <span class="op">=</span> [tip.name <span class="cf">for</span> tip <span class="op">in</span> tree.get_terminals()]
+    tipnames <span class="op">=</span> [tip.name <span class="cf">for</span> tip <span class="kw">in</span> tree.get_terminals()]
     tipname_pairs <span class="op">=</span> unique_pairs(tipnames)
-    tip_dists <span class="op">=</span> [tree.distance(t1, t2) <span class="cf">for</span> t1, t2 <span class="op">in</span> tipname_pairs]
+    tip_dists <span class="op">=</span> [tree.distance(t1, t2) <span class="cf">for</span> t1, t2 <span class="kw">in</span> tipname_pairs]
     <span class="cf">return</span> <span class="bu">sum</span>(tip_dists) <span class="op">/</span> <span class="bu">len</span>(tip_dists)
 
 <span class="kw">def</span> main():
@@ -412,17 +412,17 @@ t.distance(t1, t2)</code></pre></div>
 
 <span class="kw">def</span> unique_pairs(xs):
     pairs <span class="op">=</span> <span class="bu">set</span>()
-    <span class="cf">for</span> x1 <span class="op">in</span> xs:
-        <span class="cf">for</span> x2 <span class="op">in</span> xs:
+    <span class="cf">for</span> x1 <span class="kw">in</span> xs:
+        <span class="cf">for</span> x2 <span class="kw">in</span> xs:
             <span class="cf">if</span> x1 <span class="op">!=</span> x2:
                 pair <span class="op">=</span> [x1, x2]
                 pairs.add(<span class="bu">tuple</span>(<span class="bu">sorted</span>(pair)))
     <span class="cf">return</span> <span class="bu">list</span>(pairs)
 
 <span class="kw">def</span> average_distance(tree):
-    tipnames <span class="op">=</span> [tip.name <span class="cf">for</span> tip <span class="op">in</span> tree.get_terminals()]
+    tipnames <span class="op">=</span> [tip.name <span class="cf">for</span> tip <span class="kw">in</span> tree.get_terminals()]
     tipname_pairs <span class="op">=</span> unique_pairs(tipnames)
-    tip_dists <span class="op">=</span> [tree.distance(t1, t2) <span class="cf">for</span> t1, t2 <span class="op">in</span> tipname_pairs]
+    tip_dists <span class="op">=</span> [tree.distance(t1, t2) <span class="cf">for</span> t1, t2 <span class="kw">in</span> tipname_pairs]
     <span class="cf">return</span> <span class="bu">sum</span>(tip_dists) <span class="op">/</span> <span class="bu">len</span>(tip_dists)
 
 <span class="kw">def</span> main():
@@ -441,7 +441,7 @@ t.distance(t1, t2)</code></pre></div>
 <section id="lets-test" class="level1">
 <h1>Let’s test</h1>
 <p>Save, then go back to the bash pane and try running again:</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">./scripts/treedists.py</span> output/Karamjal/tree.nw</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">./scripts/treedists.py</span> output/Karamjal/tree.nw</code></pre></div>
 </section>
 <section id="adding-a---csv-output-option" class="level1">
 <h1>Adding a <code>--csv</code> output option</h1>
@@ -470,17 +470,17 @@ t.distance(t1, t2)</code></pre></div>
 
 <span class="kw">def</span> unique_pairs(xs):
     pairs <span class="op">=</span> <span class="bu">set</span>()
-    <span class="cf">for</span> x1 <span class="op">in</span> xs:
-        <span class="cf">for</span> x2 <span class="op">in</span> xs:
+    <span class="cf">for</span> x1 <span class="kw">in</span> xs:
+        <span class="cf">for</span> x2 <span class="kw">in</span> xs:
             <span class="cf">if</span> x1 <span class="op">!=</span> x2:
                 pair <span class="op">=</span> [x1, x2]
                 pairs.add(<span class="bu">tuple</span>(<span class="bu">sorted</span>(pair)))
     <span class="cf">return</span> <span class="bu">list</span>(pairs)
 
 <span class="kw">def</span> average_distance(tree):
-    tipnames <span class="op">=</span> [tip.name <span class="cf">for</span> tip <span class="op">in</span> tree.get_terminals()]
+    tipnames <span class="op">=</span> [tip.name <span class="cf">for</span> tip <span class="kw">in</span> tree.get_terminals()]
     tipname_pairs <span class="op">=</span> unique_pairs(tipnames)
-    tip_dists <span class="op">=</span> [tree.distance(t1, t2) <span class="cf">for</span> t1, t2 <span class="op">in</span> tipname_pairs]
+    tip_dists <span class="op">=</span> [tree.distance(t1, t2) <span class="cf">for</span> t1, t2 <span class="kw">in</span> tipname_pairs]
     <span class="cf">return</span> <span class="bu">sum</span>(tip_dists) <span class="op">/</span> <span class="bu">len</span>(tip_dists)
 
 <span class="kw">def</span> main():
@@ -525,17 +525,17 @@ t.distance(t1, t2)</code></pre></div>
 
 <span class="kw">def</span> unique_pairs(xs):
     pairs <span class="op">=</span> <span class="bu">set</span>()
-    <span class="cf">for</span> x1 <span class="op">in</span> xs:
-        <span class="cf">for</span> x2 <span class="op">in</span> xs:
+    <span class="cf">for</span> x1 <span class="kw">in</span> xs:
+        <span class="cf">for</span> x2 <span class="kw">in</span> xs:
             <span class="cf">if</span> x1 <span class="op">!=</span> x2:
                 pair <span class="op">=</span> [x1, x2]
                 pairs.add(<span class="bu">tuple</span>(<span class="bu">sorted</span>(pair)))
     <span class="cf">return</span> <span class="bu">list</span>(pairs)
 
 <span class="kw">def</span> average_distance(tree):
-    tipnames <span class="op">=</span> [tip.name <span class="cf">for</span> tip <span class="op">in</span> tree.get_terminals()]
+    tipnames <span class="op">=</span> [tip.name <span class="cf">for</span> tip <span class="kw">in</span> tree.get_terminals()]
     tipname_pairs <span class="op">=</span> unique_pairs(tipnames)
-    tip_dists <span class="op">=</span> [tree.distance(t1, t2) <span class="cf">for</span> t1, t2 <span class="op">in</span> tipname_pairs]
+    tip_dists <span class="op">=</span> [tree.distance(t1, t2) <span class="cf">for</span> t1, t2 <span class="kw">in</span> tipname_pairs]
     <span class="cf">return</span> <span class="bu">sum</span>(tip_dists) <span class="op">/</span> <span class="bu">len</span>(tip_dists)
 
 <span class="kw">def</span> main():
@@ -582,17 +582,17 @@ t.distance(t1, t2)</code></pre></div>
 
 <span class="kw">def</span> unique_pairs(xs):
     pairs <span class="op">=</span> <span class="bu">set</span>()
-    <span class="cf">for</span> x1 <span class="op">in</span> xs:
-        <span class="cf">for</span> x2 <span class="op">in</span> xs:
+    <span class="cf">for</span> x1 <span class="kw">in</span> xs:
+        <span class="cf">for</span> x2 <span class="kw">in</span> xs:
             <span class="cf">if</span> x1 <span class="op">!=</span> x2:
                 pair <span class="op">=</span> [x1, x2]
                 pairs.add(<span class="bu">tuple</span>(<span class="bu">sorted</span>(pair)))
     <span class="cf">return</span> <span class="bu">list</span>(pairs)
 
 <span class="kw">def</span> average_distance(tree):
-    tipnames <span class="op">=</span> [tip.name <span class="cf">for</span> tip <span class="op">in</span> tree.get_terminals()]
+    tipnames <span class="op">=</span> [tip.name <span class="cf">for</span> tip <span class="kw">in</span> tree.get_terminals()]
     tipname_pairs <span class="op">=</span> unique_pairs(tipnames)
-    tip_dists <span class="op">=</span> [tree.distance(t1, t2) <span class="cf">for</span> t1, t2 <span class="op">in</span> tipname_pairs]
+    tip_dists <span class="op">=</span> [tree.distance(t1, t2) <span class="cf">for</span> t1, t2 <span class="kw">in</span> tipname_pairs]
     <span class="cf">return</span> <span class="bu">sum</span>(tip_dists) <span class="op">/</span> <span class="bu">len</span>(tip_dists)
 
 <span class="kw">def</span> write_csv(result):
@@ -620,11 +620,11 @@ t.distance(t1, t2)</code></pre></div>
 <h1>Testing again</h1>
 <p>From bash:</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># Argparse is awesome!</span>
-<span class="kw">./scripts/treedists.py</span> --help
+<span class="ex">./scripts/treedists.py</span> --help
 <span class="co"># Now let&#39;s try running</span>
-<span class="kw">./scripts/treedists.py</span> --csv output/Karamjal/tree.nw
+<span class="ex">./scripts/treedists.py</span> --csv output/Karamjal/tree.nw
 <span class="co"># Old behaviour still works</span>
-<span class="kw">./scripts/treedists.py</span> output/Karamjal/tree.nw</code></pre></div>
+<span class="ex">./scripts/treedists.py</span> output/Karamjal/tree.nw</code></pre></div>
 </section>
 <section id="adding-location" class="level1">
 <h1>Adding location</h1>
@@ -661,17 +661,17 @@ t.distance(t1, t2)</code></pre></div>
 
 <span class="kw">def</span> unique_pairs(xs):
     pairs <span class="op">=</span> <span class="bu">set</span>()
-    <span class="cf">for</span> x1 <span class="op">in</span> xs:
-        <span class="cf">for</span> x2 <span class="op">in</span> xs:
+    <span class="cf">for</span> x1 <span class="kw">in</span> xs:
+        <span class="cf">for</span> x2 <span class="kw">in</span> xs:
             <span class="cf">if</span> x1 <span class="op">!=</span> x2:
                 pair <span class="op">=</span> [x1, x2]
                 pairs.add(<span class="bu">tuple</span>(<span class="bu">sorted</span>(pair)))
     <span class="cf">return</span> <span class="bu">list</span>(pairs)
 
 <span class="kw">def</span> average_distance(tree):
-    tipnames <span class="op">=</span> [tip.name <span class="cf">for</span> tip <span class="op">in</span> tree.get_terminals()]
+    tipnames <span class="op">=</span> [tip.name <span class="cf">for</span> tip <span class="kw">in</span> tree.get_terminals()]
     tipname_pairs <span class="op">=</span> unique_pairs(tipnames)
-    tip_dists <span class="op">=</span> [tree.distance(t1, t2) <span class="cf">for</span> t1, t2 <span class="op">in</span> tipname_pairs]
+    tip_dists <span class="op">=</span> [tree.distance(t1, t2) <span class="cf">for</span> t1, t2 <span class="kw">in</span> tipname_pairs]
     <span class="cf">return</span> <span class="bu">sum</span>(tip_dists) <span class="op">/</span> <span class="bu">len</span>(tip_dists)
 
 <span class="kw">def</span> write_csv(result):
@@ -723,17 +723,17 @@ t.distance(t1, t2)</code></pre></div>
 
 <span class="kw">def</span> unique_pairs(xs):
     pairs <span class="op">=</span> <span class="bu">set</span>()
-    <span class="cf">for</span> x1 <span class="op">in</span> xs:
-        <span class="cf">for</span> x2 <span class="op">in</span> xs:
+    <span class="cf">for</span> x1 <span class="kw">in</span> xs:
+        <span class="cf">for</span> x2 <span class="kw">in</span> xs:
             <span class="cf">if</span> x1 <span class="op">!=</span> x2:
                 pair <span class="op">=</span> [x1, x2]
                 pairs.add(<span class="bu">tuple</span>(<span class="bu">sorted</span>(pair)))
     <span class="cf">return</span> <span class="bu">list</span>(pairs)
 
 <span class="kw">def</span> average_distance(tree):
-    tipnames <span class="op">=</span> [tip.name <span class="cf">for</span> tip <span class="op">in</span> tree.get_terminals()]
+    tipnames <span class="op">=</span> [tip.name <span class="cf">for</span> tip <span class="kw">in</span> tree.get_terminals()]
     tipname_pairs <span class="op">=</span> unique_pairs(tipnames)
-    tip_dists <span class="op">=</span> [tree.distance(t1, t2) <span class="cf">for</span> t1, t2 <span class="op">in</span> tipname_pairs]
+    tip_dists <span class="op">=</span> [tree.distance(t1, t2) <span class="cf">for</span> t1, t2 <span class="kw">in</span> tipname_pairs]
     <span class="cf">return</span> <span class="bu">sum</span>(tip_dists) <span class="op">/</span> <span class="bu">len</span>(tip_dists)
 
 <span class="kw">def</span> write_csv(result, location):
@@ -763,34 +763,34 @@ t.distance(t1, t2)</code></pre></div>
 <h1>Testing out</h1>
 <p>Save, then back in bash:</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># Look at new help</span>
-<span class="kw">./scripts/treedists.py</span> --help
+<span class="ex">./scripts/treedists.py</span> --help
 <span class="co"># Try out new option</span>
-<span class="kw">./scripts/treedists.py</span> --csv output/Karamjal/tree.nw -l karamjal
+<span class="ex">./scripts/treedists.py</span> --csv output/Karamjal/tree.nw -l karamjal
 <span class="co"># Old behaviour still works</span>
-<span class="kw">./scripts/treedists.py</span> --csv output/Karamjal/tree.nw</code></pre></div>
+<span class="ex">./scripts/treedists.py</span> --csv output/Karamjal/tree.nw</code></pre></div>
 </section>
 <section id="hooking-this-up-in-build.sh" class="level1">
 <h1>Hooking this up in <code>build.sh</code></h1>
 <p>Switch to the <code>nano</code> pane, and close <code>treedists.py</code>. Then <code>nano build.sh</code> and enter:</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># At the top make sure scripts is in our PATH</span>
-<span class="ot">PATH=</span>./scripts/:<span class="ot">$PATH</span></code></pre></div>
+<span class="va">PATH=</span>./scripts/:<span class="va">$PATH</span></code></pre></div>
 </section>
 <section id="hooking-this-up-ctnd" class="level1">
 <h1>Hooking this up (ctnd)</h1>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ot">treedist_files=()</span>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="va">treedist_files=()</span>
 
-<span class="kw">for</span> <span class="kw">location</span> in <span class="ot">${locations[*]}</span>
+<span class="kw">for</span> <span class="ex">location</span> in <span class="va">${locations[*]}</span>
 <span class="kw">do</span>
   <span class="co"># ...</span>
 
   <span class="co"># Build a location tree</span>
-  <span class="ot">loc_tree=</span><span class="st">&quot;</span><span class="ot">$loc_outdir</span><span class="st">/tree.nw&quot;</span>
-  <span class="kw">FastTree</span> -seed 1234 -nt <span class="ot">$loc_alignment</span> <span class="kw">&gt;</span> <span class="ot">$loc_tree</span>
+  <span class="va">loc_tree=</span><span class="st">&quot;</span><span class="va">$loc_outdir</span><span class="st">/tree.nw&quot;</span>
+  <span class="ex">FastTree</span> -seed 1234 -nt <span class="va">$loc_alignment</span> <span class="op">&gt;</span> <span class="va">$loc_tree</span>
 
-  <span class="ot">treedists=</span><span class="st">&quot;</span><span class="ot">$loc_outdir</span><span class="st">/treedist.csv&quot;</span>
-  <span class="kw">treedists.py</span> <span class="ot">$loc_tree</span> --csv -l <span class="ot">$location</span> <span class="kw">&gt;</span> <span class="ot">$treedists</span>
+  <span class="va">treedists=</span><span class="st">&quot;</span><span class="va">$loc_outdir</span><span class="st">/treedist.csv&quot;</span>
+  <span class="ex">treedists.py</span> <span class="va">$loc_tree</span> --csv -l <span class="va">$location</span> <span class="op">&gt;</span> <span class="va">$treedists</span>
 
-  <span class="ot">treedist_files+=($treedists)</span>
+  <span class="va">treedist_files+=($treedists)</span>
 <span class="kw">done</span></code></pre></div>
 </section>
 <section id="hooking-this-up-final" class="level1">

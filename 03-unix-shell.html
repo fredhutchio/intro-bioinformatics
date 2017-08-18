@@ -217,10 +217,10 @@ csvlook output/seqs_per_specimen.csv | less -S</code></pre>
 <p>In the shell:</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># Set the shell variable `birds`</span>
 <span class="co"># (Note: no spaces around the &quot;=&quot;)</span>
-<span class="ot">birds=</span><span class="st">&quot;are really dinosaurs&quot;</span>
+<span class="va">birds=</span><span class="st">&quot;are really dinosaurs&quot;</span>
 
 <span class="co"># We can use that variable in further commands by prepending $</span>
-<span class="kw">echo</span> <span class="ot">$birds</span></code></pre></div>
+<span class="bu">echo</span> <span class="va">$birds</span></code></pre></div>
 </section>
 <section id="cleaning-up-our-build-script" class="level1">
 <h1>Cleaning up our build script</h1>
@@ -251,11 +251,11 @@ csvuniq -zc species,location $seqs_per_specimen &gt; $specs_per_species_location
 </section>
 <section id="verify-that-it-runs" class="level1">
 <h1>Verify that it runs</h1>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">./build.sh</span>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">./build.sh</span>
 
-<span class="kw">ls</span> output
+<span class="fu">ls</span> output
 
-<span class="kw">csvlook</span> output/seqs_per_specimen.csv</code></pre></div>
+<span class="ex">csvlook</span> output/seqs_per_specimen.csv</code></pre></div>
 </section>
 <section id="questions-1" class="level1">
 <h1>Questions</h1>
@@ -409,15 +409,15 @@ FastTree -nt $alignment &gt; $tree</code></pre>
 <h2>Say we want to do some analyses for each location.</h2>
 <p>Let’s start by creating a separate directory for each. How would we add location specific metadata using our csvkit tools?</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># For each location...</span>
-<span class="ot">locations=($(</span><span class="kw">csvuniq</span> -c location <span class="ot">$metadata</span> <span class="kw">|</span> <span class="kw">tail</span> -n +2<span class="ot">))</span>
-<span class="kw">for</span> <span class="kw">location</span> in <span class="ot">${locations[*]}</span>
+<span class="va">locations=($(</span><span class="ex">csvuniq</span> -c location <span class="va">$metadata</span> <span class="kw">|</span> <span class="fu">tail</span> -n +2<span class="va">))</span>
+<span class="kw">for</span> <span class="ex">location</span> in <span class="va">${locations[*]}</span>
 <span class="kw">do</span>
   <span class="co"># Create a location outdir, if it doesn&#39;t already exist</span>
-  <span class="ot">loc_outdir=</span><span class="st">&quot;</span><span class="ot">$outdir</span><span class="st">/</span><span class="ot">$location</span><span class="st">&quot;</span>
-  <span class="kw">mkdir</span> -p <span class="ot">$loc_outdir</span>
+  <span class="va">loc_outdir=</span><span class="st">&quot;</span><span class="va">$outdir</span><span class="st">/</span><span class="va">$location</span><span class="st">&quot;</span>
+  <span class="fu">mkdir</span> -p <span class="va">$loc_outdir</span>
 
   <span class="co"># Create a subset of the metadata for just that location</span>
-  <span class="ot">loc_metadata=</span><span class="st">&quot;</span><span class="ot">$loc_outdir</span><span class="st">/metadata.csv&quot;</span>
+  <span class="va">loc_metadata=</span><span class="st">&quot;</span><span class="va">$loc_outdir</span><span class="st">/metadata.csv&quot;</span>
   <span class="co"># XXX TODO! Add code here to create $loc_metadata</span>
 
 <span class="kw">done</span></code></pre></div>
@@ -425,16 +425,16 @@ FastTree -nt $alignment &gt; $tree</code></pre>
 <section id="section-2" class="level2">
 <h2></h2>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># For each location...</span>
-<span class="ot">locations=($(</span><span class="kw">csvuniq</span> -c location <span class="ot">$metadata</span> <span class="kw">|</span> <span class="kw">tail</span> -n +2<span class="ot">))</span>
-<span class="kw">for</span> <span class="kw">location</span> in <span class="ot">${locations[*]}</span>
+<span class="va">locations=($(</span><span class="ex">csvuniq</span> -c location <span class="va">$metadata</span> <span class="kw">|</span> <span class="fu">tail</span> -n +2<span class="va">))</span>
+<span class="kw">for</span> <span class="ex">location</span> in <span class="va">${locations[*]}</span>
 <span class="kw">do</span>
   <span class="co"># Create a location outdir, if it doesn&#39;t already exist</span>
-  <span class="ot">loc_outdir=</span><span class="st">&quot;</span><span class="ot">$outdir</span><span class="st">/</span><span class="ot">$location</span><span class="st">&quot;</span>
-  <span class="kw">mkdir</span> -p <span class="ot">$loc_outdir</span>
+  <span class="va">loc_outdir=</span><span class="st">&quot;</span><span class="va">$outdir</span><span class="st">/</span><span class="va">$location</span><span class="st">&quot;</span>
+  <span class="fu">mkdir</span> -p <span class="va">$loc_outdir</span>
 
   <span class="co"># Create a subset of the metadata for just that location</span>
-  <span class="ot">loc_metadata=</span><span class="st">&quot;</span><span class="ot">$loc_outdir</span><span class="st">/metadata.csv&quot;</span>
-  <span class="kw">csvgrep</span> -c location -m <span class="ot">$location</span> <span class="ot">$metadata</span> <span class="kw">&gt;</span> <span class="ot">$loc_metadata</span>
+  <span class="va">loc_metadata=</span><span class="st">&quot;</span><span class="va">$loc_outdir</span><span class="st">/metadata.csv&quot;</span>
+  <span class="ex">csvgrep</span> -c location -m <span class="va">$location</span> <span class="va">$metadata</span> <span class="op">&gt;</span> <span class="va">$loc_metadata</span>
 
 <span class="kw">done</span></code></pre></div>
 </section>
@@ -444,14 +444,14 @@ FastTree -nt $alignment &gt; $tree</code></pre>
 <section id="how-would-we-create-a-phylogenetic-tree-for-each-location-in-our-data-set" class="level2">
 <h2>How would we create a phylogenetic tree for each location in our data set?</h2>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># For each location...</span>
-<span class="ot">locations=($(</span><span class="kw">csvuniq</span> -c location <span class="ot">$metadata</span> <span class="kw">|</span> <span class="kw">tail</span> -n +2<span class="ot">))</span>
-<span class="kw">for</span> <span class="kw">location</span> in <span class="ot">${locations[*]}</span>
+<span class="va">locations=($(</span><span class="ex">csvuniq</span> -c location <span class="va">$metadata</span> <span class="kw">|</span> <span class="fu">tail</span> -n +2<span class="va">))</span>
+<span class="kw">for</span> <span class="ex">location</span> in <span class="va">${locations[*]}</span>
 <span class="kw">do</span>
   <span class="co"># ... create location metadata, etc.</span>
 
   <span class="co"># Create a list of sequences sampled from that location</span>
-  <span class="ot">loc_sequences=</span><span class="st">&quot;</span><span class="ot">$loc_outdir</span><span class="st">/sequences&quot;</span>
-  <span class="kw">csvcut</span> -c sequence <span class="ot">$loc_metadata</span> <span class="kw">&gt;</span> <span class="ot">$loc_sequences</span>
+  <span class="va">loc_sequences=</span><span class="st">&quot;</span><span class="va">$loc_outdir</span><span class="st">/sequences&quot;</span>
+  <span class="ex">csvcut</span> -c sequence <span class="va">$loc_metadata</span> <span class="op">&gt;</span> <span class="va">$loc_sequences</span>
 
   <span class="co"># TODO:</span>
   <span class="co"># * Subset Ex.1 alignment using `seqmagick convert`</span>
@@ -462,22 +462,22 @@ FastTree -nt $alignment &gt; $tree</code></pre>
 <h2></h2>
 <p>Add the following to the end of our for loop</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># For each location...</span>
-<span class="ot">locations=($(</span><span class="kw">csvuniq</span> -c location <span class="ot">$metadata</span> <span class="kw">|</span> <span class="kw">tail</span> -n +2<span class="ot">))</span>
-<span class="kw">for</span> <span class="kw">location</span> in <span class="ot">${locations[*]}</span>
+<span class="va">locations=($(</span><span class="ex">csvuniq</span> -c location <span class="va">$metadata</span> <span class="kw">|</span> <span class="fu">tail</span> -n +2<span class="va">))</span>
+<span class="kw">for</span> <span class="ex">location</span> in <span class="va">${locations[*]}</span>
 <span class="kw">do</span>
   <span class="co"># ... create location metadata, etc.</span>
 
   <span class="co"># Create a list of sequences sampled from that location</span>
-  <span class="ot">loc_sequences=</span><span class="st">&quot;</span><span class="ot">$loc_outdir</span><span class="st">/sequences&quot;</span>
-  <span class="kw">csvcut</span> -c sequence <span class="ot">$loc_metadata</span> <span class="kw">&gt;</span> <span class="ot">$loc_sequences</span>
+  <span class="va">loc_sequences=</span><span class="st">&quot;</span><span class="va">$loc_outdir</span><span class="st">/sequences&quot;</span>
+  <span class="ex">csvcut</span> -c sequence <span class="va">$loc_metadata</span> <span class="op">&gt;</span> <span class="va">$loc_sequences</span>
 
   <span class="co"># Subset our alignment to just that location</span>
-  <span class="ot">loc_alignment=</span><span class="st">&quot;</span><span class="ot">$loc_outdir</span><span class="st">/alignment.fasta&quot;</span>
-  <span class="kw">seqmagick</span> convert --include-from-file <span class="ot">$loc_sequences</span> <span class="ot">$alignment</span> <span class="ot">$loc_alignment</span>
+  <span class="va">loc_alignment=</span><span class="st">&quot;</span><span class="va">$loc_outdir</span><span class="st">/alignment.fasta&quot;</span>
+  <span class="ex">seqmagick</span> convert --include-from-file <span class="va">$loc_sequences</span> <span class="va">$alignment</span> <span class="va">$loc_alignment</span>
 
   <span class="co"># Build a location tree</span>
-  <span class="ot">loc_tree=</span><span class="st">&quot;</span><span class="ot">$loc_outdir</span><span class="st">/tree.nw&quot;</span>
-  <span class="kw">FastTree</span> -nt <span class="ot">$loc_alignment</span> <span class="kw">&gt;</span> <span class="ot">$loc_tree</span>
+  <span class="va">loc_tree=</span><span class="st">&quot;</span><span class="va">$loc_outdir</span><span class="st">/tree.nw&quot;</span>
+  <span class="ex">FastTree</span> -nt <span class="va">$loc_alignment</span> <span class="op">&gt;</span> <span class="va">$loc_tree</span>
 
 <span class="kw">done</span></code></pre></div>
 </section>
