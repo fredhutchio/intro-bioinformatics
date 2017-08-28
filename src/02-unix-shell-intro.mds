@@ -14,14 +14,16 @@
 
 # The Unix Philosophy
 
-* Small, composable tools that do one thing right
+* Small tools that do one thing right
 * Plumb tools together into pipelines/scripts
 * Embrace plain text/data
 
-This gives us a lot of power.
+All of this is in service of **composability**.
+
+How does this help bioinformatics?
 
 
-# Let's break things down a bit
+# Breaking down Unix
 
 
 # Directories, files and paths, oh my!
@@ -33,7 +35,7 @@ _In which we see the static world of things_
 
 * programs
 * devices
-* /dev/null
+* `/dev/null`
 * etc.
 
 
@@ -128,7 +130,7 @@ ls data
 ls bioinfclass
 ```
 
-**Exercise:** How do we get `data` back?
+**Exercise:** How do we get `data` back? (click down for answer)
 
 ## Getting data back
 
@@ -150,7 +152,7 @@ ls
 
 Think of `mv` as updating the "path" stamp on a file
 
-**Exercise:** How do we get `bioinfclass` back?
+**Exercise:** How do we get `bioinfclass` back? (down for answer)
 
 ## Getting bioinfclass back
 
@@ -185,7 +187,7 @@ _In which things take flight and evolve!_
 * command: name of the program
 * operands: positional based arguments
     * often but not always required
-* flags: named based arguments
+* flags: name based arguments
     * position frequently ignored
     * usually for controlling details of program behavior
     * often not required
@@ -235,6 +237,9 @@ This is one of the many places your shell looks for programs
 `echo $PATH` => Your `PATH` _environment variable_; a `:` separated list of places your shell looks for programs.
 
 This can be edited if you want to let your shell know to look other places as well (see `.bashrc`)
+
+
+# Questions?
 
 
 # Pipes and streams
@@ -324,7 +329,11 @@ Some conventions:
 
 # More about stdin
 
-Q: What does stdin default to?
+## Q: What does stdin default to?
+
+(down for answer)
+
+## Q: What does stdin default to?
 
 A: Your keyboard!
 

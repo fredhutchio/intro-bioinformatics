@@ -74,14 +74,15 @@
 <section id="the-unix-philosophy" class="level1">
 <h1>The Unix Philosophy</h1>
 <ul>
-<li>Small, composable tools that do one thing right</li>
+<li>Small tools that do one thing right</li>
 <li>Plumb tools together into pipelines/scripts</li>
 <li>Embrace plain text/data</li>
 </ul>
-<p>This gives us a lot of power.</p>
+<p>All of this is in service of <strong>composability</strong>.</p>
+<p>How does this help bioinformatics?</p>
 </section>
-<section id="lets-break-things-down-a-bit" class="level1">
-<h1>Let’s break things down a bit</h1>
+<section id="breaking-down-unix" class="level1">
+<h1>Breaking down Unix</h1>
 </section>
 <section id="directories-files-and-paths-oh-my" class="level1">
 <h1>Directories, files and paths, oh my!</h1>
@@ -92,7 +93,7 @@
 <ul>
 <li>programs</li>
 <li>devices</li>
-<li>/dev/null</li>
+<li><code>/dev/null</code></li>
 <li>etc.</li>
 </ul>
 </section>
@@ -173,7 +174,7 @@
 <span class="fu">ls</span> data
 
 <span class="fu">ls</span> bioinfclass</code></pre></div>
-<p><strong>Exercise:</strong> How do we get <code>data</code> back?</p>
+<p><strong>Exercise:</strong> How do we get <code>data</code> back? (click down for answer)</p>
 </section>
 <section id="getting-data-back" class="level2">
 <h2>Getting data back</h2>
@@ -189,7 +190,7 @@
 
 <span class="fu">ls</span></code></pre></div>
 <p>Think of <code>mv</code> as updating the “path” stamp on a file</p>
-<p><strong>Exercise:</strong> How do we get <code>bioinfclass</code> back?</p>
+<p><strong>Exercise:</strong> How do we get <code>bioinfclass</code> back? (down for answer)</p>
 </section>
 <section id="getting-bioinfclass-back" class="level2">
 <h2>Getting bioinfclass back</h2>
@@ -221,7 +222,7 @@
 <ul>
 <li>often but not always required</li>
 </ul></li>
-<li>flags: named based arguments
+<li>flags: name based arguments
 <ul>
 <li>position frequently ignored</li>
 <li>usually for controlling details of program behavior</li>
@@ -266,6 +267,9 @@
 <h1>How does the shell know where to look for programs?</h1>
 <p><code>echo $PATH</code> =&gt; Your <code>PATH</code> <em>environment variable</em>; a <code>:</code> separated list of places your shell looks for programs.</p>
 <p>This can be edited if you want to let your shell know to look other places as well (see <code>.bashrc</code>)</p>
+</section>
+<section id="questions" class="level1">
+<h1>Questions?</h1>
 </section>
 <section id="pipes-and-streams" class="level1">
 <h1>Pipes and streams</h1>
@@ -342,8 +346,14 @@ MBG104WBGag101   MBG104     monkey    gag    Narayanganj  ...
 </section>
 <section id="more-about-stdin" class="level1">
 <h1>More about stdin</h1>
-<p>Q: What does stdin default to?</p>
+<section id="q-what-does-stdin-default-to" class="level2">
+<h2>Q: What does stdin default to?</h2>
+<p>(down for answer)</p>
+</section>
+<section id="q-what-does-stdin-default-to-1" class="level2">
+<h2>Q: What does stdin default to?</h2>
 <p>A: Your keyboard!</p>
+</section>
 </section>
 <section id="reading-from-stdin" class="level1">
 <h1>Reading from stdin</h1>
