@@ -453,7 +453,7 @@ This means we need to resolve the conflicts.
 
 # Exercise
 
-`nano build.sh` file and go down to the bottom where we made our changes.
+`vim build.sh` file and go down to the bottom where we made our changes.
 
 * Changes to the branch you merge _to_ are placed between `<<<<<<<<< HEAD` and  `========`
 * Changes to the branch you merge _from_ are placed betwee `========` and `>>>>>>>>>`.
