@@ -63,17 +63,20 @@
 <h1>First things first</h1>
 <ul>
 <li>Were you able to get <code>csvuniq</code> installed/working (check <code>~/bin/csvuniq -h</code>)?</li>
-<li>Note: <code>Ctrl-k</code> is useful for killing entire lines in nano</li>
-<li>You can turn off auto-indentation mode when pasting using <code>Esc i</code></li>
+<li>How is project planning and outside time going?</li>
 </ul>
 </section>
 <section id="shell-scripting" class="level1">
 <h1>Shell scripting</h1>
 <p><em>In which our flying, speaking beasts assemble and become legion</em></p>
 </section>
-<section id="the-unix-shell-is-more-than-just-a-shell" class="level1">
-<h1>The Unix shell is more than just a shell</h1>
-<p>It’s also a mini-programming language!</p>
+<section id="a-shell-script-is-just-a-list-of-commands-to-be-executed" class="level1">
+<h1>A <em>shell script</em> is just a list of commands to be executed</h1>
+<p>We can type these commands into text files, and instruct our Unix shell to execute them.</p>
+</section>
+<section id="surprise" class="level1">
+<h1>Surprise!</h1>
+<p>The Unix shell is also a mini-programming language!</p>
 <p>Next to piping, this is our second route towards the promise of Unix composability</p>
 </section>
 <section id="for-bioinformatics-this-means" class="level1">
@@ -90,104 +93,83 @@
 <li>Less so for more complicated data flow and logic (for which we have python, R, etc.)</li>
 </ul>
 </section>
-<section id="our-first-script" class="level1">
-<h1>Our first script!</h1>
-<p>We’re going to create a <code>build.sh</code> script to automate our analyses.</p>
+<section id="our-environment" class="level1">
+<h1>Our environment</h1>
+<p>We can also script our environment via a dotfile that gets loaded when shell sessions are created: <code>~/.bashrc</code>.</p>
 </section>
-<section id="a-shell-script-is-just-a-list-of-commands-to-be-executed" class="level1">
-<h1>A shell script is just a list of commands to be executed</h1>
-<p>Run <code>nano build.sh</code>, then add:</p>
-<pre><code>ls -l | column -t
-echo &quot;IT WORKED!&quot;</code></pre>
+<section id="our-environment-1" class="level1">
+<h1>Our environment</h1>
 <ul>
-<li>Save (<code>Ctrl-o</code>)</li>
-<li>Switch to a new t-mux pane (<code>Ctrl-a |</code>)</li>
-<li>Run <code>bash build.sh</code> from within the <code>bioinfclass</code> directory</li>
+<li>Run <code>vim ~/.bashrc</code> to open the file</li>
+<li>hit <code>i</code> for insert mode</li>
+<li>use arrow keys to scroll to the bottom of the file, then add:</li>
 </ul>
-</section>
-<section id="error-handling" class="level1">
-<h1>Error handling</h1>
-<p>Back in our <code>nano build.sh</code> pane, edit to look like:</p>
-<pre><code># Sane error handling settings
-set -euf -o pipefail
-
-ls -l | column -t
-# Put in a &quot;bug&quot;:
-asdfasdfasdf
-
-echo &quot;IT WORKED!&quot;</code></pre>
-<p>Save and rerun <code>bash build.sh</code>. Remove the “bug” and rerun again.</p>
-<p>Note: Lines starting with <code>#</code> are comments and not executed.</p>
-</section>
-<section id="making-into-a-proper-command" class="level1">
-<h1>Making into a proper command</h1>
-<p>Edit your <code>nano build.sh</code> to look like:</p>
-<pre><code>#!/bin/bash
-
-# Sane error handling settings
-set -euf -o pipefail
-
-ls -l | column -t
-echo &quot;IT WORKED!&quot;</code></pre>
-<p>The <code>#!</code> is a “shebang”: a special comment line that tells computer how to run our script</p>
-</section>
-<section id="now-make-the-script-executable" class="level1">
-<h1>Now make the script executable!</h1>
-<p>At the terminal:</p>
-<pre><code>chmod +x build.sh
-
-# Note &quot;x&quot; when we use `ls -l`
-ls -l build.sh
-
-file build.sh
-
-# Now it&#39;s a command/program!
-./build.sh</code></pre>
-</section>
-<section id="taking-a-step-back-to-optimize-our-environment-with-dotfiles" class="level1">
-<h1>Taking a step back to optimize our environment with dotfiles</h1>
-<p>We’ve already seen dotfiles in use with Tmux. Many other Unix programs accept configuration from dotfiles, including <code>nano</code> and our Unix shell itself.</p>
-</section>
-<section id="first-some-things-to-make-nano-nicer" class="level1">
-<h1>First some things to make nano nicer</h1>
-<p>Run <code>nano ~/.nanorc</code>, then enter:</p>
-<pre><code>set tabsize 4
-set tabstospaces
-set autoindent</code></pre>
-<p>It’s not perfect, but it’s a start.</p>
-</section>
-<section id="now-our-environment" class="level1">
-<h1>Now our environment</h1>
-<p>Tired of running <code>module load intro-bio</code>? Or editing your <code>PATH</code> variable?</p>
-<p>Run <code>nano ~/.bashrc</code>:</p>
-<pre><code>module load intro-bio
-export PATH=~/bin/:$PATH</code></pre>
-<p>Now run <code>source ~/.bashrc</code> to reload.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">module</span> load intro-bio
+<span class="ex">module</span> load R/3.3.3-foss-2016b-fh2 <span class="co"># for now; we&#39;ll put this in intro-bio soon</span>
+<span class="bu">export</span> <span class="va">PATH=</span>~/bin/:<span class="va">$PATH</span></code></pre></div>
+<p>Save and quit (<code>Esc</code> then <code>:wq&lt;Enter&gt;</code>), then run <code>source ~/.bashrc</code> to reload the changes (for each already open tmux pane).</p>
 </section>
 <section id="back-to-biology" class="level1">
 <h1>Back to biology</h1>
 </section>
-<section id="counting-sequences-per-species" class="level1">
-<h1>Counting sequences per species</h1>
-<p>In our <code>build.sh</code> file, replace the <code>column -t</code> command with:</p>
-<pre><code># Compute number of sequences per species
-csvuniq -zc species data/sfv.csv &gt; output/seqs_per_species.csv</code></pre>
-<p>Type <code>Ctrl-o</code> to save without exiting.</p>
+<section id="our-first-script" class="level1">
+<h1>Our first script!</h1>
+<p>We’re going to create a <code>build.sh</code> script to automate the analyses we did last week.</p>
 </section>
-<section id="run-and-investigate" class="level1">
-<h1>Run and investigate</h1>
-<p>In the shell:</p>
-<pre><code>ls output
-
-./build.sh
-
-ls output
-
-csvlook output/seqs_per_species.csv</code></pre>
+<section id="our-first-script-1" class="level1">
+<h1>Our first script!</h1>
+<p>Run <code>vim build.sh</code> to open the file, then hit <code>i</code> for insert mode, and enter the following text:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># Compute number of sequences per species</span>
+<span class="ex">csvuniq</span> -zc species data/sfv.csv <span class="op">&gt;</span> output/seqs_per_species.csv
+<span class="bu">echo</span> <span class="st">&quot;IT WORKED!&quot;</span></code></pre></div>
+<ul>
+<li>Hit <code>Esc</code> to return to command mode</li>
+<li>Use the command <code>:w&lt;Enter&gt;</code> to save the file</li>
+</ul>
 </section>
-<section id="add-some-other-steps" class="level1">
-<h1>Add some other steps</h1>
-<p>In <code>nano build.sh</code> file, add to the end:</p>
+<section id="running-our-script" class="level1">
+<h1>Running our script</h1>
+<ul>
+<li>Open a new tmux pane with <code>Ctrl-a |</code> (or switch to an existing one with <code>Ctrl-a &lt;arrow-key&gt;</code>)</li>
+<li>Then run the following in the shell:</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="bu">cd</span> ~/bioinfclass
+<span class="fu">bash</span> build.sh
+
+<span class="fu">ls</span> output <span class="co"># note the new file</span>
+
+<span class="ex">csvlook</span> output/seqs_per_species.csv <span class="co"># take a look</span></code></pre></div>
+</section>
+<section id="making-into-a-proper-command" class="level1">
+<h1>Making into a proper command</h1>
+<p>Go back to your <code>vim build.sh</code> tmux pane (<code>Ctrl-a &lt;arrow-key&gt;</code>), and add the following lines:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co">#!/bin/bash</span>
+<span class="co"># ^ this magic comment is a &quot;shebang&quot;; It tells the shell how to interpret our script.</span>
+
+<span class="co"># Sane error handling settings (stop running for most errors)</span>
+<span class="kw">set</span> <span class="ex">-euf</span> -o pipefail
+
+<span class="co"># Compute number of sequences per species</span>
+<span class="ex">csvuniq</span> -zc species data/sfv.csv <span class="op">&gt;</span> output/seqs_per_species.csv
+<span class="bu">echo</span> <span class="st">&quot;IT WORKED!&quot;</span></code></pre></div>
+<p>Save when done (<code>Esc</code> for command mode, then <code>:w&lt;Enter&gt;</code>).</p>
+</section>
+<section id="now-make-the-script-executable" class="level1">
+<h1>Now make the script executable!</h1>
+<p>Switch back to your unix shell tmux pane (<code>Ctrl-a &lt;arrow-key&gt;</code>), and then execute:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">chmod</span> +x build.sh
+
+<span class="co"># Note &quot;x&quot; when we use `ls -l`</span>
+<span class="fu">ls</span> -l build.sh
+
+<span class="fu">file</span> build.sh
+
+<span class="co"># Now it&#39;s a command/program!</span>
+<span class="ex">./build.sh</span></code></pre></div>
+</section>
+<section id="back-to-our-build-script" class="level1">
+<h1>Back to our build script</h1>
+<p>Go back to your <code>vim build.sh</code> tmux pane, (<code>Ctrl-a &lt;arrow-key&gt;</code>), press down till you get to the bottom of the file, and add to the end:</p>
 <pre><code># Compute number of sequences per specimen
 csvuniq -zc specimen,species,location data/sfv.csv &gt; output/seqs_per_specimen.csv
 
@@ -197,10 +179,12 @@ csvuniq -zc species output/seqs_per_specimen.csv &gt; output/specs_per_species.c
 # Also use them to count specimens by species and location
 csvuniq -zc species,location output/seqs_per_specimen.csv &gt; output/specs_per_species_location.csv</code></pre>
 </section>
-<section id="run-and-investigate-1" class="level1">
+<section id="run-and-investigate" class="level1">
 <h1>Run and investigate</h1>
 <p>In the shell:</p>
 <pre><code>./build.sh
+
+ls output
 
 csvlook output/seqs_per_specimen.csv | less -S</code></pre>
 </section>
@@ -209,8 +193,7 @@ csvlook output/seqs_per_specimen.csv | less -S</code></pre>
 </section>
 <section id="shell-variables" class="level1">
 <h1>Shell variables</h1>
-<p>Shell variables are an example of <em>indirection</em>.</p>
-<p>They act as shorthand references to paths, files, or data. What the variable name points to can change, without having to change (much) of the code. This makes it easier to grow your scripts.</p>
+<p>Shell variables act as shorthand references to paths, files, or data. What the variable name points to can change, without having to change (much) of the code. This makes it easier to grow your scripts.</p>
 </section>
 <section id="shell-variables-1" class="level1">
 <h1>Shell variables</h1>
@@ -224,8 +207,11 @@ csvlook output/seqs_per_specimen.csv | less -S</code></pre>
 </section>
 <section id="cleaning-up-our-build-script" class="level1">
 <h1>Cleaning up our build script</h1>
-<p>Edit our <code>build.sh</code> file:</p>
-<pre><code># Specify output directory, and name input data
+<p>Edit our <code>build.sh</code> file to look as follows:</p>
+<pre><code>#!/bin/bash
+set -euf -o pipefail
+
+# Specify output directory, and name input data
 outdir=&quot;output&quot;
 metadata=&quot;data/sfv.csv&quot;
 
@@ -239,7 +225,7 @@ csvuniq -zc specimen,species,location $metadata &gt; $seqs_per_specimen</code></
 </section>
 <section id="cleaning-up-our-build-script-1" class="level1">
 <h1>Cleaning up our build script</h1>
-<p>Add the following to the end of our build script.</p>
+<p>Now note that when we add the following, we get to refer to past results using the defined variables:</p>
 <pre><code># Use seqs_per_specimen to compute specimens per species
 specs_per_species=&quot;$outdir/specs_per_species.csv&quot;
 csvuniq -zc species $seqs_per_specimen &gt; $specs_per_species
@@ -247,10 +233,11 @@ csvuniq -zc species $seqs_per_specimen &gt; $specs_per_species
 # Also use them to compute number of specimens per species and location
 specs_per_species_location=&quot;$outdir/specs_per_species_location.csv&quot;
 csvuniq -zc species,location $seqs_per_specimen &gt; $specs_per_species_location</code></pre>
-<p>Note how much nicer it is referring to past results using shell variables?</p>
+<p>Save when done (<code>Esc</code> then <code>:w&lt;Enter&gt;</code>).</p>
 </section>
 <section id="verify-that-it-runs" class="level1">
 <h1>Verify that it runs</h1>
+<p>Back in your unix shell (<code>Ctrl-a &lt;arrow-key&gt;</code>):</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">./build.sh</span>
 
 <span class="fu">ls</span> output
@@ -275,7 +262,7 @@ csvuniq -zc species,location $seqs_per_specimen &gt; $specs_per_species_location
 </section>
 <section id="writing-a-csvless-script" class="level1">
 <h1>Writing a <code>csvless</code> script</h1>
-<p>Open up a new file in <code>~/bin/csvless</code>, and write:</p>
+<p>Open up a new file with <code>vim ~/bin/csvless</code>, and insert:</p>
 <pre><code>#!/bin/bash
 
 csvlook $@ | less -S</code></pre>
@@ -283,7 +270,7 @@ csvlook $@ | less -S</code></pre>
 </section>
 <section id="testing-our-csvless-script" class="level1">
 <h1>Testing our <code>csvless</code> script</h1>
-<p>In the shell:</p>
+<p>Save and close the file (<code>Esc</code> then <code>:wq&lt;Enter&gt;</code>), then run the following from the shell:</p>
 <pre><code>chmod +x ~/bin/csvless
 
 csvless data/sfv.csv
@@ -292,11 +279,11 @@ csvcut -c sequence,specimen,species data/sfv.csv | csvless</code></pre>
 </section>
 <section id="another-quick-example-csvhead" class="level1">
 <h1>Another quick example: <code>csvhead</code></h1>
-<p>Open up a new file in <code>~/bin/csvhead</code>, and write:</p>
+<p>Open up a new file with <code>vim ~/bin/csvhead</code>, and insert:</p>
 <pre><code>#!/bin/bash
 
 csvlook $@ | head -n 20</code></pre>
-<p>Again, <code>chmod +x</code>, then test it!</p>
+<p>Again, save and close (<code>Esc</code> + <code>:wq&lt;Enter&gt;</code>), run <code>chmod +x ~/bin/csvhead</code>, then test it!</p>
 </section>
 <section id="other-things-to-know-for-shell-scripting-power-usage" class="level1">
 <h1>Other things to know for shell scripting &amp; power usage:</h1>

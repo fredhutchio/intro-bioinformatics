@@ -5,8 +5,7 @@
 # First things first
 
 * Were you able to get `csvuniq` installed/working (check `~/bin/csvuniq -h`)?
-* Note: `Ctrl-k` is useful for killing entire lines in nano
-* You can turn off auto-indentation mode when pasting using `Esc i`
+* How is project planning and outside time going?
 
 
 # Shell scripting
@@ -14,9 +13,14 @@
 _In which our flying, speaking beasts assemble and become legion_
 
 
-# The Unix shell is more than just a shell
+# A _shell script_ is just a list of commands to be executed
 
-It's also a mini-programming language!
+We can type these commands into text files, and instruct our Unix shell to execute them.
+
+
+# Surprise!
+
+The Unix shell is also a mini-programming language!
 
 Next to piping, this is our second route towards the promise of Unix composability
 
@@ -33,68 +37,85 @@ Next to piping, this is our second route towards the promise of Unix composabili
 * Less so for more complicated data flow and logic (for which we have python, R, etc.)
 
 
+# Our environment
+
+We can also script our environment via a dotfile that gets loaded when shell sessions are created: `~/.bashrc`.
+
+
+# Our environment
+
+* Run `vim ~/.bashrc` to open the file
+* hit `i` for insert mode
+* use arrow keys to scroll to the bottom of the file, then add:
+
+```bash
+module load intro-bio
+module load R/3.3.3-foss-2016b-fh2 # for now; we'll put this in intro-bio soon
+export PATH=~/bin/:$PATH
+```
+
+Save and quit (`Esc` then `:wq<Enter>`), then run `source ~/.bashrc` to reload the changes (for each already open tmux pane).
+
+
+# Back to biology
+
+
 # Our first script!
 
-We're going to create a `build.sh` script to automate our analyses.
+We're going to create a `build.sh` script to automate the analyses we did last week.
 
 
-# A shell script is just a list of commands to be executed
+# Our first script!
 
-Run `nano build.sh`, then add:
+Run `vim build.sh` to open the file, then hit `i` for insert mode, and enter the following text:
 
-```
-ls -l | column -t
+```bash
+# Compute number of sequences per species
+csvuniq -zc species data/sfv.csv > output/seqs_per_species.csv
 echo "IT WORKED!"
 ```
 
-* Save (`Ctrl-o`)
-* Switch to a new t-mux pane (`Ctrl-a |`)
-* Run `bash build.sh` from within the `bioinfclass` directory
+* Hit `Esc` to return to command mode
+* Use the command `:w<Enter>` to save the file
 
 
-# Error handling
+# Running our script
 
-Back in our `nano build.sh` pane, edit to look like:
+* Open a new tmux pane with `Ctrl-a |` (or switch to an existing one with `Ctrl-a <arrow-key>`)
+* Then run the following in the shell:
 
+```bash
+cd ~/bioinfclass
+bash build.sh
+
+ls output # note the new file
+
+csvlook output/seqs_per_species.csv # take a look
 ```
-# Sane error handling settings
-set -euf -o pipefail
-
-ls -l | column -t
-# Put in a "bug":
-asdfasdfasdf
-
-echo "IT WORKED!"
-```
-
-Save and rerun `bash build.sh`.
-Remove the "bug" and rerun again.
-
-Note: Lines starting with `# ` are comments and not executed.
-
 
 # Making into a proper command
 
-Edit your `nano build.sh` to look like:
+Go back to your `vim build.sh` tmux pane (`Ctrl-a <arrow-key>`), and add the following lines:
 
-```
+```bash
 #!/bin/bash
+# ^ this magic comment is a "shebang"; It tells the shell how to interpret our script.
 
-# Sane error handling settings
+# Sane error handling settings (stop running for most errors)
 set -euf -o pipefail
 
-ls -l | column -t
+# Compute number of sequences per species
+csvuniq -zc species data/sfv.csv > output/seqs_per_species.csv
 echo "IT WORKED!"
 ```
 
-The `#!` is a "shebang": a special comment line that tells computer how to run our script
-
+Save when done (`Esc` for command mode, then `:w<Enter>`).
 
 # Now make the script executable!
 
-At the terminal:
+Switch back to your unix shell tmux pane (`Ctrl-a <arrow-key>`), and then execute:
 
-```
+```bash
 chmod +x build.sh
 
 # Note "x" when we use `ls -l`
@@ -106,74 +127,9 @@ file build.sh
 ./build.sh
 ```
 
+# Back to our build script
 
-# Taking a step back to optimize our environment with dotfiles
-
-We've already seen dotfiles in use with Tmux.
-Many other Unix programs accept configuration from dotfiles, including `nano` and our Unix shell itself.
-
-
-# First some things to make nano nicer
-
-Run `nano ~/.nanorc`, then enter:
-
-```
-set tabsize 4
-set tabstospaces
-set autoindent
-```
-
-It's not perfect, but it's a start.
-
-
-# Now our environment
-
-Tired of running `module load intro-bio`?
-Or editing your `PATH` variable?
-
-Run `nano ~/.bashrc`:
-
-```
-module load intro-bio
-export PATH=~/bin/:$PATH
-```
-
-Now run `source ~/.bashrc` to reload.
-
-
-# Back to biology
-
-
-# Counting sequences per species
-
-In our `build.sh` file, replace the `column -t` command with:
-
-```
-# Compute number of sequences per species
-csvuniq -zc species data/sfv.csv > output/seqs_per_species.csv
-```
-
-Type `Ctrl-o` to save without exiting.
-
-
-# Run and investigate
-
-In the shell:
-
-```
-ls output
-
-./build.sh
-
-ls output
-
-csvlook output/seqs_per_species.csv
-```
-
-
-# Add some other steps
-
-In `nano build.sh` file, add to the end:
+Go back to your `vim build.sh` tmux pane, (`Ctrl-a <arrow-key>`), press down till you get to the bottom of the file, and add to the end:
 
 ```
 # Compute number of sequences per specimen
@@ -194,6 +150,8 @@ In the shell:
 ```
 ./build.sh
 
+ls output
+
 csvlook output/seqs_per_specimen.csv | less -S
 ```
 
@@ -202,9 +160,7 @@ csvlook output/seqs_per_specimen.csv | less -S
 
 # Shell variables
 
-Shell variables are an example of _indirection_.
-
-They act as shorthand references to paths, files, or data.
+Shell variables act as shorthand references to paths, files, or data.
 What the variable name points to can change, without having to change (much) of the code.
 This makes it easier to grow your scripts.
 
@@ -225,9 +181,12 @@ echo $birds
 
 # Cleaning up our build script
 
-Edit our `build.sh` file:
+Edit our `build.sh` file to look as follows:
 
 ```
+#!/bin/bash
+set -euf -o pipefail
+
 # Specify output directory, and name input data
 outdir="output"
 metadata="data/sfv.csv"
@@ -244,7 +203,7 @@ csvuniq -zc specimen,species,location $metadata > $seqs_per_specimen
 
 # Cleaning up our build script
 
-Add the following to the end of our build script.
+Now note that when we add the following, we get to refer to past results using the defined variables:
 
 ```
 # Use seqs_per_specimen to compute specimens per species
@@ -256,10 +215,12 @@ specs_per_species_location="$outdir/specs_per_species_location.csv"
 csvuniq -zc species,location $seqs_per_specimen > $specs_per_species_location
 ```
 
-Note how much nicer it is referring to past results using shell variables?
+Save when done (`Esc` then `:w<Enter>`).
 
 
 # Verify that it runs
+
+Back in your unix shell (`Ctrl-a <arrow-key>`):
 
 ```bash
 ./build.sh
@@ -288,7 +249,7 @@ So let's give this a name!
 
 # Writing a `csvless` script
 
-Open up a new file in `~/bin/csvless`, and write:
+Open up a new file with `vim ~/bin/csvless`, and insert:
 
 ```
 #!/bin/bash
@@ -302,7 +263,7 @@ If you didn't want positional arguments, you can use `$1` or `$2` for the 1st or
 
 # Testing our `csvless` script
 
-In the shell:
+Save and close the file (`Esc` then `:wq<Enter>`), then run the following from the shell:
 
 ```
 chmod +x ~/bin/csvless
@@ -315,7 +276,7 @@ csvcut -c sequence,specimen,species data/sfv.csv | csvless
 
 # Another quick example: `csvhead`
 
-Open up a new file in `~/bin/csvhead`, and write:
+Open up a new file with `vim ~/bin/csvhead`, and insert:
 
 ```
 #!/bin/bash
@@ -323,7 +284,7 @@ Open up a new file in `~/bin/csvhead`, and write:
 csvlook $@ | head -n 20
 ```
 
-Again, `chmod +x`, then test it!
+Again, save and close (`Esc` + `:wq<Enter>`), run `chmod +x ~/bin/csvhead`, then test it!
 
 
 # Other things to know for shell scripting & power usage:
