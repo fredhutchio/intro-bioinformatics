@@ -384,20 +384,20 @@
 </section>
 <section id="setting-up-our-project-directory" class="level1">
 <h1>Setting up our project directory</h1>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">mkdir</span> ~/bioinfclass
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">mkdir</span> ~/bioinfclass
 
-<span class="bu">cd</span> ~/bioinfclass
-<span class="fu">mkdir</span> data output scripts
+<span class="kw">cd</span> ~/bioinfclass
+<span class="kw">mkdir</span> data output scripts
 
-<span class="fu">ls</span></code></pre></div>
+<span class="kw">ls</span></code></pre></div>
 <p>(You’ll always enter in the things you see in these black boxes)</p>
 </section>
 <section id="download-data-with-wget" class="level1">
 <h1>Download data with <code>wget</code></h1>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">wget</span> https://goo.gl/8Nk5tZ -O data.tar
-<span class="fu">ls</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">wget</span> https://goo.gl/8Nk5tZ -O data.tar
+<span class="kw">ls</span></code></pre></div>
 <p>Note that we now have a <code>data.tar</code> file in this directory. This is an archive type (like <code>zip</code>) common on Unix systems. To unpack it</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">tar</span> -v -x -f data.tar</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">tar</span> -v -x -f data.tar</code></pre></div>
 </section>
 <section id="introducing-vi-and-vim" class="level1">
 <h1>Introducing vi and vim</h1>
@@ -474,6 +474,11 @@
 <h2>Undo/redo</h2>
 <p>If you ever mess anything up (which is easy to do in command mode), <code>u</code> is undo and <code>Ctrl-r</code> is redo (from command mode).</p>
 </section>
+<section id="a-common-beginners-gotcha" class="level2">
+<h2>A common beginner’s “gotcha”</h2>
+<p>To save, do not use <code>Ctrl-s</code>. This will lock your terminal, which you then must rescue by using <code>Ctrl-q</code>.</p>
+<p>As described above, use escape to leave insert mode then call <code>:w</code>, or <code>:wa</code> to save all files you might have open.</p>
+</section>
 <section id="vim-resources" class="level2">
 <h2>Vim resources</h2>
 <ul>
@@ -489,25 +494,24 @@
 <section id="lets-look-at-what-weve-done" class="level1">
 <h1>Let’s look at what we’ve done</h1>
 <p><code>tree</code> prints out a directory tree as ASCII art.</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">
-<span class="ex">tree</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">tree</span></code></pre></div>
 <p>Note: This may not turn out right on Windows PuTTY terminals.</p>
 </section>
 <section id="lets-explore-the-sequence-file" class="level1">
 <h1>Let’s explore the sequence file</h1>
 <p><code>cat</code> prints the output of file(s) to the screen.</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">cat</span> data/sfv.fasta</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">cat</span> data/sfv.fasta</code></pre></div>
 </section>
 <section id="now-with-less" class="level1">
 <h1>Now with <code>less</code></h1>
 <p><code>less</code> lets us “page” through data, without flooding the screen.</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">less</span> data/sfv.fasta</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">less</span> data/sfv.fasta</code></pre></div>
 <p><br/></p>
 <p>Press the <code>q</code> key to exit from <code>less</code>.</p>
 </section>
 <section id="now-lets-look-at-the-metadata" class="level1">
 <h1>Now let’s look at the metadata</h1>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">less</span> data/sfv.csv</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">less</span> data/sfv.csv</code></pre></div>
 <p>Press the <code>/</code> key to enter a search string</p>
 <p>(Try <code>human</code> or <code>monkey</code>; Use <code>n</code> and <code>N</code> to toggle through results).</p>
 </section>
@@ -518,7 +522,7 @@
 <h1>Supercharging our shell</h1>
 <p>SciComp has set up a <em>module</em> system for customizing your environment.</p>
 <p>We’ll be using the <code>intro-bio</code> module, loaded by executing <code>module load intro-bio</code> (note: this <em>only affects the current shell session!</em>). When you do this, you should see something like:</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">module</span> load intro-bio</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">module</span> load intro-bio</code></pre></div>
 <p>You might get a message that says <code>Using already loaded python</code>, but don’t worry about it. If you get an error message though, let us know. You can’t proceed without this module loaded.</p>
 </section>
 <section id="module-system-side-note" class="level1">
@@ -539,20 +543,20 @@
 <h1>Setting up tmux</h1>
 <p>We’ll use tmux throughout this class to keep sessions running. But first let’s download a nice tmux configuration file for making things easier.</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># This is a command that downloads a tmux configuration file</span>
-<span class="fu">wget</span> https://raw.githubusercontent.com/fredhutchio/intro-bioinformatics/gh-pages/config/tmux.conf
+<span class="kw">wget</span> https://raw.githubusercontent.com/fredhutchio/intro-bioinformatics/gh-pages/config/tmux.conf
 
-<span class="fu">ls</span>
+<span class="kw">ls</span>
 
 <span class="co"># tmux knows to look for our config file at ~/.tmux.conf</span>
-<span class="fu">mv</span> tmux.conf ~/.tmux.conf
+<span class="kw">mv</span> tmux.conf ~/.tmux.conf
 
 <span class="co"># Note that this file is hidden once we make it a &quot;dotfile&quot;</span>
-<span class="fu">ls</span> ~
-<span class="fu">ls</span> -a ~</code></pre></div>
+<span class="kw">ls</span> ~
+<span class="kw">ls</span> -a ~</code></pre></div>
 </section>
 <section id="starting-a-new-tmux-session" class="level1">
 <h1>Starting a new tmux session</h1>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">tmux</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">tmux</span></code></pre></div>
 <p>You should now see a fresh shell session inside of tmux.</p>
 </section>
 <section id="quick-tmux-cheatsheet" class="level1">
@@ -599,16 +603,16 @@ ACGGCCTA            ACGGCCTA</code></pre>
 <section id="making-a-sequence-alignment" class="level1">
 <h1>Making a sequence alignment</h1>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># First start the long running alignment</span>
-<span class="bu">cd</span> ~/bioinfclass
-<span class="ex">muscle</span> -maxiters 2 -in data/sfv.fasta -out output/alignment.fasta
+<span class="kw">cd</span> ~/bioinfclass
+<span class="kw">muscle</span> -maxiters 2 -in data/sfv.fasta -out output/alignment.fasta
 
 <span class="co"># Get bored waiting and want to work on something else...</span>
-<span class="op">&lt;</span><span class="ex">Ctrl-a</span> <span class="kw">|</span><span class="op">&gt;</span> <span class="co"># create new pane</span>
+<span class="kw">&lt;Ctrl-a</span> <span class="kw">|&gt;</span> <span class="co"># create new pane</span>
 
-<span class="bu">cd</span> ~
-<span class="fu">mkdir</span> new-project
-<span class="bu">cd</span> new-project
-<span class="fu">mkdir</span> data output scripts</code></pre></div>
+<span class="kw">cd</span> ~
+<span class="kw">mkdir</span> new-project
+<span class="kw">cd</span> new-project
+<span class="kw">mkdir</span> data output scripts</code></pre></div>
 </section>
 <section id="detaching-and-attaching-a-tmux-session" class="level1">
 <h1>Detaching and attaching a tmux session</h1>

@@ -491,6 +491,12 @@ You can also cut/copy entire lines with the shortcuts `d d` and `y y`.
 
 If you ever mess anything up (which is easy to do in command mode), `u` is undo and `Ctrl-r` is redo (from command mode).
 
+## A common beginner's "gotcha"
+
+To save, do not use `Ctrl-s`. This will lock your terminal, which you then must rescue by using `Ctrl-q`.
+
+As described above, use escape to leave insert mode then call `:w`, or `:wa` to save all files you might have open.
+
 ## Vim resources
 
 * [An online vim tutorial](http://www.openvim.com/)
@@ -508,7 +514,6 @@ You certainly can, though it's not considered hip (because vim is all about effi
 `tree` prints out a directory tree as ASCII art.
 
 ```bash
-
 tree
 ```
 
