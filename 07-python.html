@@ -91,14 +91,14 @@
 </section>
 <section id="starting-things-off" class="level1">
 <h1>Starting things off</h1>
-<p>Go to your project directory and create a new file at <code>scripts/treedists.py</code> using <code>nano</code>:</p>
+<p>Go to your project directory and create a new file at <code>scripts/treedists.py</code> using <code>vim</code>:</p>
 <pre><code>tmux attach
 cd ~/bioinfclass
-nano scripts/treedists.py</code></pre>
+vim scripts/treedists.py</code></pre>
 </section>
 <section id="python-shebang" class="level1">
 <h1>Python shebang</h1>
-<p>When nano starts, type in the following shebang:</p>
+<p>When vim starts, insert the following shebang:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co">#!/usr/bin/env python</span></code></pre></div>
 <p>This tells the shell to use whatever python environment is currently active. This means our <code>intro-bio</code> modules will be available to us.</p>
 </section>
@@ -110,7 +110,7 @@ nano scripts/treedists.py</code></pre>
 </section>
 <section id="command-line-arguments" class="level1">
 <h1>Command line arguments</h1>
-<p>In nano, add the following after our shebang:</p>
+<p>In vim, add the following after our shebang:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> argparse
 
 <span class="kw">def</span> get_args():
@@ -771,7 +771,7 @@ t.distance(t1, t2)</code></pre></div>
 </section>
 <section id="hooking-this-up-in-build.sh" class="level1">
 <h1>Hooking this up in <code>build.sh</code></h1>
-<p>Switch to the <code>nano</code> pane, and close <code>treedists.py</code>. Then <code>nano build.sh</code> and enter:</p>
+<p>Switch to the <code>vim</code> pane, and close <code>treedists.py</code>. Then <code>vim build.sh</code> and enter:</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># At the top make sure scripts is in our PATH</span>
 <span class="va">PATH=</span>./scripts/:<span class="va">$PATH</span></code></pre></div>
 </section>
