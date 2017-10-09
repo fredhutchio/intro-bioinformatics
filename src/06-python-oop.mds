@@ -302,17 +302,17 @@ Close whatever else you were working on and/or open a new tmux-window with `Ctrl
 
 ```
 cd ~/bioinfclass
-nano scripts/seqs.py
+vim scripts/seqs.py
 ```
 
 
 # Copying and pasting
 
-When we installed our nanorc, we specified that `nano` should auto-indent whatever we type.
-While this is the best setting for actually coding, it messed up copy/paste.
+By default, vim autoindents whatever we type into the terminal.
+This is great for writing code, but it can mess things up on copy/paste.
 
-To fix this, when you want to paste code in nano, press `Esc i` (let go in between).
-This will turn off the auto-indent until you press `Esc i` again (when you're ready to type yourself again).
+_Some_ terminals/vim installations can tell when you are pasting text and will automatically turn off auto-indent.
+But if you find that your indentation is off when you paste things, first run `:set paste` from command mode before pasting to turn on paste-mode (thereby turning off autoindent), then afterwards run `:set nopaste` to turn autoindent back on.
 
 
 # Empty lines in REPL vs scripts

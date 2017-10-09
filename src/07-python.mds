@@ -38,18 +38,18 @@ We'll hook this into our pipeline to compare the viral diversity between locatio
 
 # Starting things off
 
-Go to your project directory and create a new file at `scripts/treedists.py` using `nano`:
+Go to your project directory and create a new file at `scripts/treedists.py` using `vim`:
 
 ```
 tmux attach
 cd ~/bioinfclass
-nano scripts/treedists.py
+vim scripts/treedists.py
 ```
 
 
 # Python shebang
 
-When nano starts, type in the following shebang:
+When vim starts, insert the following shebang:
 
 ```python
 #!/usr/bin/env python
@@ -71,7 +71,7 @@ Use `Ctrl-a →` to switch back and forth between panes.
 
 # Command line arguments
 
-In nano, add the following after our shebang:
+In vim, add the following after our shebang:
 
 ```python
 import argparse
@@ -828,8 +828,8 @@ Save, then back in bash:
 
 # Hooking this up in `build.sh`
 
-Switch to the `nano` pane, and close `treedists.py`.
-Then `nano build.sh` and enter:
+Switch to the `vim` pane, and close `treedists.py`.
+Then `vim build.sh` and enter:
 
 ```bash
 # At the top make sure scripts is in our PATH
