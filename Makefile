@@ -27,6 +27,9 @@ index.html: README.md nomachine-directions.html
 	echo  "</div>" >> README.alt.md
 	pandoc $(CSS) README.alt.md -o index.html
 
+resources.html: resources.md
+	pandoc $(CSS) resources.md -o resources.html
+
 %.html: src/template-revealjs.html src/header.html src/%.mds insert.py Makefile build.sh
 	./build.sh src/$*.mds $@
 

@@ -24,6 +24,8 @@ Class outline:
 The class will be loosely following [Bioinformatics Data Skills](http://shop.oreilly.com/product/0636920030157.do) for the overview, unix, and version control sections.
 For the python sections, we'll be following our own curriculum, and referring to the [Codecademy course](https://www.codecademy.com/tracks/python) for practice with the concepts.
 
+Each of the classes come with a few resources, which for your convenience are aggregated (and extended some) on the [Resources](resources.html) page.
+
 
 ## Prerequisites (connecting to the remote server)
 
