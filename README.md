@@ -73,7 +73,8 @@ Windows does not ship with an SSH capable terminal.
 As such, you will need to do one of the following:
 
 * [**Recommended**] If you are on Windows 10, it is recommended you install "Bash on Windows" (aka the "Windows Subsystem for Linux", or WSL). You can follow the "How to Install ..." instructions section [here](https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/).
-* If you aren't running Windows 10, we recommend you install [PuTTY](http://www.putty.org/), which will let you SSH into the `rhino` servers.
+* If you aren't running Windows 10, we recommend you upgrade to Windows 10 if possible.
+* If not, we recommend you install [PuTTY](http://www.putty.org/), which will let you SSH into the `rhino` servers.
 * You can also use [NoMachine](https://www.nomachine.com/) on the laptop you plan to bring to class to log into a remote Ubuntu/Linux desktop to use its Terminal (see directions [here](nomachine-directions.html)).
 * Finally, you can also install [Virtual Box](https://www.virtualbox.org/wiki/Downloads), and an Ubuntu virtual machine if you want to tinker with your own Linux environment and use the terminal from there.
 
@@ -90,6 +91,17 @@ You will also need a [GitHub](https://github.com) account for the course.
 You can sign up for free [here](https://github.com).
 
 We also ask that you read the first two chapters of [the book](http://shop.oreilly.com/product/0636920030157.do) (particularly the first) before coming to class, as they'll give you some nice big picture context to work from.
+
+
+
+## Text editors
+
+In the first class, we'll teach you how to use the `vi`/`vim` text editor, a useful and powerful tool for editing text and code when you are restricted to using a terminal.
+However, for the remainder of the classes you can use a desktop text editor as long as you can connect to your shared Hutch drive (frequently mounted as the "H" drive, at least on Macs), and edit your `~/bioinfclass` files from your laptop's text editor.
+If you choose this path, we recommend you look at [Atom](https://atom.io/) or [Sublime](https://www.sublimetext.com/) for text editors.
+
+You may also choose to continue to use vim for the remainder of the classes.
+If you do so, there will be occasional guidance and tips in class which may be helpful.
 
 
 ## Technical Notes
