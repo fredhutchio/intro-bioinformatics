@@ -24,26 +24,13 @@ It's awesome, and you should use it.
 
 <https://github.com/VundleVim/Vundle.vim>
 
-This section will also contain some useful vim plugins you may wish to consider.
+Some plugins you might want to consider installing:
 
-### tslime
+* [T-slime](https://github.com/jgdavey/tslime.vim) lets you highlight code in vim's visual mode, and send to another tmux pane. By sending to a REPL pane, you can quickly highlight and evaluate chunks of code from your editor.
+* [NerdTree](https://github.com/scrooloose/nerdtree) gives you a `tree` like file navigator from within vim, so you can quickly find and edit files.
+* [NerdCommenter](https://github.com/scrooloose/nerdcommenter) has a few useful commands for commenting/uncommenting blocks of code.
+* [JediVim](https://github.com/davidhalter/jedi-vim) autocomplete and documentation for python; super dope.
 
-This really cool vim plugin lets you highlight code in vim's visual mode, and send it to a tmux pane of your choosing.
-By sending to a REPL pane, you can use this to quickly highlight and evaluate chunks of code in your editor.
-
-<https://github.com/jgdavey/tslime.vim>
-
-### Nerdtree
-
-This vim plugin gives you a `tree` like file navigator sidebar from within vim, so you can quickly find and edit files.
-
-<https://github.com/scrooloose/nerdtree>
-
-### Nerdcommenter
-
-Helpful commands for commenting/uncommenting entire blocks of code
-
-<https://github.com/scrooloose/nerdcommenter>
 
 
 ## Emacs
