@@ -555,27 +555,50 @@
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">tmux</span></code></pre></div>
 <p>You should now see a fresh shell session inside of tmux.</p>
 </section>
-<section id="quick-tmux-cheatsheet" class="level1">
-<h1>Quick tmux cheatsheet</h1>
+<section id="tmux-cheatsheettutorial" class="level1">
+<h1>Tmux cheatsheet/tutorial</h1>
+<section id="bare-bones-tmux" class="level2">
+<h2>Bare bones tmux</h2>
 <ul>
 <li><code>Ctrl-a</code> - your “Command key”</li>
-<li><code>Ctrl-a ?</code> - Help</li>
-</ul>
-<p>Windows:</p>
-<ul>
 <li><code>Ctrl-a c</code> - New window</li>
 <li><code>Ctrl-a &lt;Space&gt;</code> - Next window</li>
-</ul>
-</section>
-<section id="quick-tmux-cheatsheet-1" class="level1">
-<h1>Quick tmux cheatsheet</h1>
-<p>Panes:</p>
-<ul>
 <li><code>Ctrl-a |</code> - Split window into panes vertically</li>
 <li><code>Ctrl-a -</code> - Split window into panes horizontally</li>
 <li><code>Ctrl-a &lt;arrow&gt;</code> - Move between</li>
 <li><code>Ctrl-d</code> - Close a pane or window</li>
 </ul>
+<p>For more tmux tips, click down.</p>
+</section>
+<section id="moving-between-panes-and-moving-panes" class="level2">
+<h2>Moving between panes and moving panes</h2>
+<p>You can also use <code>h</code>, <code>j</code>, <code>k</code>, and <code>l</code> in place of the arrow keys, as in <code>vim</code>.</p>
+<p>You can also swap/reorder panes using <code>Ctrl-a J</code> and <code>Ctrl-a K</code>.</p>
+</section>
+<section id="resizing-panes" class="level2">
+<h2>Resizing panes</h2>
+<ul>
+<li><code>Ctrl-a &lt;</code> - move vertical split left</li>
+<li><code>Ctrl-a &gt;</code> - move vertical split right</li>
+<li><code>Ctrl-a +</code> - move horizontal split up</li>
+<li><code>Ctrl-a +</code> - move horizontal split down</li>
+</ul>
+<p>Note: You can click <code>Ctrl-a</code> once, and hold the second key for big moves.</p>
+</section>
+<section id="naming-finding-windows" class="level2">
+<h2>Naming &amp; finding windows</h2>
+<ul>
+<li><code>Ctrl-a ,</code> will let you name a window</li>
+<li><code>Ctrl-a '</code> presents a list of windows (by name)</li>
+<li><code>&lt;arrow&gt;</code> and <code>Enter</code> to switch to a window</li>
+<li><code>Ctrl-a &lt;numeric&gt;</code> switches to a window by number.</li>
+</ul>
+</section>
+<section id="scrolling-and-copypaste-in-tmux" class="level2">
+<h2>Scrolling and copy/paste in tmux</h2>
+<p>When a noisy program floods a tmux pane, your mouse wheel won’t let you scroll, like in a normal shell session. Pressing <code>Ctrl-a [</code> will place you in scroll mode. Use can now use arrow keys or <code>Ctrl-u</code>/<code>Ctrl-d</code> to scroll through the history, and search with <code>/</code>.</p>
+<p>From this mode, you can also press <code>Space</code> to enter copy-mode, <code>&lt;arrow&gt;</code> keys to specify a collection, and <code>Enter</code> to copy the selection. To paste the selection, use <code>Ctrl-]</code>.</p>
+</section>
 </section>
 <section id="tmux-commands" class="level1">
 <h1>Tmux commands</h1>
@@ -625,7 +648,7 @@ ACGGCCTA            ACGGCCTA</code></pre>
 <section id="source-code" class="level1">
 <h1>Source code!</h1>
 <p>The source code for these slides is available on GitHub.</p>
-<p>https://github.com/fredhutchio/intro-bioinformatics</p>
+<p><a href="https://github.com/fredhutchio/intro-bioinformatics" class="uri">https://github.com/fredhutchio/intro-bioinformatics</a></p>
 <p>For the code that generated these slides, look at the <code>.mds</code> files in the <a href="https://github.com/fredhutchio/intro-bioinformatics/tree/gh-pages/src"><code>src</code></a> directory. (This code is an extension of Markdown, which we’ll look at more next week)</p>
 <p>To submit issues or questions about the class, go to the <a href="https://github.com/fredhutchio/intro-bioinformatics/issues">Issues</a> page.</p>
 </section>
@@ -633,7 +656,7 @@ ACGGCCTA            ACGGCCTA</code></pre>
 <h1>Homework</h1>
 <p>Please, <em>please</em>, <em><strong>please!</strong></em></p>
 <ul>
-<li>Go over <code>tmux</code> and <code>vim</code> and memorize the basics of how to use them.</li>
+<li>Go over <code>tmux</code> and <code>vim</code> and memorize the basics of how to use them</li>
 <li>Set up a routine for practice and tinkering</li>
 <li>Pick a personal project</li>
 </ul>

@@ -614,25 +614,50 @@ tmux
 You should now see a fresh shell session inside of tmux.
 
 
-# Quick tmux cheatsheet
+# Tmux cheatsheet/tutorial
+
+## Bare bones tmux
 
 * `Ctrl-a` - your "Command key"
-* `Ctrl-a ?` - Help
-
-Windows:
-
 * `Ctrl-a c` - New window
 * `Ctrl-a <Space>` - Next window
-
-
-# Quick tmux cheatsheet
-
-Panes:
-
 * `Ctrl-a |` - Split window into panes vertically
 * `Ctrl-a -` - Split window into panes horizontally
 * `Ctrl-a <arrow>` - Move between
 * `Ctrl-d` - Close a pane or window
+
+For more tmux tips, click down.
+
+## Moving between panes and moving panes
+
+You can also use `h`, `j`, `k`, and `l` in place of the arrow keys, as in `vim`.
+
+You can also swap/reorder panes using `Ctrl-a J` and `Ctrl-a K`.
+
+## Resizing panes
+
+* `Ctrl-a <` - move vertical split left
+* `Ctrl-a >` - move vertical split right
+* `Ctrl-a +` - move horizontal split up
+* `Ctrl-a +` - move horizontal split down
+
+Note: You can click `Ctrl-a` once, and hold the second key for big moves.
+
+## Naming & finding windows
+
+* `Ctrl-a ,` will let you name a window
+* `Ctrl-a '` presents a list of windows (by name)
+  * `<arrow>` and `Enter` to switch to a window
+* `Ctrl-a <numeric>` switches to a window by number.
+
+## Scrolling and copy/paste in tmux
+
+When a noisy program floods a tmux pane, your mouse wheel won't let you scroll, like in a normal shell session.
+Pressing `Ctrl-a [` will place you in scroll mode.
+Use can now use arrow keys or `Ctrl-u`/`Ctrl-d` to scroll through the history, and search with `/`.
+
+From this mode, you can also press `Space` to enter copy-mode, `<arrow>` keys to specify a collection, and `Enter` to copy the selection.
+To paste the selection, use `Ctrl-]`.
 
 
 # Tmux commands
@@ -698,7 +723,7 @@ mkdir data output scripts
 
 The source code for these slides is available on GitHub.
 
-https://github.com/fredhutchio/intro-bioinformatics
+<https://github.com/fredhutchio/intro-bioinformatics>
 
 For the code that generated these slides, look at the `.mds` files in the [`src`](https://github.com/fredhutchio/intro-bioinformatics/tree/gh-pages/src) directory.
 (This code is an extension of Markdown, which we'll look at more next week)
@@ -710,7 +735,7 @@ To submit issues or questions about the class, go to the [Issues](https://github
 
 Please, _please_, _**please!**_
 
-* Go over `tmux` and `vim` and memorize the basics of how to use them.
+* Go over `tmux` and `vim` and memorize the basics of how to use them
 * Set up a routine for practice and tinkering
 * Pick a personal project
 

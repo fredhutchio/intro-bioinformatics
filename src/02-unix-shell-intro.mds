@@ -161,7 +161,6 @@ mv catgifs bioinfclass
 ```
 
 
-
 # Creating and removing files
 
 We can make new directories or files with `mkdir` and `touch`, and remove with `rm` and `rmdir`
@@ -218,10 +217,8 @@ ls -l /usr/bin/tree
 # super secret shortcut
 ls -l $(which tree)
 
-touch holy-crap-birds-are-dinosaurs
-
 # Notice no x; not executable...
-ls -l holy-crap-birds-are-dinosaurs
+ls -l README.md
 ```
 
 

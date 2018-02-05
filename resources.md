@@ -61,7 +61,6 @@ And just as with vim, we have a plugin which helps us do this, called `tpm`.
 <https://github.com/tmux-plugins/tpm>
 
 
-
 ## Functional programming
 
 To learn more about functional programming, see
