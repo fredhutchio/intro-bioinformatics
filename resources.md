@@ -1,4 +1,6 @@
 
+<div class='theme-fredhutch'> <br/>
+
 # Class resources
 
 Most of these resources are tucked away towards the end of various class sections, but I thought it might be useful to aggregate and organize some of the most useful information somewhere so that the key bits of information can be found more easily.
@@ -66,4 +68,6 @@ And just as with vim, we have a plugin which helps us do this, called `tpm`.
 To learn more about functional programming, see
 
 <https://maryrosecook.com/blog/post/a-practical-introduction-to-functional-programming>
+
+</div>
 
