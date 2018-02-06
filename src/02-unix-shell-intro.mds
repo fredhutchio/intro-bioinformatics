@@ -675,13 +675,6 @@ wget https://goo.gl/ZdNoUL -O ~/bin/csvuniq
 # Mark as executable, and add ~/bin to PATH
 chmod +x ~/bin/csvuniq
 export PATH=~/bin:$PATH
-
-# Have to install some dependencies
-R
-install.packages(c('optparse', 'plyr'))
-# Enter y at all prompts, and select the WA CRAN mirror when asked.
-# When done, exit with
-quit()
 ```
 
 
