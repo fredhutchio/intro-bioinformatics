@@ -521,6 +521,18 @@
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">module</span> load intro-bio</code></pre></div>
 <p>You might get a message that says <code>Using already loaded python</code>, but don’t worry about it. If you get an error message though, let us know. You can’t proceed without this module loaded.</p>
 </section>
+<section id="our-environment" class="level1">
+<h1>Our environment</h1>
+<p>We can also script our environment via a dotfile that gets loaded when shell sessions are created: <code>~/.bashrc</code>.</p>
+<ul>
+<li>Run <code>vim ~/.bashrc</code> to open the file</li>
+<li>hit <code>i</code> for insert mode</li>
+<li>use arrow keys to scroll to the bottom of the file, then add:</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">module</span> load intro-bio
+<span class="bu">export</span> <span class="va">PATH=</span>~/bin/:<span class="va">$PATH</span></code></pre></div>
+<p>Save and quit (<code>Esc</code> then <code>:wq&lt;Enter&gt;</code>), then run <code>source ~/.bashrc</code> to reload the changes (for each already open tmux pane).</p>
+</section>
 <section id="module-system-side-note" class="level1">
 <h1>Module system side note</h1>
 <p><strong>Note:</strong> if you <em>ever</em> get a “command not found” error, you probably need to re-load your modules.</p>

@@ -567,6 +567,22 @@ If you get an error message though, let us know.
 You can't proceed without this module loaded.
 
 
+# Our environment
+
+We can also script our environment via a dotfile that gets loaded when shell sessions are created: `~/.bashrc`.
+
+* Run `vim ~/.bashrc` to open the file
+* hit `i` for insert mode
+* use arrow keys to scroll to the bottom of the file, then add:
+
+```bash
+module load intro-bio
+export PATH=~/bin/:$PATH
+```
+
+Save and quit (`Esc` then `:wq<Enter>`), then run `source ~/.bashrc` to reload the changes (for each already open tmux pane).
+
+
 # Module system side note
 
 **Note:** if you _ever_ get a "command not found" error, you probably need to re-load your modules.

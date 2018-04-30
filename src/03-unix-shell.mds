@@ -37,26 +37,6 @@ Next to piping, this is our second route towards the promise of Unix composabili
 * Less so for more complicated data flow and logic (for which we have python, R, etc.)
 
 
-# Our environment
-
-We can also script our environment via a dotfile that gets loaded when shell sessions are created: `~/.bashrc`.
-
-
-# Our environment
-
-* Run `vim ~/.bashrc` to open the file
-* hit `i` for insert mode
-* use arrow keys to scroll to the bottom of the file, then add:
-
-```bash
-module load intro-bio
-module load R/3.3.3-foss-2016b-fh2 # for now; we'll put this in intro-bio soon
-export PATH=~/bin/:$PATH
-```
-
-Save and quit (`Esc` then `:wq<Enter>`), then run `source ~/.bashrc` to reload the changes (for each already open tmux pane).
-
-
 # Back to biology
 
 

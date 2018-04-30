@@ -93,22 +93,6 @@
 <li>Less so for more complicated data flow and logic (for which we have python, R, etc.)</li>
 </ul>
 </section>
-<section id="our-environment" class="level1">
-<h1>Our environment</h1>
-<p>We can also script our environment via a dotfile that gets loaded when shell sessions are created: <code>~/.bashrc</code>.</p>
-</section>
-<section id="our-environment-1" class="level1">
-<h1>Our environment</h1>
-<ul>
-<li>Run <code>vim ~/.bashrc</code> to open the file</li>
-<li>hit <code>i</code> for insert mode</li>
-<li>use arrow keys to scroll to the bottom of the file, then add:</li>
-</ul>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">module</span> load intro-bio
-<span class="ex">module</span> load R/3.3.3-foss-2016b-fh2 <span class="co"># for now; we&#39;ll put this in intro-bio soon</span>
-<span class="bu">export</span> <span class="va">PATH=</span>~/bin/:<span class="va">$PATH</span></code></pre></div>
-<p>Save and quit (<code>Esc</code> then <code>:wq&lt;Enter&gt;</code>), then run <code>source ~/.bashrc</code> to reload the changes (for each already open tmux pane).</p>
-</section>
 <section id="back-to-biology" class="level1">
 <h1>Back to biology</h1>
 </section>
