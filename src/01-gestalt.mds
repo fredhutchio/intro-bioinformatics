@@ -39,13 +39,12 @@ Our goal is to give you enough momentum to learn what you need as you go.
 
 This stuff doesn't stick unless you keep doing it.
 
-* Set aside time every week, no matter how long
-* Longer is great, but consistency is best
-* Frequency is great, but set reachable goals
-* Plan to continue long after the course
-* Start a project
-* Feel free to email Brian - he gets paid for this
 * Have fun!
+* Start a project
+* Set up routine time to play
+* More time per week is great, but consistently doing _something_ every week better
+* Plan to continue after the course
+* Feel free to email Brian - he gets paid for this
 
 
 # What is bioinformatics?
@@ -53,49 +52,16 @@ This stuff doesn't stick unless you keep doing it.
 
 # What is bioinformatics?
 
-The application of computation towards the analysis of biological data
+The application of computation towards the analysis and processing of biological data
 
 
 # In practice this entails
 
-data munging | data exploration | drawing conclusions
+* **data munging**: cleaning & reshaping data
+* **data exploration**: vizualization, intuition building, hypothesizing
+* **drawing conclusions**: statistical analyses, publication
 
-
-# Data munging
-
-This is where a lot of day to day work goes
-
-* Cleaning data
-* Transforming data
-
-
-# Data exploration
-
-* Visualize
-* Build intuition
-* Hypothesize
-
-
-# Building conclusions
-
-In which we shore things up to tell the world...
-
-* Statistical analysis
-* More visualization
-
-
-# Rinse and repeat...
-
-New insights and conclusions lead to new data and questions, etc.
-
-
-# This should be nothing new
-
-This is the scientific process.
-
-With data and computation at center of process.
-
-Data science.
+Rinse and repeat... New insights and conclusions lead to new data and questions, etc.
 
 
 # So this is _what_ we do
@@ -116,61 +82,19 @@ Data science.
 
 # Things we can do towards these goals
 
-Immutable data | Documentation | Automation | Consistency
-
-
-# Immutability
-
-**Never** change data in place; data in, data out.
-
-Aids: reproducibility, iterability, clarity
-
-
-# Document **everything**
-
-Hopefully you're already doing this with your biology work.
-Bioinformatics should be no different.
-
-* Software versions
-* Settings used to run things
-* Reasoning behind the way you do things
-* How/when you got your data
-
-Aids: reproducibility, clarity
-
-
-# The best documentation is automation
-
-Write _scripts_ (little computer programs) for everything:
-
-* Munging
-* Plotting
-* Statistics
-* Build scripts (tying it all together)
-
-Aids: reproducibility, iterability
-
-
-# Consistent project & data layout
-
-Being **consistent** aids in automation & clarity
-
-* naming schemes
-* directory (folder) organization
-
-Aids: automation, clarity
-
-
-# Questions?
-
-
-# A bit on problem solving
-
-Programmers spend more time sitting around and thinking than they actually do typing code.
-What follows are some tips along these lines.
+* **Immutable data**: _never_ change data in place; data in data out
+  (reproducibility, iterability, clarity)
+* **Consistency**: naming conventions, data & project layout, etc;
+  (automation, clarity)
+* **Documentation**: keep a digital "lab notebook"; software version, data origins, run settings, explain choices/decisions;
+  (reproducibility, clarify)
+* **Automation**: the best documentation; write _scripts_ for everything;
+  (reproducibility, iterability)
 
 
 # Polya's How to Solve It
+
+You will spend more time sitting around and thinking about how to solve problems than you will typing code.
 
 <https://en.wikipedia.org/wiki/How_to_Solve_It>
 
@@ -185,29 +109,12 @@ When this fails, try to break down into simpler pieces and iterate (solve an eas
 # Understanding
 
 The most important, but hardest part.
-It's easy to think you understand a problem better than you do...
 
 * Write out the problem
 * Isolate what makes the problem hard
 * Draw/sketch, talk (even out loud to yourself), go for a walk, look for patterns
 * List knows, work backwards, eliminate possibilities, run examples
 * When you truly understood a problem, the solution should appear obvious, so don't stop trying to understand until it is
-
-
-# Devising a plan
-
-Devise a game plan.
-
-* Start abstract, and add detail
-* If you find yourself getting stuck, go back and try to understand the problem better
-
-
-# Execution and reflection
-
-If you get stuck, spend more time Understanding and Planning.
-
-At the end reflect on the process.
-This is meta-learning.
 
 
 # Questions?
@@ -284,7 +191,9 @@ Let us know if you get an error message along the lines of "`can't find home`".
 
 # From outside the Hutch
 
-If you want to work on the servers from outside the Hutch, you can ssh into `<username>@snail.fhcrc.org`, and then from there execute `ssh <username>@rhino<N>` to get into your rhino.
+You should be able to connect to the rhinos from outside the hutch by connecting to the Hutch VPN.
+
+You can also ssh into `<username>@snail.fhcrc.org`, and then from there execute `ssh <username>@rhino<N>` to get into your rhino.
 
 
 # You're now in a Unix shell!
@@ -351,67 +260,27 @@ If you want to run a command similar to one you just executed, you can use the u
 # Questions?
 
 
-# Setting up our project
+# Supercharging our shell
 
-This class builds around analysis of a [real world dataset](http://dx.doi.org/10.1038/emi.2013.60) of [Simian Foamy Virus](https://en.wikipedia.org/wiki/Simian_foamy_virus) (SFV).
-SFV is a retrovirus that infects non-human primates, but can infect humans bitten by NHP.
-Howver, we appear to be a "dead-end" host.
+SciComp has set up a _module_ system for customizing your environment.
 
-This data set looks at viruses sampled from humans and monkeys in Bangladesh.
-
-
-# Project layout
-
-Here's how I typically organize things:
-
-```text
-your-project
-├── README.md
-├── build.sh
-├── data
-│   ├── sequences.fasta
-│   └── metadata.csv
-├── scripts
-│   ├── clean.py
-│   └── plot.R
-└── output
-    ├── alignment.fasta
-    ├── cleaned_metadata.csv
-    ├── tree.newick
-    └── tree_plot.png
-```
-
-Note: this is a little different than the organization from the book; Use what works for you, but be consistent.
-
-
-# Setting up our project directory
+We'll be using the `intro-bio` module, loaded by executing `module load intro-bio` (note: this *only affects the current shell session!*).
 
 ```bash
-mkdir ~/bioinfclass
-
-cd ~/bioinfclass
-mkdir data output scripts
-
-ls
+module load intro-bio
 ```
 
-(You'll always enter in the things you see in these black boxes)
+You might get a message that says `Using already loaded python`, but don't worry about it.
+If you see nothing, it's fine.
+If you see an error message, please raise your hand.
 
 
-# Download data with `wget`
+# Customizing our environment
 
-```bash
-wget https://goo.gl/8Nk5tZ -O data.tar
-ls
-```
+We don't want to have to remember to load this module every time, and there are other things we want to have set up for us every time we open a shell session.
+We can make these cusomtizations by editing our `~/.bashrc` configuration file.
 
-Note that we now have a `data.tar` file in this directory.
-This is an archive type (like `zip`) common on Unix systems.
-To unpack it
-
-```bash
-tar -v -x -f data.tar
-```
+But first, we're going to learn how to edit a text file from the terminal using `vi`.
 
 
 # Introducing vi and vim
@@ -423,6 +292,7 @@ However, it's worth being able to use because:
 * when working with remote machines, it's nice to be able to edit text in a powerful editor directly on the machine.
 * finally, sometimes another program (e.g. git) will plop you into vim without you realizing it, so it's nice to know what to do in this situation.
 
+
 # Vim is a _modal_ text editor
 
 Vim has two primary modes:
@@ -432,20 +302,19 @@ Vim has two primary modes:
 
 Fully understanding comamnd mode takes time, but basic usage is quite simple.
 
+
 # Vim tutorial
 
-##
+## Create a file called `vimtest.txt` with vim
 
-Create a `README.md` file with vim.
-
-* Invoke with `vim README.md`
+* Invoke with `vim vimtest.txt`
 * Type `i` to enter *insert mode*
 * Type to enter text, move around with arrow keys, edit as needed
 * Hit `Esc` to exit insert mode and enter *command mode*
 * Type `: w <Enter>` to save
 * When you are done editing, type `: q <Enter>`
 
-That wasn't so bad, was it?
+Run `cat vimtest.txt` to see your text. That wasn't so bad, was it?
 
 (click down for more advanced usage)
 
@@ -493,99 +362,30 @@ If you ever mess anything up (which is easy to do in command mode), `u` is undo 
 
 ## Vim resources
 
-* [An online vim tutorial](http://www.openvim.com/)
 * The `vimtutor` command, available wherever you find `vim`
 * [Ben Crowder's vim tips](http://bencrowder.net/files/vim-fu/)
 * [Cheatsheet/poster](https://rumorscity.com/wp-content/uploads/2014/08/10-Best-VIM-Cheat-Sheet-02.jpg)
 * [Wallpaper](https://github.com/LevelbossMike/vim_shortcut_wallpaper)
+* [An online vim tutorial](http://www.openvim.com/)
 
-Note that these guides insist that you can't use the arrow keys.
+Note that you can totally use the arrow keys while you 
 You certainly can, though it's not considered hip (because vim is all about efficiency, and moving your hands from home position to the arrow keys is not efficient.)
 
 
-# Let's look at what we've done
+# Customizing our shell
 
-`tree` prints out a directory tree as ASCII art.
-
-```bash
-
-tree
-```
-
-Note: This may not turn out right on Windows PuTTY terminals.
-
-
-# Let's explore the sequence file
-
-`cat` prints the output of file(s) to the screen.
-
-```bash
-cat data/sfv.fasta
-```
-
-
-# Now with `less`
-
-`less` lets us "page" through data, without flooding the screen.
-
-```bash
-less data/sfv.fasta
-```
-
-<br/>
-
-Press the `q` key to exit from `less`.
-
-
-# Now let's look at the metadata
-
-```bash
-less data/sfv.csv
-```
-
-Press the `/` key to enter a search string
-
-(Try `human` or `monkey`; Use `n` and `N` to toggle through results).
-
-
-# Questions?
-
-
-# Supercharging our shell
-
-SciComp has set up a _module_ system for customizing your environment.
-
-We'll be using the `intro-bio` module, loaded by executing `module load intro-bio` (note: this *only affects the current shell session!*).
-When you do this, you should see something like:
-
-```bash
-module load intro-bio
-```
-
-You might get a message that says `Using already loaded python`, but don't worry about it.
-If you get an error message though, let us know.
-You can't proceed without this module loaded.
-
-
-# Our environment
-
-We can also script our environment via a dotfile that gets loaded when shell sessions are created: `~/.bashrc`.
+We can customize our environment using a "dotfile" that gets loaded when new shell sessions are created: `~/.bashrc`.
 
 * Run `vim ~/.bashrc` to open the file
-* hit `i` for insert mode
-* use arrow keys to scroll to the bottom of the file, then add:
+* Hit `i` for insert mode
+* Use arrow keys to scroll to the bottom of the file, then add:
 
 ```bash
 module load intro-bio
 export PATH=~/bin/:$PATH
 ```
 
-Save and quit (`Esc` then `:wq<Enter>`), then run `source ~/.bashrc` to reload the changes (for each already open tmux pane).
-
-
-# Module system side note
-
-**Note:** if you _ever_ get a "command not found" error, you probably need to re-load your modules.
+Save and quit (`Esc` then `:wq<Enter>`), then run `source ~/.bashrc` to reload the changes.
 
 
 # Tmux - Terminal multiplexer
@@ -694,6 +494,128 @@ All of the key combos above are just bindings to these commands, so this is a go
 3. Type `tmux attach` to attach to an existing session.
 
 **Remember:** `tmux attach` will fail if you don't have a session open already; if that happens just enter `tmux` to start a new session.
+
+
+# Questions?
+
+
+# Setting up our project
+
+This class builds around analysis of a [real world dataset](http://dx.doi.org/10.1038/emi.2013.60) of [Simian Foamy Virus](https://en.wikipedia.org/wiki/Simian_foamy_virus) (SFV).
+SFV is a retrovirus that infects non-human primates, but can infect humans bitten by NHP.
+Howver, we appear to be a "dead-end" host.
+
+This data set looks at viruses sampled from humans and monkeys in Bangladesh.
+
+
+# Project layout
+
+Here's how I typically organize things:
+
+```text
+your-project
+├── README.md
+├── build.sh
+├── data
+│   ├── sequences.fasta
+│   └── metadata.csv
+├── scripts
+│   ├── clean.py
+│   └── plot.R
+└── output
+    ├── alignment.fasta
+    ├── cleaned_metadata.csv
+    ├── tree.newick
+    └── tree_plot.png
+```
+
+Note: this is a little different than the organization from the book; Use what works for you, but be consistent.
+
+
+# Setting up our project directory
+
+```bash
+mkdir ~/bioinfclass
+
+cd ~/bioinfclass
+mkdir data output scripts
+
+ls
+```
+
+(You'll always enter in the things you see in these black boxes)
+
+
+# Download data with `wget`
+
+```bash
+wget https://goo.gl/8Nk5tZ -O data.tar
+ls
+```
+
+Note that we now have a `data.tar` file in this directory.
+This is an archive type (like `zip`) common on Unix systems.
+To unpack it
+
+```bash
+tar -v -x -f data.tar
+```
+
+
+# Adding a README
+
+Start vim with `vim README.md`
+
+* Type `i` to enter *insert mode*
+* Enter some text about today's lesson
+* Hit `Esc` to exit insert mode and enter *command mode*
+* Type `: w <Enter>` to save
+* When you are done editing, type `: q <Enter>`
+
+
+# Let's look at what we've done
+
+`tree` prints out a directory tree as ASCII art.
+
+```bash
+
+tree
+```
+
+Note: This may not turn out right on Windows PuTTY terminals.
+
+
+# Let's explore the sequence file
+
+`cat` prints the output of file(s) to the screen.
+
+```bash
+cat data/sfv.fasta
+```
+
+
+# Now with `less`
+
+`less` lets us "page" through data, without flooding the screen.
+
+```bash
+less data/sfv.fasta
+```
+
+<br/>
+
+Press the `q` key to exit from `less`.
+
+
+# Now let's look at the metadata
+
+```bash
+less data/sfv.csv
+```
+
+Press the `/` key to enter a search string
+
+(Try `human` or `monkey`; Use `n` and `N` to toggle through results).
 
 
 # Questions?
