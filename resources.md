@@ -7,6 +7,17 @@ Most of these resources are tucked away towards the end of various class section
 This is just a start for now.
 
 
+## Zsh
+
+The default shell is called BASH for Bourne Again SHell (named after the Bourne SHell from which it drew inspiration).
+You can email scicomp and ask them to switch your shell to zsh, and I'd highly recommend you do this.
+Zsh comes with much better autocompletion, better/smarter themes, and some very helpful plugins.
+
+In particular, you may wish to check out `autojump`, a zsh plugin which let's you very quickly/lazy change directories.
+
+Do note though that if you end up doing this, you will have to duplicate the Environment setup steps from the
+1st class (changes to `~/.bashrc`) in your new `~/.zshrc` file.
+
 
 ## Vim resources
 
@@ -56,5 +67,13 @@ To learn more about functional programming, see
 
 <https://maryrosecook.com/blog/post/a-practical-introduction-to-functional-programming>
 
+
+## Data visualization
+
+I'm a big fan of Vega and Vega-Lite for data visualizations.
+If you're interested in such things, take a look at [this presentation](/vega-prez.html) I put together.
+
+
 </div>
+
 
