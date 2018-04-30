@@ -1,0 +1,214 @@
+% Vega, Vega-Lite & Altair
+% OH MY!
+
+
+# Outline
+
+* Vega
+* Vega-Lite
+* Altair
+* Other ecosystem things
+* Opinions
+
+
+# Grammar of Graphics
+
+Declarative data visualizations
+
+* how do you map properties of data to visual aesthetics?
+* focus on the guts of the problem over implementation details
+* very successful: influenced ggplot2, d3, etc
+
+
+# Vega
+
+Grammar of Graphics as a data specification
+
+* declarative to the max
+* built on (compiles to) d3.js
+* extremely powerful/configurable
+* interactive features, dataflow, etc
+* not suitable for day to day visualization tasks by itself (lots of boilerplate)
+* great compile-to target
+
+
+# Example Vega
+
+```
+{"$schema":"https://vega.github.io/schema/vega/v3.0.json",
+ "autosize":"pad",
+ "padding":5,
+ "width":200,
+ "height":200,
+ "style":"cell",
+ "data":[{"name":"source_0","url":"https://vega.github.io/editor/data/cars.json",
+          "format":{"type":"json","parse":{"Horsepower":"number","Miles_per_Gallon":"number"}},
+          "transform":[{"type":"filter","expr":"datum[\"Horsepower\"] !== null && !isNaN(datum[\"Horsepower\"]) && datum[\"Miles_per_Gallon\"] !== null && !isNaN(datum[\"Miles_per_Gallon\"])"}]}],
+ "marks":[{"name":"marks",
+           "type":"symbol",
+           "style":["point"],
+           "from":{"data":"source_0"},
+           "encode":{"update": {"opacity":{"value":0.7},"fill":{"value":"transparent"},"stroke":{"scale":"color","field":"Origin"},"x":{"scale":"x","field":"Horsepower"},"y":{"scale":"y","field":"Miles_per_Gallon"}}}}],
+ "scales":[{"name":"x","type":"linear","domain":{"data":"source_0","field":"Horsepower"},"range":[0,{"signal":"width"}],"nice":true,"zero":true},
+           {"name":"y","type":"linear","domain":{"data":"source_0","field":"Miles_per_Gallon"},"range":[{"signal":"height"},0],"nice":true,"zero":true},
+           {"name":"color","type":"ordinal","domain":{"data":"source_0","field":"Origin","sort":true},"range":"category"}],
+ "axes":[{"scale":"x","orient":"bottom","title":"Horsepower","labelFlush":true,"labelOverlap":true,"tickCount":{"signal":"ceil(width/40)"},"zindex":1},
+         {"scale":"x","orient":"bottom","grid":true,"tickCount":{"signal":"ceil(width/40)"},"gridScale":"y","domain":false,"labels":false,"maxExtent":0,"minExtent":0,"ticks":false,"zindex":0},
+         {"scale":"y","orient":"left","title":"Miles_per_Gallon","labelOverlap":true,"tickCount":{"signal":"ceil(height/40)"},"zindex":1},{"scale":"y","orient":"left","grid":true,"tickCount":{"signal":"ceil(height/40)"},"gridScale":"x","domain":false,"labels":false,"maxExtent":0,"minExtent":0,"ticks":false,"zindex":0}],
+ "legends":[{"stroke":"color","title":"Origin","encode":{"symbols":{"update":{"opacity":{"value":0.7}}}}}],
+ "config":{"axisY":{"minExtent":30}}}
+```
+
+
+# Vega-Lite
+
+Higher-level manifestation of Vega for day to day viz
+
+* both restricts and extends vega with focus on productivity over control (do more with less)
+* compiles to Vega
+* Vega with sane defaults (style guide?)
+* early Vega-Lite was a bit limited, but v2 is phenomenally composable
+
+
+# Example Vega-Lite
+
+```json
+{"data": {"url": "https://vega.github.io/editor/data/cars.json"},
+ "mark": "point",
+ "encoding": {"x": {"field": "Horsepower"},
+              "y": {"field": "Miles_per_Gallon"},
+              "color": {"field": "Origin"}}}
+```
+
+
+# JSON FTW
+
+Vega and Vega-Lite are just data
+
+* can be created from any language with a natural interpretation of JSON (dictionaries, lists, numbers, strings, boolean)
+* can be easily passed between programs or written to disk
+* synergy!
+
+
+# Server side rendering
+
+The only way to compile Vega-Lite or Vega to SVG/PNG is with JS
+
+* fine if you are targeting the browser (see [vega-embed](https://github.com/vega/vega-embed))
+* for generating SVG/PNG programatically, need a node ("server-side JS") environment
+
+Thankfully SciComp has set some modules up for us to use this
+
+```bash
+ml nodejs-bundle
+```
+
+
+# Basic CLI usage
+
+Installing the vega/vega-lite node modules (and deps) gives you the following executables
+
+```bash
+vl2svg carviz.json
+vl2png carviz.json
+vl2vg carviz.json
+```
+
+# Altair
+
+OOP Python wrapper around Vega-Lite
+
+* validation against Vega-Lite specs, for help debugging
+* adds constructors and conventions for improving concision, by obscuring some of vega-lite (pros/cons)
+* requires python3 and pandas; (me: kicking and screaming)
+
+```
+ml Python/3.6.4-foss-2016b-fh2
+```
+
+
+# Altair example
+
+```python
+import altair as alt
+from vega_datasets import data
+
+# data must be a data frame; for convenience, here the vega_datasets data
+data = data.cars()
+
+# Set mark type and encodings
+c = alt.Chart(data).mark_point().encode(
+    x='Horsepower:Q',
+    y='Miles_per_Gallon:Q',
+    color='Origin:N')
+```
+
+
+# Altair to Vega-Lite
+
+```python
+# ↓ This is all Altair really is...
+c.to_dict()
+
+{'$schema': 'https://vega.github.io/schema/vega-lite/v2.json',
+ 'data': {'values': ...},
+ 'config': {'view': {'height': 300, 'width': 400}},
+ 'mark': 'point',
+ 'encoding': {'color': {'field': 'Origin', 'type': 'nominal'},
+              'x': {'field': 'Horsepower',
+                    'type': 'quantitative'},
+              'y': {'field': 'Miles_per_Gallon',
+                    'type': 'quantitative'}}}
+```
+
+
+# Vega-Lite to Altair
+
+You can also do this
+
+```
+import json
+
+# Import from vega
+with open("carviz.json") as json_handle:
+    vl_data = json.load(json_handle.read())
+    c = alt.from_dict(vl_data)
+```
+
+
+# Things I don't like about Altair
+
+* py3k
+* pandas
+* weird indentation
+* obfuscates data model, challenging more intricate setups
+* no vega
+
+
+# Server side without altair
+
+```
+import subprocess, json
+
+c = {'data': ...,
+     'mark': ...,
+     'encoding': ...}
+with open('my-vega-lite.json', 'w') as json_handle:
+    json.dump(c, json_handle)
+    subprocess.call(['vl2svg', 'my-vega-lite.json', 'rendered.svg'])
+```
+
+I'll probably release a snappy library with helpers along these lines...
+
+
+# Other ecosystem things
+
+* [polestar](http://vega.github.io/polestar/) - Tableau like browser tool based on vega-lite
+    * exports as json
+* [vega-editor](https://vega.github.io/editor/) - Live renders Vega/Vega-Lite code as you type
+    * enables gist-based sharing/editing/colaboration
+* more examples of [Vega](https://vega.github.io/vega/examples/) and [Vega-Lite](https://vega.github.io/vega-lite/examples/)
+* [phylovega](https://github.com/Zsailer/phylovega) - vega-lite for phylogenetic trees!?
+
+
+

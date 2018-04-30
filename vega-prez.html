@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+
+<title>Vega, Vega-Lite &amp; Altair</title>
+
+<meta name="description" content="Vega, Vega-Lite &amp; Altair">
+
+<!-- Disabled for now - embeds HTML in author string -->
+<!--  <meta name="author" content="OH MY!" /> -->
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<link rel="stylesheet" href="reveal.js/css/reveal.css">
+  <link rel="stylesheet" href="src/theme/csmall.css" id="theme">
+
+
+<!-- For syntax highlighting -->
+  <link rel="stylesheet" href="reveal.js/lib/css/zenburn.css">
+
+
+<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+<script>
+  document.write( '<link rel="stylesheet" href="reveal.js/css/print/' +
+    ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) +
+    '.css" type="text/css" media="print">' );
+</script>
+
+<!--[if lt IE 9]>
+<script src="reveal.js/lib/js/html5shiv.js"></script>
+<![endif]-->
+
+<!-- Note escaped dollars -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+  </script>
+
+</head>
+
+<body>
+
+<div class="reveal">
+
+<!-- Any section element inside of this container is displayed as a slide -->
+<div class="slides">
+
+<section>
+<h1>Vega, Vega-Lite &amp; Altair</h1>
+<h3>OH MY!</h3>
+<p>
+<h4></h4>
+</p>
+</section>
+
+
+<section id="outline" class="level1">
+<h1>Outline</h1>
+<ul>
+<li>Vega</li>
+<li>Vega-Lite</li>
+<li>Altair</li>
+<li>Other ecosystem things</li>
+<li>Opinions</li>
+</ul>
+</section>
+<section id="grammar-of-graphics" class="level1">
+<h1>Grammar of Graphics</h1>
+<p>Declarative data visualizations</p>
+<ul>
+<li>how do you map properties of data to visual aesthetics?</li>
+<li>focus on the guts of the problem over implementation details</li>
+<li>very successful: influenced ggplot2, d3, etc</li>
+</ul>
+</section>
+<section id="vega" class="level1">
+<h1>Vega</h1>
+<p>Grammar of Graphics as a data specification</p>
+<ul>
+<li>declarative to the max</li>
+<li>built on (compiles to) d3.js</li>
+<li>extremely powerful/configurable</li>
+<li>interactive features, dataflow, etc</li>
+<li>not suitable for day to day visualization tasks by itself (lots of boilerplate)</li>
+<li>great compile-to target</li>
+</ul>
+</section>
+<section id="example-vega" class="level1">
+<h1>Example Vega</h1>
+<pre><code>{&quot;$schema&quot;:&quot;https://vega.github.io/schema/vega/v3.0.json&quot;,
+ &quot;autosize&quot;:&quot;pad&quot;,
+ &quot;padding&quot;:5,
+ &quot;width&quot;:200,
+ &quot;height&quot;:200,
+ &quot;style&quot;:&quot;cell&quot;,
+ &quot;data&quot;:[{&quot;name&quot;:&quot;source_0&quot;,&quot;url&quot;:&quot;https://vega.github.io/editor/data/cars.json&quot;,
+          &quot;format&quot;:{&quot;type&quot;:&quot;json&quot;,&quot;parse&quot;:{&quot;Horsepower&quot;:&quot;number&quot;,&quot;Miles_per_Gallon&quot;:&quot;number&quot;}},
+          &quot;transform&quot;:[{&quot;type&quot;:&quot;filter&quot;,&quot;expr&quot;:&quot;datum[\&quot;Horsepower\&quot;] !== null &amp;&amp; !isNaN(datum[\&quot;Horsepower\&quot;]) &amp;&amp; datum[\&quot;Miles_per_Gallon\&quot;] !== null &amp;&amp; !isNaN(datum[\&quot;Miles_per_Gallon\&quot;])&quot;}]}],
+ &quot;marks&quot;:[{&quot;name&quot;:&quot;marks&quot;,
+           &quot;type&quot;:&quot;symbol&quot;,
+           &quot;style&quot;:[&quot;point&quot;],
+           &quot;from&quot;:{&quot;data&quot;:&quot;source_0&quot;},
+           &quot;encode&quot;:{&quot;update&quot;: {&quot;opacity&quot;:{&quot;value&quot;:0.7},&quot;fill&quot;:{&quot;value&quot;:&quot;transparent&quot;},&quot;stroke&quot;:{&quot;scale&quot;:&quot;color&quot;,&quot;field&quot;:&quot;Origin&quot;},&quot;x&quot;:{&quot;scale&quot;:&quot;x&quot;,&quot;field&quot;:&quot;Horsepower&quot;},&quot;y&quot;:{&quot;scale&quot;:&quot;y&quot;,&quot;field&quot;:&quot;Miles_per_Gallon&quot;}}}}],
+ &quot;scales&quot;:[{&quot;name&quot;:&quot;x&quot;,&quot;type&quot;:&quot;linear&quot;,&quot;domain&quot;:{&quot;data&quot;:&quot;source_0&quot;,&quot;field&quot;:&quot;Horsepower&quot;},&quot;range&quot;:[0,{&quot;signal&quot;:&quot;width&quot;}],&quot;nice&quot;:true,&quot;zero&quot;:true},
+           {&quot;name&quot;:&quot;y&quot;,&quot;type&quot;:&quot;linear&quot;,&quot;domain&quot;:{&quot;data&quot;:&quot;source_0&quot;,&quot;field&quot;:&quot;Miles_per_Gallon&quot;},&quot;range&quot;:[{&quot;signal&quot;:&quot;height&quot;},0],&quot;nice&quot;:true,&quot;zero&quot;:true},
+           {&quot;name&quot;:&quot;color&quot;,&quot;type&quot;:&quot;ordinal&quot;,&quot;domain&quot;:{&quot;data&quot;:&quot;source_0&quot;,&quot;field&quot;:&quot;Origin&quot;,&quot;sort&quot;:true},&quot;range&quot;:&quot;category&quot;}],
+ &quot;axes&quot;:[{&quot;scale&quot;:&quot;x&quot;,&quot;orient&quot;:&quot;bottom&quot;,&quot;title&quot;:&quot;Horsepower&quot;,&quot;labelFlush&quot;:true,&quot;labelOverlap&quot;:true,&quot;tickCount&quot;:{&quot;signal&quot;:&quot;ceil(width/40)&quot;},&quot;zindex&quot;:1},
+         {&quot;scale&quot;:&quot;x&quot;,&quot;orient&quot;:&quot;bottom&quot;,&quot;grid&quot;:true,&quot;tickCount&quot;:{&quot;signal&quot;:&quot;ceil(width/40)&quot;},&quot;gridScale&quot;:&quot;y&quot;,&quot;domain&quot;:false,&quot;labels&quot;:false,&quot;maxExtent&quot;:0,&quot;minExtent&quot;:0,&quot;ticks&quot;:false,&quot;zindex&quot;:0},
+         {&quot;scale&quot;:&quot;y&quot;,&quot;orient&quot;:&quot;left&quot;,&quot;title&quot;:&quot;Miles_per_Gallon&quot;,&quot;labelOverlap&quot;:true,&quot;tickCount&quot;:{&quot;signal&quot;:&quot;ceil(height/40)&quot;},&quot;zindex&quot;:1},{&quot;scale&quot;:&quot;y&quot;,&quot;orient&quot;:&quot;left&quot;,&quot;grid&quot;:true,&quot;tickCount&quot;:{&quot;signal&quot;:&quot;ceil(height/40)&quot;},&quot;gridScale&quot;:&quot;x&quot;,&quot;domain&quot;:false,&quot;labels&quot;:false,&quot;maxExtent&quot;:0,&quot;minExtent&quot;:0,&quot;ticks&quot;:false,&quot;zindex&quot;:0}],
+ &quot;legends&quot;:[{&quot;stroke&quot;:&quot;color&quot;,&quot;title&quot;:&quot;Origin&quot;,&quot;encode&quot;:{&quot;symbols&quot;:{&quot;update&quot;:{&quot;opacity&quot;:{&quot;value&quot;:0.7}}}}}],
+ &quot;config&quot;:{&quot;axisY&quot;:{&quot;minExtent&quot;:30}}}</code></pre>
+</section>
+<section id="vega-lite" class="level1">
+<h1>Vega-Lite</h1>
+<p>Higher-level manifestation of Vega for day to day viz</p>
+<ul>
+<li>both restricts and extends vega with focus on productivity over control (do more with less)</li>
+<li>compiles to Vega</li>
+<li>Vega with sane defaults (style guide?)</li>
+<li>early Vega-Lite was a bit limited, but v2 is phenomenally composable</li>
+</ul>
+</section>
+<section id="example-vega-lite" class="level1">
+<h1>Example Vega-Lite</h1>
+<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span><span class="dt">&quot;data&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;url&quot;</span><span class="fu">:</span> <span class="st">&quot;https://vega.github.io/editor/data/cars.json&quot;</span><span class="fu">},</span>
+ <span class="dt">&quot;mark&quot;</span><span class="fu">:</span> <span class="st">&quot;point&quot;</span><span class="fu">,</span>
+ <span class="dt">&quot;encoding&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;x&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;field&quot;</span><span class="fu">:</span> <span class="st">&quot;Horsepower&quot;</span><span class="fu">},</span>
+              <span class="dt">&quot;y&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;field&quot;</span><span class="fu">:</span> <span class="st">&quot;Miles_per_Gallon&quot;</span><span class="fu">},</span>
+              <span class="dt">&quot;color&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;field&quot;</span><span class="fu">:</span> <span class="st">&quot;Origin&quot;</span><span class="fu">}}}</span></code></pre></div>
+</section>
+<section id="json-ftw" class="level1">
+<h1>JSON FTW</h1>
+<p>Vega and Vega-Lite are just data</p>
+<ul>
+<li>can be created from any language with a natural interpretation of JSON (dictionaries, lists, numbers, strings, boolean)</li>
+<li>can be easily passed between programs or written to disk</li>
+<li>synergy!</li>
+</ul>
+</section>
+<section id="server-side-rendering" class="level1">
+<h1>Server side rendering</h1>
+<p>The only way to compile Vega-Lite or Vega to SVG/PNG is with JS</p>
+<ul>
+<li>fine if you are targeting the browser (see <a href="https://github.com/vega/vega-embed">vega-embed</a>)</li>
+<li>for generating SVG/PNG programatically, need a node (“server-side JS”) environment</li>
+</ul>
+<p>Thankfully SciComp has set some modules up for us to use this</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">ml</span> nodejs-bundle</code></pre></div>
+</section>
+<section id="basic-cli-usage" class="level1">
+<h1>Basic CLI usage</h1>
+<p>Installing the vega/vega-lite node modules (and deps) gives you the following executables</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">vl2svg</span> carviz.json
+<span class="ex">vl2png</span> carviz.json
+<span class="ex">vl2vg</span> carviz.json</code></pre></div>
+</section>
+<section id="altair" class="level1">
+<h1>Altair</h1>
+<p>OOP Python wrapper around Vega-Lite</p>
+<ul>
+<li>validation against Vega-Lite specs, for help debugging</li>
+<li>adds constructors and conventions for improving concision, by obscuring some of vega-lite (pros/cons)</li>
+<li>requires python3 and pandas; (me: kicking and screaming)</li>
+</ul>
+<pre><code>ml Python/3.6.4-foss-2016b-fh2</code></pre>
+</section>
+<section id="altair-example" class="level1">
+<h1>Altair example</h1>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> altair <span class="im">as</span> alt
+<span class="im">from</span> vega_datasets <span class="im">import</span> data
+
+<span class="co"># data must be a data frame; for convenience, here the vega_datasets data</span>
+data <span class="op">=</span> data.cars()
+
+<span class="co"># Set mark type and encodings</span>
+c <span class="op">=</span> alt.Chart(data).mark_point().encode(
+    x<span class="op">=</span><span class="st">&#39;Horsepower:Q&#39;</span>,
+    y<span class="op">=</span><span class="st">&#39;Miles_per_Gallon:Q&#39;</span>,
+    color<span class="op">=</span><span class="st">&#39;Origin:N&#39;</span>)</code></pre></div>
+</section>
+<section id="altair-to-vega-lite" class="level1">
+<h1>Altair to Vega-Lite</h1>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co"># ↓ This is all Altair really is...</span>
+c.to_dict()
+
+{<span class="st">&#39;$schema&#39;</span>: <span class="st">&#39;https://vega.github.io/schema/vega-lite/v2.json&#39;</span>,
+ <span class="st">&#39;data&#39;</span>: {<span class="st">&#39;values&#39;</span>: ...},
+ <span class="st">&#39;config&#39;</span>: {<span class="st">&#39;view&#39;</span>: {<span class="st">&#39;height&#39;</span>: <span class="dv">300</span>, <span class="st">&#39;width&#39;</span>: <span class="dv">400</span>}},
+ <span class="st">&#39;mark&#39;</span>: <span class="st">&#39;point&#39;</span>,
+ <span class="st">&#39;encoding&#39;</span>: {<span class="st">&#39;color&#39;</span>: {<span class="st">&#39;field&#39;</span>: <span class="st">&#39;Origin&#39;</span>, <span class="st">&#39;type&#39;</span>: <span class="st">&#39;nominal&#39;</span>},
+              <span class="st">&#39;x&#39;</span>: {<span class="st">&#39;field&#39;</span>: <span class="st">&#39;Horsepower&#39;</span>,
+                    <span class="st">&#39;type&#39;</span>: <span class="st">&#39;quantitative&#39;</span>},
+              <span class="st">&#39;y&#39;</span>: {<span class="st">&#39;field&#39;</span>: <span class="st">&#39;Miles_per_Gallon&#39;</span>,
+                    <span class="st">&#39;type&#39;</span>: <span class="st">&#39;quantitative&#39;</span>}}}</code></pre></div>
+</section>
+<section id="vega-lite-to-altair" class="level1">
+<h1>Vega-Lite to Altair</h1>
+<p>You can also do this</p>
+<pre><code>import json
+
+# Import from vega
+with open(&quot;carviz.json&quot;) as json_handle:
+    vl_data = json.load(json_handle.read())
+    c = alt.from_dict(vl_data)</code></pre>
+</section>
+<section id="things-i-dont-like-about-altair" class="level1">
+<h1>Things I don’t like about Altair</h1>
+<ul>
+<li>py3k</li>
+<li>pandas</li>
+<li>weird indentation</li>
+<li>obfuscates data model, challenging more intricate setups</li>
+<li>no vega</li>
+</ul>
+</section>
+<section id="server-side-without-altair" class="level1">
+<h1>Server side without altair</h1>
+<pre><code>import subprocess, json
+
+c = {&#39;data&#39;: ...,
+     &#39;mark&#39;: ...,
+     &#39;encoding&#39;: ...}
+with open(&#39;my-vega-lite.json&#39;, &#39;w&#39;) as json_handle:
+    json.dump(c, json_handle)
+    subprocess.call([&#39;vl2svg&#39;, &#39;my-vega-lite.json&#39;, &#39;rendered.svg&#39;])</code></pre>
+<p>I’ll probably release a snappy library with helpers along these lines…</p>
+</section>
+<section id="other-ecosystem-things" class="level1">
+<h1>Other ecosystem things</h1>
+<ul>
+<li><a href="http://vega.github.io/polestar/">polestar</a> - Tableau like browser tool based on vega-lite
+<ul>
+<li>exports as json</li>
+</ul></li>
+<li><a href="https://vega.github.io/editor/">vega-editor</a> - Live renders Vega/Vega-Lite code as you type
+<ul>
+<li>enables gist-based sharing/editing/colaboration</li>
+</ul></li>
+<li>more examples of <a href="https://vega.github.io/vega/examples/">Vega</a> and <a href="https://vega.github.io/vega-lite/examples/">Vega-Lite</a></li>
+<li><a href="https://github.com/Zsailer/phylovega">phylovega</a> - vega-lite for phylogenetic trees!?</li>
+</ul>
+</section>
+</div>
+
+<script src="reveal.js/lib/js/head.min.js"></script>
+<script src="reveal.js/js/reveal.min.js"></script>
+
+<script>
+  // Full list of configuration options available here:
+  // https://github.com/hakimel/reveal.js#configuration
+  Reveal.initialize({
+    controls: true,
+    progress: true,
+    history: true,
+    center: false,
+    slideNumber: true,
+
+
+    rollingLinks: false,
+  
+  // available themes are in /css/theme
+      theme: Reveal.getQueryHash().theme || 'csmall',
+  
+  // default/cube/page/concave/zoom/linear/fade/none
+      transition: Reveal.getQueryHash().transition || 'fade',
+  
+  // Optional libraries used to extend on reveal.js
+  dependencies: [
+    { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+    { src: 'reveal.js/plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+    { src: 'reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+    { src: 'reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+    { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+    { src: 'MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML'}
+    // { src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+    // { src: 'reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+  ]
+  });
+Reveal.addEventListener( 'slidechanged', function( event ) {
+    MathJax.Hub.Rerender();
+} );
+</script>
+
+</body>
+</html>
