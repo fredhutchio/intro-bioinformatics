@@ -243,6 +243,23 @@
 </ul>
 <p>Ultimately, programs can interpret their arguments however they choose! These are just conventions.</p>
 </section>
+<section id="sequence-alignments" class="level1">
+<h1>Sequence alignments</h1>
+<p>As genetic sequences evolve, base pairs can be added or dropped. Alignment tries to figure out where these insertion/deletion events happened so that individual sites in an alignment can be compared between sequences:</p>
+<pre><code>AAGGCCTT            AAGGCCTT
+ACGGCCTT    ==&gt;&gt;    ACGGCCTT
+AAGCCTA             AAG-CCTA
+ACGGCCTA            ACGGCCTA</code></pre>
+<p>Note: the <code>-</code> character in the alignment represents a putative deletion.</p>
+</section>
+<section id="making-a-sequence-alignment" class="level1">
+<h1>Making a sequence alignment</h1>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="bu">cd</span> ~/bioinfclass
+<span class="ex">muscle</span> -maxiters 2 -in data/sfv.fasta -out output/alignment.fasta
+
+<span class="co"># Get bored waiting and want to work on something else...</span>
+<span class="op">&lt;</span><span class="ex">Ctrl-a</span> <span class="kw">|</span><span class="op">&gt;</span> <span class="co"># create new pane</span></code></pre></div>
+</section>
 <section id="programs-are-just-files" class="level1">
 <h1>Programs are just files!</h1>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">which</span> tree

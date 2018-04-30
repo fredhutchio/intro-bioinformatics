@@ -206,6 +206,32 @@ Ultimately, programs can interpret their arguments however they choose!
 These are just conventions.
 
 
+# Sequence alignments
+
+As genetic sequences evolve, base pairs can be added or dropped.
+Alignment tries to figure out where these insertion/deletion events happened so that individual sites in an alignment can be compared between sequences:
+
+```
+AAGGCCTT            AAGGCCTT
+ACGGCCTT    ==>>    ACGGCCTT
+AAGCCTA             AAG-CCTA
+ACGGCCTA            ACGGCCTA
+```
+
+Note: the `-` character in the alignment represents a putative deletion.
+
+
+# Making a sequence alignment
+
+```bash
+cd ~/bioinfclass
+muscle -maxiters 2 -in data/sfv.fasta -out output/alignment.fasta
+
+# Get bored waiting and want to work on something else...
+<Ctrl-a |> # create new pane
+```
+
+
 # Programs are just files!
 
 ```bash

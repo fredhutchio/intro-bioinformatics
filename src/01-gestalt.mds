@@ -687,42 +687,6 @@ man tmux
 All of the key combos above are just bindings to these commands, so this is a good place to go if you're trying to figure something out.
 
 
-# Lets put Tmux to the test
-
-And also do our first sequence alignment!
-
-
-# What is a sequence alignment?
-
-As genetic sequences evolve, base pairs can be added or dropped.
-Alignment tries to figure out where these insertion/deletion events happened so that individual sites in an alignment can be compared between sequences:
-
-```
-AAGGCCTT            AAGGCCTT
-ACGGCCTT    ==>>    ACGGCCTT
-AAGCCTA             AAG-CCTA
-ACGGCCTA            ACGGCCTA
-```
-
-Note: the `-` character in the alignment represents a putative deletion.
-
-# Making a sequence alignment
-
-```bash
-# First start the long running alignment
-cd ~/bioinfclass
-muscle -maxiters 2 -in data/sfv.fasta -out output/alignment.fasta
-
-# Get bored waiting and want to work on something else...
-<Ctrl-a |> # create new pane
-
-cd ~
-mkdir new-project
-cd new-project
-mkdir data output scripts
-```
-
-
 # Detaching and attaching a tmux session
 
 1. Close your terminal window, and ignore any warning prompts.
