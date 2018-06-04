@@ -178,6 +178,7 @@ csvlook output/seqs_per_specimen.csv | less -S</code></pre>
 <section id="shell-variables" class="level1">
 <h1>Shell variables</h1>
 <p>Shell variables act as shorthand references to paths, files, or data. What the variable name points to can change, without having to change (much) of the code. This makes it easier to grow your scripts.</p>
+<p>There are also some pretty valuable programming patterns which shell variables enable, and as we’ve seen, shell variables are important features of the Unix shell itself (see <code>$PATH</code>).</p>
 </section>
 <section id="shell-variables-1" class="level1">
 <h1>Shell variables</h1>
@@ -233,8 +234,8 @@ csvuniq -zc species,location $seqs_per_specimen &gt; $specs_per_species_location
 </section>
 <section id="writing-your-own-commands" class="level1">
 <h1>Writing your own commands</h1>
-<section id="the-other-side-of-shell-scripting-and-fulfillment-of-the-dream-of-composition" class="level2">
-<h2>The other side of shell scripting, and fulfillment of the dream of composition</h2>
+<section id="the-other-side-of-shell-scripting-and-the-dream-of-composition" class="level2">
+<h2>The other side of shell scripting, and the dream of composition</h2>
 </section>
 </section>
 <section id="looking-for-common-command-patterns" class="level1">
@@ -306,7 +307,7 @@ done</code></pre>
 <h1>Conditionals</h1>
 <pre><code>#!/bin/bash
 
-if [commands]
+if [command]
 then
   [if-statements]
 else

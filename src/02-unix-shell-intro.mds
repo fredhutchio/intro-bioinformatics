@@ -696,12 +696,15 @@ csvgrep -c species -m human data/sfv.csv | csvlook | less -S
 # ~/bin is one of the places we can put programs
 mkdir ~/bin
 
+# Download script, and mark as executable
 wget https://goo.gl/ZdNoUL -O ~/bin/csvuniq
-
-# Mark as executable, and add ~/bin to PATH
 chmod +x ~/bin/csvuniq
-export PATH=~/bin:$PATH
+
+# Test with help message
+csvuniq -h
 ```
+
+(if this fails to work, try `export PATH=~/bin:$PATH` and `module load intro-bio`)
 
 
 # Now let's see what our last example looks like:

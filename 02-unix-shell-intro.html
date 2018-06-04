@@ -633,11 +633,13 @@ MBG104WBGag101   MBG104     monkey    gag    Narayanganj  ...
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># ~/bin is one of the places we can put programs</span>
 <span class="fu">mkdir</span> ~/bin
 
+<span class="co"># Download script, and mark as executable</span>
 <span class="fu">wget</span> https://goo.gl/ZdNoUL -O ~/bin/csvuniq
-
-<span class="co"># Mark as executable, and add ~/bin to PATH</span>
 <span class="fu">chmod</span> +x ~/bin/csvuniq
-<span class="bu">export</span> <span class="va">PATH=</span>~/bin:<span class="va">$PATH</span></code></pre></div>
+
+<span class="co"># Test with help message</span>
+<span class="ex">csvuniq</span> -h</code></pre></div>
+<p>(if this fails to work, try <code>export PATH=~/bin:$PATH</code> and <code>module load intro-bio</code>)</p>
 </section>
 <section id="now-lets-see-what-our-last-example-looks-like" class="level1">
 <h1>Now let’s see what our last example looks like:</h1>

@@ -144,6 +144,9 @@ Shell variables act as shorthand references to paths, files, or data.
 What the variable name points to can change, without having to change (much) of the code.
 This makes it easier to grow your scripts.
 
+There are also some pretty valuable programming patterns which shell variables enable, and as we've seen,
+shell variables are important features of the Unix shell itself (see `$PATH`).
+
 
 # Shell variables
 
@@ -216,7 +219,7 @@ csvlook output/seqs_per_specimen.csv
 
 # Writing your own commands
 
-## The other side of shell scripting, and fulfillment of the dream of composition
+## The other side of shell scripting, and the dream of composition
 
 
 # Looking for common command patterns
@@ -318,7 +321,7 @@ done
 ```
 #!/bin/bash
 
-if [commands]
+if [command]
 then
   [if-statements]
 else
